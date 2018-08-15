@@ -1,0 +1,29 @@
+[user]
+    name = Bartek Łukasik
+    email = Nexilis@users.noreply.github.com
+[alias]
+    aa = add --all
+    ap = add -p
+    co = checkout
+    cm = commit -ev
+    st = status -sb
+    fe = fetch
+    pl = pull
+    ph = push
+    br = branch
+    mr = merge
+    bl = branch -a
+    flt = !git branch -a | grep FLT
+    lg = log --graph --oneline --decorate
+    cl-all = clean -xdf
+    cl-untracked = clean -fd
+    cl-unstaged = clean -f
+    cl-ignored = clean -fX
+    del = branch -d
+    del-origin = push origin --delete
+    edit-conf = config --global -e
+    rs = reset --hard
+    br-list-refresh = pull -p
+    assume = update-index --assume-unchanged
+    unassume = update-index --no-assume-unchanged
+    assumed = "!git ls-files -v | grep ^h | cut -c 3-"
