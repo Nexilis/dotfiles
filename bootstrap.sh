@@ -4,6 +4,13 @@
 # This script creates symlinks from the home directory to any desired dotfiles in ~/dotfiles
 ############################
 
+ln -s ~/dotfiles/.zshrc ~/.zshrc
+ln -s ~/dotfiles/.bashrc ~/.bashrc
+ln -s ~/dotfiles/.profile ~/.profile
+ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+ln -s /usr/share/oh-my-zsh ~/.oh-my-zsh
+
+
 ########## Variables
 
 dir=~/dotfiles                    # dotfiles directory
@@ -22,7 +29,7 @@ echo "Changing to the $dir directory"
 cd $dir
 echo "...done"
 
-# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks 
+# move any existing dotfiles in homedir to dotfiles_old directory, then create symlinks
 for file in $files; do
     echo "Moving any existing dotfiles from ~ to $olddir"
     mv ~/$file ~/dotfiles_old/
