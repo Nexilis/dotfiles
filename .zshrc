@@ -106,9 +106,21 @@ source $ZSH/oh-my-zsh.sh
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zsh-config="subl ~/.zshrc"
+alias bash-config="subl ~/.bashrc"
+# alias gaa="git add --all"
+# alias gap="git add -p"
+# alias gco="git checkout"
+# alias gcm="git commit -ev"
+# alias gst="git status -sb"
+# alias gfe="git fetch"
+# alias gpl="git pull"
+# alias gph="git push"
+# alias gbr="git branch"
+# alias gmr="git merge"
+# alias glg="git log --graph --oneline --decorate"
+# alias grs="git reset --hard"
+# alias gcl="git clean -xdf"
+alias ls="ls -alh --color=auto"
 
 neofetch
