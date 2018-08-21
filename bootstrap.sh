@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
-rm ~/.zshrc
+rm -r -f ~/.zshrc
 ln -s ~/dotfiles/.zshrc ~/.zshrc
-rm ~/.bashrc
+rm -r -f ~/.bashrc
 ln -s ~/dotfiles/.bashrc ~/.bashrc
-rm ~/.profile
+rm -r -f ~/.profile
 ln -s ~/dotfiles/.profile ~/.profile
-rm ~/.gitconfig
+rm -r -f ~/.gitconfig
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
-rm -r ~/.oh-my-zsh
+rm -r -f ~/.oh-my-zsh
 ln -s /usr/share/oh-my-zsh ~/.oh-my-zsh
 
 FILES=$(ls -a)
