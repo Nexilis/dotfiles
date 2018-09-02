@@ -50,15 +50,11 @@ set colorcolumn=120
 set hidden
 set clipboard=unnamedplus
 set background=dark
-colorscheme PaperColor
 
 command! JsonFormat :%!python -mjson.tool
 
-noremap  <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <C-O>:update<CR>
-map  <C-Tab> :bnext<CR>
-map  <C-S-Tab> :bprevious<CR>
+map  <C-k> :bnext<CR>
+map  <C-j> :bprevious<CR>
 map  <C-F4> :bp <BAR> bd! #<CR>
 map  <C-x> :bp <BAR> bd! #<CR>
 map  <C-n> :enew<CR>
@@ -88,7 +84,7 @@ nmap <silent> <M-x> :nohlsearch<cr> " Clean search (highlight)
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
 let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 

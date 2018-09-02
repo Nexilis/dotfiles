@@ -4,6 +4,8 @@ rm -r -f ~/.zshrc
 ln -s ~/dotfiles/.zshrc ~/.zshrc
 rm -r -f ~/.bashrc
 ln -s ~/dotfiles/.bashrc ~/.bashrc
+rm -r -f ~/_vimrc
+ln -s ~/dotfiles/_vimrc ~/_vimrc
 rm -r -f ~/.profile
 ln -s ~/dotfiles/.profile ~/.profile
 rm -r -f ~/.gitconfig

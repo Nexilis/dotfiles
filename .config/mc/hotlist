@@ -1,0 +1,4 @@
+ENTRY "Dropbox" URL "/home/barteklu/Dropbox"
+ENTRY "Downloads" URL "/home/barteklu/Downloads"
+ENTRY ".config" URL "/home/barteklu/.config"
+ENTRY "barteklu" URL "/home/barteklu"
