@@ -15,6 +15,7 @@ pacman -S telegram-desktop
 pacman -S clojure
 pacman -S dotnet-sdk
 pacman -S papirus-icon-theme
+pacman -S ttf-roboto
 pacman -S lxappearance-gtk3
 pacman -S lib32-libxrandr
 pacman -S lib32-openal
