@@ -12,6 +12,7 @@ rm -r -f ~/.gitconfig
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
 rm -r -f ~/.oh-my-zsh
 ln -s /usr/share/oh-my-zsh ~/.oh-my-zsh
+cp -f -r -s ~/dotfiles/.config ~/
 
 FILES=$(ls -a)
 IGNORED=". .. LICENSE README.md"
