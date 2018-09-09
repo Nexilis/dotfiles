@@ -7,6 +7,7 @@ pacman -S fish
 pacman -S ripgrep
 pacman -S mc
 pacman -S ranger
+pacman -S neofetch
 pacman -S doublecmd-gtk2
 pacman -S spotify
 pacman -S keepassxc
