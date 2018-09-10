@@ -4,7 +4,7 @@
 
 APP="simplenote"
 ICON="/usr/share/icons/hicolor/512x512/apps/simplenote.png"
-APP_LOAD_TIME_IN_SECONDS=1
+APP_LOAD_TIME_IN_SECONDS=2
 
 change-app-panel-icon() {
     sleep $APP_LOAD_TIME_IN_SECONDS
