@@ -27,3 +27,6 @@ sudo mkdir -p /lib/terminfo/x; sudo ln -s \
 /lib/terminfo/x/xterm-termite
 
 sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator /usr/local/bin/termite 60
+
+rm -r -f termite
+rm -r -f vte-ng
