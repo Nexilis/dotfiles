@@ -660,7 +660,7 @@
     <IgnoreListFile>%DC_CONFIG_PATH%/ignorelist.txt</IgnoreListFile>
   </IgnoreList>
   <DirectoryHotList>
-    <HotDir Name="home" Path="~/"/>
+    <HotDir Name="home" Path="$HOME"/>
     <HotDir Name="Downloads" Path="~/Downloads"/>
     <HotDir Name="Dropbox" Path="~/Dropbox"/>
     <HotDir Name="Pictures" Path="~/Pictures"/>
