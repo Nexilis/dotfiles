@@ -40,3 +40,4 @@ yay -S leiningen-completions
 yay -S ttf-ms-fonts
 yay -S ttf-dejavu-sans-mono-powerline-git
 yay -S otf-fira-code-git
+yay -S ttf-unifont           # font fix for Spacemacs
