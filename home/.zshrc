@@ -124,3 +124,4 @@ alias bash-config="subl ~/.bashrc"
 alias ls="ls -alh --color=auto"
 
 neofetch
+export PATH="$(yarn global bin):$PATH"
