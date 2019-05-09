@@ -20,36 +20,41 @@ filter_unmatched_urls = true
 
 # *************************
 [colors]
-background = rgba(41,47,52,1)
-foreground = #d8d8d8
-foreground_bold = #d8d8d8
 
-# Black, Gray, Silver, White
-color0 = #292f34
-color7 = #d8d8d8
-color8 = #0a6355
-color15 = #f8f8f8
+# special
+foreground      = #68615e
+foreground_bold = #68615e
+cursor          = #68615e
+background      = #f1efee
 
-# Red
-color1 = #ab4642
-color9 = #ab4642
+# black
+color0  = #1b1918
+color8  = #766e6b
 
-# Green
-color2 = #99cc99
-color10 = #99cc99
+# red
+color1  = #f22c40
+color9  = #f22c40
 
-# Yellow
-color3 = #f7ca88
-color11 = #f7ca88
+# green
+color2  = #5ab738
+color10 = #5ab738
 
-# Blue
-color4 = #006a78
-color12 = #006a78
+# yellow
+color3  = #d5911a
+color11 = #d5911a
 
-# Purple
-color5 = #b48ead
-color13 = #b48ead
+# blue
+color4  = #407ee7
+color12 = #407ee7
 
-# Teal
-color6 = #1abb9b
-color14 = #1abb9b
+# magenta
+color5  = #6666ea
+color13 = #6666ea
+
+# cyan
+color6  = #00ad9c
+color14 = #00ad9c
+
+# white
+color7  = #a8a19f
+color15 = #f1efee
