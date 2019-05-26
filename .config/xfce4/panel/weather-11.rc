@@ -1,0 +1,27 @@
+loc_name=Warszawa, mazowieckie
+lat=52.231924
+lon=21.006726
+msl=135
+timezone=Europe/Warsaw
+offset=+02:00
+cache_file_max_age=172800
+power_saving=true
+units_temperature=0
+units_pressure=0
+units_windspeed=0
+units_precipitation=0
+units_altitude=0
+model_apparent_temperature=0
+round=true
+single_row=true
+tooltip_style=0
+forecast_layout=1
+forecast_days=5
+scrollbox_animate=false
+theme_dir=/usr/share/xfce4/weather/icons/simplistic
+show_scrollbox=true
+scrollbox_lines=1
+scrollbox_color=#000000000000
+scrollbox_use_color=false
+label0=3
+
