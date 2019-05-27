@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.8.4 beta" ConfigVersion="10">
-  <Configuration Save="True" SortOrder="0">
+<doublecmd DCVersion="0.9.3 beta" ConfigVersion="10">
+  <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
+    <FolderTabs Save="True"/>
   </Configuration>
   <Colors>
     <FileFilters>
@@ -51,12 +52,17 @@
       <ForeColor>0</ForeColor>
       <BackColor>16777215</BackColor>
     </FreeSpaceIndicator>
+    <LogWindow>
+      <Info>8388608</Info>
+      <Error>255</Error>
+      <Success>32768</Success>
+    </LogWindow>
   </Colors>
   <Plugins>
     <WlxPlugins>
       <WlxPlugin Enabled="True">
         <Name>wlxMplayer</Name>
-        <Path>%COMMANDER_PATH%/plugins/wlx/wlxmplayer/wlxmplayer.wlx</Path>
+        <Path>%commander_path%/plugins/wlx/wlxmplayer/wlxmplayer.wlx</Path>
         <DetectString>(EXT="MPG")|(EXT="AVI")|(EXT="MPEG")|(EXT="FLV")</DetectString>
       </WlxPlugin>
     </WlxPlugins>
@@ -170,6 +176,20 @@
         <Path>%commander_path%/plugins/wfx/samba/samba.wfx</Path>
       </WfxPlugin>
     </WfxPlugins>
+    <TweakPluginWidth0>0</TweakPluginWidth0>
+    <TweakPluginHeight0>0</TweakPluginHeight0>
+    <TweakPluginWidth1>0</TweakPluginWidth1>
+    <TweakPluginHeight1>0</TweakPluginHeight1>
+    <TweakPluginWidth2>0</TweakPluginWidth2>
+    <TweakPluginHeight2>0</TweakPluginHeight2>
+    <TweakPluginWidth3>0</TweakPluginWidth3>
+    <TweakPluginHeight3>0</TweakPluginHeight3>
+    <TweakPluginWidth4>0</TweakPluginWidth4>
+    <TweakPluginHeight4>0</TweakPluginHeight4>
+    <AutoTweak>False</AutoTweak>
+    <WCXConfigViewMode>0</WCXConfigViewMode>
+    <PluginFilenameStyle>0</PluginFilenameStyle>
+    <PluginPathToBeRelativeTo>%COMMANDER_PATH%</PluginPathToBeRelativeTo>
   </Plugins>
   <Toolbars>
     <MainToolbar>
@@ -274,13 +294,13 @@
     </MainToolbar>
   </Toolbars>
   <MainWindow>
-    <Position>
-      <Maximized>True</Maximized>
+    <Position Save="True">
+      <Maximized>False</Maximized>
       <Splitter>50</Splitter>
-      <Left>287</Left>
-      <Top>297</Top>
-      <Width>1300</Width>
-      <Height>645</Height>
+      <Left>362</Left>
+      <Top>196</Top>
+      <Width>1427</Width>
+      <Height>749</Height>
       <PixelsPerInch>96</PixelsPerInch>
     </Position>
   </MainWindow>
@@ -290,12 +310,6 @@
         <ActiveTab>0</ActiveTab>
         <Tab>
           <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>12</Function>
-              </Sorting>
-            </Sortings>
             <History>
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
@@ -310,27 +324,9 @@
         </Tab>
       </Left>
       <Right>
-        <ActiveTab>1</ActiveTab>
+        <ActiveTab>0</ActiveTab>
         <Tab>
           <FileView Type="columns">
-            <History>
-              <Entry Active="True">
-                <FileSource Type="FileSystem"/>
-              </Entry>
-            </History>
-            <ColumnsView>
-              <ColumnsSet>Default</ColumnsSet>
-            </ColumnsView>
-          </FileView>
-        </Tab>
-        <Tab>
-          <FileView Type="columns">
-            <Sortings>
-              <Sorting>
-                <Direction>2</Direction>
-                <Function>12</Function>
-              </Sorting>
-            </Sortings>
             <History>
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
@@ -355,6 +351,7 @@
   </Language>
   <Behaviours>
     <GoToRoot>False</GoToRoot>
+    <ActiveRight>False</ActiveRight>
     <RunInTerminalStayOpenCmd>x-terminal-emulator</RunInTerminalStayOpenCmd>
     <RunInTerminalStayOpenParams>-e sh -c '{command}; echo -n Press ENTER to exit... ; read a'</RunInTerminalStayOpenParams>
     <RunInTerminalCloseCmd>x-terminal-emulator</RunInTerminalCloseCmd>
@@ -364,12 +361,22 @@
     <OnlyOneAppInstance>False</OnlyOneAppInstance>
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
+    <OperationSizeFormat>0</OperationSizeFormat>
+    <HeaderFooterSizeFormat>0</HeaderFooterSizeFormat>
     <FileSizeDigits>1</FileSizeDigits>
+    <HeaderFooterDigits>1</HeaderFooterDigits>
+    <OperationSizeDigits>1</OperationSizeDigits>
+    <PersonalizedByte>B</PersonalizedByte>
+    <PersonalizedKilo>KB</PersonalizedKilo>
+    <PersonalizedMega>MB</PersonalizedMega>
+    <PersonalizedGiga>GB</PersonalizedGiga>
+    <PersonalizedTera>TB</PersonalizedTera>
     <MinimizeToTray>False</MinimizeToTray>
     <AlwaysShowTrayIcon>False</AlwaysShowTrayIcon>
     <Mouse>
       <Selection Enabled="True">
         <Button>0</Button>
+        <IconClick>0</IconClick>
       </Selection>
       <SingleClickStart>0</SingleClickStart>
       <ScrollMode>1</ScrollMode>
@@ -397,7 +404,7 @@
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
-    <Editor Enabled="True">
+    <Editor Enabled="False">
       <Path>/opt/sublime_text/sublime_text</Path>
       <Parameters/>
       <RunInTerminal>False</RunInTerminal>
@@ -413,20 +420,20 @@
   </Tools>
   <Fonts>
     <Main>
-      <Name>default</Name>
+      <Name>DejaVu Sans Mono for Powerline</Name>
       <Size>10</Size>
-      <Style>1</Style>
+      <Style>0</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>Monospace</Name>
-      <Size>14</Size>
+      <Name>DejaVu Sans Mono</Name>
+      <Size>9</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Monospace</Name>
-      <Size>14</Size>
+      <Name>DejaVu Sans Mono</Name>
+      <Size>9</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Viewer>
@@ -449,8 +456,8 @@
       <Quality>0</Quality>
     </SearchResults>
     <PathEdit>
-      <Name>default</Name>
-      <Size>8</Size>
+      <Name>DejaVu Sans Mono for Powerline</Name>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </PathEdit>
@@ -461,20 +468,20 @@
       <Quality>0</Quality>
     </FunctionButtons>
     <Log>
-      <Name>Monospace</Name>
-      <Size>12</Size>
+      <Name>DejaVu Sans Mono for Powerline</Name>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Log>
     <ViewerBook>
-      <Name>default</Name>
-      <Size>16</Size>
-      <Style>1</Style>
+      <Name>Roboto</Name>
+      <Size>10</Size>
+      <Style>0</Style>
       <Quality>0</Quality>
     </ViewerBook>
     <Console>
-      <Name>Monospace</Name>
-      <Size>12</Size>
+      <Name>DejaVu Sans Mono for Powerline</Name>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Console>
@@ -482,6 +489,8 @@
   <ToolTips>
     <ShowToolTipMode>True</ShowToolTipMode>
     <CustomFields/>
+    <ActualToolTipMode>0</ActualToolTipMode>
+    <ToolTipHideTimeOut>0</ToolTipHideTimeOut>
   </ToolTips>
   <Layout>
     <MainMenu>True</MainMenu>
@@ -655,6 +664,7 @@
     </ShowInMenus>
     <ShowButtonGlyphs>0</ShowButtonGlyphs>
     <DiskAlpha>50</DiskAlpha>
+    <ShowHiddenDimmed>False</ShowHiddenDimmed>
   </Icons>
   <IgnoreList Enabled="False">
     <IgnoreListFile>%DC_CONFIG_PATH%/ignorelist.txt</IgnoreListFile>
@@ -679,7 +689,7 @@
     <CopyMovePath3/>
     <CopyMovePath4/>
     <CopyMovePath5/>
-    <PaintMode>Pen</PaintMode>
+    <PaintMode>0</PaintMode>
     <PaintWidth>5</PaintWidth>
     <NumberOfColumns>1</NumberOfColumns>
     <ViewerMode>1</ViewerMode>
@@ -691,10 +701,13 @@
     <BackgroundColor>0</BackgroundColor>
     <FontColor>16777215</FontColor>
     <TextPosition>0</TextPosition>
+    <TabSpaces>8</TabSpaces>
+    <MaxTextWidth>1024</MaxTextWidth>
   </Viewer>
   <Editor>
     <EditWaitTime>2000</EditWaitTime>
     <SynEditOptions>856075</SynEditOptions>
+    <SynEditTabWidth>2</SynEditTabWidth>
   </Editor>
   <SyncDirs>
     <Subdirs>False</Subdirs>
@@ -707,6 +720,7 @@
     <FilterDuplicates>True</FilterDuplicates>
     <FilterSingles>True</FilterSingles>
     <FileMask>*</FileMask>
+    <Asymmetric>False</Asymmetric>
   </SyncDirs>
   <InternalAssociations>
     <OfferToAddNewFileType>False</OfferToAddNewFileType>
@@ -809,6 +823,7 @@
     <ColumnsSet UseFrameCursor="False">
       <Name>Default</Name>
       <CustomView>False</CustomView>
+      <FileSystem>&lt;General&gt;</FileSystem>
       <PixelsPerInch>96</PixelsPerInch>
       <CursorBorder Enabled="False">
         <Color>-2147483635</Color>
