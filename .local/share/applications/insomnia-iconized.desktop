@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Insomnia Iconized
+Comment=Debug APIs like a human, not a robot with Xfce icon
+GenericName=Insomnia
+Exec=/home/blukasik/dotfiles/scripts/run-insomnia.sh
+Icon=/usr/share/icons/hicolor/0x0/apps/insomnia.png
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Network;InstantMessaging;
+MimeType=x-scheme-handler/slack;
