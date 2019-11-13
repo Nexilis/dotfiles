@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Robo3t
+Comment=Robo 3T (formerly Robomongo) is the free lightweight GUI for MongoDB enthusiasts.
+Exec=/opt/robo3t-1.3.1/bin/robo3t
+Terminal=false
+Type=Application
+Icon=/opt/robo3t-1.3.1/bin/icon.png
+Categories=GNOME;GTK;Network;Utility
+StartupWMClass=robo3t

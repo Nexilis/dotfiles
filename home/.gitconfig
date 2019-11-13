@@ -1,3 +1,11 @@
-[user]
-    name = Bartek Łukasik
-    email = Nexilis@users.noreply.github.com
+[includeIf "gitdir:~/cyb/"]
+  path = ~/.gitconfig-work
+[includeIf "gitdir:~/dotfiles/"]
+  path = ~/.gitconfig-github
+[includeIf "gitdir:~/proj/"]
+  path = ~/.gitconfig-github
+[core]
+	autocrlf = input
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[credential]
+	helper = store
