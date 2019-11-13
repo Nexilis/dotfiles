@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Storage Explorer
+Exec=/home/blukasik/.local/share/StorageExplorer-linux-x64/StorageExplorer
+Terminal=false
+Type=Application
+Icon=/home/blukasik/.local/share/StorageExplorer-linux-x64/resources/app/out/app/icon.png
+StartupWMClass=StorageExplorer
