@@ -65,6 +65,8 @@ alias l="exa -lahF"
 alias cat="bat"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
+alias sau="sudo apt update && sudo apt upgrade && sudo apt autoremove"
+
 neofetch
 export PATH="$(yarn global bin):$PATH"
 
