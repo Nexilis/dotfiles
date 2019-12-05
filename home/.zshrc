@@ -21,7 +21,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="tonotdo"
+ZSH_THEME=powerlevel10k/powerlevel10k
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -42,20 +42,21 @@ source $ZSH/oh-my-zsh.sh
 
 alias zsh-config="micro ~/.zshrc"
 alias bash-config="micro ~/.bashrc"
-alias gaa="git add --all"
-alias gap="git add -p"
-alias gco="git checkout"
-alias gcm="git commit -ev"
-alias gst="git status -sb"
-alias gfe="git fetch"
-alias gpl="git pull"
-alias gph="git push"
-alias gbr="git branch"
-alias gmr="git merge"
-alias glg="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
-alias grs="git reset --hard"
-alias gcl="git clean -xdf"
-alias gpsup="git push --set-upstream origin $(git_current_branch)"
+
+alias gaa='git add --all'
+alias gap='git add -p'
+alias gco='git checkout'
+alias gcm='git commit -ev'
+alias gst='git status -sb'
+alias gfe='git fetch'
+alias gpl='git pull'
+alias gph='git push'
+alias gbr='git branch'
+alias gmr='git merge'
+alias glg='git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''
+alias grs='git reset --hard'
+alias gcl='git clean -xdf'
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
 
 alias fd=fdfind
 
