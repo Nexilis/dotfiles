@@ -23,6 +23,8 @@ export ZSH=$HOME/.oh-my-zsh
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME=powerlevel10k/powerlevel10k
 
+POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
+
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
 # cause zsh load theme from this variable instead of
@@ -53,7 +55,7 @@ alias gpl='git pull'
 alias gph='git push'
 alias gbr='git branch'
 alias gmr='git merge'
-alias glg='git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset''
+alias glg="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias grs='git reset --hard'
 alias gcl='git clean -xdf'
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
@@ -72,3 +74,6 @@ neofetch
 export PATH="$(yarn global bin):$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
