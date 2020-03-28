@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-rm -r -f ~/.oh-my-zsh
-ln -s /usr/share/oh-my-zsh ~/.oh-my-zsh
-cp -f -r -s ~/dotfiles/home/. ~/
-cp -f -r -s ~/dotfiles/.config ~/
-chsh -s /bin/zsh
+# 1. Install
 
+pacman -S zsh
 pacman -S yay
 pacman -S vim
 pacman -S ripgrep
@@ -47,3 +44,12 @@ yay -S otf-fira-code-git
 #yay -S slack-desktop
 #yay -S xseticon             # xfce icon fix hack
 #yay -S ttf-unifont           # font fix for Spacemacs
+
+# 2. Configure
+
+rm -r -f ~/.oh-my-zsh
+ln -s /usr/share/oh-my-zsh ~/.oh-my-zsh
+cp -f -r -s ../home/. ~/
+cp -f -r -s ../.config/mc ~/.config/mc
+cp -f -r -s ../.config/.vim ~/.config/.vim
+chsh -s /bin/zsh

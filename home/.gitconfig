@@ -1,9 +1,5 @@
 [includeIf "gitdir:~/cyb/"]
   path = ~/.gitconfig-work
-[includeIf "gitdir:~/dotfiles/"]
-  path = ~/.gitconfig-github
-[includeIf "gitdir:~/.config/dotfiles/"]
-  path = ~/.gitconfig-github
 [includeIf "gitdir:~/proj/"]
   path = ~/.gitconfig-github
 [core]
