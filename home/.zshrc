@@ -32,7 +32,7 @@ alias diff="diff-so-fancy"
 alias ls="exa"
 alias l="exa -lahF"
 alias br="br -h"
-# alias cat="bat"
+alias cat="bat -p"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 #export PATH="$(yarn global bin):$PATH"
