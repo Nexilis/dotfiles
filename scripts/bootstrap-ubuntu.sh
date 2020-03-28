@@ -30,6 +30,15 @@ sudo chmod +x /usr/local/bin/exa
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install
 
+## dotnet
+wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -P $HOME/Downloads
+sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
+
+sudo apt-get install apt-transport-https
+sudo apt-get update
+sudo apt-get install dotnet-sdk-3.1 fsharp -y
+
+
 # 2. Configure
 
 cp -f -r -s ../home/. ~/
