@@ -42,3 +42,7 @@ cp -f -r -s ../home/. ~/
 cp -f -r -s ../.config/mc ~/.config/mc
 cp -f -r -s ../.config/.vim ~/.config/.vim
 chsh -s `which zsh`
+
+# 3. Fonts
+
+sudo apt install fonts-firacode -y
