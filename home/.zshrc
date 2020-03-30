@@ -36,6 +36,9 @@ alias cat="bat -p"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 #export PATH="$(yarn global bin):$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="/snap/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
