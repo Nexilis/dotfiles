@@ -46,6 +46,9 @@ sudo mv ~/Downloads/exa-linux-x86_64 /usr/local/bin/exa
 sudo chmod +x /usr/local/bin/exa
 rm -rf ~/Downloads/exa-linux-x86_64-0.9.0.zip
 
+echo "joplin"
+wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
+
 echo "dotnet, fsharp, sublime, brave, spotify, codium"
 wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
