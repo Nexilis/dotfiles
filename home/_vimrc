@@ -53,7 +53,7 @@ set relativenumber
 set autoread
 set colorcolumn=120
 set hidden
-set clipboard=unnamedplus
+set clipboard^=unnamed,unnamedplus
 set background=light
 colorscheme PaperColor
 
