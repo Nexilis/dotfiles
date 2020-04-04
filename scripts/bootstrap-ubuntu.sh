@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install zsh xclip bat fd-find vim-gtk3 fonts-firacode -y
+sudo apt install zsh curl xclip bat fd-find vim-gtk3 fonts-firacode -y
 
 echo "ripgrep"
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb
