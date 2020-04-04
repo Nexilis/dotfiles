@@ -18,8 +18,6 @@ sudo chmod +x /usr/local/bin/broot
 /usr/local/bin/broot --install
 
 echo "micro"
-cd /usr/local/bin; curl https://getmic.ro | sudo bash
-
 function githubLatestTag {
     finalUrl=$(curl "https://github.com/$1/releases/latest" -s -L -I -o /dev/null -w '%{url_effective}')
     echo "${finalUrl##*v}"
