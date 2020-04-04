@@ -6,8 +6,7 @@ echo "ripgrep"
 curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb
 sudo dpkg -i ripgrep_12.0.1_amd64.deb
 
-echo "config"
-cp -f -r ../home/. ~/
+echo "config1"
 cp -f -r ../.config/mc ~/.config/mc
 cp -f -r ../.config/.vim ~/.config/.vim
 
@@ -58,5 +57,8 @@ echo "https://ohmyz.sh/"
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -P $HOME/Downloads
 sh $HOME/Downloads/install.sh --keep-zshrc --skip-chsh --unattended
 rm -rf ~/Downloads/install.sh
+
+echo "config2"
+cp -f -r ../home/. ~/
 
 chsh -s $(which zsh)
