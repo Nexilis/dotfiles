@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-sudo apt install zsh curl apt-transport-https xclip bat fd-find vim-gtk3 fonts-firacode -y
+sudo apt install zsh curl apt-transport-https xclip bat fd-find vim-gtk3 mc fonts-firacode -y
 
 echo "ripgrep"
-curl -LO https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb
-sudo dpkg -i ripgrep_12.0.1_amd64.deb
+wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
+sudo dpkg -i $HOME/Downloads/ripgrep_12.0.1_amd64.deb
+rm -rf ripgrep_12.0.1_amd64.deb
 
 echo "config1"
 cp -f -r ../.config/mc ~/.config/mc
@@ -39,7 +40,7 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo apt-key add -
 echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' | sudo tee --append /etc/apt/sources.list.d/vscodium.list
@@ -47,7 +48,7 @@ echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ v
 sudo apt update
 sudo apt install dotnet-sdk-3.1 fsharp -y
 sudo apt install sublime-text sublime-merge brave-browser spotify-client codium -y
-sudo apt install openjdk-14 -y
+sudo apt install openjdk-14-jdk -y
 
 echo "fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
