@@ -2,7 +2,7 @@
 
 # 1. Install
 
-sudo apt update & sudo apt install zsh xclip bat ripgrep fd-find -y
+sudo apt update & sudo apt install zsh xclip bat ripgrep fd-find vim-gtk3 -y
 
 ## https://ohmyz.sh/
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"

@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 export VISUAL=/usr/local/bin/micro
 export EDITOR="$VISUAL"
 
-ZSH_THEME="robbyrussell"
+ZSH_THEME="ys"
 
 plugins=(
   z
