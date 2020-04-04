@@ -1,11 +1,16 @@
 #!/usr/bin/env bash
 
-sudo apt install zsh curl apt-transport-https xclip bat fd-find vim-gtk3 mc fonts-firacode -y
+sudo apt install zsh curl apt-transport-https xclip fd-find vim-gtk3 mc fonts-firacode -y
 
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/ripgrep_12.0.1_amd64.deb
 rm -rf $HOME/Downloads/ripgrep_12.0.1_amd64.deb
+
+echo "bat"
+wget https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb -P $HOME/Downloads
+sudo dpkg -i $HOME/Downloads/bat_0.13.0_amd64.deb
+rm -rf bat_0.13.0_amd64.deb
 
 echo "config1"
 cp -f -r ../.config/mc ~/.config/mc
