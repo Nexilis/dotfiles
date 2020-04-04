@@ -5,7 +5,7 @@ sudo apt install zsh curl apt-transport-https xclip bat fd-find vim-gtk3 mc font
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/ripgrep_12.0.1_amd64.deb
-rm -rf ripgrep_12.0.1_amd64.deb
+rm -rf $HOME/Downloads/ripgrep_12.0.1_amd64.deb
 
 echo "config1"
 cp -f -r ../.config/mc ~/.config/mc
@@ -19,6 +19,17 @@ sudo chmod +x /usr/local/bin/broot
 
 echo "micro"
 cd /usr/local/bin; curl https://getmic.ro | sudo bash
+
+function githubLatestTag {
+    finalUrl=$(curl "https://github.com/$1/releases/latest" -s -L -I -o /dev/null -w '%{url_effective}')
+    echo "${finalUrl##*v}"
+}
+TAG=$(githubLatestTag zyedidia/micro)
+wget "https://github.com/zyedidia/micro/releases/download/v$TAG/micro-$TAG-linux64.tar.gz" -O $HOME/Downloads/micro.tar.gz
+tar -xvzf $HOME/Downloads/micro.tar.gz "micro-$TAG/micro"
+sudo mv "micro-$TAG/micro" /usr/local/bin/micro
+rm $HOME/Downloads/micro.tar.gz
+rm -rf "micro-$TAG"
 
 echo "diff-so-fancy"
 wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -P $HOME/Downloads
