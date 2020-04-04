@@ -15,6 +15,7 @@ echo "broot"
 wget https://dystroy.org/broot/download/x86_64-linux/broot -P $HOME/Downloads
 sudo mv ~/Downloads/broot /usr/local/bin/broot
 sudo chmod +x /usr/local/bin/broot
+/usr/local/bin/broot --install
 
 echo "micro"
 cd /usr/local/bin; curl https://getmic.ro | sudo bash
@@ -47,10 +48,11 @@ echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ v
 sudo apt update
 sudo apt install dotnet-sdk-3.1 fsharp -y
 sudo apt install sublime-text sublime-merge brave-browser spotify-client codium -y
+sudo apt install openjdk-14 -y
 
 echo "fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --key-bindings --completion --no-zsh
+~/.fzf/install --all
 
 echo "https://ohmyz.sh/"
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -P $HOME/Downloads
