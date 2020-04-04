@@ -30,12 +30,9 @@ unzip $HOME/Downloads/exa-linux-x86_64-0.9.0.zip
 sudo mv ~/Downloads/exa-linux-x86_64 /usr/local/bin/exa
 sudo chmod +x /usr/local/bin/exa
 
-echo "dotnet"
+echo "dotnet, fsharp, sublime, brave, spotify, codium"
 wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
-sudo apt update & sudo apt install dotnet-sdk-3.1 fsharp -y
-
-echo "sublime, brave, spotify, codium"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
@@ -45,12 +42,14 @@ echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sou
 wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo apt-key add -
 echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' | sudo tee --append /etc/apt/sources.list.d/vscodium.list
 
-sudo apt update & sudo apt install sublime-text sublime-merge brave-browser spotify-client codium -y
+sudo apt update
+sudo apt install dotnet-sdk-3.1 fsharp sublime-text sublime-merge brave-browser spotify-client codium -y
 
 echo "fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
+~/.fzf/install --key-bindings --completion --no-zsh
 
 echo "https://ohmyz.sh/"
-sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)" --unattended --keep-zshrc
 
+chsh -s $(which zsh)
