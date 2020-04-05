@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install software-properties-common zsh curl apt-transport-https xclip fd-find vim-gtk3 mc fonts-firacode -y
+sudo apt install software-properties-common zsh curl apt-transport-https xclip fd-find vim-gtk3 mc neofetch fonts-firacode -y
 
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
