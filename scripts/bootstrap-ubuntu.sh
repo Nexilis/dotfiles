@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install zsh curl apt-transport-https xclip fd-find vim-gtk3 mc fonts-firacode -y
+sudo apt install software-properties-common zsh curl apt-transport-https xclip fd-find vim-gtk3 mc fonts-firacode -y
 
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
@@ -65,7 +65,29 @@ echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ v
 sudo apt update
 sudo apt install dotnet-sdk-3.1 fsharp -y
 sudo apt install sublime-text sublime-merge brave-browser spotify-client codium -y
-sudo apt install openjdk-14-jdk -y
+
+echo "adoptopenjdk java, leiningen, clojure"
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+sudo apt-get update
+sudo apt-get install adoptopenjdk-11-hotspot rlwrap -y
+wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O $HOME/Downloads/lein
+sudo mv ~/Downloads/lein /usr/local/bin/lein
+sudo chmod a+x /usr/local/bin/lein
+wget https://download.clojure.org/install/linux-install-1.10.1.536.sh -O $HOME/Downloads/clj-install.sh
+chmod +x $HOME/Downloads/clj-install.sh
+sudo $HOME/Downloads/clj-install.sh
+rm -rf $HOME/Downloads/clj-install.sh
+java -version
+lein version
+clj -h
+
+echo "rust"
+wget https://sh.rustup.rs -O $HOME/Downloads/rustup-init.sh
+chmod +x $HOME/Downloads/rustup-init.sh
+~/Downloads/rustup-init.sh -q -y
+rm -rf $HOME/Downloads/rustup-init.sh
+rustup -V
 
 echo "fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
