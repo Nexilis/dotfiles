@@ -49,6 +49,14 @@ rm -rf ~/Downloads/exa-linux-x86_64-0.9.0.zip
 echo "joplin"
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
 
+echo "insomnia"
+echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" \
+    | sudo tee -a /etc/apt/sources.list.d/insomnia.list
+wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
+    | sudo apt-key add -
+sudo apt update
+sudo apt install insomnia
+
 echo "dotnet, fsharp, sublime, brave, spotify, codium"
 wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
@@ -97,6 +105,11 @@ echo "https://ohmyz.sh/"
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -P $HOME/Downloads
 sh $HOME/Downloads/install.sh --keep-zshrc --skip-chsh --unattended
 rm -rf ~/Downloads/install.sh
+
+# Installs plugins
+git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+chmod +x ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 echo "config2"
 cp -f -r ../home/. ~/
