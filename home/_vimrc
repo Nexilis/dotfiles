@@ -53,7 +53,7 @@ set autoread
 set colorcolumn=120
 set hidden
 set clipboard^=unnamed,unnamedplus
-set background=light
+set background=dark " change to light for well... light
 colorscheme PaperColor
 
 command! JsonFormat :%!python -mjson.tool
