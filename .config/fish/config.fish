@@ -1,7 +1,15 @@
+if not functions -q fisher
+    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
+    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
+    fish -c fisher
+end
+
 set -x -g EDITOR /usr/local/bin/micro
 set -x -g FZF_LEGACY_KEYBINDINGS 0
 set -x -g MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -x -g PATH ~/.bin ~/.local/bin ~/.cargo/bin /snap/bin $PATH
+set -x -g LC_ALL en_GB.UTF-8
+set -x -g LANG en_GB.UTF-8
 
 alias sau   "sudo apt update && sudo apt upgrade && sudo apt autoremove"
 alias gaa   "git add --all"
