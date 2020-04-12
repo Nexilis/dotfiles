@@ -9,7 +9,6 @@ call plug#begin('~/.config/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdtree'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-unimpaired' " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING
@@ -20,9 +19,9 @@ Plug 'fsharp/vim-fsharp', {
       \ 'for': 'fsharp',
       \ 'do':  'make fsautocomplete',
       \}
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'PProvost/vim-ps1'
 Plug 'drmikehenry/vim-fixkey' " Fix alt key when using Linux
+Plug 'junegunn/fzf'
 call plug#end()
 
 set encoding=utf-8
@@ -84,8 +83,7 @@ nmap <M-l> <Plug>(easymotion-overwin-line)
 map  <M-w> <Plug>(easymotion-bd-w)
 nmap <M-w> <Plug>(easymotion-overwin-w)
 
-map  <C-t> :NERDTreeToggle<CR>
-map  <M-t> :lcd %:p:h<CR> :NERDTreeFind<CR> " Set working directory to current file dir and sync NERDTree view
+map  <C-t> :FZF<CR>
 nmap <silent> <M-x> :nohlsearch<cr> " Clean search (highlight)
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
