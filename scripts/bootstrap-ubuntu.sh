@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-sudo apt install software-properties-common zsh curl apt-transport-https xclip fd-find vim-gtk3 mc neofetch fonts-firacode -y
+sudo apt install software-properties-common curl apt-transport-https xclip fd-find vim-gtk3 mc neofetch fonts-firacode -y
+
+bootstrap-fish.sh
 
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
@@ -12,9 +14,17 @@ wget https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.d
 sudo dpkg -i $HOME/Downloads/bat_0.13.0_amd64.deb
 rm -rf bat_0.13.0_amd64.deb
 
-echo "config1"
+echo "config mc"
 cp -f -r ../.config/mc ~/.config/mc
+
+echo "config vim"
 cp -f -r ../.config/.vim ~/.config/.vim
+cp -f -r ../home/_vimrc ~/
+
+echo "config git"
+cp -f -r ../home/.gitconfig ~/
+cp -f -r ../home/.gitconfig-github ~/
+cp -f -r ../home/.gitconfig-work ~/
 
 echo "broot"
 wget https://dystroy.org/broot/download/x86_64-linux/broot -P $HOME/Downloads
@@ -96,22 +106,3 @@ chmod +x $HOME/Downloads/rustup-init.sh
 ~/Downloads/rustup-init.sh -q -y
 rm -rf $HOME/Downloads/rustup-init.sh
 rustup -V
-
-echo "fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --all
-
-echo "https://ohmyz.sh/"
-wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -P $HOME/Downloads
-sh $HOME/Downloads/install.sh --keep-zshrc --skip-chsh --unattended
-rm -rf ~/Downloads/install.sh
-
-# Installs plugins
-git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-chmod +x ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-
-echo "config2"
-cp -f -r ../home/. ~/
-
-chsh -s $(which zsh)
