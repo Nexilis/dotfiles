@@ -1,4 +1,4 @@
-## Quick start
-From ~/dotfiles
-$ chmod +x bootstrap.sh
-$ ./bootstrap.sh
+# Quick start
+
+$ chmod +x scripts/bootstrap-ubuntu.sh
+$ ./scripts/bootstrap-ubuntu.sh
