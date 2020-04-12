@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
+echo "fish"
 sudo apt install fish
 
-echo "fzf"
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install --bin
+echo "fish config"
+cp -f -r ../.config/fish ~/.config/fish
 
-curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
-
-fisher add jethrokuan/z jethrokuan/fzf rafaelrinaldi/pure edc/bass
-
+echo "chsh fish"
 chsh -s $(which fish)

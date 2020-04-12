@@ -2,7 +2,11 @@
 
 sudo apt install software-properties-common curl apt-transport-https xclip fd-find vim-gtk3 mc neofetch fonts-firacode -y
 
-bootstrap-fish.sh
+echo "fzf"
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install --bin
+
+./bootstrap-fish.sh
 
 echo "ripgrep"
 wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
