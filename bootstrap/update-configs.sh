@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-echo "zsh rc"
+echo "zsh omz -> antigen"
 rm -rf ~/.oh-my-zsh
+mkdir ~/.zsh
+wget git.io/antigen -O $HOME/.zsh/antigen.zsh
+echo "zsh rc"
 cp -f -r ../home/.zshrc ~/
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/mc
