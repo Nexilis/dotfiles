@@ -7,6 +7,9 @@ echo "zsh antigen"
 mkdir ~/.zsh
 wget git.io/antigen -O $HOME/.zsh/antigen.zsh
 
+echo "zsh z plugin dir"
+mkdir ~/.z
+
 echo "zsh rc"
 cp -f -r ../home/.zshrc ~/
 
