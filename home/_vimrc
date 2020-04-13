@@ -25,6 +25,7 @@ Plug 'PProvost/vim-ps1'
 Plug 'drmikehenry/vim-fixkey'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'thaerkh/vim-workspace'
 call plug#end()
 
 set encoding=utf-8
@@ -61,6 +62,11 @@ colorscheme PaperColor
 
 command! JsonFormat :%!python -mjson.tool
 
+let g:workspace_create_new_tabs = 0
+let g:workspace_session_directory = $HOME . '/.config/.vim/sessions/'
+let g:workspace_session_disable_on_args = 1
+let g:workspace_undodir = $HOME . '/.config/.vim/.undodir'
+
 nmap  <C-k> :bnext<CR>
 nmap  <C-j> :bprevious<CR>
 nmap  <C-F4> :bp <BAR> bd! #<CR>
@@ -75,7 +81,7 @@ nmap <M-k> [e
 vmap <M-j> ]egv
 vmap <M-k> [egv
 
-map <F4> :q!<CR>
+map <F4> :qa!<CR>
 map <F5> :setlocal spell! spelllang=en_us<CR>
 
 nmap f <Plug>(easymotion-overwin-w)
