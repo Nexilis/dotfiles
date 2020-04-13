@@ -1,7 +1,11 @@
 export ZSH=$HOME/.oh-my-zsh
-
 export VISUAL=/usr/local/bin/micro
 export EDITOR="$VISUAL"
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export PATH="/snap/bin:$PATH"
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 ZSH_THEME="ys"
 
@@ -35,12 +39,6 @@ alias ls="exa"
 alias l="exa -lahF"
 alias br="br -h"
 alias cat='bat -p --paging=never'
-
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-#export PATH="$(yarn global bin):$PATH"
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/snap/bin:$PATH"
-export PATH="$HOME/bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
