@@ -91,7 +91,7 @@ echo "adoptopenjdk java, leiningen, clojure"
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
 sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
 sudo apt-get update
-sudo apt-get install adoptopenjdk-11-hotspot rlwrap -y
+sudo apt-get install adoptopenjdk-14-hotspot rlwrap -y
 wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O $HOME/Downloads/lein
 sudo mv ~/Downloads/lein /usr/local/bin/lein
 sudo chmod a+x /usr/local/bin/lein
