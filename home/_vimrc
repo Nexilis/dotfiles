@@ -4,14 +4,15 @@ set dir=$HOME/.config/.vim/swap//
 set backupdir=$HOME/.config/.vim/backup//
 set undodir=$HOME/.config/.vim/undo//
 
-let g:plug_shallow=1 " Download shallow copy of plugins
+let g:plug_shallow=1
 call plug#begin('~/.config/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'easymotion/vim-easymotion'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-unimpaired' " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING
+ " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING
+Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
 Plug 'guns/vim-clojure-static'
 Plug 'OrangeT/vim-csharp'
@@ -20,8 +21,10 @@ Plug 'fsharp/vim-fsharp', {
       \ 'do':  'make fsautocomplete',
       \}
 Plug 'PProvost/vim-ps1'
-Plug 'drmikehenry/vim-fixkey' " Fix alt key when using Linux
+ " Fix alt key when using Linux
+Plug 'drmikehenry/vim-fixkey'
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 set encoding=utf-8
@@ -53,18 +56,18 @@ set autoread
 set colorcolumn=120
 set hidden
 set clipboard^=unnamed,unnamedplus
-set background=dark " change to light for well... light
+set background=dark
 colorscheme PaperColor
 
 command! JsonFormat :%!python -mjson.tool
 
-map  <C-k> :bnext<CR>
-map  <C-j> :bprevious<CR>
-map  <C-F4> :bp <BAR> bd! #<CR>
-map  <C-x> :bp <BAR> bd! #<CR>
-map  <C-n> :enew<CR>
-map  <C-p> :browse oldfiles<CR>
-imap <C-Del> <ESC>lvedi " Ctrl+Del in insert mode removes next part of a word
+nmap  <C-k> :bnext<CR>
+nmap  <C-j> :bprevious<CR>
+nmap  <C-F4> :bp <BAR> bd! #<CR>
+nmap  <C-x> :bp <BAR> bd! #<CR>
+nmap  <C-n> :enew<CR>
+" Ctrl+Del in insert mode removes next part of a word
+omap <C-Del> <ESC>lvedi
 
 " lines moving based on vim-unimpaired
 nmap <M-j> ]e
@@ -75,17 +78,22 @@ vmap <M-k> [egv
 map <F4> :q!<CR>
 map <F5> :setlocal spell! spelllang=en_us<CR>
 
-map  <M-f> <Plug>(easymotion-bd-f)
-nmap <M-f> <Plug>(easymotion-overwin-f)
-nmap <M-s> <Plug>(easymotion-overwin-f2)
-map  <M-l> <Plug>(easymotion-bd-jk)
+nmap f <Plug>(easymotion-overwin-w)
 nmap <M-l> <Plug>(easymotion-overwin-line)
-map  <M-w> <Plug>(easymotion-bd-w)
-nmap <M-w> <Plug>(easymotion-overwin-w)
 
-map  <C-t> :FZF<CR>
-nmap <silent> <M-x> :nohlsearch<cr> " Clean search (highlight)
+nmap <silent> <M-x> :nohlsearch<CR>
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+
+" fzf.vim
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump=1
+nnoremap <C-t> :Files<CR>
+nnoremap <M-f> :Rg<CR>
+nnoremap <C-p> :History<CR>
+" File path completion in Insert mode using fzf
+imap <c-x><c-w> <plug>(fzf-complete-word)
+imap <c-x><c-p> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
 
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=0
@@ -97,4 +105,5 @@ augroup vimrc-remember-cursor-position
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
 
-autocmd BufNewFile,BufRead *.csx set filetype=cs " Set C# syntax for csx files
+" Set C# syntax for csx files
+autocmd BufNewFile,BufRead *.csx set filetype=cs
