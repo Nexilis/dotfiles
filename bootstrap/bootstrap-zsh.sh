@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "zsh"
-sudo apt install zsh
+sudo apt install zsh -y
 
 echo "https://ohmyz.sh/"
 wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -P $HOME/Downloads

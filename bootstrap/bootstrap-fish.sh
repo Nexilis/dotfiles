@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "fish"
-sudo apt install fish
+sudo apt install fish -y
 
 echo "fish config"
 cp -f -r ../.config/fish ~/.config
