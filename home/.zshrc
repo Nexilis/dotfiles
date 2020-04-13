@@ -9,6 +9,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 source ~/.config/broot/launcher/bash/br
 source ~/.zsh/antigen.zsh
 
+antigen use oh-my-zsh
 antigen bundle rupa/z
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
