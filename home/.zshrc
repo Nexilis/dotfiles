@@ -35,9 +35,7 @@ alias gcl="git clean -xdf"
 alias gpsup="git push --set-upstream origin $(git_current_branch)"
 alias fd="fdfind"
 alias diff="diff-so-fancy"
-alias ls="exa"
-alias l="exa -lahF"
-alias br="br -h"
+alias l="br -dphs"
 alias cat="bat -p --paging=never"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
