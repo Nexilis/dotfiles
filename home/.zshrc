@@ -1,4 +1,4 @@
-export VISUAL=/usr/local/bin/micro
+export VISUAL=vim
 export EDITOR="$VISUAL"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PATH="/snap/bin:$PATH"
@@ -35,7 +35,9 @@ alias gcl="git clean -xdf"
 alias gpsup="git push --set-upstream origin $(git_current_branch)"
 alias fd="fdfind"
 alias diff="diff-so-fancy"
-alias l="br -dphs"
+alias l="ls -AhX --color=auto"
+alias bra="br -ghp"
+alias brs="br -hs"
 alias cat="bat -p --paging=never"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

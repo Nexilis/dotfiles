@@ -22,7 +22,7 @@ cp -f -r ../.config/mc ~/.config/mc
 
 echo "config vim"
 cp -f -r ../.config/.vim ~/.config/.vim
-cp -f -r ../home/_vimrc ~/
+cp -f -r ../home/.vimrc ~/
 
 echo "config git"
 cp -f -r ../home/.gitconfig ~/
@@ -51,13 +51,6 @@ echo "diff-so-fancy"
 wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -P $HOME/Downloads
 sudo mv ~/Downloads/diff-so-fancy /usr/local/bin
 sudo chmod +x /usr/local/bin/diff-so-fancy
-
-echo "exa"
-wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip -P $HOME/Downloads
-unzip ~/Downloads/exa-linux-x86_64-0.9.0.zip -d ~/Downloads
-sudo mv ~/Downloads/exa-linux-x86_64 /usr/local/bin/exa
-sudo chmod +x /usr/local/bin/exa
-rm -rf ~/Downloads/exa-linux-x86_64-0.9.0.zip
 
 echo "joplin"
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
