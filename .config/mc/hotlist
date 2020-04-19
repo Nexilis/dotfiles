@@ -1,4 +1,6 @@
-ENTRY "Dropbox" URL "/home/barteklu/Dropbox"
-ENTRY "Downloads" URL "/home/barteklu/Downloads"
-ENTRY ".config" URL "/home/barteklu/.config"
-ENTRY "barteklu" URL "/home/barteklu"
+ENTRY "Dropbox" URL "~/Dropbox"
+ENTRY "Downloads" URL "~/Downloads"
+ENTRY "proj" URL "~/proj"
+ENTRY ".config" URL "~/.config"
+ENTRY "$HOME" URL "~/"
+
