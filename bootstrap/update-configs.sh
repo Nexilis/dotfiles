@@ -10,7 +10,8 @@ echo "config mc"
 cp -f -r ../.config/mc ~/.config/mc
 echo "config vim"
 cp -f -r ../.config/.vim ~/.config/.vim
-cp -f -r ../home/_vimrc ~/
+cp -f -r ../home/.vimrc ~/
+rm -rf ~./_vimrc
 echo "config git"
 cp -f -r ../home/.gitconfig ~/
 #cp -f -r ../home/.gitconfig-github ~/
