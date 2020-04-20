@@ -33,7 +33,6 @@ alias glg="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgree
 alias grs="git reset --hard"
 alias gcl="git clean -xdf"
 alias gpsup="git push --set-upstream origin $(git_current_branch)"
-alias fd="fdfind"
 alias diff="diff-so-fancy"
 alias l="ls -AhX --color=auto"
 alias bra="br -ghp"
