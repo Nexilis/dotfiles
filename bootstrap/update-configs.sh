@@ -17,3 +17,6 @@ echo "config git"
 cp -f -r ../home/.gitconfig ~/
 #cp -f -r ../home/.gitconfig-github ~/
 #cp -f -r ../home/.gitconfig-work ~/
+echo "config alacritty"
+rm -rf ~/.config/alacritty
+cp -f -r ../.config/alacritty ~/.config/alacritty
