@@ -20,7 +20,10 @@
   #dimensions:
   #  columns: 0
   #  lines: 0
-
+window:
+  dimensions:
+    columns: 150
+    lines: 48
   # Window position (changes require restart)
   #
   # Specified in number of pixels.
@@ -86,7 +89,10 @@
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
   #multiplier: 3
-
+font:
+  normal:
+    family: "JetBrains Mono"
+  size: 10
 # Font configuration
 #font:
   # Normal (roman) font face
@@ -279,6 +285,8 @@
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
 #background_opacity: 1.0
+background_opacity: 0.95
+
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -558,3 +566,30 @@
 
   # Print all received window events.
   #print_events: false
+
+# Colors (New Moon)
+colors:
+  # Default colors
+  primary:
+    background: '#2D2D2D'
+    foreground: '#B3B9C5'
+  # Normal colors
+  normal:
+    black: '#2D2D2D'
+    red: '#F2777A'
+    green: '#92D192'
+    yellow: '#FFD479'
+    blue: '#6AB0F3'
+    magenta: '#E1A6F2'
+    cyan: '#76D4D6'
+    white: '#B3B9C5'
+  # Bright colors
+  bright:
+    black: '#777C85'
+    red: '#F2777A'
+    green: '#76D4D6'
+    yellow: '#FFEEA6'
+    blue: '#6AB0F3'
+    magenta: '#E1A6F2'
+    cyan: '#76D4D6'
+    white: '#FFFFFF'
