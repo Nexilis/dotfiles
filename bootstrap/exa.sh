@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "exa"
 wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip -P $HOME/Downloads
 unzip ~/Downloads/exa-linux-x86_64-0.9.0.zip -d ~/Downloads
