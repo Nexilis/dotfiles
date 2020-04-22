@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install software-properties-common curl apt-transport-https xclip fd-find vim-gtk3 mc tmux neofetch fonts-firacode -y
+sudo apt install software-properties-common curl apt-transport-https xclip fd-find vim-gtk3 mc tmux htop neofetch fonts-firacode -y
 ./bootstrap-zsh.sh
 
 echo "fzf"
