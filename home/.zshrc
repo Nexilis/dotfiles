@@ -1,5 +1,6 @@
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export TERM=xterm-256color # needed for tmux to work with 256 colors
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PATH="/snap/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
@@ -36,6 +37,7 @@ alias gpsup="git push --set-upstream origin $(git_current_branch)"
 alias diff="diff-so-fancy"
 alias l="ls -AhX --color=auto"
 alias bra="br -ghp"
+alias brh="br -ghp"
 alias brs="br -hs"
 alias cat="bat -p --paging=never"
 
