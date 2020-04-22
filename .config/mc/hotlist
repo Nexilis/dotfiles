@@ -1,6 +1,9 @@
 ENTRY "Dropbox" URL "~/Dropbox"
 ENTRY "Downloads" URL "~/Downloads"
+ENTRY "Documents" URL "~/Documents"
 ENTRY "proj" URL "~/proj"
+ENTRY "cyb" URL "~/cyb"
 ENTRY ".config" URL "~/.config"
+ENTRY ".local/share" URL "~/.local/share"
 ENTRY "$HOME" URL "~/"
 
