@@ -43,6 +43,7 @@ alias bra="br -ghp"
 alias brh="br -ghp"
 alias brs="br -hs"
 alias cat="bat -p --paging=never"
+alias o="xdg-open"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
