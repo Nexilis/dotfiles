@@ -36,7 +36,7 @@ alias gmr="git merge"
 alias glg="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
 alias grs="git reset --hard"
 alias gcl="git clean -xdf"
-alias gpsup="git push --set-upstream origin $(git_current_branch)"
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias diff="diff-so-fancy"
 alias l="ls -AhX --color=auto"
 alias bra="br -ghp"
