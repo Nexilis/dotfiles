@@ -2,9 +2,9 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 export TERM=xterm-256color # needed for tmux to work with 256 colors
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export FZF_DEFAULT_COMMAND="fd -H -t f --no-ignore-vcs"
+export FZF_DEFAULT_COMMAND="fdfind -H -t f --no-ignore-vcs"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd -H -t d"
+export FZF_ALT_C_COMMAND="fdfind -H -t d"
 export PATH="/snap/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -44,6 +44,7 @@ alias brh="br -ghp"
 alias brs="br -hs"
 alias cat="bat -p --paging=never"
 alias o="xdg-open"
+alias fd="fdfind"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 

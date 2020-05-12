@@ -15,7 +15,7 @@ rm -rf $HOME/Downloads/ripgrep_12.0.1_amd64.deb
 echo "bat"
 wget https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/bat_0.13.0_amd64.deb
-rm -rf bat_0.13.0_amd64.deb
+rm -rf $HOME/Downloads/bat_0.13.0_amd64.deb
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/mc
@@ -64,7 +64,7 @@ sudo apt update
 sudo apt install insomnia
 
 echo "dotnet, fsharp, sublime, brave, spotify, codium"
-wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -P $HOME/Downloads
+wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
 rm -rf ~/Downloads/packages-microsoft-prod.deb
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -101,3 +101,11 @@ wget https://sh.rustup.rs -O $HOME/Downloads/rustup-init.sh
 chmod +x $HOME/Downloads/rustup-init.sh
 ~/Downloads/rustup-init.sh -q -y
 rm -rf $HOME/Downloads/rustup-init.sh
+
+echo "JetBrains Mono"
+wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.3.zip -O $HOME/Downloads/JetBrainsMono.zip
+unzip -o $HOME/Downloads/JetBrainsMono.zip -d $HOME/Downloads
+sudo mv -f ~/Downloads/JetBrainsMono-1.0.3/ttf "/usr/share/fonts/truetype/JetBrains Mono"
+rm -rf $HOME/Downloads/JetBrainsMono.zip
+rm -rf $HOME/Downloads/JetBrainsMono-1.0.3
+fc-cache -f -v
