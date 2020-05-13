@@ -26,6 +26,7 @@ Plug 'drmikehenry/vim-fixkey'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thaerkh/vim-workspace'
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 
 set encoding=utf-8
@@ -66,6 +67,10 @@ let g:workspace_create_new_tabs = 0
 let g:workspace_session_directory = $HOME . '/.config/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
 let g:workspace_undodir = $HOME . '/.config/.vim/.undodir'
+" Removing trailing spaces on save causes problems when using vim-multiple-cursors
+let g:workspace_autosave_untrailspaces = 0
+" Alwasy use autosaving, also outside a session
+let g:workspace_autosave_always = 1
 
 nmap  <C-k> :bnext<CR>
 nmap  <C-j> :bprevious<CR>
