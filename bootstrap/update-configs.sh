@@ -2,7 +2,7 @@
 
 echo "zsh omz -> antigen"
 rm -rf ~/.oh-my-zsh
-mkdir ~/.zsh
+mkdir -p ~/.zsh
 wget git.io/antigen -O $HOME/.zsh/antigen.zsh
 echo "zsh rc"
 cp -f -r ../home/.zshrc ~/
