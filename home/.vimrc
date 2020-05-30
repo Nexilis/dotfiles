@@ -27,6 +27,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thaerkh/vim-workspace'
 " Plug 'terryma/vim-multiple-cursors'
+Plug 'brooth/far.vim'
 Plug 'liuchengxu/vim-which-key'
 call plug#end()
 
@@ -81,7 +82,8 @@ nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>
 nmap <leader>q :qa!<CR>
 nmap <leader>s :setlocal spell! spelllang=en_us<CR>
-nmap <leader>r :so $MYVIMRC<CR>
+nmap <leader>tr :so $MYVIMRC<CR>
+nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 " Force save as SUDO even if not sudo vim
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -112,21 +114,37 @@ map  N <Plug>(easymotion-prev)
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump=1
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Rg<CR>
-nnoremap <leader>fh :History<CR>
+nnoremap <leader>ft :Files<CR>
+nnoremap <leader>fc :Rg<CR>
+nnoremap <leader>hf :History<CR>
+nnoremap <leader>hc :History:<CR>
+nnoremap <leader>hs :History/<CR>
 " File path completion in Insert mode using fzf
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+
+" Far plugin
+nnoremap <silent> <leader>ff :Farf<cr>
+vnoremap <silent> <leader>ff :Farf<cr>
+nnoremap <silent> <leader>fr :Farr<cr>
+vnoremap <silent> <leader>fr :Farr<cr>
+nnoremap <silent> <leader>fd :Fardo<cr>
+vnoremap <silent> <leader>fd :Fardo<cr>
+nnoremap <silent> <leader>fu :Farundo<cr>
+vnoremap <silent> <leader>fu :Farundo<cr>
+let g:far#enable_undo=1 
 
 " Define prefix dictionary
 let g:which_key_map =  {}
 let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
-let g:which_key_map.r = "config-reload"
 let g:which_key_map.s = "spell-checking"
+let g:which_key_map.t = {
+            \ 'name': "+tools",
+            \ 'r':    "config-reload",
+            \}
 let g:which_key_map.b = {
             \ 'name': "+buffer",
             \ 'S':    "sudo-write",
@@ -138,15 +156,24 @@ let g:which_key_map.e = {
             \ 'name': "+easymotion",
             \ 'f':    "goto-word",
             \ 'l':    "goto-line",
-            \ 's':    "goto-two-chars",
-            \ 'j':    "goto-after-cursor-line",
-            \ 'k':    "goto-before-cursor-line",
+            \ 'j':    "goto-text-down",
+            \ 'k':    "goto-text-up",
+            \ 's':    "goto-word-two-chars",
             \}
 let g:which_key_map.f = {
-            \ 'name': "+fzf-search",
-            \ 'f':    "search-files",
-            \ 'b':    "search-text",
-            \ 'h':    "search-history",
+            \ 'name': "+find-replace",
+            \ 't':    "fzf-files",
+            \ 'c':    "fzf-text",
+            \ 'f':    "far-find",
+            \ 'r':    "far-replace",
+            \ 'd':    "far-do",
+            \ 'u':    "far-undo",
+            \}
+let g:which_key_map.h = {
+            \ 'name': "+history",
+            \ 'f':    "files",
+            \ 'c':    "commands",
+            \ 's':    "search",
             \}
 " Leader configuration with vim-which-key plugin
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
@@ -157,12 +184,6 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
-
-augroup which-key-hide-status
-  autocmd! FileType which_key
-  autocmd  FileType which_key set laststatus=0 noshowmode noruler
-    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
 
 augroup vimrc-remember-cursor-position
   autocmd!
