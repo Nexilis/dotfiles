@@ -63,7 +63,7 @@ set clipboard^=unnamed,unnamedplus
 set background=dark
 colorscheme space_vim_theme
 
-command! JsonFormat :%!python -mjson.tool
+command! JsonPrettify :%!python -mjson.tool
 
 let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
@@ -83,6 +83,7 @@ nmap <leader>j :bprevious<CR>
 nmap <leader>q :qa!<CR>
 nmap <leader>s :setlocal spell! spelllang=en_us<CR>
 nmap <leader>tr :so $MYVIMRC<CR>
+nmap <leader>tj :JsonPrettify<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 " Force save as SUDO even if not sudo vim
@@ -101,7 +102,8 @@ nmap <M-k> [e
 let g:EasyMotion_do_mapping = 0 
 let g:EasyMotion_smartcase = 1
 nmap <leader>ef <Plug>(easymotion-overwin-w)
-nmap <leader>es <Plug>(easymotion-overwin-f2)
+nmap <leader>e1 <Plug>(easymotion-overwin-f)
+nmap <leader>e2 <Plug>(easymotion-overwin-f2)
 nmap <leader>el <Plug>(easymotion-overwin-line)
 map <leader>ej <Plug>(easymotion-j)
 map <leader>ek <Plug>(easymotion-k)
@@ -144,6 +146,7 @@ let g:which_key_map.s = "spell-checking"
 let g:which_key_map.t = {
             \ 'name': "+tools",
             \ 'r':    "config-reload",
+            \ 'j':    "json-prettify",
             \}
 let g:which_key_map.b = {
             \ 'name': "+buffer",
@@ -154,11 +157,12 @@ let g:which_key_map.b = {
             \}
 let g:which_key_map.e = {
             \ 'name': "+easymotion",
-            \ 'f':    "goto-word",
-            \ 'l':    "goto-line",
-            \ 'j':    "goto-text-down",
-            \ 'k':    "goto-text-up",
-            \ 's':    "goto-word-two-chars",
+            \ 'f':    "word",
+            \ 'l':    "line",
+            \ 'j':    "text-down",
+            \ 'k':    "text-up",
+            \ '1':    "single-char",
+            \ '2':    "two-chars",
             \}
 let g:which_key_map.f = {
             \ 'name': "+find-replace",
