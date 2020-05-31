@@ -6,6 +6,7 @@ set undodir=$HOME/.config/.vim/undo//
 
 let g:plug_shallow=1
 call plug#begin('~/.config/.vim/plugged')
+Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
 Plug 'liuchengxu/space-vim-theme'
 Plug 'easymotion/vim-easymotion'
@@ -14,21 +15,14 @@ Plug 'tpope/vim-commentary'
  " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING, toggles yoh, yob, yow, yos
 Plug 'tpope/vim-unimpaired'
 Plug 'jiangmiao/auto-pairs'
-Plug 'guns/vim-clojure-static'
-Plug 'OrangeT/vim-csharp'
-Plug 'fsharp/vim-fsharp', {
-      \ 'for': 'fsharp',
-      \ 'do':  'make fsautocomplete',
-      \}
-Plug 'PProvost/vim-ps1'
  " Fix alt key when using Linux
 Plug 'drmikehenry/vim-fixkey'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thaerkh/vim-workspace'
-" Plug 'terryma/vim-multiple-cursors'
 Plug 'brooth/far.vim'
 Plug 'liuchengxu/vim-which-key'
+Plug 'mbbill/undotree'
 call plug#end()
 
 set encoding=utf-8
@@ -84,6 +78,7 @@ nmap <leader>q :qa!<CR>
 nmap <leader>s :setlocal spell! spelllang=en_us<CR>
 nmap <leader>tr :so $MYVIMRC<CR>
 nmap <leader>tj :JsonPrettify<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 " Force save as SUDO even if not sudo vim
@@ -116,7 +111,7 @@ map  N <Plug>(easymotion-prev)
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump=1
-nnoremap <leader>ft :Files<CR>
+nnoremap <leader>bo :Files<CR>
 nnoremap <leader>fc :Rg<CR>
 nnoremap <leader>hf :History<CR>
 nnoremap <leader>hc :History:<CR>
@@ -125,7 +120,6 @@ nnoremap <leader>hs :History/<CR>
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
-
 " Far plugin
 nnoremap <silent> <leader>ff :Farf<cr>
 vnoremap <silent> <leader>ff :Farf<cr>
@@ -143,6 +137,7 @@ let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
 let g:which_key_map.s = "spell-checking"
+let g:which_key_map.u = "undo-tree"
 let g:which_key_map.t = {
             \ 'name': "+tools",
             \ 'r':    "config-reload",
@@ -152,8 +147,9 @@ let g:which_key_map.b = {
             \ 'name': "+buffer",
             \ 'S':    "sudo-write",
             \ 'w':    "write",
-            \ 'x':    "buffer-destroy",
-            \ 'n':    "buffer-new",
+            \ 'o':    "open",
+            \ 'x':    "destroy",
+            \ 'n':    "new",
             \}
 let g:which_key_map.e = {
             \ 'name': "+easymotion",
@@ -166,12 +162,11 @@ let g:which_key_map.e = {
             \}
 let g:which_key_map.f = {
             \ 'name': "+find-replace",
-            \ 't':    "fzf-files",
-            \ 'c':    "fzf-text",
-            \ 'f':    "far-find",
-            \ 'r':    "far-replace",
-            \ 'd':    "far-do",
-            \ 'u':    "far-undo",
+            \ 'c':    "find-anywhere",
+            \ 'f':    "find",
+            \ 'r':    "replace",
+            \ 'd':    "replace-do",
+            \ 'u':    "replace-undo",
             \}
 let g:which_key_map.h = {
             \ 'name': "+history",
