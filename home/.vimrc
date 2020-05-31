@@ -23,6 +23,7 @@ Plug 'thaerkh/vim-workspace'
 Plug 'brooth/far.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mbbill/undotree'
+Plug 'terryma/vim-expand-region'
 call plug#end()
 
 set encoding=utf-8
@@ -91,6 +92,10 @@ nmap <leader>bn :enew<CR>
 " lines moving based on vim-unimpaired
 nmap <M-j> ]e
 nmap <M-k> [e
+
+" vim-expand-region
+map + <Plug>(expand_region_expand)
+map _ <Plug>(expand_region_shrink)
 
 " vim-easymotion
 " Disable default mappings
