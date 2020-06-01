@@ -107,6 +107,7 @@ nmap <leader>e2 <Plug>(easymotion-overwin-f2)
 nmap <leader>el <Plug>(easymotion-overwin-line)
 map <leader>ej <Plug>(easymotion-j)
 map <leader>ek <Plug>(easymotion-k)
+nmap f <Plug>(easymotion-overwin-f)
 " replace vim search
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
