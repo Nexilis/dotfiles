@@ -56,6 +56,8 @@ set colorcolumn=120
 set hidden
 set clipboard^=unnamed,unnamedplus
 set background=dark
+set listchars=tab:→\ ,trail:·,nbsp:·,space:·
+set list
 colorscheme space_vim_theme
 
 command! JsonPrettify :%!python -mjson.tool
@@ -105,8 +107,8 @@ nmap <leader>ef <Plug>(easymotion-overwin-w)
 nmap <leader>e1 <Plug>(easymotion-overwin-f)
 nmap <leader>e2 <Plug>(easymotion-overwin-f2)
 nmap <leader>el <Plug>(easymotion-overwin-line)
-map <leader>ej <Plug>(easymotion-j)
-map <leader>ek <Plug>(easymotion-k)
+map  <leader>ej <Plug>(easymotion-j)
+map  <leader>ek <Plug>(easymotion-k)
 nmap f <Plug>(easymotion-overwin-f)
 " replace vim search
 map  / <Plug>(easymotion-sn)
