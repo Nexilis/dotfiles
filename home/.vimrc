@@ -8,7 +8,7 @@ let g:plug_shallow=1
 call plug#begin('~/.config/.vim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'liuchengxu/space-vim-theme'
+Plug 'cocopon/iceberg.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
@@ -24,12 +24,14 @@ Plug 'brooth/far.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-expand-region'
+Plug 'Yggdroot/indentLine'
 call plug#end()
 
 set encoding=utf-8
 set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
+colorscheme iceberg
 set backup
 set swapfile
 set undofile
@@ -50,7 +52,6 @@ set path+=**
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.
 set number
-set relativenumber
 set autoread
 set colorcolumn=120
 set hidden
@@ -58,13 +59,12 @@ set clipboard^=unnamed,unnamedplus
 set background=dark
 set listchars=tab:→\ ,trail:·,nbsp:·,space:·
 set list
-colorscheme space_vim_theme
-
+let g:indentLine_char = '┊'
 command! JsonPrettify :%!python -mjson.tool
 
 let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
-set timeoutlen=500
+set timeoutlen=750
 
 let g:workspace_create_new_tabs = 0
 let g:workspace_session_directory = $HOME . '/.config/.vim/sessions/'
@@ -81,6 +81,7 @@ nmap <leader>q :qa!<CR>
 nmap <leader>s :setlocal spell! spelllang=en_us<CR>
 nmap <leader>tr :so $MYVIMRC<CR>
 nmap <leader>tj :JsonPrettify<CR>
+nmap <leader>tl :IndentLinesToggle<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
@@ -124,7 +125,7 @@ nnoremap <leader>fc :Rg<CR>
 nnoremap <leader>hf :History<CR>
 nnoremap <leader>hc :History:<CR>
 nnoremap <leader>hs :History/<CR>
-" File path completion in Insert mode using fzf
+" Completions in Insert mode using fzf
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
@@ -139,17 +140,28 @@ nnoremap <silent> <leader>fu :Farundo<cr>
 vnoremap <silent> <leader>fu :Farundo<cr>
 let g:far#enable_undo=1 
 
+" window mappings
+nnoremap <leader>wq <C-w>q
+nnoremap <leader>ws :split<cr>
+nnoremap <leader>wv :vsplit<cr>
+nnoremap <leader>wo :only<cr>
+nnoremap <leader>wh <C-w>h
+nnoremap <leader>wj <C-w>j
+nnoremap <leader>wk <C-w>k
+nnoremap <leader>wl <C-w>l
+
 " Define prefix dictionary
 let g:which_key_map =  {}
 let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
-let g:which_key_map.s = "spell-checking"
-let g:which_key_map.u = "undo-tree"
+let g:which_key_map.s = "spell-checking-toggle"
+let g:which_key_map.u = "undo-tree-toggle"
 let g:which_key_map.t = {
             \ 'name': "+tools",
             \ 'r':    "config-reload",
             \ 'j':    "json-prettify",
+            \ 'l':    "indent-lines-toggle",
             \}
 let g:which_key_map.b = {
             \ 'name': "+buffer",
@@ -182,6 +194,18 @@ let g:which_key_map.h = {
             \ 'c':    "commands",
             \ 's':    "search",
             \}
+let g:which_key_map.w = {
+            \ 'name': "+window",
+            \ 'q':    "close",
+            \ 's':    "split-horizontal",
+            \ 'v':    "split-vertical",
+            \ 'h':    "focus-left",
+            \ 'j':    "focus-down",
+            \ 'k':    "focus-up",
+            \ 'l':    "focus-right",
+            \ 'o':    "only-current-window",
+            \}
+
 " Leader configuration with vim-which-key plugin
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
