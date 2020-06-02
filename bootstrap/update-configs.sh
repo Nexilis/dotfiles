@@ -10,9 +10,10 @@ echo "config mc"
 rm -rf ~/.config/mc
 cp -f -r ../.config/mc ~/.config/mc
 echo "config vim"
-cp -f -r ../.config/.vim ~/.config/.vim
-cp -f -r ../home/.vimrc ~/
 rm -rf ~/_vimrc
+rm -rf ~/.vimrc
+cp -f -r ../.config/.vim ~/.config/.vim
+ln -s ~/proj/dotfiles/home/.vimrc ~/.vimrc
 echo "config git"
 cp -f -r ../home/.gitconfig ~/
 #cp -f -r ../home/.gitconfig-github ~/
