@@ -205,6 +205,7 @@ let g:which_key_map.w = {
             \ 'l':    "focus-right",
             \ 'o':    "only-current-window",
             \}
+let g:which_key_vertical = 1
 
 " Leader configuration with vim-which-key plugin
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
