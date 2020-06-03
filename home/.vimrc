@@ -25,6 +25,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-expand-region'
 Plug 'Yggdroot/indentLine'
+Plug 'sbdchd/neoformat'
 call plug#end()
 
 set encoding=utf-8
@@ -32,6 +33,10 @@ set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
 colorscheme iceberg
+if has("gui_running")
+  set guioptions=i
+  set guifont=Cascadia\ Code\ PL\ 13
+endif
 set backup
 set swapfile
 set undofile
@@ -66,6 +71,11 @@ let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
 set timeoutlen=750
 
+" Enable basic formatting when a filetype is not found
+let g:neoformat_basic_format_align = 1
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim = 1
+
 let g:workspace_create_new_tabs = 0
 let g:workspace_session_directory = $HOME . '/.config/.vim/sessions/'
 let g:workspace_session_disable_on_args = 1
@@ -81,7 +91,10 @@ nmap <leader>q :qa!<CR>
 nmap <leader>s :setlocal spell! spelllang=en_us<CR>
 nmap <leader>tr :so $MYVIMRC<CR>
 nmap <leader>tj :JsonPrettify<CR>
+nmap <leader>tf :Neoformat<CR>
 nmap <leader>tl :IndentLinesToggle<CR>
+nmap <leader>tw :ToggleWorkspace<CR>
+nmap <leader>ta :ToggleAutosave<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
@@ -162,6 +175,9 @@ let g:which_key_map.t = {
             \ 'r':    "config-reload",
             \ 'j':    "json-prettify",
             \ 'l':    "indent-lines-toggle",
+            \ 'f':    "autoformat",
+            \ 'w':    "workspace-toggle",
+            \ 'a':    "autosave-toggle",
             \}
 let g:which_key_map.b = {
             \ 'name': "+buffer",
