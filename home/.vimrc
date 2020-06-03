@@ -88,7 +88,7 @@ let g:workspace_autosave_always = 1
 nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>
 nmap <leader>q :qa!<CR>
-nmap <leader>s :setlocal spell! spelllang=en_us<CR>
+nmap <leader>ts :setlocal spell! spelllang=en_us<CR>
 nmap <leader>tr :so $MYVIMRC<CR>
 nmap <leader>tj :JsonPrettify<CR>
 nmap <leader>tf :Neoformat<CR>
@@ -168,7 +168,6 @@ let g:which_key_map =  {}
 let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
-let g:which_key_map.s = "spell-checking-toggle"
 let g:which_key_map.u = "undo-tree-toggle"
 let g:which_key_map.t = {
             \ 'name': "+tools",
@@ -178,6 +177,7 @@ let g:which_key_map.t = {
             \ 'f':    "autoformat",
             \ 'w':    "workspace-toggle",
             \ 'a':    "autosave-toggle",
+            \ 's':    "spellchecker-toggle",
             \}
 let g:which_key_map.b = {
             \ 'name': "+buffer",
