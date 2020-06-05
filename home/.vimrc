@@ -95,6 +95,17 @@ nmap <leader>tf :Neoformat<CR>
 nmap <leader>tl :IndentLinesToggle<CR>
 nmap <leader>tw :ToggleWorkspace<CR>
 nmap <leader>ta :ToggleAutosave<CR>
+
+" delete without copying (puts to the balck hole register "_")
+nnoremap x "_x
+nnoremap d "_d
+vnoremap d "_d
+nnoremap D "_D
+" cut
+nnoremap <leader>x d
+vnoremap <leader>x d
+nnoremap <leader>X D
+
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
@@ -169,6 +180,8 @@ let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
 let g:which_key_map.u = "undo-tree-toggle"
+let g:which_key_map.x = "cut-selection"
+let g:which_key_map.X = "cut-after"
 let g:which_key_map.t = {
             \ 'name': "+tools",
             \ 'r':    "config-reload",
