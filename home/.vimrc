@@ -197,7 +197,7 @@ let g:which_key_map.b = {
             \ 'S':    "sudo-write",
             \ 'w':    "write",
             \ 'o':    "open",
-            \ 'x':    "destroy",
+            \ 'x':    "close",
             \ 'n':    "new",
             \}
 let g:which_key_map.e = {
