@@ -20,3 +20,5 @@ cp -f -r ../home/.gitconfig ~/
 echo "config alacritty"
 rm -rf ~/.config/alacritty
 cp -f -r ../.config/alacritty ~/.config/alacritty
+echo "config conky"
+cp -f -r ../home/.conkyrc ~/
