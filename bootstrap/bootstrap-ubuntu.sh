@@ -63,7 +63,7 @@ wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
 sudo apt update
 sudo apt install insomnia
 
-echo "dotnet, fsharp, sublime, brave, spotify, codium"
+echo "dotnet, fsharp, sublime, brave"
 wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -P $HOME/Downloads
 sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
 rm -rf ~/Downloads/packages-microsoft-prod.deb
@@ -71,14 +71,10 @@ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-wget -qO - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg | sudo apt-key add -
-echo 'deb https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/repos/debs/ vscodium main' | sudo tee --append /etc/apt/sources.list.d/vscodium.list
 
 sudo apt update
 sudo apt install dotnet-sdk-3.1 fsharp -y
-sudo apt install sublime-text sublime-merge brave-browser spotify-client codium -y
+sudo apt install sublime-text sublime-merge brave-browser -y
 
 echo "adoptopenjdk java, leiningen, clojure"
 wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
