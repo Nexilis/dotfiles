@@ -52,6 +52,11 @@ wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party
 sudo mv ~/Downloads/diff-so-fancy /usr/local/bin
 sudo chmod +x /usr/local/bin/diff-so-fancy
 
+echo "lazygit"
+sudo add-apt-repository ppa:lazygit-team/release
+sudo apt update
+sudo apt install lazygit
+
 echo "joplin"
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
 

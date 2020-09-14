@@ -35,7 +35,8 @@ let $LANG='en_US.utf-8'
 colorscheme iceberg
 if has("gui_running")
   set guioptions=i
-  set guifont=Cascadia\ Code\ PL\ 13
+  set guifont=Cascadia\ Code\ PL\ 10
+  set lines=60 columns=180
 endif
 set backup
 set swapfile
@@ -61,7 +62,7 @@ set autoread
 set colorcolumn=120
 set hidden
 set clipboard^=unnamed,unnamedplus
-set background=dark
+set background=light
 set listchars=tab:→\ ,trail:·,nbsp:·,space:·
 set list
 let g:indentLine_char = '┊'
