@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.6 beta" ConfigVersion="10">
+<doublecmd DCVersion="0.9.8 beta" ConfigVersion="10">
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
     <FolderTabs Save="True"/>
@@ -297,10 +297,6 @@
     <Position Save="True">
       <Maximized>False</Maximized>
       <Splitter>50</Splitter>
-      <Left>306</Left>
-      <Top>138</Top>
-      <Width>1374</Width>
-      <Height>777</Height>
       <PixelsPerInch>96</PixelsPerInch>
     </Position>
   </MainWindow>
@@ -386,7 +382,7 @@
     <AutoSizeColumn>0</AutoSizeColumn>
     <CustomColumnsChangeAllColumns>False</CustomColumnsChangeAllColumns>
     <BriefViewFileExtAligned>False</BriefViewFileExtAligned>
-    <DateTimeFormat>yyyy/mm/dd hh:mm:ss</DateTimeFormat>
+    <DateTimeFormat>yyyy-mm-dd hh:mm:ss</DateTimeFormat>
     <CutTextToColumnWidth>True</CutTextToColumnWidth>
     <ExtendCellWidth>False</ExtendCellWidth>
     <ShowSystemFiles>True</ShowSystemFiles>
@@ -404,11 +400,11 @@
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
-    <Editor Enabled="False">
-      <Path>/opt/sublime_text/sublime_text</Path>
+    <Editor Enabled="True">
+      <Path>nvim</Path>
       <Parameters/>
-      <RunInTerminal>False</RunInTerminal>
-      <KeepTerminalOpen>False</KeepTerminalOpen>
+      <RunInTerminal>True</RunInTerminal>
+      <KeepTerminalOpen>True</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="False">
       <Path/>
@@ -420,19 +416,19 @@
   </Tools>
   <Fonts>
     <Main>
-      <Name>Fira Code</Name>
-      <Size>9</Size>
+      <Name>Monospace</Name>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>Fira Mono</Name>
+      <Name>Monospace</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Fira Mono</Name>
+      <Name>Monospace</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -456,8 +452,8 @@
       <Quality>0</Quality>
     </SearchResults>
     <PathEdit>
-      <Name>Fira Mono</Name>
-      <Size>9</Size>
+      <Name>Monospace</Name>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </PathEdit>
@@ -469,7 +465,7 @@
     </FunctionButtons>
     <Log>
       <Name>Monospace</Name>
-      <Size>9</Size>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Log>
@@ -481,7 +477,7 @@
     </ViewerBook>
     <Console>
       <Name>Monospace</Name>
-      <Size>9</Size>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Console>
@@ -500,7 +496,7 @@
       <IconSize>16</IconSize>
       <ReportErrorWithCommands>False</ReportErrorWithCommands>
     </ButtonBar>
-    <DriveBar1>False</DriveBar1>
+    <DriveBar1>True</DriveBar1>
     <DriveBar2>True</DriveBar2>
     <DriveBarFlat>True</DriveBarFlat>
     <DrivesListButton Enabled="True">
@@ -513,7 +509,7 @@
     <CurrentDirectory>True</CurrentDirectory>
     <TabHeader>True</TabHeader>
     <StatusBar>True</StatusBar>
-    <CmdLine>False</CmdLine>
+    <CmdLine>True</CmdLine>
     <LogWindow>False</LogWindow>
     <TermWindow>False</TermWindow>
     <KeyButtons>True</KeyButtons>
@@ -527,9 +523,9 @@
   </Layout>
   <FilesViews>
     <Sorting>
-      <CaseSensitivity>0</CaseSensitivity>
-      <NaturalSorting>False</NaturalSorting>
-      <SortFolderMode>0</SortFolderMode>
+      <CaseSensitivity>1</CaseSensitivity>
+      <NaturalSorting>True</NaturalSorting>
+      <SortFolderMode>1</SortFolderMode>
       <NewFilesPosition>2</NewFilesPosition>
       <UpdatedFilesPosition>2</UpdatedFilesPosition>
     </Sorting>
@@ -625,8 +621,8 @@
     <SaveSessionModifications>False</SaveSessionModifications>
   </QuickFilter>
   <Miscellaneous>
-    <GridVertLine>False</GridVertLine>
-    <GridHorzLine>False</GridHorzLine>
+    <GridVertLine>True</GridVertLine>
+    <GridHorzLine>True</GridHorzLine>
     <ShowWarningMessages>True</ShowWarningMessages>
     <SpaceMovesDown>False</SpaceMovesDown>
     <DirBrackets>True</DirBrackets>
