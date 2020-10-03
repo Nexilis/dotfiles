@@ -1,4 +1,4 @@
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 export TERM=xterm-256color # needed for tmux to work with 256 colors
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -48,5 +48,3 @@ alias fd="fdfind"
 alias lg="lazygit"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-neofetch
