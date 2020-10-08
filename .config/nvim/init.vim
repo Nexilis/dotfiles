@@ -234,7 +234,31 @@ let g:which_key_map.w = {
             \ 'l':    "focus-right",
             \ 'o':    "only-current-window",
             \}
-let g:which_key_vertical = 1
+
+" Syntax
+nnoremap <leader>sc :set syn=cs<CR>
+nnoremap <leader>sf :set syn=fsharp<CR>
+nnoremap <leader>sj :set syn=javascript<CR>
+nnoremap <leader>st :set syn=typescript<CR>
+nnoremap <leader>ss :set syn=json<CR>
+nnoremap <leader>sx :set syn=xml<CR>
+nnoremap <leader>sb :set syn=sh<CR>
+nnoremap <leader>sm :set syn=terrafrom<CR>
+nnoremap <leader>sr :set syn=rust<CR>
+nnoremap <leader>sl :set syn=clojure<CR>
+let g:which_key_map.s = {
+            \ 'name': "+syntax",
+            \ 'c':    "c#",
+            \ 'f':    "f#",
+            \ 'j':    "js",
+            \ 't':    "ts",
+            \ 's':    "json",
+            \ 'x':    "xml",
+            \ 'b':    "bash",
+            \ 'm':    "terraform",
+            \ 'r':    "rust",
+            \ 'l':    "clojure",
+            \}
 
 " Leader configuration with vim-which-key plugin
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
