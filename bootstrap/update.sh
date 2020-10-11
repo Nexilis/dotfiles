@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "zsh omz -> antigen"
+echo "transit zsh omz -> to antigen"
 rm -rf ~/.oh-my-zsh
 mkdir -p ~/.zsh
 wget git.io/antigen -O $HOME/.zsh/antigen.zsh
@@ -34,3 +34,8 @@ cp -f -r ../.config/alacritty ~/.config/alacritty
 
 echo "config conky"
 cp -f -r ../home/.conkyrc ~/
+
+sh ripgrep.sh
+sh bat.sh
+sh broot.sh
+sh micro.sh

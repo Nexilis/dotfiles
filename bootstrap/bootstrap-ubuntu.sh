@@ -1,21 +1,21 @@
 #!/usr/bin/env bash
 
-sudo apt install software-properties-common curl apt-transport-https xclip fd-find vim-gtk3 mc tmux htop neofetch fonts-firacode -y
-./bootstrap-zsh.sh
+sudo apt install software-properties-common curl apt-transport-https xclip fd-find mc htop fonts-firacode -y
+
+sh zsh.sh
+sh ripgrep.sh
+sh bat.sh
+sh broot.sh
+sh nvim.sh
+sh micro.sh
+sh jdk-programming.sh
+sh dotnet-programming.sh
+sh js-programming.sh
+sh rust-programming.sh
 
 echo "fzf"
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ~/.fzf/install --all
-
-echo "ripgrep"
-wget https://github.com/BurntSushi/ripgrep/releases/download/12.0.1/ripgrep_12.0.1_amd64.deb -P $HOME/Downloads
-sudo dpkg -i $HOME/Downloads/ripgrep_12.0.1_amd64.deb
-rm -rf $HOME/Downloads/ripgrep_12.0.1_amd64.deb
-
-echo "bat"
-wget https://github.com/sharkdp/bat/releases/download/v0.13.0/bat_0.13.0_amd64.deb -P $HOME/Downloads
-sudo dpkg -i $HOME/Downloads/bat_0.13.0_amd64.deb
-rm -rf $HOME/Downloads/bat_0.13.0_amd64.deb
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/mc
@@ -28,24 +28,6 @@ echo "config git"
 cp -f -r ../home/.gitconfig ~/
 cp -f -r ../home/.gitconfig-github ~/
 cp -f -r ../home/.gitconfig-work ~/
-
-echo "broot"
-wget https://dystroy.org/broot/download/x86_64-linux/broot -P $HOME/Downloads
-sudo mv ~/Downloads/broot /usr/local/bin/broot
-sudo chmod +x /usr/local/bin/broot
-/usr/local/bin/broot --install
-
-echo "micro"
-function githubLatestTag {
-    finalUrl=$(curl "https://github.com/$1/releases/latest" -s -L -I -o /dev/null -w '%{url_effective}')
-    echo "${finalUrl##*v}"
-}
-TAG=$(githubLatestTag zyedidia/micro)
-wget "https://github.com/zyedidia/micro/releases/download/v$TAG/micro-$TAG-linux64.tar.gz" -O $HOME/Downloads/micro.tar.gz
-tar -xvzf $HOME/Downloads/micro.tar.gz "micro-$TAG/micro"
-sudo mv "micro-$TAG/micro" /usr/local/bin/micro
-rm $HOME/Downloads/micro.tar.gz
-rm -rf "micro-$TAG"
 
 echo "diff-so-fancy"
 wget https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -P $HOME/Downloads
@@ -68,50 +50,17 @@ wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
 sudo apt update
 sudo apt install insomnia
 
-echo "dotnet, fsharp, sublime, brave"
-wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -P $HOME/Downloads
-sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
-rm -rf ~/Downloads/packages-microsoft-prod.deb
+echo "sublime text & merge"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+sudo apt update
+sudo apt install sublime-text sublime-merge -y
+
+echo "brave"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-
 sudo apt update
-sudo apt install dotnet-sdk-3.1 fsharp -y
-sudo apt install sublime-text sublime-merge brave-browser -y
-
-echo "adoptopenjdk java, leiningen, clojure"
-wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
-sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
-sudo apt-get update
-sudo apt-get install adoptopenjdk-14-hotspot rlwrap -y
-wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -O $HOME/Downloads/lein
-sudo mv ~/Downloads/lein /usr/local/bin/lein
-sudo chmod a+x /usr/local/bin/lein
-wget https://download.clojure.org/install/linux-install-1.10.1.536.sh -O $HOME/Downloads/clj-install.sh
-chmod +x $HOME/Downloads/clj-install.sh
-sudo $HOME/Downloads/clj-install.sh
-rm -rf $HOME/Downloads/clj-install.sh
-java -version
-lein version
-clj -h
-
-echo "nodejs"
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt update && sudo apt install nodejs tidy -y
-sudo npm -g install js-beautify
-
-echo "yarn"
-curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt update && sudo apt install yarn
-
-echo "rust"
-wget https://sh.rustup.rs -O $HOME/Downloads/rustup-init.sh
-chmod +x $HOME/Downloads/rustup-init.sh
-~/Downloads/rustup-init.sh -q -y
-rm -rf $HOME/Downloads/rustup-init.sh
+sudo apt install brave-browser -y
 
 echo "JetBrains Mono"
 wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.3.zip -O $HOME/Downloads/JetBrainsMono.zip
