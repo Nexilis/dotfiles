@@ -37,7 +37,7 @@ sudo chmod +x /usr/local/bin/diff-so-fancy
 echo "lazygit"
 sudo add-apt-repository ppa:lazygit-team/release
 sudo apt update
-sudo apt install lazygit
+sudo apt install lazygit -y
 
 echo "joplin"
 wget -O - https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh | bash
@@ -48,7 +48,11 @@ echo "deb https://dl.bintray.com/getinsomnia/Insomnia /" \
 wget --quiet -O - https://insomnia.rest/keys/debian-public.key.asc \
     | sudo apt-key add -
 sudo apt update
-sudo apt install insomnia
+sudo apt install insomnia -y
+
+echo "python & pip"
+sudo apt update
+sudo apt install python3 python3-pip -y
 
 echo "sublime text & merge"
 wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
