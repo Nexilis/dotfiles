@@ -157,8 +157,7 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> cd
   \ defx#do_action('change_vim_cwd')
 endfunction
-
-nmap <leader>t :Defx -split=vertical -winwidth=50 -direction=topleft -ignored-files=.git<CR>
+nmap <leader>t :Defx -split=vertical -winwidth=50 -ignored-files=.git<CR>
 
 nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>
@@ -212,11 +211,6 @@ nmap <leader>el <Plug>(easymotion-overwin-line)
 map  <leader>ej <Plug>(easymotion-j)
 map  <leader>ek <Plug>(easymotion-k)
 nmap f <Plug>(easymotion-overwin-f)
-" replace vim search
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
 
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
@@ -240,6 +234,13 @@ vnoremap <silent> <leader>fd :Fardo<cr>
 nnoremap <silent> <leader>fu :Farundo<cr>
 vnoremap <silent> <leader>fu :Farundo<cr>
 let g:far#enable_undo=1
+" % means currently open file
+let g:far#default_file_mask='%'
+if has('nvim')
+  let g:far#source='rgnvim'
+else
+  let g:far#source='rg'
+endif
 
 " window mappings
 nnoremap <leader>wq <C-w>q
