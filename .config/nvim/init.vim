@@ -25,6 +25,14 @@ Plug 'mbbill/undotree'
 Plug 'terryma/vim-expand-region'
 Plug 'Yggdroot/indentLine'
 Plug 'sbdchd/neoformat'
+" defx is a file tree plugin
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
 call plug#end()
 
 set encoding=utf-8
@@ -85,16 +93,83 @@ let g:workspace_autosave_untrailspaces = 0
 " Alwasy use autosaving, also outside a session
 let g:workspace_autosave_always = 1
 
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('multi', ['drop', 'quit'])
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('open')
+  nnoremap <silent><buffer><expr> E
+  \ defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P
+  \ defx#do_action('preview')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_tree', 'toggle')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M
+  \ defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C
+  \ defx#do_action('toggle_columns',
+  \                'mark:indent:icon:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S
+  \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+endfunction
+
+nmap <leader>t :Defx -split=vertical -winwidth=50 -direction=topleft -ignored-files=.git<CR>
+
 nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>
 nmap <leader>q :qa!<CR>
-nmap <leader>ts :setlocal spell! spelllang=en_us<CR>
-nmap <leader>tr :so $MYVIMRC<CR>
-nmap <leader>tj :JsonPrettify<CR>
-nmap <leader>tf :Neoformat<CR>
-nmap <leader>tl :IndentLinesToggle<CR>
-nmap <leader>tw :ToggleWorkspace<CR>
-nmap <leader>ta :ToggleAutosave<CR>
+nmap <leader>Ts :setlocal spell! spelllang=en_us<CR>
+nmap <leader>Tr :so $MYVIMRC<CR>
+nmap <leader>Tj :JsonPrettify<CR>
+nmap <leader>Tf :Neoformat<CR>
+nmap <leader>Tl :IndentLinesToggle<CR>
+nmap <leader>Tw :ToggleWorkspace<CR>
+nmap <leader>Ta :ToggleAutosave<CR>
 
 " delete without copying (puts to the balck hole register "_")
 nnoremap x "_x
@@ -106,6 +181,8 @@ nnoremap <leader>x d
 vnoremap <leader>x d
 nnoremap <leader>X D
 
+let g:undotree_WindowLayout = 2
+let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
@@ -182,8 +259,9 @@ let g:which_key_map.q = "quit"
 let g:which_key_map.u = "undo-tree-toggle"
 let g:which_key_map.x = "cut-selection"
 let g:which_key_map.X = "cut-after"
-let g:which_key_map.t = {
-            \ 'name': "+tools",
+let g:which_key_map.t = "tree"
+let g:which_key_map.T = {
+            \ 'name': "+Tools",
             \ 'r':    "config-reload",
             \ 'j':    "json-prettify",
             \ 'l':    "indent-lines-toggle",
