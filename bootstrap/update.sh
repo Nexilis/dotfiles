@@ -15,12 +15,14 @@ cp -f -r ../.config/mc ~/.config/mc
 echo "config vim"
 rm -rf ~/_vimrc
 rm -rf ~/.vimrc
+rm -rf ~/.config/vim
 cp -f -r ../.config/.vim ~/.config/.vim
 ln -s ~/proj/dotfiles/home/.vimrc ~/.vimrc
 
 echo "config neovim"
 cp -f -r ../.config/nvim ~/.config/nvim
-rm -f ~/.config/nvim/init.vim
+rm -rf ~/.config/nvim/init.vim
+rm -rf ~/.config/nvim/plugged/fzf/bin
 ln -s ~/proj/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
 
 echo "config git"
