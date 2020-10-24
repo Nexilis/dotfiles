@@ -622,7 +622,7 @@
   </QuickFilter>
   <Miscellaneous>
     <GridVertLine>True</GridVertLine>
-    <GridHorzLine>True</GridHorzLine>
+    <GridHorzLine>False</GridHorzLine>
     <ShowWarningMessages>True</ShowWarningMessages>
     <SpaceMovesDown>False</SpaceMovesDown>
     <DirBrackets>True</DirBrackets>
