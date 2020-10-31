@@ -9,6 +9,6 @@ echo "neovim python support"
 pip3 install --user pynvim
 
 echo "config neovim"
-cp -f -r ../.config/nvim ~/.config/nvim
+cp -f -r ../.config/nvim ~/.config/
 rm -f ~/.config/nvim/init.vim
 ln -s ~/proj/dotfiles/.config/nvim/init.vim ~/.config/nvim/init.vim
