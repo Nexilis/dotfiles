@@ -2,14 +2,10 @@
 
 sudo dnf install zsh util-linux-user bat fd ripgrep neovim mc htop micro -y
 
-echo "zsh antigen"
+echo "config zsh"
 mkdir ~/.zsh
 wget git.io/antigen -O $HOME/.zsh/antigen.zsh
-
-echo "zsh rc"
 cp -f -r ../home/.zshrc ~/
-
-echo "chsh zsh"
 chsh -s $(which zsh)
 
 sh fzf.sh
@@ -42,8 +38,8 @@ sudo dnf copr enable atim/lazygit -y
 sudo dnf install lazygit -y
 
 echo "doublecmd"
-sudo dnf copr enable vondruch/doublecmd
-sudo dnf install doublecmd-gtk
+sudo dnf copr enable vondruch/doublecmd -y
+sudo dnf install doublecmd-gtk -y
 cp -f -r ../.config/doublecmd ~/.config/
 
 # todo:
