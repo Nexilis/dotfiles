@@ -15,13 +15,14 @@ sh jdk-programming.sh
 sh dotnet-programming.sh
 sh js-programming.sh
 sh rust-programming.sh
+sh jetbrains-mono.sh
 
 echo "config mc"
-cp -f -r ../.config/mc ~/.config/mc
+cp -f -r ../.config/mc ~/.config/
 
 echo "config vim"
 rm -rf ~/.config/vim
-cp -f -r ../.config/.vim ~/.config/.vim
+cp -f -r ../.config/.vim ~/.config/
 cp -f -r ../home/.vimrc ~/
 
 echo "config git"
@@ -57,11 +58,3 @@ curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 sudo apt update
 sudo apt install brave-browser -y
-
-echo "JetBrains Mono"
-wget https://download.jetbrains.com/fonts/JetBrainsMono-1.0.3.zip -O $HOME/Downloads/JetBrainsMono.zip
-unzip -o $HOME/Downloads/JetBrainsMono.zip -d $HOME/Downloads
-sudo mv -f ~/Downloads/JetBrainsMono-1.0.3/ttf "/usr/share/fonts/truetype/JetBrains Mono"
-rm -rf $HOME/Downloads/JetBrainsMono.zip
-rm -rf $HOME/Downloads/JetBrainsMono-1.0.3
-fc-cache -f -v
