@@ -401,10 +401,10 @@
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
     <Editor Enabled="True">
-      <Path>nvim</Path>
+      <Path>subl</Path>
       <Parameters/>
-      <RunInTerminal>True</RunInTerminal>
-      <KeepTerminalOpen>True</KeepTerminalOpen>
+      <RunInTerminal>False</RunInTerminal>
+      <KeepTerminalOpen>False</KeepTerminalOpen>
     </Editor>
     <Differ Enabled="False">
       <Path/>
