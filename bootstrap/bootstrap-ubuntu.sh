@@ -11,7 +11,6 @@ sh nvim.sh
 sh micro.sh
 sh diff-so-fancy.sh
 sh joplin.sh
-sh jdk-programming.sh
 sh dotnet-programming.sh
 sh js-programming.sh
 sh rust-programming.sh
@@ -58,3 +57,10 @@ curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt
 echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
 sudo apt update
 sudo apt install brave-browser -y
+
+echo "adoptopenjdk java"
+wget -qO - https://adoptopenjdk.jfrog.io/adoptopenjdk/api/gpg/key/public | sudo apt-key add -
+sudo add-apt-repository --yes https://adoptopenjdk.jfrog.io/adoptopenjdk/deb/
+sudo apt-get update
+sudo apt-get install adoptopenjdk-14-hotspot rlwrap -y
+sh jdk-programming.sh

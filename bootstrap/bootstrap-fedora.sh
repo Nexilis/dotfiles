@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo dnf install zsh util-linux-user bat fd ripgrep neovim mc htop micro tilix -y
+sudo dnf install zsh util-linux-user bat fd ripgrep neovim mc htop micro tilix fira-code-fonts -y
 
 echo "config zsh"
 mkdir ~/.zsh
@@ -43,10 +43,12 @@ sudo dnf install doublecmd-gtk -y
 cp -f -r ../.config/doublecmd ~/.config/
 
 # todo:
-# sh jdk-programming.sh
 # sh dotnet-programming.sh
 # sh js-programming.sh
 # sh rust-programming.sh
 # insomnia
 # python & pip
-# fonts-firacode
+
+echo "latest java"
+sudo dnf install java-latest-openjdk-devel rlwrap -y
+sh jdk-programming.sh
