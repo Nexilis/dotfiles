@@ -13,6 +13,7 @@ sh broot.sh
 sh joplin.sh
 sh jetbrains-mono.sh
 sh diff-so-fancy.sh
+sh rust-programming.sh
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/
@@ -45,7 +46,6 @@ cp -f -r ../.config/doublecmd ~/.config/
 # todo:
 # sh dotnet-programming.sh
 # sh js-programming.sh
-# sh rust-programming.sh
 # insomnia
 # python & pip
 
