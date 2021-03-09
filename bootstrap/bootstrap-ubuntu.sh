@@ -10,7 +10,6 @@ sh broot.sh
 sh nvim.sh
 sh micro.sh
 sh diff-so-fancy.sh
-sh joplin.sh
 sh dotnet-programming.sh
 sh js-programming.sh
 sh rust-programming.sh
