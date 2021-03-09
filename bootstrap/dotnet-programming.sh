@@ -6,4 +6,4 @@ sudo dpkg -i $HOME/Downloads/packages-microsoft-prod.deb
 rm -rf ~/Downloads/packages-microsoft-prod.deb
 
 sudo apt update
-sudo apt install dotnet-sdk-3.1 fsharp -y
+sudo apt install dotnet-sdk-5.0 fsharp -y
