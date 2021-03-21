@@ -3,6 +3,7 @@
 sudo apt install software-properties-common curl apt-transport-https xclip fd-find mc htop fonts-firacode -y
 
 sh zsh.sh
+sh starship.sh
 sh fzf.sh
 sh ripgrep.sh
 sh bat.sh

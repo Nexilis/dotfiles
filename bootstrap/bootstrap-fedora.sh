@@ -8,6 +8,7 @@ wget git.io/antigen -O $HOME/.zsh/antigen.zsh
 cp -f -r ../home/.zshrc ~/
 chsh -s $(which zsh)
 
+sh starship.sh
 sh fzf.sh
 sh broot.sh
 sh joplin.sh
