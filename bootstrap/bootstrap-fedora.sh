@@ -15,6 +15,7 @@ sh joplin.sh
 sh jetbrains-mono.sh
 sh diff-so-fancy.sh
 sh rust-programming.sh
+sh exa.sh
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/

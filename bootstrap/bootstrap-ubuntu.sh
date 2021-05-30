@@ -15,6 +15,7 @@ sh dotnet-programming.sh
 sh js-programming.sh
 sh rust-programming.sh
 sh jetbrains-mono.sh
+sh exa.sh
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/
@@ -45,12 +46,6 @@ sudo apt install insomnia -y
 echo "python & pip"
 sudo apt update
 sudo apt install python3 python3-pip -y
-
-echo "sublime text & merge"
-wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-sudo apt update
-sudo apt install sublime-text sublime-merge -y
 
 echo "brave"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
