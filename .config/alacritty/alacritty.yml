@@ -2,38 +2,41 @@ window:
   dimensions:
     columns: 150
     lines: 48
-  dynamin_title: true
+  dynamic_title: true
 font:
   normal:
-    family: "Monospace"
-  size: 10
-background_opacity: 0.9
+    family: "JetBrains Mono"
+  size: 8
+background_opacity: 1.0
 selection:
   save_to_clipboard: true
 live_config_reload: true
-# Colors (New Moon)
+# Colors (Hyper)
 colors:
   # Default colors
   primary:
-    background: '#2D2D2D'
-    foreground: '#B3B9C5'
+    background: '0x000000'
+    foreground: '0xffffff'
+  cursor:
+    text: '0xF81CE5'
+    cursor: '0xffffff'
   # Normal colors
   normal:
-    black: '#2D2D2D'
-    red: '#F2777A'
-    green: '#92D192'
-    yellow: '#FFD479'
-    blue: '#6AB0F3'
-    magenta: '#E1A6F2'
-    cyan: '#76D4D6'
-    white: '#B3B9C5'
+    black:   '0x000000'
+    red:     '0xfe0100'
+    green:   '0x33ff00'
+    yellow:  '0xfeff00'
+    blue:    '0x0066ff'
+    magenta: '0xcc00ff'
+    cyan:    '0x00ffff'
+    white:   '0xd0d0d0'
   # Bright colors
   bright:
-    black: '#777C85'
-    red: '#F2777A'
-    green: '#76D4D6'
-    yellow: '#FFEEA6'
-    blue: '#6AB0F3'
-    magenta: '#E1A6F2'
-    cyan: '#76D4D6'
-    white: '#FFFFFF'
+    black:   '0x808080'
+    red:     '0xfe0100'
+    green:   '0x33ff00'
+    yellow:  '0xfeff00'
+    blue:    '0x0066ff'
+    magenta: '0xcc00ff'
+    cyan:    '0x00ffff'
+    white:   '0xFFFFFF'
