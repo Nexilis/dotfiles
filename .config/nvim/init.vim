@@ -7,7 +7,7 @@ let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'rakr/vim-one'
+Plug 'tomasiser/vim-code-dark'
 Plug 'easymotion/vim-easymotion'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
@@ -39,8 +39,8 @@ set encoding=utf-8
 set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
-colorscheme one
-let g:airline_theme='one'
+colorscheme codedark
+let g:airline_theme='codedark'
 set background=dark
 if (has("termguicolors"))
   set termguicolors
