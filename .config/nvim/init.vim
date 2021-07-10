@@ -220,6 +220,9 @@ nnoremap <leader>fc :Rg<CR>
 nnoremap <leader>hf :History<CR>
 nnoremap <leader>hc :History:<CR>
 nnoremap <leader>hs :History/<CR>
+" needed for fzf in nvim to include hidden files in search even when FZF_DEFAULT_COMMAND is not set,
+" e.g. when nvim is started directly form sh or .desktop file, a place without my configuration
+let $FZF_DEFAULT_COMMAND="fdfind -H -t f --no-ignore-vcs"
 " Completions in Insert mode using fzf
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
