@@ -10,6 +10,7 @@ sh bat.sh
 sh broot.sh
 sh nvim.sh
 sh micro.sh
+sh kitty.sh
 sh diff-so-fancy.sh
 sh dotnet-programming.sh
 sh js-programming.sh
@@ -19,11 +20,6 @@ sh exa.sh
 
 echo "config mc"
 cp -f -r ../.config/mc ~/.config/
-
-echo "config vim"
-rm -rf ~/.config/vim
-cp -f -r ../.config/.vim ~/.config/
-cp -f -r ../home/.vimrc ~/
 
 echo "config git"
 cp -f -r ../home/.gitconfig ~/
