@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install software-properties-common curl apt-transport-https xclip fd-find mc htop fonts-firacode -y
+sudo apt install software-properties-common curl apt-transport-https xclip fd-find mc htop fonts-firacode imagemagick -y
 
 sh zsh.sh
 sh starship.sh
