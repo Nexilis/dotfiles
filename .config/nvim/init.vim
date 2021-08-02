@@ -7,8 +7,10 @@ let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'tomasiser/vim-code-dark'
-Plug 'easymotion/vim-easymotion'
+Plug 'cocopon/iceberg.vim'
+" EasyMotion replacement for nvim >= 0.5, remove pre-extmarks after neovim
+" fixes marks coloring
+Plug 'phaazon/hop.nvim', { 'branch': 'pre-extmarks' }
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
  " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING, toggles yoh, yob, yow, yos
@@ -39,8 +41,8 @@ set encoding=utf-8
 set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
-colorscheme codedark
-let g:airline_theme='codedark'
+colorscheme iceberg
+let g:airline_theme='iceberg'
 set background=dark
 if (has("termguicolors"))
   set termguicolors
@@ -200,17 +202,12 @@ nmap <M-k> [e
 map + <Plug>(expand_region_expand)
 map _ <Plug>(expand_region_shrink)
 
-" vim-easymotion
-" Disable default mappings
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-nmap <leader>ef <Plug>(easymotion-overwin-w)
-nmap <leader>e1 <Plug>(easymotion-overwin-f)
-nmap <leader>e2 <Plug>(easymotion-overwin-f2)
-nmap <leader>el <Plug>(easymotion-overwin-line)
-map  <leader>ej <Plug>(easymotion-j)
-map  <leader>ek <Plug>(easymotion-k)
-nmap f <Plug>(easymotion-overwin-f)
+" phaazon/hop.nvim
+nmap <leader>ef :HopWord<CR>
+nmap <leader>e1 :HopChar1<CR>
+nmap <leader>e2 :HopChar2<CR>
+nmap <leader>el :HopLine<CR>
+nmap f :HopWord<CR>
 
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
@@ -283,11 +280,9 @@ let g:which_key_map.b = {
             \ 'n':    "new",
             \}
 let g:which_key_map.e = {
-            \ 'name': "+easymotion",
+            \ 'name': "+hop",
             \ 'f':    "word",
             \ 'l':    "line",
-            \ 'j':    "text-down",
-            \ 'k':    "text-up",
             \ '1':    "single-char",
             \ '2':    "two-chars",
             \}
