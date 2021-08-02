@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 echo "neovim"
-sudo add-apt-repository ppa:neovim-ppa/stable
+sudo apt remove neovim -y
+sudo add-apt-repository --remove ppa:neovim-ppa/stable
+sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install neovim -y
 
