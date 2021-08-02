@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo dnf install zsh util-linux-user bat fd ripgrep neovim kitty mc htop micro fira-code-fonts -y
+sudo dnf install zsh util-linux-user bat fd ripgrep neovim kitty mc htop micro fira-code-fonts imagemagick -y
 
 echo "config zsh"
 mkdir ~/.zsh
