@@ -15,6 +15,7 @@ sh diff-so-fancy.sh
 sh dotnet-programming.sh
 sh js-programming.sh
 sh rust-programming.sh
+sh lua-programming.sh
 sh jetbrains-mono.sh
 sh exa.sh
 
