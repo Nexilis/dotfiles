@@ -10,7 +10,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'cocopon/iceberg.vim'
 " EasyMotion replacement for nvim >= 0.5, remove pre-extmarks after neovim
 " fixes marks coloring
-Plug 'phaazon/hop.nvim', { 'branch': 'pre-extmarks' }
+Plug 'phaazon/hop.nvim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'tpope/vim-commentary'
  " NEXT AND PREVIOUS, LINE OPERATIONS, PASTING, ENCODING AND DECODING, toggles yoh, yob, yow, yos
@@ -28,14 +28,46 @@ Plug 'terryma/vim-expand-region'
 Plug 'Yggdroot/indentLine'
 Plug 'sbdchd/neoformat'
 " defx is a file tree plugin
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+" LSP configuration
+" Collection of common configurations for the Nvim LSP client
+Plug 'neovim/nvim-lspconfig'
+" Extensions to built-in LSP, for example, providing type inlay hints
+Plug 'nvim-lua/lsp_extensions.nvim'
+" Autocompletion framework for built-in LSP
+Plug 'nvim-lua/completion-nvim'
 call plug#end()
+
+" LSP - RUST - CONFIG START
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
+set completeopt=menuone,noinsert,noselect
+" Avoid showing extra messages when using completion
+set shortmess+=c
+" Configure LSP
+" https://github.com/neovim/nvim-lspconfig#rust_analyzer
+lua <<EOF
+-- nvim_lsp object
+local nvim_lsp = require'lspconfig'
+-- function to attach completion when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+end
+-- Enable rust_analyzer
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+-- Enable diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = true,
+  }
+)
+EOF
+" LSP - RUST CONFIG END
 
 set encoding=utf-8
 set langmenu=en_US.utf-8
@@ -207,7 +239,7 @@ nmap <leader>ef :HopWord<CR>
 nmap <leader>e1 :HopChar1<CR>
 nmap <leader>e2 :HopChar2<CR>
 nmap <leader>el :HopLine<CR>
-nmap f :HopWord<CR>
+nmap f :HopChar1<CR>
 
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
