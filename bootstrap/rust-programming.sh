@@ -11,5 +11,5 @@ wget https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rus
 gunzip $HOME/Downloads/rust-analyzer.gz
 chmod +x $HOME/Downloads/rust-analyzer
 sudo rm -rf /usr/local/bin/rust-analyzer
-sudo mv rust-analyzer /usr/local/bin/rust-analyzer
+sudo mv $HOME/Downloads/rust-analyzer /usr/local/bin/rust-analyzer
 
