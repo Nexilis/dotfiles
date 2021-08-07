@@ -7,7 +7,8 @@ let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-airline/vim-airline'
-Plug 'cocopon/iceberg.vim'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'NLKNguyen/papercolor-theme'
 " EasyMotion replacement for nvim >= 0.5, remove pre-extmarks after neovim
 " fixes marks coloring
 Plug 'phaazon/hop.nvim'
@@ -37,8 +38,6 @@ Plug 'nvim-lua/lsp_extensions.nvim'
 " Autocompletion framework for built-in LSP
 Plug 'nvim-lua/completion-nvim'
 call plug#end()
-
-" LSP - RUST - CONFIG START
 " Set completeopt to have a better completion experience
 " :help completeopt
 " menuone: popup even when there's only one match
@@ -47,39 +46,16 @@ call plug#end()
 set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
-" Configure LSP
-" https://github.com/neovim/nvim-lspconfig#rust_analyzer
-lua <<EOF
--- nvim_lsp object
-local nvim_lsp = require'lspconfig'
--- function to attach completion when setting up lsp
-local on_attach = function(client)
-    require'completion'.on_attach(client)
-end
--- Enable rust_analyzer
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
--- Enable diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = true,
-  }
-)
-EOF
-" LSP - RUST CONFIG END
 
 set encoding=utf-8
 set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
-colorscheme iceberg
-let g:airline_theme='iceberg'
-set background=dark
 if (has("termguicolors"))
   set termguicolors
 endif
-let g:one_allow_italics=1
+set background=dark
+colorscheme PaperColor
 set backup
 set swapfile
 set undofile
@@ -121,7 +97,7 @@ let g:neoformat_basic_format_trim = 1
 let g:workspace_create_new_tabs = 0
 let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 let g:workspace_session_disable_on_args = 1
-let g:workspace_undodir = $HOME . '/.config/nvim/.undodir'
+let g:workspace_undodir = $HOME . '/.config/nvim/undo/workspace'
 " Removing trailing spaces on save causes problems when using vim-multiple-cursors
 let g:workspace_autosave_untrailspaces = 0
 " Alwasy use autosaving, also outside a session
@@ -209,15 +185,10 @@ nnoremap x "_x
 nnoremap d "_d
 vnoremap d "_d
 nnoremap D "_D
-" cut
-nnoremap <leader>x d
-vnoremap <leader>x d
-nnoremap <leader>X D
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <Esc><Esc> :<C-u>nohlsearch<CR>
 
 " Force save as SUDO even if not sudo vim
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -239,7 +210,7 @@ nmap <leader>ef :HopWord<CR>
 nmap <leader>e1 :HopChar1<CR>
 nmap <leader>e2 :HopChar2<CR>
 nmap <leader>el :HopLine<CR>
-nmap f :HopChar1<CR>
+nmap f :HopWord<CR>
 
 " fzf.vim
 " [Buffers] Jump to the existing window if possible
@@ -290,8 +261,6 @@ let g:which_key_map.k = "buffer-next"
 let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
 let g:which_key_map.u = "undo-tree-toggle"
-let g:which_key_map.x = "cut-selection"
-let g:which_key_map.X = "cut-after"
 let g:which_key_map.t = "tree"
 let g:which_key_map.T = {
             \ 'name': "+Tools",
@@ -378,6 +347,7 @@ let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_theme='papercolor'
 
 augroup vimrc-remember-cursor-position
   autocmd!
@@ -386,3 +356,6 @@ augroup END
 
 " Set C# syntax for csx files
 autocmd BufNewFile,BufRead *.csx set filetype=cs
+
+lua require('settings')
+
