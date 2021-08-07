@@ -22,7 +22,6 @@ Plug 'drmikehenry/vim-fixkey'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thaerkh/vim-workspace'
-Plug 'brooth/far.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-expand-region'
@@ -227,23 +226,6 @@ let $FZF_DEFAULT_COMMAND="fdfind -H -t f --no-ignore-vcs"
 imap <c-x><c-w> <plug>(fzf-complete-word)
 imap <c-x><c-p> <plug>(fzf-complete-path)
 imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
-" Far plugin
-nnoremap <silent> <leader>ff :Farf<cr>
-vnoremap <silent> <leader>ff :Farf<cr>
-nnoremap <silent> <leader>fr :Farr<cr>
-vnoremap <silent> <leader>fr :Farr<cr>
-nnoremap <silent> <leader>fd :Fardo<cr>
-vnoremap <silent> <leader>fd :Fardo<cr>
-nnoremap <silent> <leader>fu :Farundo<cr>
-vnoremap <silent> <leader>fu :Farundo<cr>
-let g:far#enable_undo=1
-" % means currently open file
-let g:far#default_file_mask='%'
-if has('nvim')
-  let g:far#source='rgnvim'
-else
-  let g:far#source='rg'
-endif
 
 " window mappings
 nnoremap <leader>wq <C-w>q
@@ -286,14 +268,6 @@ let g:which_key_map.e = {
             \ 'l':    "line",
             \ '1':    "single-char",
             \ '2':    "two-chars",
-            \}
-let g:which_key_map.f = {
-            \ 'name': "+find-replace",
-            \ 'c':    "find-anywhere",
-            \ 'f':    "find",
-            \ 'r':    "replace",
-            \ 'd':    "replace-do",
-            \ 'u':    "replace-undo",
             \}
 let g:which_key_map.h = {
             \ 'name': "+history",
