@@ -9,6 +9,7 @@ export PATH="/snap/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.luarocks/bin:$PATH"
 
 source ~/.config/broot/launcher/bash/br
 source ~/.zsh/antigen.zsh
