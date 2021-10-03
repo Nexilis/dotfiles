@@ -6,6 +6,10 @@ set undodir=$HOME/.config/nvim/undo//
 let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
+" Neovim configuration and plugins in Fennel (Lisp compiled to Lua)
+Plug 'Olical/aniseed', { 'tag': 'v3.21.0' }
+" Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
+Plug 'Olical/conjure', { 'tag': 'v4.23.0' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'NLKNguyen/papercolor-theme'
