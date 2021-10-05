@@ -48,6 +48,7 @@ alias cat="bat -p --paging=never"
 alias o="xdg-open"
 alias fd="fdfind"
 alias lg="lazygit"
+alias n="(cd ~ && nvim)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
