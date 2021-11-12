@@ -20,4 +20,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- kickstart hop
 require'hop'.setup()
 
-print('hello lua settings')
+-- kickstart nnn
+require("nnn").setup()
+
+print('Hello! Lua setting loaded.')
