@@ -10,6 +10,7 @@ sh local/jdk.bin.sh
 sh local/lazygit.bin.sh
 sh local/micro.bin.sh
 sh local/nnn.bin.sh
+sh local/nvim.bin.sh
 sh local/ripgrep.bin.sh
 sh local/rust.bin.sh
 sh local/starship.bin.sh
