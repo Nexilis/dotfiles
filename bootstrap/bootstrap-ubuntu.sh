@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo apt install zsh software-properties-common curl apt-transport-https xclip fd-find kitty imagemagick -y
+sudo apt install zsh software-properties-common curl apt-transport-https xclip kitty imagemagick -y
 
 sh _local.sh
 sh _config.sh
