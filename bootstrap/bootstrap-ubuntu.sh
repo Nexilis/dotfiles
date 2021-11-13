@@ -9,13 +9,6 @@ sh _fonts.sh
 sh js-programming.sh
 sh lua-programming.sh
 
-echo "neovim" # todo: binify
-sudo apt remove neovim -y
-sudo add-apt-repository --remove ppa:neovim-ppa/stable
-sudo add-apt-repository ppa:neovim-ppa/unstable
-sudo apt update
-sudo apt install neovim -y
-
 echo "python & pip"
 sudo apt update
 sudo apt install python3 python3-pip -y
