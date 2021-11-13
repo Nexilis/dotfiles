@@ -42,7 +42,6 @@ alias diff="diff-so-fancy"
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
 alias cat="bat -p --paging=never"
 alias o="xdg-open"
-alias lg="lazygit"
 alias n="(cd ~ && nvim)"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -16,11 +16,6 @@ sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt update
 sudo apt install neovim -y
 
-echo "lazygit" # todo: binify
-sudo add-apt-repository ppa:lazygit-team/release
-sudo apt update
-sudo apt install lazygit -y
-
 echo "python & pip"
 sudo apt update
 sudo apt install python3 python3-pip -y
