@@ -1,4 +1,7 @@
 # Quick start
 
-$ chmod +x scripts/bootstrap-ubuntu.sh
-$ ./scripts/bootstrap-ubuntu.sh
+Config paths are hardcoded. Clone repo to `~/proj/dotfiles`
+
+$ sh scripts/bootstrap-ubuntu.sh
+or
+$ sh scripts/bootstrap-fedora.sh

@@ -105,8 +105,7 @@ let g:workspace_autosave_untrailspaces = 0
 " Alwasy use autosaving, also outside a session
 let g:workspace_autosave_always = 1
 
-nmap <leader>t :NnnExplorer<CR>
-nmap <leader>t <cmd>NnnExplorer %:p:h<CR>
+nmap <leader>t <cmd>NnnPicker %:p:h<CR>
 
 nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>

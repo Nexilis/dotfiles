@@ -13,7 +13,6 @@ export PATH="$HOME/.luarocks/bin:$PATH"
 export LUA_PATH="$HOME/.luarocks/share/lua/5.4/?.lua;$HOME/.luarocks/share/lua/5.4/?/init.lua;/usr/local/share/lua/5.4/?.lua;/usr/local/share/lua/5.4/?/init.lua;/usr/local/lib/lua/5.4/?.lua;/usr/local/lib/lua/5.4/?/init.lua;/usr/share/lua/5.4/?.lua;/usr/share/lua/5.4/?/init.lua;./?.lua;./?/init.lua"
 export LUA_CPATH="$HOME/.luarocks/lib/lua/5.4/?.so;/usr/local/lib/lua/5.4/?.so;/usr/lib/x86_64-linux-gnu/lua/5.4/?.so;/usr/lib/lua/5.4/?.so;/usr/local/lib/lua/5.4/loadall.so;./?.so"
 
-source ~/.config/broot/launcher/bash/br
 source ~/.zsh/antigen.zsh
 
 antigen use oh-my-zsh
@@ -41,9 +40,6 @@ alias gcl="git clean -xdf"
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
 alias diff="diff-so-fancy"
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
-alias bra="br -ghp"
-alias brh="br -ghp"
-alias brs="br -hs"
 alias cat="bat -p --paging=never"
 alias o="xdg-open"
 alias fd="fdfind"
