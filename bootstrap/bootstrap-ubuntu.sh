@@ -31,11 +31,6 @@ echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable ma
 sudo apt update
 sudo apt install brave-browser -y
 
-echo "ripgrep" # todo: binify
-wget https://github.com/BurntSushi/ripgrep/releases/download/12.1.1/ripgrep_12.1.1_amd64.deb -P $HOME/Downloads
-sudo dpkg -i $HOME/Downloads/ripgrep_12.1.1_amd64.deb
-rm -rf $HOME/Downloads/ripgrep_12.1.1_amd64.deb
-
 echo "libreoffice" # todo: flatpak
 sudo add-apt-repository ppa:libreoffice/ppa
 sudo apt update

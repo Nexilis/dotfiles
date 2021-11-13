@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo dnf install zsh util-linux-user fd ripgrep neovim kitty imagemagick rlwrap -y
+sudo dnf install zsh util-linux-user fd neovim kitty imagemagick rlwrap -y
 
 sh _local.sh
 sh _config.sh
