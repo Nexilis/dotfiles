@@ -7,6 +7,7 @@ sh local/starship.bin.sh
 sh local/diff-so-fancy.bin.sh
 sh local/jdk.bin.sh
 sh local/micro.bin.sh
+sh local/nnn.bin.sh
 sh local/rust.bin.sh
 cargo install exa
 
@@ -14,4 +15,4 @@ cargo install exa
 # todo: neovim
 # todo: ripgrep
 # todo: fd-find
-# todo: nnn
+# todo: lazygit
