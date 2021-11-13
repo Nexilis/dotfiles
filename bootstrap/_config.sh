@@ -23,6 +23,5 @@ cp -f -r ~/proj/dotfiles/home/.gitconfig ~/
 cp -f -r ~/proj/dotfiles/home/.gitconfig-github ~/
 cp -f -r ~/proj/dotfiles/home/.gitconfig-work ~/
 
-
 echo "config doublecmd"
 cp -f -r ~/proj/dotfiles/config/doublecmd ~/.config/

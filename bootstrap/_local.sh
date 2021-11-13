@@ -7,6 +7,7 @@ sh local/fd-find.bin.sh
 sh local/fzf.bin.sh
 sh local/gocryptfs.bin.sh
 sh local/jdk.bin.sh
+sh local/lazygit.bin.sh
 sh local/micro.bin.sh
 sh local/nnn.bin.sh
 sh local/ripgrep.bin.sh
@@ -15,4 +16,3 @@ sh local/starship.bin.sh
 cargo install exa
 
 # todo: neovim
-# todo: lazygit
