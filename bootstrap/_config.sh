@@ -13,8 +13,6 @@ cp -vfr $HOME/proj/dotfiles/config/kitty $HOME/.config/kitty
 echo "config neovim"
 rm -vrf $HOME/.config/nvim
 cp -vfr $HOME/proj/dotfiles/config/nvim $HOME/.config/
-ln -vs $HOME/proj/dotfiles/config/nvim/init.vim $HOME/.config/nvim/init.vim
-ln -vs $HOME/proj/dotfiles/config/nvim/lua/settings.lua $HOME/.config/nvim/lua/settings.lua
 echo "neovim python support"
 pip3 install --user pynvim
 
