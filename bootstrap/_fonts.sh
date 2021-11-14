@@ -8,7 +8,7 @@ cp -vfur ~/Downloads/JetBrainsMono/fonts/ttf/*.ttf $HOMW/.local/share/fonts/jetb
 rm -vrf $HOME/Downloads/JetBrainsMono*
 
 echo "Cascadia Code PL"
-wget https://github.com/Microsoft/CascadiaCode -O $HOME/Downloads/CascadiaCode.zip
+wget https://github.com/microsoft/cascadia-code/releases/download/v2110.31/CascadiaCode-2110.31.zip -O $HOME/Downloads/CascadiaCode.zip
 unzip -vo $HOME/Downloads/CascadiaCode.zip -d $HOME/Downloads/CascadiaCode
 mkdir -vp $HOME/.local/share/fonts/cascadia-code
 cp -vfur ~/Downloads/CascadiaCode/fonts/ttf/*.ttf $HOMW/.local/share/fonts/cascadia-code
