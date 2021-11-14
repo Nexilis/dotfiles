@@ -14,7 +14,7 @@ java -version
 echo "clojure"
 wget https://download.clojure.org/install/linux-install-1.10.3.1020.sh -O $HOME/Downloads/clojure-install.sh
 sh $HOME/Downloads/clojure-install.sh --prefix $HOME/.local
-rm -f $HOME/Downloads/clojure-install.sh
+rm -vf $HOME/Downloads/clojure-install.sh
 clj -h
 
 echo "lein"
