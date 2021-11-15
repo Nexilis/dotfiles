@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+mkdir -vp $HOME/.local/bin
 sh local/bat.bin.sh
 sh local/btop.bin.sh
 sh local/diff-so-fancy.bin.sh
