@@ -8,10 +8,12 @@ chsh -s $(which zsh)
 
 echo "config kitty"
 rm -vrf $HOME/.config/kitty
+mkdir -vp $HOME/.config/kitty
 cp -vfr $HOME/proj/dotfiles/config/kitty $HOME/.config/kitty
 
 echo "config neovim"
 rm -vrf $HOME/.config/nvim
+mkdir -vp $HOME/.config/nvim
 cp -vfr $HOME/proj/dotfiles/config/nvim $HOME/.config/
 echo "neovim python support"
 pip3 install --user pynvim
