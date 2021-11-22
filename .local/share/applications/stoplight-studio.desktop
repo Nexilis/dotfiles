@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Stoplight Studio
-Exec="/home/blukasik/.local/share/Stoplight Studio/stoplight-studio-linux-x86_64.AppImage"
-Terminal=false
-Type=Application
-Icon=/home/blukasik/.local/share/Stoplight Studio/random-icon.png
-Categories=GNOME;GTK;Network;Utility
-StartupWMClass=stoplight-studio

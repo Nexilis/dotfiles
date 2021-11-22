@@ -1,7 +1,0 @@
-[Desktop Entry]
-Name=Apache JMeter
-Exec=/home/blukasik/.local/share/apache-jmeter-5.1.1/bin/jmeter
-Terminal=false
-Type=Application
-Icon=/home/blukasik/.local/share/apache-jmeter-5.1.1/docs/images/jmeter_square.png
-StartupWMClass=ApacheJMeter
