@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="0.9.8 beta" ConfigVersion="10">
+<doublecmd DCVersion="1.0.1 beta" ConfigVersion="12">
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
     <FolderTabs Save="True"/>
@@ -57,6 +57,12 @@
       <Error>255</Error>
       <Success>32768</Success>
     </LogWindow>
+    <PathLabel>
+      <ActiveColor>-2147483635</ActiveColor>
+      <ActiveFontColor>-2147483634</ActiveFontColor>
+      <InactiveColor>-2147483633</InactiveColor>
+      <InactiveFontColor>-2147483630</InactiveFontColor>
+    </PathLabel>
   </Colors>
   <Plugins>
     <WlxPlugins>
@@ -146,7 +152,12 @@
       <WcxPlugin Enabled="True">
         <ArchiveExt>rar</ArchiveExt>
         <Path>%commander_path%/plugins/wcx/unrar/unrar.wcx</Path>
-        <Flags>68</Flags>
+        <Flags>607</Flags>
+      </WcxPlugin>
+      <WcxPlugin Enabled="True">
+        <ArchiveExt>zst</ArchiveExt>
+        <Path>%commander_path%/plugins/wcx/zip/zip.wcx</Path>
+        <Flags>91</Flags>
       </WcxPlugin>
     </WcxPlugins>
     <WdxPlugins>
@@ -292,6 +303,43 @@
         </Command>
       </Row>
     </MainToolbar>
+    <MiddleToolbar>
+      <Row>
+        <Command>
+          <ID>{5E8A318E-1F9E-4388-8EC0-6E99AF5754E6}</ID>
+          <Icon>cm_view</Icon>
+          <Command>cm_View</Command>
+        </Command>
+        <Command>
+          <ID>{3F13EC42-F42C-4C3C-BE03-77121BB6150D}</ID>
+          <Icon>cm_edit</Icon>
+          <Command>cm_Edit</Command>
+        </Command>
+        <Command>
+          <ID>{DE564C2D-C995-4865-89F5-DE829DE8B7E9}</ID>
+          <Icon>cm_copy</Icon>
+          <Command>cm_Copy</Command>
+        </Command>
+        <Command>
+          <ID>{198EDD95-490B-4C87-9A3E-F7D57B1C4B1C}</ID>
+          <Icon>cm_rename</Icon>
+          <Command>cm_Rename</Command>
+        </Command>
+        <Separator>
+          <Style>True</Style>
+        </Separator>
+        <Command>
+          <ID>{A3D8DA59-7D2C-4C57-8052-FA3759E206C3}</ID>
+          <Icon>cm_packfiles</Icon>
+          <Command>cm_PackFiles</Command>
+        </Command>
+        <Command>
+          <ID>{245CCD00-582E-4394-86E4-D189AD6A9778}</ID>
+          <Icon>cm_makedir</Icon>
+          <Command>cm_MakeDir</Command>
+        </Command>
+      </Row>
+    </MiddleToolbar>
   </Toolbars>
   <MainWindow>
     <Position Save="True">
@@ -309,8 +357,7 @@
             <History>
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
-                <Paths>
-                </Paths>
+                <Paths/>
               </Entry>
             </History>
             <ColumnsView>
@@ -326,8 +373,7 @@
             <History>
               <Entry Active="True">
                 <FileSource Type="FileSystem"/>
-                <Paths>
-                </Paths>
+                <Paths/>
               </Entry>
             </History>
             <ColumnsView>
@@ -347,6 +393,7 @@
   </Language>
   <Behaviours>
     <GoToRoot>False</GoToRoot>
+    <ShowCurDirTitleBar>False</ShowCurDirTitleBar>
     <ActiveRight>False</ActiveRight>
     <RunInTerminalStayOpenCmd>x-terminal-emulator</RunInTerminalStayOpenCmd>
     <RunInTerminalStayOpenParams>-e sh -c '{command}; echo -n Press ENTER to exit... ; read a'</RunInTerminalStayOpenParams>
@@ -358,9 +405,11 @@
     <LynxLike>True</LynxLike>
     <FileSizeFormat>0</FileSizeFormat>
     <OperationSizeFormat>0</OperationSizeFormat>
-    <HeaderFooterSizeFormat>0</HeaderFooterSizeFormat>
+    <HeaderSizeFormat>0</HeaderSizeFormat>
+    <FooterSizeFormat>0</FooterSizeFormat>
     <FileSizeDigits>1</FileSizeDigits>
-    <HeaderFooterDigits>1</HeaderFooterDigits>
+    <HeaderDigits>1</HeaderDigits>
+    <FooterDigits>1</FooterDigits>
     <OperationSizeDigits>1</OperationSizeDigits>
     <PersonalizedByte>B</PersonalizedByte>
     <PersonalizedKilo>KB</PersonalizedKilo>
@@ -400,8 +449,8 @@
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
     </Viewer>
-    <Editor Enabled="True">
-      <Path>subl</Path>
+    <Editor Enabled="False">
+      <Path/>
       <Parameters/>
       <RunInTerminal>False</RunInTerminal>
       <KeepTerminalOpen>False</KeepTerminalOpen>
@@ -416,19 +465,19 @@
   </Tools>
   <Fonts>
     <Main>
-      <Name>Monospace</Name>
+      <Name>Cascadia Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>Monospace</Name>
+      <Name>JetBrains Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>Monospace</Name>
+      <Name>JetBrains Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -447,40 +496,46 @@
     </OptionsMain>
     <SearchResults>
       <Name>default</Name>
-      <Size>14</Size>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </SearchResults>
     <PathEdit>
-      <Name>Monospace</Name>
+      <Name>Cascadia Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </PathEdit>
     <FunctionButtons>
       <Name>default</Name>
-      <Size>8</Size>
+      <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </FunctionButtons>
     <Log>
-      <Name>Monospace</Name>
+      <Name>Cascadia Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Log>
     <ViewerBook>
-      <Name>Roboto Slab</Name>
+      <Name>Sans</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </ViewerBook>
     <Console>
-      <Name>Monospace</Name>
+      <Name>Cascadia Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Console>
+    <TreeViewMenu>
+      <Name>default</Name>
+      <Size>10</Size>
+      <Style>0</Style>
+      <Quality>0</Quality>
+    </TreeViewMenu>
   </Fonts>
   <ToolTips>
     <ShowToolTipMode>True</ShowToolTipMode>
@@ -494,8 +549,19 @@
       <FlatIcons>True</FlatIcons>
       <ButtonHeight>24</ButtonHeight>
       <IconSize>16</IconSize>
+      <ShowCaptions>False</ShowCaptions>
       <ReportErrorWithCommands>False</ReportErrorWithCommands>
+      <FilenameStyle>0</FilenameStyle>
+      <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+      <PathModifierElements>0</PathModifierElements>
     </ButtonBar>
+    <MiddleBar Enabled="False">
+      <FlatIcons>True</FlatIcons>
+      <ButtonHeight>24</ButtonHeight>
+      <IconSize>16</IconSize>
+      <ShowCaptions>False</ShowCaptions>
+      <ReportErrorWithCommands>False</ReportErrorWithCommands>
+    </MiddleBar>
     <DriveBar1>True</DriveBar1>
     <DriveBar2>True</DriveBar2>
     <DriveBarFlat>True</DriveBarFlat>
@@ -520,6 +586,8 @@
     <PanelOfOperationsInBackground>True</PanelOfOperationsInBackground>
     <HorizontalFilePanels>False</HorizontalFilePanels>
     <ShortFormatDriveInfo>False</ShortFormatDriveInfo>
+    <UppercaseDriveLetter>False</UppercaseDriveLetter>
+    <ShowColonAfterDrive>False</ShowColonAfterDrive>
   </Layout>
   <FilesViews>
     <Sorting>
@@ -528,6 +596,7 @@
       <SortFolderMode>1</SortFolderMode>
       <NewFilesPosition>2</NewFilesPosition>
       <UpdatedFilesPosition>2</UpdatedFilesPosition>
+      <SpecialSorting>False</SpecialSorting>
     </Sorting>
     <ColumnsView>
       <AutoSaveWidth>True</AutoSaveWidth>
@@ -542,6 +611,8 @@
       </Columns>
     </BriefView>
     <ExtraLineSpan>2</ExtraLineSpan>
+    <FolderPrefix>[</FolderPrefix>
+    <FolderPostfix>]</FolderPostfix>
   </FilesViews>
   <Keyboard>
     <Typing>
@@ -595,12 +666,26 @@
       <CopyOwnership>False</CopyOwnership>
       <CopyPermissions>False</CopyPermissions>
       <ExcludeEmptyTemplateDirectories>True</ExcludeEmptyTemplateDirectories>
+      <CopyOnWrite>2</CopyOnWrite>
+      <CopyXattributes>True</CopyXattributes>
     </Options>
     <Extract>
       <Overwrite>False</Overwrite>
     </Extract>
+    <LongNameAlert>True</LongNameAlert>
+    <MultiRename>
+      <MulRenShowMenuBarOnTop>True</MulRenShowMenuBarOnTop>
+      <MulRenInvalidCharReplacement>.</MulRenInvalidCharReplacement>
+      <MulRenLaunchBehavor>0</MulRenLaunchBehavor>
+      <MulRenExitModifiedPreset>0</MulRenExitModifiedPreset>
+      <MulRenSaveRenamingLog>0</MulRenSaveRenamingLog>
+      <MulRenLogFilename>%DC_CONFIG_PATH%/multirename.log</MulRenLogFilename>
+      <MultRenDailyIndividualDirLog>True</MultRenDailyIndividualDirLog>
+      <MulRenFilenameWithFullPathInLog>False</MulRenFilenameWithFullPathInLog>
+      <MulRenPathRangeSeparator>- </MulRenPathRangeSeparator>
+    </MultiRename>
   </FileOperations>
-  <Log Enabled="False" LogFileWithDateInName="False">
+  <Log Enabled="False" LogFileWithDateInName="False" Count="0">
     <FileName>%DC_CONFIG_PATH%/doublecmd.log</FileName>
     <Options>1023</Options>
   </Log>
@@ -621,12 +706,12 @@
     <SaveSessionModifications>False</SaveSessionModifications>
   </QuickFilter>
   <Miscellaneous>
-    <GridVertLine>True</GridVertLine>
+    <GridVertLine>False</GridVertLine>
     <GridHorzLine>False</GridHorzLine>
     <ShowWarningMessages>True</ShowWarningMessages>
     <SpaceMovesDown>False</SpaceMovesDown>
     <DirBrackets>True</DirBrackets>
-    <InplaceRename>False</InplaceRename>
+    <InplaceRename>True</InplaceRename>
     <DblClickToParent>False</DblClickToParent>
     <HotDirAddTargetOrNot>False</HotDirAddTargetOrNot>
     <HotDirFullExpandOrNot>False</HotDirFullExpandOrNot>
@@ -634,6 +719,9 @@
     <ShowOnlyValidEnv>True</ShowOnlyValidEnv>
     <WhereToAddNewHotDir>2</WhereToAddNewHotDir>
     <InplaceRenameButton>False</InplaceRenameButton>
+    <FilenameStyle>0</FilenameStyle>
+    <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+    <PathModifierElements>0</PathModifierElements>
   </Miscellaneous>
   <Thumbnails Save="True">
     <Width>128</Width>
@@ -659,12 +747,13 @@
     <ExcludeDirs/>
     <CustomIcons>0</CustomIcons>
     <PixelsPerInch>96</PixelsPerInch>
-    <ShowInMenus Enabled="True">
+    <ShowInMenus Enabled="False">
       <Size>16</Size>
     </ShowInMenus>
-    <ShowButtonGlyphs>0</ShowButtonGlyphs>
+    <ShowButtonGlyphs>1</ShowButtonGlyphs>
     <DiskAlpha>50</DiskAlpha>
     <ShowHiddenDimmed>False</ShowHiddenDimmed>
+    <ToolSize>24</ToolSize>
   </Icons>
   <IgnoreList Enabled="False">
     <IgnoreListFile>%DC_CONFIG_PATH%/ignorelist.txt</IgnoreListFile>
@@ -704,11 +793,14 @@
     <TextPosition>0</TextPosition>
     <TabSpaces>8</TabSpaces>
     <MaxTextWidth>1024</MaxTextWidth>
+    <PrintMargins>200|200|200|200</PrintMargins>
+    <ShowCaret>False</ShowCaret>
   </Viewer>
   <Editor>
     <EditWaitTime>2000</EditWaitTime>
     <SynEditOptions>856075</SynEditOptions>
     <SynEditTabWidth>2</SynEditTabWidth>
+    <SynEditRightEdge>80</SynEditRightEdge>
   </Editor>
   <SyncDirs>
     <Subdirs>False</Subdirs>
@@ -722,6 +814,11 @@
     <FilterSingles>True</FilterSingles>
     <FileMask>*</FileMask>
     <Asymmetric Save="False">False</Asymmetric>
+    <Colors>
+      <Left>32768</Left>
+      <Right>16711680</Right>
+      <Unknown>255</Unknown>
+    </Colors>
   </SyncDirs>
   <InternalAssociations>
     <OfferToAddNewFileType>False</OfferToAddNewFileType>
@@ -731,6 +828,9 @@
     <OpenSystemWithTerminalClose>False</OpenSystemWithTerminalClose>
     <OpenSystemWithTerminalStayOpen>False</OpenSystemWithTerminalStayOpen>
     <IncludeFileAssociation>False</IncludeFileAssociation>
+    <FilenameStyle>0</FilenameStyle>
+    <PathToBeRelativeTo>%COMMANDER_PATH%</PathToBeRelativeTo>
+    <PathModifierElements>0</PathModifierElements>
   </InternalAssociations>
   <TreeViewMenu>
     <UseTVMDirectoryHotlistFMC>False</UseTVMDirectoryHotlistFMC>
@@ -948,4 +1048,19 @@
       </Columns>
     </ColumnsSet>
   </ColumnsSets>
+  <Differ>
+    <IgnoreCase>False</IgnoreCase>
+    <KeepScrolling>True</KeepScrolling>
+    <PaintBackground>True</PaintBackground>
+    <LineDifferences>False</LineDifferences>
+    <IgnoreWhiteSpace>False</IgnoreWhiteSpace>
+    <Colors>
+      <Added>11206570</Added>
+      <Deleted>11184895</Deleted>
+      <Modified>16755370</Modified>
+      <Binary>
+        <Modified>255</Modified>
+      </Binary>
+    </Colors>
+  </Differ>
 </doublecmd>
