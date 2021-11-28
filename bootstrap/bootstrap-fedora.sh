@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-sudo dnf install zsh util-linux-user kitty imagemagick rlwrap -y
+sudo dnf install zsh util-linux-user kitty ImageMagick rlwrap -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh
