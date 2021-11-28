@@ -11,22 +11,39 @@ rm -vf $HOME/.local/bin/doublecmd
 rm -vfr $HOME/Downloads/doublecmd*
 
 rm -vf $HOME/.local/share/icons/hicolor/512x512/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/512x512/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/512/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/512x512/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/256x256/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/256x256/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/256/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/256x256/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/128x128/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/128x128/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/128/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/128x128/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/96x96/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/96x96/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/96/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/96x96/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/64x64/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/64x64/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/64/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/64x64/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/48x48/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/48x48/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/48/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/48x48/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/32x32/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/32x32/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/32/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/32x32/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/24x24/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/24x24/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/24/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/24x24/apps/doublecmd.png
+
 rm -vf $HOME/.local/share/icons/hicolor/16x16/apps/doublecmd.png
+mkdir -vp $HOME/.local/share/icons/hicolor/16x16/apps/
 wget https://icons.iconarchive.com/icons/papirus-team/papirus-apps/16/doublecmd-icon.png -O $HOME/.local/share/icons/hicolor/16x16/apps/doublecmd.png
 
 rm -vf $HOME/.local/share/applications/doublecmd.desktop
