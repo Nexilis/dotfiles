@@ -1,20 +1,20 @@
 #!/usr/bin/env bash
 
 mkdir -vp $HOME/.local/bin
-sh local/bat.bin.sh
-sh local/btop.bin.sh
-sh local/diff-so-fancy.bin.sh
-sh local/dotnet.bin.sh
-sh local/doublecmd.bin.sh
-sh local/fd-find.bin.sh
-sh local/fzf.bin.sh
-sh local/gocryptfs.bin.sh
-sh local/jdk.bin.sh
-sh local/lazygit.bin.sh
-sh local/micro.bin.sh
-sh local/nnn.bin.sh
-sh local/nvim.bin.sh
-sh local/ripgrep.bin.sh
-sh local/rust.bin.sh
-sh local/starship.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/bat.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/btop.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/diff-so-fancy.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/dotnet.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/doublecmd.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/fd-find.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/fzf.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/gocryptfs.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/jdk.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/lazygit.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/micro.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/nnn.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/nvim.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/ripgrep.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/rust.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/starship.bin.sh
 cargo install exa

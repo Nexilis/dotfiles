@@ -2,9 +2,9 @@
 
 sudo apt install zsh software-properties-common curl apt-transport-https kitty imagemagick -y
 
-sh _local.sh
-sh _config.sh
-sh _fonts.sh
+sh ~/proj/dotfiles/bootstrap/_local.sh
+sh ~/proj/dotfiles/bootstrap/_config.sh
+sh ~/proj/dotfiles/bootstrap/_fonts.sh
 
 echo "brave"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
