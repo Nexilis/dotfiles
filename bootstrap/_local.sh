@@ -6,6 +6,7 @@ sh ~/proj/dotfiles/bootstrap/local/btop.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/diff-so-fancy.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/dotnet.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/doublecmd.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/exa.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/fd-find.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/fzf.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/gocryptfs.bin.sh
