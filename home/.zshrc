@@ -1,6 +1,5 @@
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-export TERM=xterm-256color # needed for tmux to work with 256 colors
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export FZF_DEFAULT_COMMAND="fd -H -t f -E .cache -E .git -E .mozilla -E .rustup"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -45,6 +44,7 @@ alias o="xdg-open"
 alias n="(cd ~ && nvim)"
 alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
+alias nnn="nnn -dHAni"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
