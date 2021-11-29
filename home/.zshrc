@@ -23,7 +23,6 @@ antigen bundle zsh-users/zsh-completions
 antigen bundle zsh-users/zsh-history-substring-search
 antigen apply
 
-alias sau="sudo apt update && sudo apt upgrade && sudo apt autoremove"
 alias gaa="git add --all"
 alias gap="git add -p"
 alias gco="git checkout"
@@ -38,10 +37,14 @@ alias glg="git log --graph --pretty='%Cred%h%Creset -%C(auto)%d%Creset %s %Cgree
 alias grs="git reset --hard"
 alias gcl="git clean -xdf"
 alias gpsup='git push --set-upstream origin $(git_current_branch)'
+
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
 alias cat="bat -p --paging=never"
+alias cat-img="kitty +kitten icat"
 alias o="xdg-open"
 alias n="(cd ~ && nvim)"
+alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
+alias w="curl http://wttr.in/"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
