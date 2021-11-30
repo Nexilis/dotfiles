@@ -1,8 +1,6 @@
-if not functions -q fisher
-    set -q XDG_CONFIG_HOME; or set XDG_CONFIG_HOME ~/.config
-    curl https://git.io/fisher --create-dirs -sLo $XDG_CONFIG_HOME/fish/functions/fisher.fish
-    fish -c fisher
-end
+if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
+fundle plugin jethrokuan/z
+fundle init
 
 set -xg VISUAL (type -p nvim)
 set -xg EDITOR $VISUAL
@@ -33,9 +31,11 @@ alias l="exa -lah --git --time-style long-iso --group-directories-first"
 alias cat="bat -p --paging=never"
 alias cat-img="kitty +kitten icat"
 alias o="xdg-open"
-alias n="~/nvim"
+alias n="bash -c '(cd ~ && nvim)'"
 alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
 alias nnn="nnn -dHAni"
+
+alias u="flatpak update -y"
 
 starship init fish | source

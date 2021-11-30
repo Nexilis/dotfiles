@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
 # rlwrap is clojure dep
-sudo dnf install zsh util-linux-user kitty ImageMagick rlwrap -y
+sudo dnf install fish util-linux-user kitty ImageMagick rlwrap -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh
 sh ~/proj/dotfiles/bootstrap/_fonts.sh
+chsh -s $(which fish)
 
 echo "brave"
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
