@@ -12,6 +12,8 @@ set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
 set -xg LUA_PATH ~/.luarocks/share/lua/5.4/?.lua ~/.luarocks/share/lua/5.4/?/init.lua /usr/local/share/lua/5.4/?.lua /usr/local/share/lua/5.4/?/init.lua /usr/local/lib/lua/5.4/?.lua /usr/local/lib/lua/5.4/?/init.lua /usr/share/lua/5.4/?.lua /usr/share/lua/5.4/?/init.lua ./?.lua ./?/init.lua
 set -xg LUA_CPATH ~/.luarocks/lib/lua/5.4/?.so /usr/local/lib/lua/5.4/?.so /usr/lib/x86_64-linux-gnu/lua/5.4/?.so /usr/lib/lua/5.4/?.so /usr/local/lib/lua/5.4/loadall.so ./?.so
 
+set -U fish_greeting "Happy 🐟 ing"
+
 alias gaa="git add --all"
 alias gap="git add -p"
 alias gco="git checkout"
