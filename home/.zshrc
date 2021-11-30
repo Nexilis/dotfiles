@@ -46,6 +46,8 @@ alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
 alias nnn="nnn -dHAni"
 
+alias u="flatpak update -y"
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 eval "$(starship init zsh)"

@@ -2,11 +2,12 @@
 
 sudo apt update -y
 
-sudo apt install zsh software-properties-common curl apt-transport-https kitty imagemagick -y
+sudo apt install fish software-properties-common curl apt-transport-https kitty imagemagick -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh
 sh ~/proj/dotfiles/bootstrap/_fonts.sh
+chsh -s $(which fish)
 
 echo "brave"
 curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -

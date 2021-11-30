@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
-echo "config zsh"
-mkdir -vp $HOME/.zsh
-wget git.io/antigen -O $HOME/.zsh/antigen.zsh
-cp -vf $HOME/proj/dotfiles/home/.zshrc $HOME/
-chsh -s $(which zsh)
+# echo "config zsh"
+# rm -vrf $HOME/.zsh*
+# mkdir -vp $HOME/.zsh
+# wget git.io/antigen -O $HOME/.zsh/antigen.zsh
+# cp -vf $HOME/proj/dotfiles/home/.zshrc $HOME/
+
+echo "config fish"
+rm -vrf $HOME/.config/fish
+mkdir -vp $HOME/.config/fish
+cp -vfr $HOME/proj/dotfiles/config/fish $HOME/.config
 
 echo "config kitty"
 rm -vrf $HOME/.config/kitty
