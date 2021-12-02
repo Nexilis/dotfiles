@@ -15,7 +15,7 @@ set -xg LUA_CPATH ~/.luarocks/lib/lua/5.4/?.so /usr/local/lib/lua/5.4/?.so /usr/
 function fish_greeting
     echo It is (set_color yellow)(date +%R)(set_color normal). 🎏 Hello friend, happy 🎣\n
     echo (set_color normal)IP addr of (set_color red)(hostname)(set_color normal)@(set_color blue)(uname -r) (set_color normal)are:
-    echo (set_color normal)- pub (set_color green)(curl -s ifconfig.me)
+    echo (set_color normal)- pub (set_color green)(curl -s --max-time 1 -connect-timeout 1 ifconfig.me)
     echo (set_color normal)- prv (set_color green)(hostname -I)\n
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
