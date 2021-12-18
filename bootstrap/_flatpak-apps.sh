@@ -15,3 +15,5 @@ flatpak install flathub org.telegram.desktop -y
 flatpak install flathub de.haeckerfelix.Fragments -y
 flatpak install flathub fr.romainvigier.MetadataCleaner -y
 flatpak install flathub org.videolan.VLC -y
+flatpak install flathub fyi.zoey.Boop-GTK -y
+
