@@ -10,13 +10,15 @@ set -xg FZF_DEFAULT_COMMAND "fd -H -t f -E .cache -E .git -E .mozilla -E .rustup
 set -xg FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git"
 set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
-set -xg LUA_PATH ~/.luarocks/share/lua/5.4/?.lua ~/.luarocks/share/lua/5.4/?/init.lua /usr/local/share/lua/5.4/?.lua /usr/local/share/lua/5.4/?/init.lua /usr/local/lib/lua/5.4/?.lua /usr/local/lib/lua/5.4/?/init.lua /usr/share/lua/5.4/?.lua /usr/share/lua/5.4/?/init.lua ./?.lua ./?/init.lua
-set -xg LUA_CPATH ~/.luarocks/lib/lua/5.4/?.so /usr/local/lib/lua/5.4/?.so /usr/lib/x86_64-linux-gnu/lua/5.4/?.so /usr/lib/lua/5.4/?.so /usr/local/lib/lua/5.4/loadall.so ./?.so
+
+set -l LUA_VER 5.4
+set -xg LUA_PATH ~/.luarocks/share/lua/$LUA_VER/\?.lua ~/.luarocks/share/lua/$LUA_VER/\?/init.lua /usr/local/share/lua/$LUA_VER/\?.lua /usr/local/share/lua/$LUA_VER/\?/init.lua /usr/local/lib/lua/$LUA_VER/\?.lua /usr/local/lib/lua/$LUA_VER/\?/init.lua /usr/share/lua/$LUA_VER/\?.lua /usr/share/lua/$LUA_VER/\?/init.lua ./\?.lua ./\?/init.lua $LUA_PATH
+set -xg LUA_CPATH ~/.luarocks/lib/lua/$LUA_VER/\?.so /usr/local/lib/lua/$LUA_VER/\?.so /usr/lib/x86_64-linux-gnu/lua/$LUA_VER/\?.so /usr/lib/lua/$LUA_VER/\?.so /usr/local/lib/lua/$LUA_VER/loadall.so ./\?.so $LUA_CPATH
 
 function fish_greeting
     echo It is (set_color yellow)(date +%R)(set_color normal). 🎏 Hello friend, happy 🎣\n
     echo (set_color normal)IP addr of (set_color red)(hostname)(set_color normal)@(set_color blue)(uname -r) (set_color normal)are:
-    echo (set_color normal)- pub (set_color green)(curl -s --max-time 1 -connect-timeout 1 ifconfig.me)
+    echo (set_color normal)- pub (set_color green)(curl -s --max-time 1 --connect-timeout 1 ifconfig.me)
     echo (set_color normal)- prv (set_color green)(hostname -I)\n
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
@@ -45,6 +47,6 @@ alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
 alias nnn="nnn -dHAni"
 
-alias u="flatpak update -y"
+alias u="sudo apt update && apt list --upgradable && sudo pkcon update -y && flatpak update -y"
 
 starship init fish | source
