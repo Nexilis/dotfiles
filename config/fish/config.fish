@@ -12,8 +12,8 @@ set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git"
 set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
 
 set -l LUA_VER 5.4
-set -xg LUA_PATH ~/.luarocks/share/lua/$LUA_VER/\?.lua ~/.luarocks/share/lua/$LUA_VER/\?/init.lua /usr/local/share/lua/$LUA_VER/\?.lua /usr/local/share/lua/$LUA_VER/\?/init.lua /usr/local/lib/lua/$LUA_VER/\?.lua /usr/local/lib/lua/$LUA_VER/\?/init.lua /usr/share/lua/$LUA_VER/\?.lua /usr/share/lua/$LUA_VER/\?/init.lua ./\?.lua ./\?/init.lua $LUA_PATH
-set -xg LUA_CPATH ~/.luarocks/lib/lua/$LUA_VER/\?.so /usr/local/lib/lua/$LUA_VER/\?.so /usr/lib/x86_64-linux-gnu/lua/$LUA_VER/\?.so /usr/lib/lua/$LUA_VER/\?.so /usr/local/lib/lua/$LUA_VER/loadall.so ./\?.so $LUA_CPATH
+set -xg LUA_PATH $HOME/.luarocks/share/lua/$LUA_VER/\?.lua\;$HOME/.luarocks/share/lua/$LUA_VER/\?/init.lua\;/usr/local/share/lua/$LUA_VER/\?.lua\;/usr/local/share/lua/$LUA_VER/\?/init.lua\;/usr/local/lib/lua/$LUA_VER/\?.lua\;/usr/local/lib/lua/$LUA_VER/\?/init.lua\;/usr/share/lua/$LUA_VER/\?.lua\;/usr/share/lua/$LUA_VER/\?/init.lua\;./\?.lua\;./\?/init.lua\;$LUA_PATH
+set -xg LUA_CPATH $HOME/.luarocks/lib/lua/$LUA_VER/\?.so\;/usr/local/lib/lua/$LUA_VER/\?.so\;/usr/lib/x86_64-linux-gnu/lua/$LUA_VER/\?.so\;/usr/lib/lua/$LUA_VER/\?.so\;/usr/local/lib/lua/$LUA_VER/loadall.so\;./\?.so\;$LUA_CPATH
 
 function fish_greeting
     echo It is (set_color yellow)(date +%R)(set_color normal). 🎏 Hello friend, happy 🎣\n
