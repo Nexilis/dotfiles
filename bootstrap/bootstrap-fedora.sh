@@ -2,6 +2,8 @@
 
 # rlwrap is clojure dep
 sudo dnf install fish util-linux-user kitty ImageMagick rlwrap -y
+# curl with sources
+sudo dnf install curl libcurl-devel -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh

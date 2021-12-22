@@ -2,7 +2,9 @@
 
 sudo apt update -y
 
-sudo apt install fish software-properties-common curl apt-transport-https kitty imagemagick -y
+sudo apt install fish software-properties-common apt-transport-https kitty imagemagick -y
+# curl with sources
+sudo apt install curl libssl-dev libcurl4-openssl-dev -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh
