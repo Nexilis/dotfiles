@@ -47,6 +47,6 @@ alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
 alias nnn="nnn -dHAni"
 
-alias u="sudo apt update && apt list --upgradable && sudo pkcon update -y && flatpak update -y"
+alias u="sudo apt update; apt list --upgradable; sudo pkcon update; flatpak update -y"
 
 starship init fish | source
