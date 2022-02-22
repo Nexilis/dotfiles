@@ -8,7 +8,7 @@ find $HOME/Downloads/JetBrainsMono/fonts/variable -maxdepth 1 -iname '*.ttf' -ex
 rm -vrf $HOME/Downloads/JetBrainsMono*
 
 echo "Cascadia Code PL"
-wget https://github.com/microsoft/cascadia-code/releases/download/v2110.31/CascadiaCode-2110.31.zip -O $HOME/Downloads/CascadiaCode.zip
+wget https://github.com/microsoft/cascadia-code/releases/download/v2111.01/CascadiaCode-2111.01.zip -O $HOME/Downloads/CascadiaCode.zip
 unzip $HOME/Downloads/CascadiaCode.zip -d $HOME/Downloads/CascadiaCode
 mkdir -vp $HOME/.local/share/fonts/cascadia-code
 find $HOME/Downloads/CascadiaCode/ttf -maxdepth 1 -iname '*.ttf' -exec cp -vfu {} $HOME/.local/share/fonts/cascadia-code \;
