@@ -1,0 +1,7 @@
+theme = "bogster"
+
+# TODO: uncomment after next hx release
+# [editor.cursor-shape]
+# insert = "bar"
+# normal = "block"
+# select = "underline"
