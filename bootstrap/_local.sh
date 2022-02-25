@@ -10,11 +10,13 @@ sh ~/proj/dotfiles/bootstrap/local/exa.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/fd-find.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/fzf.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/gocryptfs.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/jetbrains-toolbox.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/jdk.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/lazygit.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/micro.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/nnn.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/nvim.bin.sh
+# sh ~/proj/dotfiles/bootstrap/local/openfortigui.sh
 sh ~/proj/dotfiles/bootstrap/local/ripgrep.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/rust.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/starship.bin.sh
