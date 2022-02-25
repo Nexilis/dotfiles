@@ -27,6 +27,3 @@ Icon=$HOME/.local/share/pixmaps/openfortigui.png
 Exec=$HOME/.local/bin/openfortigui
 Terminal=false
 Categories=Network;Application;" >> $HOME/.local/share/applications/openfortigui.desktop
-
-sudo rm -vf /usr/bin/qmake
-sudo dnf remove qt5-qtbase-devel openssl-devel qtkeychain-qt5-devel -y
