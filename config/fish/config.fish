@@ -40,13 +40,11 @@ alias gpsup='git push --set-upstream origin (git_current_branch)'
 
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
 alias cat="bat -p --paging=never"
-alias cat-img="kitty +kitten icat"
 alias o="xdg-open"
-alias n="bash -c '(cd ~ && nvim)'"
 alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
-alias nnn="nnn -dHAni"
+alias n="nnn -dHAni"
 
-alias u="sudo apt update; apt list --upgradable; sudo pkcon update; flatpak update -y"
+alias u="sudo dnf update; flatpak update -y"
 
 starship init fish | source
