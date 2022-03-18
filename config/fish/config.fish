@@ -1,5 +1,6 @@
 if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
 fundle plugin jethrokuan/z
+fundle plugin reitzig/sdkman-for-fish
 fundle install &>/dev/null
 fundle init
 
