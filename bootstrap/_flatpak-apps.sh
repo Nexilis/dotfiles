@@ -7,6 +7,7 @@ flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.bitwarden.desktop -y
 flatpak install flathub org.gimp.GIMP -y
 flatpak install flathub com.github.tchx84.Flatseal -y
+flatpak install flathub com.mattjakeman.ExtensionManager -y
 flatpak install flathub org.gnome.TextEditor -y
 flatpak install flathub org.gnome.meld -y
 flatpak install flathub org.gnome.gitg -y
