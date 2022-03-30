@@ -110,8 +110,11 @@ nnoremap d "_d
 vnoremap d "_d
 nnoremap D "_D
 
-" CTRL+Z in insert mode
+" CTRL+Z working in insert mode
 inoremap <c-z> <c-o>:u<CR>
+" CTRL+V, CTRL+SHIFT+V working in insert mode
+inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
+inoremap <c-s-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 
 let g:undotree_WindowLayout = 2
 let g:undotree_SetFocusWhenToggle = 1
