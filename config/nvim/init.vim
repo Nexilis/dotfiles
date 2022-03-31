@@ -76,7 +76,7 @@ let g:indentLine_char = '┊'
 
 let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
-set timeoutlen=1
+set timeoutlen=500
 
 " Enable basic formatting when a filetype is not found
 let g:neoformat_basic_format_align = 1
