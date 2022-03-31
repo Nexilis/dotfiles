@@ -8,13 +8,14 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
 Plug 'Olical/aniseed' " Neovim configuration and plugins in Fennel (Lisp compiled to Lua)
 Plug 'Olical/conjure' " Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'feline-nvim/feline.nvim', { 'branch': 'develop' }
+Plug 'akinsho/bufferline.nvim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'phaazon/hop.nvim'
 Plug 'ajh17/VimCompletesMe'
-Plug 'tpope/vim-commentary'
+Plug 'terrortylor/nvim-comment' " gcc to toggle comment
 Plug 'tpope/vim-unimpaired' " toggles yoh, yob, yow, yos
+Plug 'lewis6991/gitsigns.nvim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'thaerkh/vim-workspace'
@@ -35,13 +36,11 @@ set completeopt=menuone,noinsert,noselect
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
+set termguicolors
 set encoding=utf-8
 set langmenu=en_US.utf-8
 let $LANG='en_US.utf-8'
 
-if (has("termguicolors"))
-    set termguicolors
-endif
 set background=dark
 colorscheme PaperColor
 set backup
@@ -247,12 +246,6 @@ let g:which_key_map.s = {
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
-
-let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=0
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#fnamemod=':t'
-let g:airline_theme='papercolor'
 
 augroup vimrc-remember-cursor-position
     autocmd!
