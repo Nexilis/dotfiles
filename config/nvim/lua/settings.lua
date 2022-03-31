@@ -16,8 +16,12 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     update_in_insert = true,
   }
 )
-
+require'nvim-web-devicons'.setup {}
 require'hop'.setup()
 require'nvim-tree'.setup {}
-
-print('Hello! Lua setting loaded.')
+require('feline').setup()
+vim.opt.termguicolors = true
+require("bufferline").setup{}
+require('nvim_comment').setup()
+require('gitsigns').setup()
+print('Hello! Lua setting loaded. 12')
