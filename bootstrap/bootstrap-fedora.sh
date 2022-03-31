@@ -4,16 +4,16 @@
 sudo dnf install xclip fish util-linux-user kitty ImageMagick rlwrap -y
 chsh -s $(which fish)
 
+# snap with classic mode
+sudo dnf install snapd -y
+sudo ln -s /var/lib/snapd/snap /snap
+
 # curl with sources
 sudo dnf install curl libcurl-devel -y
 
 sh ~/proj/dotfiles/bootstrap/_local.sh
 sh ~/proj/dotfiles/bootstrap/_config.sh
 sh ~/proj/dotfiles/bootstrap/_fonts.sh
-
-echo "helix-editor"
-sudo dnf copr enable varlad/helix
-sudo dnf install helix
 
 echo "brave"
 sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
