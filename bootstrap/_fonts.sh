@@ -14,4 +14,18 @@ mkdir -vp $HOME/.local/share/fonts/cascadia-code
 find $HOME/Downloads/CascadiaCode/ttf -maxdepth 1 -iname '*.ttf' -exec cp -vfu {} $HOME/.local/share/fonts/cascadia-code \;
 rm -vrf $HOME/Downloads/CascadiaCode*
 
+echo "FiraCode Nerd"
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip -O $HOME/Downloads/FiraCode.zip
+unzip $HOME/Downloads/FiraCode.zip -d $HOME/Downloads/FiraCode
+mkdir -vp $HOME/.local/share/fonts/fira-code
+find $HOME/Downloads/FiraCode -maxdepth 1 -iname '*.ttf' -exec cp -vfu {} $HOME/.local/share/fonts/fira-code \;
+rm -vrf $HOME/Downloads/FiraCode*
+
+echo "Hack Nerd"
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip -O $HOME/Downloads/Hack.zip
+unzip $HOME/Downloads/Hack.zip -d $HOME/Downloads/Hack
+mkdir -vp $HOME/.local/share/fonts/hack
+find $HOME/Downloads/Hack -maxdepth 1 -iname '*.ttf' -exec cp -vfu {} $HOME/.local/share/fonts/hack \;
+rm -vrf $HOME/Downloads/Hack*
+
 fc-cache -vf
