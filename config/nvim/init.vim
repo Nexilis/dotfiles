@@ -6,8 +6,6 @@ set undodir=$HOME/.config/nvim/undo//
 let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
 Plug 'sheerun/vim-polyglot'
-Plug 'Olical/aniseed' " Neovim configuration and plugins in Fennel (Lisp compiled to Lua)
-Plug 'Olical/conjure' " Interactive evaluation for Neovim (Clojure, Fennel, Janet, Racket, Hy, MIT Scheme, Guile)
 Plug 'feline-nvim/feline.nvim', { 'branch': 'develop' }
 Plug 'akinsho/bufferline.nvim'
 Plug 'NLKNguyen/papercolor-theme'
@@ -16,20 +14,16 @@ Plug 'ajh17/VimCompletesMe'
 Plug 'terrortylor/nvim-comment' " gcc to toggle comment
 Plug 'tpope/vim-unimpaired' " toggles yoh, yob, yow, yos
 Plug 'lewis6991/gitsigns.nvim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'nvim-lua/plenary.nvim' " dependency of telescope
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'thaerkh/vim-workspace'
 Plug 'liuchengxu/vim-which-key'
 Plug 'mbbill/undotree'
 Plug 'terryma/vim-expand-region'
-Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'kyazdani42/nvim-web-devicons' " file icons
 Plug 'kyazdani42/nvim-tree.lua'
-Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim' " show | every 4 spaces
 Plug 'sbdchd/neoformat'
-" LSP configuration
-Plug 'neovim/nvim-lspconfig' " common configs for nvim LSP client
-Plug 'nvim-lua/lsp_extensions.nvim' " LSP extensions, e.g. providing type inlay hints
-Plug 'nvim-lua/completion-nvim' " LSP autocompletion framework
 call plug#end()
 " Set completeopt to have a better completion experience - :help completeopt
 set completeopt=menuone,noinsert,noselect
@@ -69,13 +63,10 @@ set autoread
 set colorcolumn=120
 set hidden
 set clipboard^=unnamed,unnamedplus
-set listchars=tab:→\ ,trail:·,nbsp:·,space:·
-set list
-let g:indentLine_char = '┊'
+set timeoutlen=500
 
 let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
-set timeoutlen=500
 
 " Enable basic formatting when a filetype is not found
 let g:neoformat_basic_format_align = 1
@@ -86,20 +77,16 @@ let g:workspace_create_new_tabs = 0
 let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
 let g:workspace_session_disable_on_args = 1
 let g:workspace_undodir = $HOME . '/.config/nvim/undo/workspace'
-" Removing trailing spaces on save causes problems when using vim-multiple-cursors
 let g:workspace_autosave_untrailspaces = 0
-" Alwasy use autosaving, also outside a session
 let g:workspace_autosave_always = 1
 
 nmap <leader>t :NvimTreeToggle<CR>
-
 nmap <leader>k :bnext<CR>
 nmap <leader>j :bprevious<CR>
 nmap <leader>q :qa!<CR>
 nmap <leader>os :setlocal spell! spelllang=en_us<CR>
 nmap <leader>or :so $MYVIMRC<CR>
 nmap <leader>of :Neoformat<CR>
-nmap <leader>ol :IndentLinesToggle<CR>
 nmap <leader>ow :ToggleWorkspace<CR>
 nmap <leader>oa :ToggleAutosave<CR>
 
@@ -141,21 +128,14 @@ nmap <leader>h2 :HopChar2<CR>
 nmap <leader>hl :HopLine<CR>
 nmap f :HopWord<CR>
 
-" fzf.vim
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump=1
-nnoremap <leader>f :Rg<CR>
-nnoremap <leader>bo :Files<CR>
-nnoremap <leader>if :History<CR>
-nnoremap <leader>ic :History:<CR>
-nnoremap <leader>is :History/<CR>
-" needed for fzf in nvim to include hidden files in search even when FZF_DEFAULT_COMMAND is not set,
-" e.g. when nvim is started directly form sh or .desktop file, a place without my configuration
-let $FZF_DEFAULT_COMMAND="fd -H -t f --no-ignore-vcs"
-" Completions in Insert mode using fzf
-imap <c-x><c-w> <plug>(fzf-complete-word)
-imap <c-x><c-p> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-buffer-line)
+" Telescope
+nnoremap <leader>bo <cmd>Telescope find_files<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fs <cmd>Telescope current_buffer_fuzzy_find<cr>
+nnoremap <leader>fc <cmd>Telescope command_history<cr>
 
 " window mappings
 nnoremap <leader>wq <C-w>q
@@ -174,11 +154,9 @@ let g:which_key_map.j = "buffer-previous"
 let g:which_key_map.q = "quit"
 let g:which_key_map.u = "undo-tree-toggle"
 let g:which_key_map.t = "file-tree-toggle"
-let g:which_key_map.f = "find-everywhere"
 let g:which_key_map.o = {
-            \ 'name': "+TOOLS",
+            \ 'name': "+OPTIONS",
             \ 'r':    "config-reload",
-            \ 'l':    "indent-lines-toggle",
             \ 'f':    "autoformat",
             \ 'w':    "workspace-toggle",
             \ 'a':    "autosave-toggle",
@@ -199,11 +177,14 @@ let g:which_key_map.h = {
             \ '1':    "single-char",
             \ '2':    "two-chars",
             \}
-let g:which_key_map.i = {
-            \ 'name': "+HISTORY",
-            \ 'f':    "files",
-            \ 'c':    "commands",
-            \ 's':    "search",
+let g:which_key_map.f = {
+            \ 'name': "+FIND",
+            \ 'f':    "file",
+            \ 'g':    "grep-live",
+            \ 'b':    "buffers",
+            \ 'h':    "help",
+            \ 's':    "search-fuzzy",
+            \ 'c':    "command-history",
             \}
 let g:which_key_map.w = {
             \ 'name': "+WINDOW",
