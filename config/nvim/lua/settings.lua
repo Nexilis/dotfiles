@@ -2,8 +2,6 @@ local set = vim.opt
 set.termguicolors = true
 set.list = true
 set.listchars:append('space:⋅')
-set.listchars:append('tab:→\ ')
-set.listchars:append('eol:↴')
 
 if vim.g.nvui then
     vim.cmd [[
@@ -23,7 +21,4 @@ require'feline'.setup()
 require'bufferline'.setup {}
 require'nvim_comment'.setup()
 require'gitsigns'.setup()
-require'indent_blankline'.setup {
-    show_end_of_line = false,
-    space_char_blankline = " ",
-}
+require'indent_blankline'.setup {}
