@@ -15,5 +15,10 @@ flatpak install flathub org.telegram.desktop -y
 flatpak install flathub de.haeckerfelix.Fragments -y
 flatpak install flathub fr.romainvigier.MetadataCleaner -y
 flatpak install flathub org.videolan.VLC -y
-flatpak install flathub fyi.zoey.Boop-GTK -y
-
+flatpak install flathub com.github.liferooter.textpieces -y
+flatpak install flathub com.github.hugolabe.Wike -y
+flatpak install flathub de.haeckerfelix.Shortwave -y
+flatpak install flathub com.rafaelmardojai.Blanket -y
+flatpak install flathub dev.geopjr.Collision -y
+flatpak install flathub com.github.maoschanz.drawing -y
+flatpak install flathub org.gnome.gitlab.somas.Apostrophe -y
