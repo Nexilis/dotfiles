@@ -761,10 +761,10 @@
   <DirectoryHotList>
     <HotDir Name="home" Path="$HOME"/>
     <HotDir Name="Downloads" Path="~/Downloads"/>
-    <HotDir Name="Dropbox" Path="~/Dropbox"/>
+    <HotDir Name="pCloudDrive" Path="~/pCloudDrive"/>
     <HotDir Name="Pictures" Path="~/Pictures"/>
     <HotDir Name=".config" Path="~/.config"/>
-    <HotDir Name="dotfiles" Path="~/dotfiles"/>
+    <HotDir Name="dotfiles" Path="~/proj/dotfiles"/>
     <HotDir Name="proj" Path="~/proj"/>
     <HotDir Name="cyb" Path="~/cyb"/>
   </DirectoryHotList>

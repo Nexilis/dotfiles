@@ -44,3 +44,9 @@ echo "azure data studio"
 wget https://sqlopsbuilds.azureedge.net/stable/83a4316cf89cbf961a0f09a72c861379cfd01fa9/azuredatastudio-linux-1.34.0.rpm -O $HOME/Downloads/azuredatastudio.rpm
 sudo rpm -i $HOME/Downloads/azuredatastudio.rpm
 rm -vf $HOME/Downloads/azuredatastudio.rpm
+
+echo "fish - omf"
+curl -s "https://get.sdkman.io" | bash
+curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+omf install sdk
+omf install z

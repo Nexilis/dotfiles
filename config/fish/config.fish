@@ -1,9 +1,3 @@
-if not functions -q fundle; eval (curl -sfL https://git.io/fundle-install); end
-fundle plugin jethrokuan/z
-fundle plugin reitzig/sdkman-for-fish
-fundle install &>/dev/null
-fundle init
-
 set -xg VISUAL (type -p nvim)
 set -xg EDITOR $VISUAL
 set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
