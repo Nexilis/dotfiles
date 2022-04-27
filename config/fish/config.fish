@@ -38,7 +38,7 @@ alias cat="bat -p --paging=never"
 alias o="xdg-open"
 alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
-alias n="nnn -dHAni"
+alias vpn="sh ~/cyb.decrypted/vpn-start.sh"
 
 alias u="sudo dnf update; flatpak update -y"
 
