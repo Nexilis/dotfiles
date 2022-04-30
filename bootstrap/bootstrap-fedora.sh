@@ -46,7 +46,6 @@ sudo rpm -i $HOME/Downloads/azuredatastudio.rpm
 rm -vf $HOME/Downloads/azuredatastudio.rpm
 
 echo "fish - omf"
-curl -s "https://get.sdkman.io" | bash
 curl https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 omf install sdk
 omf install z
