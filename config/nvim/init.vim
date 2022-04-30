@@ -1,7 +1,4 @@
 set runtimepath+=$HOME/.config/nvim/vimfiles
-set dir=$HOME/.config/nvim/swap//
-set backupdir=$HOME/.config/nvim/backup//
-set undodir=$HOME/.config/nvim/undo//
 
 let g:plug_shallow=1
 call plug#begin('~/.config/nvim/plugged')
@@ -25,45 +22,6 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim' " show | every 4 spaces
 Plug 'sbdchd/neoformat'
 call plug#end()
-" Set completeopt to have a better completion experience - :help completeopt
-set completeopt=menuone,noinsert,noselect
-" Avoid showing extra messages when using completion
-set shortmess+=c
-
-set termguicolors
-set encoding=utf-8
-set langmenu=en_US.utf-8
-let $LANG='en_US.utf-8'
-
-set background=dark
-colorscheme PaperColor
-set backup
-set swapfile
-set undofile
-set mousehide
-" enable mouse scroll
-set mouse=a
-set nowrap
-set backspace=2
-set textwidth=0
-set wrapmargin=0
-set formatoptions-=t
-set hlsearch
-set ignorecase
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set laststatus=2
-set path+=**
-set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.
-set number
-set autoread
-set colorcolumn=120
-set hidden
-set clipboard^=unnamed,unnamedplus
-set timeoutlen=500
 
 let g:mapleader = "\<Space>"
 let g:maplocaleader = ','
@@ -129,8 +87,8 @@ nmap <leader>hl :HopLine<CR>
 nmap f :HopWord<CR>
 
 " Telescope
-nnoremap <leader>bo <cmd>Telescope find_files<cr>
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>bo <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
@@ -236,5 +194,5 @@ augroup END
 " Set C# syntax for csx files
 autocmd BufNewFile,BufRead *.csx set filetype=cs
 
-lua require('settings')
+lua require('init')
 
