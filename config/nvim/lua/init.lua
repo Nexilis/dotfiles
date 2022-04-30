@@ -33,22 +33,7 @@ set.shortmess:append('c')
 set.number=true
 set.timeoutlen=500
 set.clipboard='unnamed,unnamedplus'
-
-if vim.g.nvui then
-    vim.cmd [[
-        NvuiAnimationsEnabled 0
-        NvuiFrameless 0
-        NvuiPopupMenu 0
-        NvuiCmdline 0
-        NvuiCmdCenterYPos 1
-        NvuiCmdPadding 0
-        NvuiCmdBorderWidth 0
-        NvuiCmdFontSize 20
-        NvuiCmdBigFontScaleFactor 1.0
-        NvuiCmdFontFamily Hack Nerd Font Mono
-    ]]
-    set.guifont='Hack Nerd Font Mono:h11'
-end
+set.guifont='Hack Nerd Font Mono:h11'
 
 require'nvim-web-devicons'.setup {}
 require'hop'.setup()
