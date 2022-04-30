@@ -12,8 +12,8 @@ sh ~/proj/dotfiles/bootstrap/local/gocryptfs.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/jetbrains-toolbox.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/jdk.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/lazygit.bin.sh
+sh ~/proj/dotfiles/bootstrap/local/neovide.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/nvim.bin.sh
-sh ~/proj/dotfiles/bootstrap/local/nvui.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/ripgrep.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/rust.bin.sh
 sh ~/proj/dotfiles/bootstrap/local/starship.bin.sh
