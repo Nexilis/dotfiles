@@ -9,9 +9,6 @@ set.termguicolors=true
 set.encoding='utf-8'
 set.langmenu='en_US.utf-8'
 set.background='light'
-vim.cmd [[
-    colorscheme PaperColor
-]]
 set.list=true
 set.listchars = {tab = '▸ ', trail = '·'}
 set.mousehide=true
@@ -28,18 +25,10 @@ set.colorcolumn='120'
 set.completeopt='menuone,noinsert,noselect'
 set.formatoptions:remove('t')
 set.path:append('**')
-set.wildignore:append('*/tmp/*,*.so,*.swp,*.')
+set.wildignore:append('*/tmp/*,*/cache/*,*.so,*.swp,*.')
 set.shortmess:append('c')
 set.number=true
 set.timeoutlen=500
 set.clipboard='unnamed,unnamedplus'
 set.guifont='Hack Nerd Font Mono:h11'
 
-require'nvim-web-devicons'.setup {}
-require'hop'.setup()
-require'nvim-tree'.setup {}
-require'feline'.setup()
-require'bufferline'.setup {}
-require'nvim_comment'.setup()
-require'gitsigns'.setup()
-require'indent_blankline'.setup {}
