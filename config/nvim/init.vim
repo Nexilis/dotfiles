@@ -4,71 +4,6 @@ lua require('init')
 lua require('plugins')
 lua require('keybindings')
 
-nmap <leader>t :NvimTreeToggle<CR>
-nmap <leader>k :bnext<CR>
-nmap <leader>j :bprevious<CR>
-nmap <leader>q :qa!<CR>
-nmap <leader>os :setlocal spell! spelllang=en_us<CR>
-nmap <leader>or :so $MYVIMRC<CR>
-nmap <leader>of :Neoformat<CR>
-nmap <leader>ow :ToggleWorkspace<CR>
-nmap <leader>oa :ToggleAutosave<CR>
-
-" delete without copying (puts to the black hole register "_")
-nnoremap x "_x
-nnoremap d "_d
-vnoremap d "_d
-nnoremap D "_D
-
-" CTRL+Z working in insert mode
-inoremap <c-z> <c-o>:u<CR>
-" CTRL+V, CTRL+SHIFT+V working in insert mode
-inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
-inoremap <c-s-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
-
-nnoremap <leader>u :UndotreeToggle<CR>
-
-" Force save as SUDO even if not sudo vim
-cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-nmap <leader>bS :w!!<CR>
-nmap <leader>bw :w!<CR>
-nmap <leader>bx :bp <BAR> bd! #<CR>
-nmap <leader>bn :enew<CR>
-
-" lines moving based on vim-unimpaired
-nmap <M-j> ]e
-nmap <M-k> [e
-
-" vim-expand-region
-map + <Plug>(expand_region_expand)
-map _ <Plug>(expand_region_shrink)
-
-" phaazon/hop.nvim
-nmap <leader>hf :HopWord<CR>
-nmap <leader>h1 :HopChar1<CR>
-nmap <leader>h2 :HopChar2<CR>
-nmap <leader>hl :HopLine<CR>
-nmap f :HopWord<CR>
-
-" Telescope
-nnoremap <leader>bo <cmd>Telescope find_files hidden=true<cr>
-nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fs <cmd>Telescope current_buffer_fuzzy_find<cr>
-nnoremap <leader>fc <cmd>Telescope command_history<cr>
-
-" window mappings
-nnoremap <leader>wq <C-w>q
-nnoremap <leader>ws :split<cr>
-nnoremap <leader>wv :vsplit<cr>
-nnoremap <leader>wo :only<cr>
-nnoremap <leader>wh <C-w>h
-nnoremap <leader>wj <C-w>j
-nnoremap <leader>wk <C-w>k
-nnoremap <leader>wl <C-w>l
-
 " Define prefix dictionary
 let g:which_key_map =  {}
 let g:which_key_map.k = "buffer-next"
@@ -86,7 +21,6 @@ let g:which_key_map.o = {
             \}
 let g:which_key_map.b = {
             \ 'name': "+BUFFER",
-            \ 'S':    "sudo-write",
             \ 'w':    "write",
             \ 'o':    "open",
             \ 'x':    "close",
@@ -120,17 +54,6 @@ let g:which_key_map.w = {
             \ 'o':    "only-current-window",
             \}
 
-" Syntax
-nnoremap <leader>sc :set syn=cs<CR>
-nnoremap <leader>sf :set syn=fsharp<CR>
-nnoremap <leader>sj :set syn=javascript<CR>
-nnoremap <leader>st :set syn=typescript<CR>
-nnoremap <leader>ss :set syn=json<CR>
-nnoremap <leader>sx :set syn=xml<CR>
-nnoremap <leader>sb :set syn=sh<CR>
-nnoremap <leader>sm :set syn=terrafrom<CR>
-nnoremap <leader>sr :set syn=rust<CR>
-nnoremap <leader>sl :set syn=clojure<CR>
 let g:which_key_map.s = {
             \ 'name': "+SYNTAX",
             \ 'c':    "c#",
@@ -145,9 +68,6 @@ let g:which_key_map.s = {
             \ 'l':    "clojure",
             \}
 
-" Leader configuration with vim-which-key plugin
-nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-" nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
 
 augroup vimrc-remember-cursor-position
