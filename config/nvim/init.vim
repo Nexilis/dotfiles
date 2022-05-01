@@ -1,42 +1,8 @@
 set runtimepath+=$HOME/.config/nvim/vimfiles
 
-let g:plug_shallow=1
-call plug#begin('~/.config/nvim/plugged')
-Plug 'sheerun/vim-polyglot'
-Plug 'feline-nvim/feline.nvim', { 'branch': 'develop' }
-Plug 'akinsho/bufferline.nvim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'phaazon/hop.nvim'
-Plug 'ajh17/VimCompletesMe'
-Plug 'terrortylor/nvim-comment' " gcc to toggle comment
-Plug 'tpope/vim-unimpaired' " toggles yoh, yob, yow, yos
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-lua/plenary.nvim' " dependency of telescope
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'thaerkh/vim-workspace'
-Plug 'liuchengxu/vim-which-key'
-Plug 'mbbill/undotree'
-Plug 'terryma/vim-expand-region'
-Plug 'kyazdani42/nvim-web-devicons' " file icons
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'lukas-reineke/indent-blankline.nvim' " show | every 4 spaces
-Plug 'sbdchd/neoformat'
-call plug#end()
-
-let g:mapleader = "\<Space>"
-let g:maplocaleader = ','
-
-" Enable basic formatting when a filetype is not found
-let g:neoformat_basic_format_align = 1
-let g:neoformat_basic_format_retab = 1
-let g:neoformat_basic_format_trim = 1
-
-let g:workspace_create_new_tabs = 0
-let g:workspace_session_directory = $HOME . '/.config/nvim/sessions/'
-let g:workspace_session_disable_on_args = 1
-let g:workspace_undodir = $HOME . '/.config/nvim/undo/workspace'
-let g:workspace_autosave_untrailspaces = 0
-let g:workspace_autosave_always = 1
+lua require('init')
+lua require('plugins')
+lua require('keybindings')
 
 nmap <leader>t :NvimTreeToggle<CR>
 nmap <leader>k :bnext<CR>
@@ -60,8 +26,6 @@ inoremap <c-z> <c-o>:u<CR>
 inoremap <c-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 inoremap <c-s-v> <esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>mi`[=`]`ia
 
-let g:undotree_WindowLayout = 2
-let g:undotree_SetFocusWhenToggle = 1
 nnoremap <leader>u :UndotreeToggle<CR>
 
 " Force save as SUDO even if not sudo vim
@@ -183,7 +147,7 @@ let g:which_key_map.s = {
 
 " Leader configuration with vim-which-key plugin
 nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
-nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
+" nnoremap <silent> <localleader> :<c-u>WhichKey ','<CR>
 call which_key#register('<Space>', "g:which_key_map")
 
 augroup vimrc-remember-cursor-position
@@ -193,6 +157,4 @@ augroup END
 
 " Set C# syntax for csx files
 autocmd BufNewFile,BufRead *.csx set filetype=cs
-
-lua require('init')
 
