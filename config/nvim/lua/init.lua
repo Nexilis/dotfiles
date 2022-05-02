@@ -8,7 +8,7 @@ set.undodir='$HOME/.config/nvim/undo//'
 set.termguicolors=true
 set.encoding='utf-8'
 set.langmenu='en_US.utf-8'
-set.background='light'
+set.background='dark'
 set.list=true
 set.listchars = {tab = '▸ ', trail = '·'}
 set.mousehide=true
