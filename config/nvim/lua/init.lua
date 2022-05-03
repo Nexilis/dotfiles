@@ -32,3 +32,16 @@ set.timeoutlen=500
 set.clipboard='unnamed,unnamedplus'
 set.guifont='Hack Nerd Font Mono:h11'
 
+vim.cmd([[
+    augroup packer_recompile_when_plugins_change
+        autocmd!
+        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    augroup end
+
+    augroup remember-cursor-position
+        autocmd!
+        autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+    augroup END
+
+    autocmd BufNewFile,BufRead *.csx set filetype=cs
+]])

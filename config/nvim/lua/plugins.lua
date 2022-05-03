@@ -1,27 +1,43 @@
-local global=vim.g
-local Plug = vim.fn['plug#']
+local fn = vim.fn
+local installPath = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(installPath)) > 0 then
+    fn.system {
+        'git',
+        'clone',
+        '--depth',
+        '1',
+        'https://github.com/wbthomason/packer.nvim',
+        installPath,
+    }
+    print 'Installing packer. Restart Neovim.'
+end
+local ok, packer = pcall(require, 'packer')
+if not ok then
+    return
+end
 
-vim.call('plug#begin', '~/.config/nvim/plugged')
-Plug 'sheerun/vim-polyglot'
-Plug('feline-nvim/feline.nvim', {branch = 'develop'})
-Plug 'akinsho/bufferline.nvim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'phaazon/hop.nvim'
-Plug 'ajh17/VimCompletesMe'
-Plug 'terrortylor/nvim-comment' -- gcc to toggle comment
-Plug 'tpope/vim-unimpaired' -- toggles yoh, yob, yow, yos
-Plug 'lewis6991/gitsigns.nvim'
-Plug 'nvim-lua/plenary.nvim' -- dependency of telescope
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'thaerkh/vim-workspace'
-Plug 'folke/which-key.nvim'
-Plug 'mbbill/undotree'
-Plug 'terryma/vim-expand-region'
-Plug 'kyazdani42/nvim-web-devicons' -- file icons
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'lukas-reineke/indent-blankline.nvim' -- show | every 4 spaces
-Plug 'sbdchd/neoformat'
-vim.call('plug#end')
+packer.startup(function(use)
+    use 'wbthomason/packer.nvim'
+    use 'feline-nvim/feline.nvim'
+    use 'sheerun/vim-polyglot'
+    use 'akinsho/bufferline.nvim'
+    use 'NLKNguyen/papercolor-theme'
+    use 'phaazon/hop.nvim'
+    use 'ajh17/VimCompletesMe'
+    use 'terrortylor/nvim-comment' -- gcc to toggle comment
+    use 'tpope/vim-unimpaired' -- toggles yoh, yob, yow, yos
+    use 'lewis6991/gitsigns.nvim'
+    use 'nvim-lua/plenary.nvim' -- dependency of telescope
+    use 'nvim-telescope/telescope.nvim'
+    use 'thaerkh/vim-workspace'
+    use 'folke/which-key.nvim'
+    use 'mbbill/undotree'
+    use 'terryma/vim-expand-region'
+    use 'kyazdani42/nvim-web-devicons' -- file icons
+    use 'kyazdani42/nvim-tree.lua'
+    use 'lukas-reineke/indent-blankline.nvim' -- show | every 4 spaces
+    use 'sbdchd/neoformat'
+end)
 
 require'which-key'.setup {}
 require'nvim-web-devicons'.setup {}
@@ -37,6 +53,7 @@ vim.cmd [[
     colorscheme PaperColor
 ]]
 
+local global=vim.g
 global.plug_shallow=1
 
 global.neoformat_basic_format_align=1
@@ -45,8 +62,8 @@ global.neoformat_basic_format_trim=1
 
 local home=os.getenv( "HOME" )
 global.workspace_create_new_tabs=0
-global.workspace_session_directory=home..'/.config/nvim/sessions/'
 global.workspace_session_disable_on_args=1
+global.workspace_session_directory=home..'/.config/nvim/sessions/'
 global.workspace_undodir=home..'/.config/nvim/undo/workspace'
 global.workspace_autosave_untrailspaces=0
 global.workspace_autosave_always=1
