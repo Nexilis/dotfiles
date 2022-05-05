@@ -9,7 +9,7 @@ if fn.empty(fn.glob(installPath)) > 0 then
         'https://github.com/wbthomason/packer.nvim',
         installPath,
     }
-    print 'Installing packer. Restart Neovim.'
+    print 'Installing packer. Restart Neovim and run :PackerSync.'
 end
 local ok, packer = pcall(require, 'packer')
 if not ok then
@@ -60,7 +60,7 @@ global.neoformat_basic_format_align=1
 global.neoformat_basic_format_retab=1
 global.neoformat_basic_format_trim=1
 
-local home=os.getenv( "HOME" )
+local home=os.getenv("HOME")
 global.workspace_create_new_tabs=0
 global.workspace_session_disable_on_args=1
 global.workspace_session_directory=home..'/.config/nvim/sessions/'

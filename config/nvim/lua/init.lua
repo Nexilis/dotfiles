@@ -1,10 +1,11 @@
 local set=vim.opt
+local home=os.getenv("HOME")
+set.dir=home..'/.config/nvim/swap//'
+set.backupdir=home..'/.config/nvim/backup//'
+set.undodir=home..'/.config/nvim/undo//'
 set.backup=true
 set.swapfile=true
 set.undofile=true
-set.dir='$HOME/.config/nvim/swap//'
-set.backupdir='$HOME/.config/nvim/backup//'
-set.undodir='$HOME/.config/nvim/undo//'
 set.termguicolors=true
 set.encoding='utf-8'
 set.langmenu='en_US.utf-8'
