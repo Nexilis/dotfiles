@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<doublecmd DCVersion="1.0.1 beta" ConfigVersion="12">
+<doublecmd DCVersion="1.0.5 beta" ConfigVersion="12">
   <Configuration Save="True" SortOrder="0" TreeType="0">
     <UseConfigInProgramDir>False</UseConfigInProgramDir>
     <FolderTabs Save="True"/>
@@ -465,19 +465,19 @@
   </Tools>
   <Fonts>
     <Main>
-      <Name>Cascadia Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Main>
     <Editor>
-      <Name>JetBrains Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
     </Editor>
     <Viewer>
-      <Name>JetBrains Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -501,7 +501,7 @@
       <Quality>0</Quality>
     </SearchResults>
     <PathEdit>
-      <Name>Cascadia Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -513,7 +513,7 @@
       <Quality>0</Quality>
     </FunctionButtons>
     <Log>
-      <Name>Cascadia Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -525,7 +525,7 @@
       <Quality>0</Quality>
     </ViewerBook>
     <Console>
-      <Name>Cascadia Mono</Name>
+      <Name>Hack Nerd Font Mono</Name>
       <Size>10</Size>
       <Style>0</Style>
       <Quality>0</Quality>
@@ -562,7 +562,7 @@
       <ShowCaptions>False</ShowCaptions>
       <ReportErrorWithCommands>False</ReportErrorWithCommands>
     </MiddleBar>
-    <DriveBar1>True</DriveBar1>
+    <DriveBar1>False</DriveBar1>
     <DriveBar2>True</DriveBar2>
     <DriveBarFlat>True</DriveBarFlat>
     <DrivesListButton Enabled="True">
@@ -575,28 +575,28 @@
     <CurrentDirectory>True</CurrentDirectory>
     <TabHeader>True</TabHeader>
     <StatusBar>True</StatusBar>
-    <CmdLine>True</CmdLine>
-    <LogWindow>False</LogWindow>
+    <CmdLine>False</CmdLine>
+    <LogWindow>True</LogWindow>
     <TermWindow>False</TermWindow>
     <KeyButtons>True</KeyButtons>
-    <InterfaceFlat>True</InterfaceFlat>
+    <InterfaceFlat>False</InterfaceFlat>
     <DriveFreeSpace>True</DriveFreeSpace>
     <DriveIndicator>False</DriveIndicator>
     <ProgressInMenuBar>False</ProgressInMenuBar>
     <PanelOfOperationsInBackground>True</PanelOfOperationsInBackground>
     <HorizontalFilePanels>False</HorizontalFilePanels>
-    <ShortFormatDriveInfo>False</ShortFormatDriveInfo>
+    <ShortFormatDriveInfo>True</ShortFormatDriveInfo>
     <UppercaseDriveLetter>False</UppercaseDriveLetter>
     <ShowColonAfterDrive>False</ShowColonAfterDrive>
   </Layout>
   <FilesViews>
     <Sorting>
-      <CaseSensitivity>1</CaseSensitivity>
-      <NaturalSorting>True</NaturalSorting>
-      <SortFolderMode>1</SortFolderMode>
+      <CaseSensitivity>2</CaseSensitivity>
+      <NaturalSorting>False</NaturalSorting>
+      <SortFolderMode>0</SortFolderMode>
       <NewFilesPosition>2</NewFilesPosition>
       <UpdatedFilesPosition>2</UpdatedFilesPosition>
-      <SpecialSorting>False</SpecialSorting>
+      <SpecialSorting>True</SpecialSorting>
     </Sorting>
     <ColumnsView>
       <AutoSaveWidth>True</AutoSaveWidth>
@@ -795,6 +795,8 @@
     <MaxTextWidth>1024</MaxTextWidth>
     <PrintMargins>200|200|200|200</PrintMargins>
     <ShowCaret>False</ShowCaret>
+    <LeftMargin>4</LeftMargin>
+    <ExtraLineSpan>0</ExtraLineSpan>
   </Viewer>
   <Editor>
     <EditWaitTime>2000</EditWaitTime>
