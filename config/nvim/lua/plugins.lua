@@ -33,6 +33,7 @@ packer.startup(function(use)
     use 'folke/which-key.nvim'
     use 'mbbill/undotree'
     use 'terryma/vim-expand-region'
+    use 'dstein64/nvim-scrollview' -- scrollbar
     use 'kyazdani42/nvim-web-devicons' -- file icons
     use 'kyazdani42/nvim-tree.lua'
     use 'lukas-reineke/indent-blankline.nvim' -- show | every 4 spaces
