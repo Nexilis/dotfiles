@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # rlwrap is clojure dep, xclip is needed to be able to copy from nvim, helix to sys-clipboard
-sudo dnf install xclip fish util-linux-user kitty ImageMagick rlwrap -y
+sudo dnf install xclip fish util-linux-user kitty ImageMagick rlwrap mc -y
 chsh -s $(which fish)
 
 # snap with classic mode
