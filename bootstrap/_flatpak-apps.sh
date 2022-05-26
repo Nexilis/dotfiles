@@ -21,4 +21,3 @@ flatpak install flathub de.haeckerfelix.Shortwave -y
 flatpak install flathub com.rafaelmardojai.Blanket -y
 flatpak install flathub dev.geopjr.Collision -y
 flatpak install flathub com.github.maoschanz.drawing -y
-flatpak install flathub org.gnome.gitlab.somas.Apostrophe -y
