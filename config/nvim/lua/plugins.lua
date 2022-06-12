@@ -29,10 +29,12 @@ packer.startup(function(use)
     use 'lewis6991/gitsigns.nvim'
     use 'nvim-lua/plenary.nvim' -- dependency of telescope
     use 'nvim-telescope/telescope.nvim'
-    use 'thaerkh/vim-workspace'
+    use 'Shatur/neovim-session-manager'
+    use 'Pocco81/AutoSave.nvim'
     use 'folke/which-key.nvim'
     use 'mbbill/undotree'
     use 'terryma/vim-expand-region'
+    use 'stevearc/dressing.nvim' -- better default picker (used by neovim-session-manager)
     use 'dstein64/nvim-scrollview' -- scrollbar
     use 'kyazdani42/nvim-web-devicons' -- file icons
     use 'kyazdani42/nvim-tree.lua'
@@ -40,15 +42,28 @@ packer.startup(function(use)
     use 'sbdchd/neoformat'
 end)
 
-require'which-key'.setup {}
-require'nvim-web-devicons'.setup {}
-require'hop'.setup()
-require'nvim-tree'.setup {}
-require'feline'.setup()
-require'bufferline'.setup {}
-require'nvim_comment'.setup()
-require'gitsigns'.setup()
-require'indent_blankline'.setup {}
+require('which-key').setup()
+require('nvim-web-devicons').setup()
+require('hop').setup()
+require('nvim-tree').setup()
+require('feline').setup()
+require('bufferline').setup()
+require('nvim_comment').setup()
+require('gitsigns').setup()
+require('indent_blankline').setup()
+require('autosave').setup()
+local smc = require('session_manager.config')
+require('session_manager').setup({autoload_mode = smc.AutoloadMode.CurrentDir})
+require('dressing').setup({})
+
+local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {}) -- A global group for all your config autocommands
+
+vim.api.nvim_create_autocmd({ 'SessionLoadPost' }, {
+  group = config_group,
+  callback = function()
+    require('nvim-tree').toggle(false, true)
+  end,
+})
 
 vim.cmd [[
     colorscheme PaperColor
@@ -60,14 +75,6 @@ global.plug_shallow=1
 global.neoformat_basic_format_align=1
 global.neoformat_basic_format_retab=1
 global.neoformat_basic_format_trim=1
-
-local home=os.getenv("HOME")
-global.workspace_create_new_tabs=0
-global.workspace_session_disable_on_args=1
-global.workspace_session_directory=home..'/.config/nvim/sessions/'
-global.workspace_undodir=home..'/.config/nvim/undo/workspace'
-global.workspace_autosave_untrailspaces=0
-global.workspace_autosave_always=1
 
 global.undotree_WindowLayout=2
 global.undotree_SetFocusWhenToggle=1
@@ -82,16 +89,16 @@ local keymap={
         name = '+OPTIONS',
         r = {'<cmd>so $MYVIMRC<cr>', 'config-reload'},
         f = {'<cmd>Neoformat<cr>', 'autoformat'},
-        w = {'<cmd>ToggleWorkspace<cr>', 'workspace-toggle'},
-        a = {'<cmd>ToggleAutosave<cr>', 'autosave-toggle'},
         s = {'<cmd>setlocal spell! spelllang=en_us<cr>', 'spellchecker-toggle'},
     },
     b = {
         name = '+BUFFER',
-        w = {'<cmd>w!<cr>', 'write'},
-        o = {'<cmd>Telescope find_files hidden=true<cr>', 'open'},
-        x = {'<cmd>bp <bar> bd! #<cr>', 'close'},
         n = {'<cmd>enew<cr>', 'new'},
+        o = {'<cmd>Telescope find_files find_command=fd prompt_prefix=🔍<cr>', 'open'},
+        w = {'<cmd>w!<cr>', 'write'},
+        x = {'<cmd>bp <bar> bd! #<cr>', 'close'},
+        s = {'<cmd>SessionManager load_session<cr>', 'sessions'},
+        l = {'<cmd>Telescope buffers<cr>', 'list'},
     },
     h = {
         name = '+HOP',
@@ -102,11 +109,9 @@ local keymap={
     },
     f = {
         name = '+FIND',
-        f = {'<cmd>Telescope find_files hidden=true<cr>', 'file'},
-        g = {'<cmd>Telescope live_grep<cr>', 'grep-live'},
-        b = {'<cmd>Telescope buffers<cr>', 'buffers'},
+        s = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'fuzzy-current-buffer'},
+        g = {'<cmd>Telescope live_grep<cr>', 'grep-everywhere'},
         h = {'<cmd>Telescope help_tags<cr>', 'help'},
-        s = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'search-fuzzy'},
         c = {'<cmd>Telescope command_history<cr>', 'command-history'},
     },
     w = {
@@ -134,4 +139,4 @@ local keymap={
         l = {'<cmd>set syn=clojure<cr>', 'clojure'},
     }
 }
-require'which-key'.register(keymap, { prefix = "<leader>" })
+require('which-key').register(keymap, { prefix = "<leader>" })
