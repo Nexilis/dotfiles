@@ -1,4 +1,3 @@
-local fn = vim.fn
 local installPath = fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(installPath)) > 0 then
     fn.system {
@@ -42,10 +41,12 @@ packer.startup(function(use)
     use 'sbdchd/neoformat'
 end)
 
-require('which-key').setup()
+local wkey = require('which-key')
+wkey.setup()
 require('nvim-web-devicons').setup()
 require('hop').setup()
-require('nvim-tree').setup()
+local nt = require('nvim-tree')
+nt.setup({ renderer = { highlight_opened_files = "all" }, update_focused_file = { enable = true } })
 require('feline').setup()
 require('bufferline').setup()
 require('nvim_comment').setup()
@@ -56,28 +57,22 @@ local smc = require('session_manager.config')
 require('session_manager').setup({autoload_mode = smc.AutoloadMode.CurrentDir})
 require('dressing').setup({})
 
-local config_group = vim.api.nvim_create_augroup('MyConfigGroup', {}) -- A global group for all your config autocommands
-
-vim.api.nvim_create_autocmd({ 'SessionLoadPost' }, {
-  group = config_group,
-  callback = function()
-    require('nvim-tree').toggle(false, true)
-  end,
+au('SessionLoadPost', {
+  callback = function() nt.toggle(false, true) end,
 })
 
 vim.cmd [[
     colorscheme PaperColor
 ]]
 
-local global=vim.g
-global.plug_shallow=1
+g.plug_shallow=1
 
-global.neoformat_basic_format_align=1
-global.neoformat_basic_format_retab=1
-global.neoformat_basic_format_trim=1
+g.neoformat_basic_format_align=1
+g.neoformat_basic_format_retab=1
+g.neoformat_basic_format_trim=1
 
-global.undotree_WindowLayout=2
-global.undotree_SetFocusWhenToggle=1
+g.undotree_WindowLayout=2
+g.undotree_SetFocusWhenToggle=1
 
 local keymap={
     k = {'<cmd>bnext<cr>', 'buffer-next'},
@@ -139,4 +134,4 @@ local keymap={
         l = {'<cmd>set syn=clojure<cr>', 'clojure'},
     }
 }
-require('which-key').register(keymap, { prefix = "<leader>" })
+wkey.register(keymap, { prefix = "<leader>" })
