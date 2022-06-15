@@ -1,8 +1,5 @@
-local global = vim.g
-local key = vim.keymap
-
-global.mapleader=' '
-global.maplocalleader=','
+g.mapleader=' '
+g.maplocalleader=','
 
 -- ctrl+z, ctrl+v
 key.set('i', '<c-z>' ,'<c-o>:u<cr>', {silent = true})
