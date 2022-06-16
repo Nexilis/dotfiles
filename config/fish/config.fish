@@ -1,9 +1,9 @@
 set -xg VISUAL (type -p nvim)
 set -xg EDITOR $VISUAL
 set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -xg FZF_DEFAULT_COMMAND "fd -H -t f -E .cache -E .git -E .mozilla -E .rustup"
+set -xg FZF_DEFAULT_COMMAND "fd -H --type f -E .cache -E flatpak -E .rustup -E .steam -E .mozilla"
 set -xg FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
-set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git"
+set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git -E flatpak -E .steam -E .mozilla"
 set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
 
 set -l LUA_VER 5.4
