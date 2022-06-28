@@ -178,13 +178,23 @@ return require('packer').startup(function(use)
         end
     })
 
+    use ({'tenxsoydev/size-matters.nvim',
+        config = function()
+            if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
+                require("size-matters").setup({
+                    default_mappings = false
+                })
+            end
+        end
+    })
+
     use ({
         'folke/which-key.nvim',
         config = function()
             local wkey = require('which-key')
             wkey.setup()
 
-            local keymap={
+            local keymap = {
                 k = {'<cmd>bnext<cr>', 'buffer-next'},
                 j = {'<cmd>bprevious<cr>', 'buffer-previous'},
                 q = {'<cmd>qa!<cr>', 'quit'},
@@ -196,6 +206,16 @@ return require('packer').startup(function(use)
                     r = {'<cmd>so $MYVIMRC<cr>', 'config-reload'},
                     f = {'<cmd>Neoformat<cr>', 'autoformat'},
                     s = {'<cmd>setlocal spell! spelllang=en_us<cr>', 'spellchecker-toggle'},
+                    ['1'] = {'<cmd>set syn=cs<cr>', 'c#'},
+                    ['2'] = {'<cmd>set syn=fs<cr>', 'f#'},
+                    ['3'] = {'<cmd>set syn=js<cr>', 'js'},
+                    ['4'] = {'<cmd>set syn=ts<cr>', 'ts'},
+                    ['5'] = {'<cmd>set syn=json<cr>', 'json'},
+                    ['6'] = {'<cmd>set syn=lua<cr>', 'lua'},
+                    ['7'] = {'<cmd>set syn=sh<cr>', 'bash'},
+                    ['8'] = {'<cmd>set syn=terrafrom<cr>', 'terraform'},
+                    ['9'] = {'<cmd>set syn=rust<cr>', 'rust'},
+                    ['0'] = {'<cmd>set syn=clojure<cr>', 'clojure'},
                 },
                 b = {
                     name = '+BUFFER',
@@ -205,7 +225,7 @@ return require('packer').startup(function(use)
                     x = {'<cmd>Bdelete<cr>', 'close'},
                     s = {'<cmd>SessionManager load_session<cr>', 'sessions'},
                     c = {'<cmd>Telescope buffers<cr>', 'current'},
-                    p = {'<cmd>Telescope oldfiles<cr>', 'previous'},
+                    r = {'<cmd>Telescope oldfiles<cr>', 'recent'},
                 },
                 h = {
                     name = '+HOP',
@@ -214,12 +234,12 @@ return require('packer').startup(function(use)
                     s = {'<cmd>HopChar1<cr>', 'single-char'},
                     t = {'<cmd>HopChar2<cr>', 'two-chars'},
                 },
-                f = {
-                    name = '+FIND',
-                    s = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'search-fuzzy-in-current'},
-                    g = {'<cmd>Telescope live_grep<cr>', 'grep-everywhere'},
+                s = {
+                    name = '+SEARCH',
+                    b = {'<cmd>Telescope current_buffer_fuzzy_find<cr>', 'buffer (fuzzy)'},
+                    e = {'<cmd>Telescope live_grep<cr>', 'everywhere (grep)'},
                     h = {'<cmd>Telescope help_tags<cr>', 'help'},
-                    c = {'<cmd>Telescope command_history<cr>', 'command-history'},
+                    c = {'<cmd>Telescope command_history<cr>', 'commands'},
                 },
                 w = {
                     name = '+WINDOW',
@@ -232,19 +252,12 @@ return require('packer').startup(function(use)
                     l = {'<c-w>l', 'focus-right'},
                     o = {'<cmd>only<cr>', 'only-current-window'},
                 },
-                s = {
-                    name = '+SYNTAX',
-                    c = {'<cmd>set syn=cs<cr>', 'c#'},
-                    f = {'<cmd>set syn=fsharp<cr>', 'f#'},
-                    j = {'<cmd>set syn=javascript<cr>', 'js'},
-                    t = {'<cmd>set syn=typescript<cr>', 'ts'},
-                    s = {'<cmd>set syn=json<cr>', 'json'},
-                    x = {'<cmd>set syn=xml<cr>', 'xml'},
-                    b = {'<cmd>set syn=sh<cr>', 'bash'},
-                    m = {'<cmd>set syn=terrafrom<cr>', 'terraform'},
-                    r = {'<cmd>set syn=rust<cr>', 'rust'},
-                    l = {'<cmd>set syn=clojure<cr>', 'clojure'},
-                }
+                f = {
+                    name = '+FONT',
+                    ['='] = {'<cmd>FontSizeUp 2<cr>', 'size-up'},
+                    ['-'] = {'<cmd>FontSizeDown 2<cr>', 'size-down'},
+                    ['0'] = {'<cmd>FontReset<cr>', 'reset'},
+                },
             }
             wkey.register(keymap, { prefix = "<leader>" })
         end
