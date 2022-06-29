@@ -41,9 +41,6 @@ set.guifont='Hack Nerd Font Mono:h11'
 g.mapleader=' '
 g.maplocalleader=','
 
-vim.cmd [[
-    colorscheme PaperColor
-]]
 
 -- ctrl+z, ctrl+v
 key.set('i', '<c-z>' ,'<c-o>:u<cr>', {silent = true})
@@ -115,7 +112,13 @@ return require('packer').startup(function(use)
         }
     })
 
-    use ({'NLKNguyen/papercolor-theme',})
+    use ({'NLKNguyen/papercolor-theme',
+        config = function()
+            vim.cmd [[
+                colorscheme PaperColor
+            ]]
+        end
+    })
 
     use ({'phaazon/hop.nvim',
         config = function()
