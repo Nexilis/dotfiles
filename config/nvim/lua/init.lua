@@ -14,7 +14,7 @@ set.undofile=true
 set.termguicolors=true
 set.encoding='utf-8'
 set.langmenu='en_US.utf-8'
-set.background='light'
+set.background='dark'
 set.list=true
 set.listchars = {tab = '▸ ', trail = '·'}
 set.mousehide=true
@@ -92,7 +92,13 @@ return require('packer').startup(function(use)
 
     use ({'nvim-lualine/lualine.nvim',
         config = function()
-            require('lualine').setup()
+            require('lualine').setup({
+                options = {
+                    section_separators = { left = '', right = '' },
+                    component_separators = { left = '', right = '' },
+                    globalstatus = true
+                }
+            })
         end,
         requires = {
             'kyazdani42/nvim-web-devicons'
@@ -291,7 +297,13 @@ return require('packer').startup(function(use)
     use ({'kyazdani42/nvim-tree.lua',
         config = function()
             local nt = require('nvim-tree')
-            nt.setup({ renderer = { highlight_opened_files = "all" }, update_focused_file = { enable = true } })
+            nt.setup({
+                renderer = { highlight_opened_files = "all" },
+                update_focused_file = { enable = true },
+                view = {
+                    adaptive_size = true,
+                }
+            })
             au('SessionLoadPost', {
               callback = function() nt.toggle(false, true) end,
             })
