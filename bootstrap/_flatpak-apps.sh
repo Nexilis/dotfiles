@@ -2,7 +2,6 @@
 
 flatpak install flathub com.github.xournalpp.xournalpp -y
 flatpak install flathub org.onlyoffice.desktopeditors -y
-flatpak install flathub net.cozic.joplin_desktop -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub com.bitwarden.desktop -y
 flatpak install flathub org.gimp.GIMP -y
