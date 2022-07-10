@@ -197,6 +197,17 @@ return require('packer').startup(function(use)
         end
     })
 
+    use ({'itchyny/vim-cursorword', })
+
+    use ({'windwp/nvim-spectre',
+        config = function()
+            require('spectre').setup()
+        end,
+        requires = {
+            "nvim-lua/plenary.nvim"
+        }
+    })
+
     use ({
         'folke/which-key.nvim',
         config = function()
@@ -210,6 +221,7 @@ return require('packer').startup(function(use)
                 u = {'<cmd>UndotreeToggle<cr>', 'undo-tree-toggle'},
                 t = {'<cmd>NvimTreeToggle<cr>', 'file-tree-toggle'},
                 l = {'<cmd>nohl<cr>', 'clear-highlight'},
+                r = {'<cmd>lua require("spectre").open_visual({select_word=true})<cr>', 'search-replace'},
                 o = {
                     name = '+OPTIONS',
                     r = {'<cmd>so $MYVIMRC<cr>', 'config-reload'},
