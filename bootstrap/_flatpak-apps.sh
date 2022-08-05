@@ -15,8 +15,10 @@ flatpak install flathub de.haeckerfelix.Fragments -y
 flatpak install flathub fr.romainvigier.MetadataCleaner -y
 flatpak install flathub org.videolan.VLC -y
 flatpak install flathub com.github.liferooter.textpieces -y
-flatpak install flathub com.github.hugolabe.Wike -y
 flatpak install flathub de.haeckerfelix.Shortwave -y
 flatpak install flathub com.rafaelmardojai.Blanket -y
 flatpak install flathub dev.geopjr.Collision -y
 flatpak install flathub com.github.maoschanz.drawing -y
+flatpak install flathub it.mijorus.smile -y
+flatpak install flathub com.brave.Browser -y
+flatpak install flathub com.microsoft.Edge -y
