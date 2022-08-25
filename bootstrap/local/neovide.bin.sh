@@ -2,10 +2,10 @@
 
 rm -vfr $HOME/Downloads/neovide*
 
-wget https://github.com/neovide/neovide/releases/download/0.9.0/neovide.tar.gz -O $HOME/Downloads/neovide.tar.gz
+wget https://github.com/neovide/neovide/releases/download/0.10.1/neovide.tar.gz -O $HOME/Downloads/neovide.tar.gz
 mkdir -v $HOME/Downloads/neovide
 tar -vxzf $HOME/Downloads/neovide.tar.gz -C $HOME/Downloads/neovide
-mv -vf $HOME/Downloads/neovide/target/release/neovide $HOME/.local/bin/neovide
+mv -vf $HOME/Downloads/neovide/neovide $HOME/.local/bin/neovide
 rm -vrf $HOME/Downloads/neovide*
 
 rm -vf $HOME/.local/share/icons/hicolor/256x256/apps/neovide.png
