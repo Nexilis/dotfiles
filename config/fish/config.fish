@@ -18,6 +18,9 @@ function fish_greeting
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
 
+string match -q "$TERM_PROGRAM" "vscode"
+and . (code --locate-shell-integration-path fish)
+
 alias gaa="git add --all"
 alias gap="git add -p"
 alias gco="git checkout"
