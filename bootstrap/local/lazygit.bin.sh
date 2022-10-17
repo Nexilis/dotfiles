@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz -O $HOME/Downloads/lazygit.tar.gz
+wget https://github.com/jesseduffield/lazygit/releases/download/v0.35/lazygit_0.35_Linux_x86_64.tar.gz -O $HOME/Downloads/lazygit.tar.gz
 mkdir -vp $HOME/Downloads/lazygit
 tar -vxzf $HOME/Downloads/lazygit.tar.gz -C $HOME/Downloads/lazygit
 mv -vf $HOME/Downloads/lazygit/lazygit $HOME/.local/bin/lg
