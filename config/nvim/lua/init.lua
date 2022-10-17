@@ -181,12 +181,6 @@ return require('packer').startup(function(use)
         end
     })
 
-    use ({'Pocco81/AutoSave.nvim',
-        config = function()
-            require('autosave').setup()
-        end
-    })
-
     use ({'tenxsoydev/size-matters.nvim',
         config = function()
             if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
