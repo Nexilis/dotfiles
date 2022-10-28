@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-flatpak install org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark
-flatpak install flathub com.github.GradienceTeam.Gradience
+flatpak install org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark -y
+flatpak install flathub com.github.GradienceTeam.Gradience -y
 sudo flatpak override --filesystem=xdg-config/gtk-3.0
 sudo flatpak override --filesystem=xdg-config/gtk-4.0
 
