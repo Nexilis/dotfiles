@@ -105,8 +105,6 @@ return require('packer').startup(function(use)
         }
     })
 
-    use ({'sheerun/vim-polyglot',})
-
     use ({'famiu/bufdelete.nvim',}) -- delete buffers without wiping layout
 
     use ({'akinsho/bufferline.nvim',
@@ -303,16 +301,7 @@ return require('packer').startup(function(use)
     use ({'kyazdani42/nvim-tree.lua',
         config = function()
             local nt = require('nvim-tree')
-            nt.setup({
-                renderer = { highlight_opened_files = "all" },
-                update_focused_file = { enable = true },
-                view = {
-                    adaptive_size = true,
-                }
-            })
-            au('SessionLoadPost', {
-              callback = function() nt.toggle(false, true) end,
-            })
+            nt.setup({update_focused_file = { enable = true }})
         end,
         requires = {
             'kyazdani42/nvim-web-devicons'
