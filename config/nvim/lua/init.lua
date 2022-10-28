@@ -179,13 +179,16 @@ return require('packer').startup(function(use)
         end
     })
 
-    use ({'tenxsoydev/size-matters.nvim',
+    use ({'Sup3Legacy/fontsize.nvim',
         config = function()
-            if vim.g.neovide or vim.g.goneovim or vim.g.nvui or vim.g.gnvim then
-                require("size-matters").setup({
-                    default_mappings = false
-                })
-            end
+            require('fontsize').init({
+                -- Required argument
+                font = "Hack Nerd Font Mono",
+                -- Optional arguments
+                min = 6,
+                default = 11,
+                max = 24,
+                step = 3 })
         end
     })
 
@@ -267,8 +270,8 @@ return require('packer').startup(function(use)
                 },
                 f = {
                     name = '+FONT',
-                    ['='] = {'<cmd>FontSizeUp 2<cr>', 'size-up'},
-                    ['-'] = {'<cmd>FontSizeDown 2<cr>', 'size-down'},
+                    ['='] = {'<cmd>FontIncrease<cr>', 'size-up'},
+                    ['-'] = {'<cmd>FontDecrease<cr>', 'size-down'},
                     ['0'] = {'<cmd>FontReset<cr>', 'reset'},
                 },
             }
