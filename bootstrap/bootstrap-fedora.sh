@@ -5,8 +5,8 @@ sudo dnf install xclip fish util-linux-user kitty ImageMagick rlwrap mc hunspell
 chsh -s $(which fish)
 
 # snap with classic mode
-sudo dnf install snapd -y
-sudo ln -s /var/lib/snapd/snap /snap
+# sudo dnf install snapd -y
+# sudo ln -s /var/lib/snapd/snap /snap
 
 # curl with sources
 sudo dnf install curl libcurl-devel -y
