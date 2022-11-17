@@ -1,6 +1,6 @@
 [includeIf "gitdir:~/cyb/"]
   path = ~/.gitconfig-work
-[includeIf "gitdir:~/proj/"]
+[includeIf "gitdir:~/github/nexilis/"]
   path = ~/.gitconfig-github
 [core]
 	autocrlf = input
