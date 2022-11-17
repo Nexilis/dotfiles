@@ -2,7 +2,7 @@
 
 rm -vfr $HOME/Downloads/doublecmd*
 
-wget https://github.com/doublecmd/doublecmd/releases/download/v1.0.8/doublecmd-1.0.8.qt.x86_64.tar.xz -O $HOME/Downloads/doublecmd.tar.xz
+wget https://github.com/doublecmd/doublecmd/releases/download/v1.0.8/doublecmd-1.0.8.gtk2.x86_64.tar.xz -O $HOME/Downloads/doublecmd.tar.xz
 unxz -vf $HOME/Downloads/doublecmd.tar.xz
 tar -xvf $HOME/Downloads/doublecmd.tar -C $HOME/Downloads
 rm -vfr $HOME/.local/share/doublecmd
