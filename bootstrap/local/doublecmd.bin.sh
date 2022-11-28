@@ -63,4 +63,4 @@ echo "doublecmd"
 rm -vf $HOME/.local/share/doublecmd/doublecmd.inf
 rm -vrf $HOME/.config/doublecmd
 mkdir -vp $HOME/.config/doublecmd
-cp -vfr $HOME/proj/dotfiles/config/doublecmd $HOME/.config
+cp -vfr $HOME/github/nexilis/dotfiles/config/doublecmd $HOME/.config
