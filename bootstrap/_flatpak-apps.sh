@@ -5,6 +5,7 @@ flatpak install flathub org.onlyoffice.desktopeditors -y
 flatpak install flathub org.libreoffice.LibreOffice -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub org.gimp.GIMP -y
+flatpak install flathub com.github.PintaProject.Pinta -y
 flatpak install flathub com.github.tchx84.Flatseal -y
 flatpak install flathub com.mattjakeman.ExtensionManager -y
 flatpak install flathub org.gnome.TextEditor -y
