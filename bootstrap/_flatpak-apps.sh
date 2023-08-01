@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 flatpak install flathub com.github.xournalpp.xournalpp -y
-flatpak install flathub org.onlyoffice.desktopeditors -y
 flatpak install flathub org.libreoffice.LibreOffice -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub org.gimp.GIMP -y
@@ -17,10 +16,8 @@ flatpak install flathub fr.romainvigier.MetadataCleaner -y
 flatpak install flathub org.videolan.VLC -y
 flatpak install flathub com.github.liferooter.textpieces -y
 flatpak install flathub de.haeckerfelix.Shortwave -y
-flatpak install flathub com.rafaelmardojai.Blanket -y
-flatpak install flathub dev.geopjr.Collision -y
 flatpak install flathub it.mijorus.smile -y
 flatpak install flathub com.github.phase1geo.minder -y
 
-flatpak install flathub com.microsoft.Edge -y
 flatpak install flathub org.mozilla.firefox -y
+flatpak install com.github.Eloston.UngoogledChromium -y
