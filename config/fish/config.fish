@@ -14,7 +14,7 @@ function fish_greeting
     echo It is (set_color yellow)(date +%R)(set_color normal). 🎏 Hello friend, happy 🎣\n
     echo (set_color normal)IP addr of (set_color red)(hostname)(set_color normal)@(set_color blue)(uname -r) (set_color normal)are:
     echo (set_color normal)- pub (set_color green)(curl -s --max-time 1 --connect-timeout 1 ifconfig.me)
-    echo (set_color normal)- prv (set_color green)(hostname -I)\n
+    echo (set_color normal)- prv (set_color green)(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')\n
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
 
@@ -37,12 +37,11 @@ alias gcl="git clean -xdf"
 alias gpsup='git push --set-upstream origin (git_current_branch)'
 
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
+alias lg="lazygit"
 alias cat="bat -p --paging=never"
-alias o="xdg-open"
 alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
 alias w="curl http://wttr.in/"
-alias vpn="sh ~/cyb.decrypted/vpn-start.sh"
 
-alias u="sudo dnf update; flatpak update -y"
+alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
 starship init fish | source
