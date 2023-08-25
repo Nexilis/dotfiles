@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 # rlwrap is clojure dep, xclip is needed to be able to copy from nvim, helix to sys-clipboard
-sudo dnf install xclip fish util-linux-user kitty ImageMagick rlwrap mc hunspell-pl -y
+sudo dnf install xclip fish util-linux-user alacritty ImageMagick rlwrap mc hunspell-pl -y
 chsh -s $(which fish)
+
+sudo dnf copr enable varlad/zellij 
+sudo dnf install zellij
 
 # snap with classic mode
 # sudo dnf install snapd -y

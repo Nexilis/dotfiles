@@ -1,4 +1,4 @@
-set -xg VISUAL (type -p nvim)
+set -xg VISUAL (type -p hx)
 set -xg EDITOR $VISUAL
 set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xg FZF_DEFAULT_COMMAND "fd -H --type f -E .cache -E flatpak -E .rustup -E .steam -E .mozilla"
@@ -45,3 +45,11 @@ alias w="curl http://wttr.in/"
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
 starship init fish | source
+
+
+set -l ZELLIJ_AUTO_ATTACH true
+set -l ZELLIJ_AUTO_EXIT true
+
+if status is-interactive
+    eval (zellij setup --generate-auto-start fish | string collect)
+end
