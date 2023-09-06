@@ -4,7 +4,7 @@ set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xg FZF_DEFAULT_COMMAND "fd -H --type f -E .cache -E flatpak -E .rustup -E .steam -E .mozilla"
 set -xg FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git -E flatpak -E .steam -E .mozilla"
-set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
+set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin /opt/local/bin $PATH
 
 set -l LUA_VER 5.4
 set -xg LUA_PATH $HOME/.luarocks/share/lua/$LUA_VER/\?.lua\;$HOME/.luarocks/share/lua/$LUA_VER/\?/init.lua\;/usr/local/share/lua/$LUA_VER/\?.lua\;/usr/local/share/lua/$LUA_VER/\?/init.lua\;/usr/local/lib/lua/$LUA_VER/\?.lua\;/usr/local/lib/lua/$LUA_VER/\?/init.lua\;/usr/share/lua/$LUA_VER/\?.lua\;/usr/share/lua/$LUA_VER/\?/init.lua\;./\?.lua\;./\?/init.lua\;$LUA_PATH
@@ -39,13 +39,13 @@ alias gpsup='git push --set-upstream origin (git_current_branch)'
 alias l="exa -lah --git --time-style long-iso --group-directories-first"
 alias lg="lazygit"
 alias cat="bat -p --paging=never"
-alias dec="sh ~/pCloudDrive/cyb-decrypt.sh"
+alias dec="gocryptfs '$HOME/pCloud Drive/.cipher' $HOME/plain"
+alias unmount="umount -f $HOME/plain"
 alias w="curl http://wttr.in/"
 
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
 starship init fish | source
-
 
 set -l ZELLIJ_AUTO_ATTACH true
 set -l ZELLIJ_AUTO_EXIT true
