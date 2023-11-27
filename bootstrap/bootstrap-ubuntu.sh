@@ -2,7 +2,7 @@
 
 sudo apt update -y
 
-sudo apt install fish software-properties-common apt-transport-https kitty imagemagick mc -y
+sudo apt install fish software-properties-common apt-transport-https alacritty imagemagick mc -y
 # curl with sources
 sudo apt install curl libssl-dev libcurl4-openssl-dev -y
 chsh -s $(which fish)
