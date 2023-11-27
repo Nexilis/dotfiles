@@ -1,4 +1,4 @@
-set -xg VISUAL (type -p hx)
+set -xg VISUAL (type -p nvim)
 set -xg EDITOR $VISUAL
 set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xg FZF_DEFAULT_COMMAND "fd -H --type f -E .cache -E flatpak -E .rustup -E .steam -E .mozilla"
@@ -17,9 +17,6 @@ function fish_greeting
     echo (set_color normal)- prv (set_color green)(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}')\n
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
-
-string match -q "$TERM_PROGRAM" "vscode"
-and . (code --locate-shell-integration-path fish)
 
 alias gaa="git add --all"
 alias gap="git add -p"
@@ -45,11 +42,8 @@ alias w="curl http://wttr.in/"
 
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
+alias python="python3"
+alias lua="lua5.4"
+
 starship init fish | source
 
-set -l ZELLIJ_AUTO_ATTACH true
-set -l ZELLIJ_AUTO_EXIT true
-
-if status is-interactive
-    eval (zellij setup --generate-auto-start fish | string collect)
-end
