@@ -47,14 +47,27 @@ g.maplocalleader = ','
 
 -- ctrl+z, ctrl+v
 key.set('i', '<c-z>', '<c-o>:u<cr>', {silent = true})
-key.set('i', '<c-v>',
-        '<esc>:set paste<cr>a<c-r>=getreg(\'+\')<cr><esc>:set nopaste<cr>a',
-        {silent = true})
+key.set('i', '<c-v>', '<esc>:set paste<cr>a<c-r>=getreg(\'+\')<cr><esc>:set nopaste<cr>a', {silent = true})
 
 -- delete without copying
 key.set('n', 'x', '"_x')
 key.set({'n', 'v'}, 'd', '"_d')
 key.set('n', 'D', '"_D')
+
+function _G.set_terminal_keymaps()
+  local opts = {buffer = 0}
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+
 
 au({'BufRead', 'BufNewFile'},
    {pattern = '*.csx', callback = function() vim.bo.filetype = 'cs' end})
@@ -144,25 +157,28 @@ require("lazy").setup({
             }
         }
     }, {
-        'terrortylor/nvim-comment', -- gcc to toggle comment
-        config = function()
-            require('nvim_comment').setup()
-        end
+        'numToStr/Comment.nvim', -- gcc to toggle line comment, gbb to toggle block comment
+        opts = { },
+        lazy = false
     }, {
         'tpope/vim-unimpaired', -- toggles yoh, yob, yow, yos
         config = function()
             -- lines moving
-            key.set('n', '<a-j>', ']e', {remap = true})
-            key.set('n', '<a-k>', '[e', {remap = true})
+            key.set('n', '<c-j>', ']e', {remap = true})
+            key.set('n', '<c-k>', '[e', {remap = true})
         end
     }, {
         'lewis6991/gitsigns.nvim',
         config = function() require('gitsigns').setup() end,
         dependencies = {"nvim-lua/plenary.nvim"}
     }, {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    }, {
         'nvim-telescope/telescope.nvim',
         config = function()
-            require('telescope').setup({
+            local telescope = require('telescope')
+            telescope.setup({
                 pickers = {
                     find_files = {
                         find_command = {
@@ -173,9 +189,10 @@ require("lazy").setup({
                     }
                 }
             })
+            telescope.load_extension('fzf')
         end,
         event = "VeryLazy",
-        dependencies = {"nvim-lua/plenary.nvim"}
+        dependencies = {"nvim-lua/plenary.nvim", 'nvim-telescope/telescope-fzf-native.nvim'}
     }, {
         'Shatur/neovim-session-manager',
         config = function()
@@ -201,6 +218,10 @@ require("lazy").setup({
             })
         end
     }, {
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        opts = {}
+    }, {
         'folke/which-key.nvim',
         config = function()
             local wkey = require('which-key')
@@ -211,7 +232,7 @@ require("lazy").setup({
                 j = {'<cmd>bprevious<cr>', 'buffer-previous'},
                 q = {'<cmd>qa!<cr>', 'quit'},
                 u = {'<cmd>UndotreeToggle<cr>', 'undo-tree-toggle'},
-                t = {'<cmd>NvimTreeToggle<cr>', 'file-tree-toggle'},
+                t = {'<cmd>ToggleTerm<cr>', 'terminal-toggle'},
                 l = {'<cmd>nohl<cr>', 'clear-highlight'},
                 r = {'<cmd>SearchReplaceSingleBufferOpen<cr>', 'search-replace'},
                 o = {
@@ -327,31 +348,42 @@ require("lazy").setup({
         event = "VeryLazy",
         dependencies = {'nvim-tree/nvim-web-devicons'}
     }, {
-        'lukas-reineke/indent-blankline.nvim', -- show | every 4 spaces
+        'lukas-reineke/indent-blankline.nvim', -- This plugin adds indentation guides
         event = "VeryLazy",
         config = function()
-            require("ibl").setup()
+            local highlight = {
+                "CursorColumn",
+                "Whitespace"
+            }
+            require("ibl").setup({
+                indent = { highlight = highlight, char = "" },
+                whitespace = {
+                    highlight = highlight,
+                    remove_blankline_trail = false,
+                },
+                scope = { enabled = false },
+            })
         end
     }, {
         'folke/noice.nvim',
         --event = 'VeryLazy',
         opts = {
-              lsp = {
+            lsp = {
                 -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
                 override = {
-                  ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                  ["vim.lsp.util.stylize_markdown"] = true,
-                  ["cmp.entry.get_documentation"] = true,
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
                 },
               },
               -- you can enable a preset for easier configuration
-              presets = {
+            presets = {
                 bottom_search = false, -- use a classic bottom cmdline for search
                 command_palette = true, -- position the cmdline and popupmenu together
                 long_message_to_split = true, -- long messages will be sent to a split
                 inc_rename = false, -- enables an input dialog for inc-rename.nvim
                 lsp_doc_border = false, -- add a border to hover docs and signature help
-              }
+            }
         },
         dependencies = {
             'MunifTanjim/nui.nvim', -- UI Component Library for Neovim, e.g. Layout, Popup, Input, etc.
