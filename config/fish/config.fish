@@ -18,6 +18,15 @@ function fish_greeting
     echo (set_color red)\>(set_color white)°(set_color yellow)\)\)\)\)(set_color blue)彡
 end
 
+function yy
+    set tmp (mktemp -t "yazi-cwd.XXXXXX")
+    yazi $argv --cwd-file="$tmp"
+    if set cwd (cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+        cd -- "$cwd"
+    end
+    rm -f -- "$tmp"
+end
+
 alias gaa="git add --all"
 alias gap="git add -p"
 alias gco="git checkout"
