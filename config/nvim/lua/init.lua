@@ -240,74 +240,56 @@ require("lazy").setup({
     'folke/which-key.nvim',
     config = function()
         local wkey = require('which-key')
-        wkey.setup()
-
         local keymap = {
-            k = { '<cmd>bnext<cr>', 'buffer-next' },
-            j = { '<cmd>bprevious<cr>', 'buffer-previous' },
-            q = { '<cmd>qa!<cr>', 'quit' },
-            u = { '<cmd>UndotreeToggle<cr>', 'undo-tree-toggle' },
-            t = { '<cmd>ToggleTerm<cr>', 'terminal-toggle' },
-            l = { '<cmd>nohl<cr>', 'clear-highlight' },
-            r = { '<cmd>SearchReplaceSingleBufferOpen<cr>', 'search-replace' },
-            o = {
-                name = '+OPTIONS',
-                r = { '<cmd>so $MYVIMRC<cr>', 'config-reload' },
-                s = {
-                    '<cmd>setlocal spell! spelllang=en_us<cr>',
-                    'spellchecker-toggle'
-                },
-                ['1'] = { '<cmd>set syn=cs<cr>', 'c#' },
-                ['2'] = { '<cmd>set syn=fs<cr>', 'f#' },
-                ['3'] = { '<cmd>set syn=js<cr>', 'js' },
-                ['4'] = { '<cmd>set syn=ts<cr>', 'ts' },
-                ['5'] = { '<cmd>set syn=json<cr>', 'json' },
-                ['6'] = { '<cmd>set syn=lua<cr>', 'lua' },
-                ['7'] = { '<cmd>set syn=sh<cr>', 'bash' },
-                ['8'] = { '<cmd>set syn=terrafrom<cr>', 'terraform' },
-                ['9'] = { '<cmd>set syn=rust<cr>', 'rust' },
-                ['0'] = { '<cmd>set syn=clojure<cr>', 'clojure' }
-            },
-            b = {
-                name = '+BUFFER',
-                n = { '<cmd>enew<cr>', 'new' },
-                o = { '<cmd>NvimTreeToggle<cr>', 'open' },
-                f = { '<cmd>Telescope find_files<cr>', 'find-file' },
-                w = { '<cmd>w!<cr>', 'write' },
-                x = { '<cmd>Bdelete<cr>', 'close' },
-                s = { '<cmd>SessionManager load_session<cr>', 'sessions' },
-                c = { '<cmd>Telescope buffers<cr>', 'current' },
-                r = { '<cmd>Telescope oldfiles<cr>', 'recent' }
-            },
-            s = {
-                name = '+SEARCH',
-                b = {
-                    '<cmd>Telescope current_buffer_fuzzy_find<cr>',
-                    'buffer (fuzzy)'
-                },
-                e = { '<cmd>Telescope live_grep<cr>', 'everywhere (grep)' },
-                h = { '<cmd>Telescope help_tags<cr>', 'help' },
-                c = { '<cmd>Telescope command_history<cr>', 'commands' }
-            },
-            w = {
-                name = '+WINDOW',
-                q = { '<c-w>q', 'close' },
-                s = { '<cmd>split<cr>', 'split-horizontal' },
-                v = { '<cmd>vsplit<cr>', 'split-vertical' },
-                h = { '<c-w>h', 'focus-left' },
-                j = { '<c-w>j', 'focus-down' },
-                k = { '<c-w>k', 'focus-up' },
-                l = { '<c-w>l', 'focus-right' },
-                o = { '<cmd>only<cr>', 'only-current-window' }
-            },
-            f = {
-                name = '+FONT',
-                ['='] = { '<cmd>FontIncrease<cr>', 'size-up' },
-                ['-'] = { '<cmd>FontDecrease<cr>', 'size-down' },
-                ['0'] = { '<cmd>FontReset<cr>', 'reset' }
-            }
+            { "<leader>b", group = "BUFFER" },
+            { "<leader>bc", "<cmd>Telescope buffers<cr>", desc = "current" },
+            { "<leader>bf", "<cmd>Telescope find_files<cr>", desc = "find-file" },
+            { "<leader>bn", "<cmd>enew<cr>", desc = "new" },
+            { "<leader>bo", "<cmd>NvimTreeToggle<cr>", desc = "open" },
+            { "<leader>br", "<cmd>Telescope oldfiles<cr>", desc = "recent" },
+            { "<leader>bs", "<cmd>SessionManager load_session<cr>", desc = "sessions" },
+            { "<leader>bw", "<cmd>w!<cr>", desc = "write" },
+            { "<leader>bx", "<cmd>Bdelete<cr>", desc = "close" },
+            { "<leader>f", group = "FONT" },
+            { "<leader>f-", "<cmd>FontDecrease<cr>", desc = "size-down" },
+            { "<leader>f0", "<cmd>FontReset<cr>", desc = "reset" },
+            { "<leader>f=", "<cmd>FontIncrease<cr>", desc = "size-up" },
+            { "<leader>j", "<cmd>bprevious<cr>", desc = "buffer-previous" },
+            { "<leader>k", "<cmd>bnext<cr>", desc = "buffer-next" },
+            { "<leader>l", "<cmd>nohl<cr>", desc = "clear-highlight" },
+            { "<leader>o", group = "OPTIONS" },
+            { "<leader>o0", "<cmd>set syn=clojure<cr>", desc = "clojure" },
+            { "<leader>o1", "<cmd>set syn=cs<cr>", desc = "c#" },
+            { "<leader>o2", "<cmd>set syn=fs<cr>", desc = "f#" },
+            { "<leader>o3", "<cmd>set syn=js<cr>", desc = "js" },
+            { "<leader>o4", "<cmd>set syn=ts<cr>", desc = "ts" },
+            { "<leader>o5", "<cmd>set syn=json<cr>", desc = "json" },
+            { "<leader>o6", "<cmd>set syn=lua<cr>", desc = "lua" },
+            { "<leader>o7", "<cmd>set syn=sh<cr>", desc = "bash" },
+            { "<leader>o8", "<cmd>set syn=terrafrom<cr>", desc = "terraform" },
+            { "<leader>o9", "<cmd>set syn=rust<cr>", desc = "rust" },
+            { "<leader>or", "<cmd>so $MYVIMRC<cr>", desc = "config-reload" },
+            { "<leader>os", "<cmd>setlocal spell! spelllang=en_us<cr>", desc = "spellchecker-toggle" },
+            { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
+            { "<leader>r", "<cmd>SearchReplaceSingleBufferOpen<cr>", desc = "search-replace" },
+            { "<leader>s", group = "SEARCH" },
+            { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "buffer (fuzzy)" },
+            { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "commands" },
+            { "<leader>se", "<cmd>Telescope live_grep<cr>", desc = "everywhere (grep)" },
+            { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "help" },
+            { "<leader>t", "<cmd>ToggleTerm<cr>", desc = "terminal-toggle" },
+            { "<leader>u", "<cmd>UndotreeToggle<cr>", desc = "undo-tree-toggle" },
+            { "<leader>w", group = "WINDOW" },
+            { "<leader>wh", "<c-w>h", desc = "focus-left" },
+            { "<leader>wj", "<c-w>j", desc = "focus-down" },
+            { "<leader>wk", "<c-w>k", desc = "focus-up" },
+            { "<leader>wl", "<c-w>l", desc = "focus-right" },
+            { "<leader>wo", "<cmd>only<cr>", desc = "only-current-window" },
+            { "<leader>wq", "<c-w>q", desc = "close" },
+            { "<leader>ws", "<cmd>split<cr>", desc = "split-horizontal" },
+            { "<leader>wv", "<cmd>vsplit<cr>", desc = "split-vertical" },
         }
-        wkey.register(keymap, { prefix = "<leader>" })
+        wkey.add(keymap)
     end
 }, {
     'mbbill/undotree',
