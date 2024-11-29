@@ -104,6 +104,7 @@ end
 bootstrap_lazy()
 
 require("lazy").setup({
+  "rebelot/kanagawa.nvim",
   "github/copilot.vim",
   "famiu/bufdelete.nvim", -- delete buffers without wiping layout
   "dstein64/nvim-scrollview", -- scrollbar
@@ -118,9 +119,11 @@ require("lazy").setup({
       update_interval = 3000,
       set_dark_mode = function()
         set.background = "dark"
+        vim.cmd("colorscheme kanagawa-dragon")
       end,
       set_light_mode = function()
         set.background = "light"
+        vim.cmd("colorscheme kanagawa-lotus")
       end,
     },
   },
@@ -135,23 +138,26 @@ require("lazy").setup({
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
         globalstatus = true,
-        theme = "palenight",
       },
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    "akinsho/bufferline.nvim",
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      commentStyle = { italic = true },
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+      "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
     },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      -- animation = true,
+      -- insert_at_start = true,
+      -- …etc.
+    },
+    version = "^1.0.0", -- optional: only update when a new 1.x version is released
   },
   {
     "folke/flash.nvim", -- improved movements
