@@ -104,7 +104,8 @@ end
 bootstrap_lazy()
 
 require("lazy").setup({
-  "rebelot/kanagawa.nvim",
+  "rebelot/kanagawa.nvim", -- colorscheme
+  "Mofiqul/vscode.nvim", -- colorscheme
   "github/copilot.vim",
   "famiu/bufdelete.nvim", -- delete buffers without wiping layout
   "dstein64/nvim-scrollview", -- scrollbar
@@ -119,11 +120,11 @@ require("lazy").setup({
       update_interval = 3000,
       set_dark_mode = function()
         set.background = "dark"
-        vim.cmd("colorscheme kanagawa-dragon")
+        vim.cmd("colorscheme vscode")
       end,
       set_light_mode = function()
         set.background = "light"
-        vim.cmd("colorscheme kanagawa-lotus")
+        vim.cmd("colorscheme vscode")
       end,
     },
   },
@@ -138,6 +139,7 @@ require("lazy").setup({
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
         globalstatus = true,
+        theme = "vscode",
       },
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -434,5 +436,12 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim", -- UI Component Library for Neovim, e.g. Layout, Popup, Input, etc.
       "rcarriga/nvim-notify", -- A fancy, configurable, notification manager for NeoVim
     },
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {},
   },
 })
