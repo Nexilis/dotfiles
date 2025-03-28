@@ -49,10 +49,19 @@ g.maplocalleader = ","
 key.set("i", "<c-z>", "<c-o>:u<cr>", { silent = true })
 key.set("i", "<c-v>", "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a", { silent = true })
 
+-- command+z, command+v
+key.set("i", "<D-z>", "<c-o>:u<cr>", { silent = true })
+key.set("i", "<D-v>", "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a", { silent = true })
+
 -- delete without copying
 key.set("n", "x", '"_x')
 key.set({ "n", "v" }, "d", '"_d')
 key.set("n", "D", '"_D')
+
+-- copilot
+key.set("i", "<D-s>", "<cmd>lua require('copilot.suggestion').accept_word()<cr>", { silent = true })
+key.set("i", "<D-]>", "<cmd>lua require('copilot.suggestion').next()<cr>", { silent = true })
+key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { silent = true })
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
@@ -82,6 +91,20 @@ au("TextYankPost", {
   end,
 })
 
+au("User", {
+  pattern = "BlinkCmpMenuOpen",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = true
+  end,
+})
+
+au("User", {
+  pattern = "BlinkCmpMenuClose",
+  callback = function()
+    vim.b.copilot_suggestion_hidden = false
+  end,
+})
+
 vim.cmd([[
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 ]])
@@ -106,10 +129,102 @@ bootstrap_lazy()
 require("lazy").setup({
   "rebelot/kanagawa.nvim", -- colorscheme
   "Mofiqul/vscode.nvim", -- colorscheme
-  "github/copilot.vim",
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      suggestion = {
+        auto_trigger = true,
+      },
+      filetypes = {
+        markdown = true,
+        ["."] = false,
+      },
+    },
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    config = true,
+    strategies = {
+      chat = {
+        adapter = "ollama",
+      },
+      inline = {
+        adapter = "copilot", --copilot
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    opts = {
+      adapters = {
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            schema = {
+              model = {
+                default = "claude-3.7-sonnet",
+              },
+            },
+          })
+        end,
+      },
+    },
+  },
+
   "famiu/bufdelete.nvim", -- delete buffers without wiping layout
   "dstein64/nvim-scrollview", -- scrollbar
-  "vim-scripts/VimCompletesMe", -- A super simple, super minimal, super light-weight tab-completion plugin for Vim
+  {
+    "saghen/blink.cmp",
+    -- optional: provides snippets for the snippet source
+    dependencies = { "rafamadriz/friendly-snippets" },
+
+    -- use a release tag to download pre-built binaries
+    version = "1.*",
+    -- AND/OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- build = 'cargo build --release',
+    -- If you use nix, you can build from source using latest nightly rust with:
+    -- build = 'nix run .#build-plugin',
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+      -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
+      -- 'super-tab' for mappings similar to vscode (tab to accept)
+      -- 'enter' for enter to accept
+      -- 'none' for no mappings
+      --
+      -- All presets have the following mappings:
+      -- C-space: Open menu or open docs if already open
+      -- C-n/C-p or Up/Down: Select next/previous item
+      -- C-e: Hide menu
+      -- C-k: Toggle signature help (if signature.enabled = true)
+      --
+      -- See :h blink-cmp-config-keymap for defining your own keymap
+      keymap = { preset = "super-tab" },
+
+      appearance = {
+        -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        -- Adjusts spacing to ensure icons are aligned
+        nerd_font_variant = "mono",
+      },
+
+      -- (Default) Only show the documentation popup when manually triggered
+      completion = { documentation = { auto_show = false } },
+
+      -- Default list of enabled providers defined so that you can extend it
+      -- elsewhere in your config, without redefining it, due to `opts_extend`
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer" },
+      },
+
+      -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
+      -- You may use a lua implementation instead by using `implementation = "lua"` or fallback to the lua implementation,
+      -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
+      --
+      -- See the fuzzy documentation for more information
+      fuzzy = { implementation = "prefer_rust_with_warning" },
+    },
+    opts_extend = { "sources.default" },
+  },
   {
     "echasnovski/mini.cursorword", -- underline all instances of the word under the cursor
     opts = {},
@@ -133,7 +248,7 @@ require("lazy").setup({
     opts = {},
   },
   {
-    "nvim-lualine/lualine.nvim",
+    "nvim-lualine/lualine.nvim", -- statusline
     opts = {
       options = {
         section_separators = { left = "", right = "" },
@@ -145,7 +260,7 @@ require("lazy").setup({
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   {
-    "romgrk/barbar.nvim",
+    "romgrk/barbar.nvim", -- top bar
     dependencies = {
       "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
       "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
@@ -153,13 +268,7 @@ require("lazy").setup({
     init = function()
       vim.g.barbar_auto_setup = false
     end,
-    opts = {
-      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
-      -- animation = true,
-      -- insert_at_start = true,
-      -- …etc.
-    },
-    version = "^1.0.0", -- optional: only update when a new 1.x version is released
+    opts = {},
   },
   {
     "folke/flash.nvim", -- improved movements
@@ -316,6 +425,9 @@ require("lazy").setup({
         { "<leader>bs", "<cmd>SessionManager load_session<cr>", desc = "sessions" },
         { "<leader>bw", "<cmd>w!<cr>", desc = "write" },
         { "<leader>bx", "<cmd>Bdelete<cr>", desc = "close" },
+        { "<leader>c", group = "CODE" },
+        { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "chat" },
+        { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "actions" },
         { "<leader>f", group = "FONT" },
         { "<leader>f-", "<cmd>FontDecrease<cr>", desc = "size-down" },
         { "<leader>f0", "<cmd>FontReset<cr>", desc = "reset" },
@@ -324,16 +436,6 @@ require("lazy").setup({
         { "<leader>k", "<cmd>bnext<cr>", desc = "buffer-next" },
         { "<leader>l", "<cmd>nohl<cr>", desc = "clear-highlight" },
         { "<leader>o", group = "OPTIONS" },
-        { "<leader>o0", "<cmd>set syn=clojure<cr>", desc = "clojure" },
-        { "<leader>o1", "<cmd>set syn=cs<cr>", desc = "c#" },
-        { "<leader>o2", "<cmd>set syn=fs<cr>", desc = "f#" },
-        { "<leader>o3", "<cmd>set syn=js<cr>", desc = "js" },
-        { "<leader>o4", "<cmd>set syn=ts<cr>", desc = "ts" },
-        { "<leader>o5", "<cmd>set syn=json<cr>", desc = "json" },
-        { "<leader>o6", "<cmd>set syn=lua<cr>", desc = "lua" },
-        { "<leader>o7", "<cmd>set syn=sh<cr>", desc = "bash" },
-        { "<leader>o8", "<cmd>set syn=terrafrom<cr>", desc = "terraform" },
-        { "<leader>o9", "<cmd>set syn=rust<cr>", desc = "rust" },
         { "<leader>or", "<cmd>so $MYVIMRC<cr>", desc = "config-reload" },
         { "<leader>os", "<cmd>setlocal spell! spelllang=en_us<cr>", desc = "spellchecker-toggle" },
         { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
