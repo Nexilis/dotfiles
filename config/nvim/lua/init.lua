@@ -5,6 +5,13 @@ key = vim.keymap
 au = vim.api.nvim_create_autocmd
 home = os.getenv("HOME")
 
+if g.neovide then
+  g.neovide_position_animation_length = 0
+  g.neovide_scroll_animation_length = 0
+  g.neovide_scroll_animation_far_lines = 0
+  g.neovide_hide_mouse_when_typing = true
+end
+
 set.dir = home .. "/.local/state/nvim/swap//"
 set.backupdir = home .. "/.local/state/nvim/backup//"
 set.undodir = home .. "/.local/state/nvim/undo//"
@@ -60,6 +67,7 @@ key.set("n", "D", '"_D')
 
 -- copilot
 key.set("i", "<D-s>", "<cmd>lua require('copilot.suggestion').accept_word()<cr>", { silent = true })
+key.set("i", "<D-d>", "<cmd>lua require('copilot.suggestion').accept_line()<cr>", { silent = true })
 key.set("i", "<D-]>", "<cmd>lua require('copilot.suggestion').next()<cr>", { silent = true })
 key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { silent = true })
 
@@ -146,10 +154,10 @@ require("lazy").setup({
     config = true,
     strategies = {
       chat = {
-        adapter = "ollama",
+        adapter = "copilot",
       },
       inline = {
-        adapter = "copilot", --copilot
+        adapter = "copilot",
       },
     },
     dependencies = {
@@ -163,6 +171,16 @@ require("lazy").setup({
             schema = {
               model = {
                 default = "claude-3.7-sonnet",
+              },
+            },
+          })
+        end,
+        ollama = function()
+          return require("codecompanion.adapters").extend("ollama", {
+            url = "http://localhost:11434", -- Adjust if you're using a different URL
+            schema = {
+              model = {
+                default = "gemma3:12b",
               },
             },
           })
@@ -206,9 +224,22 @@ require("lazy").setup({
         -- Adjusts spacing to ensure icons are aligned
         nerd_font_variant = "mono",
       },
-
       -- (Default) Only show the documentation popup when manually triggered
-      completion = { documentation = { auto_show = false } },
+      completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 500 },
+        menu = {
+          -- Don't automatically show the completion menu
+          auto_show = false,
+
+          -- nvim-cmp style menu
+          draw = {
+            columns = {
+              { "label", "label_description", gap = 1 },
+              { "kind_icon", "kind" },
+            },
+          },
+        },
+      },
 
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
