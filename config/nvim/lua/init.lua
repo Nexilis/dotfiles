@@ -3,13 +3,14 @@ set = vim.opt
 fn = vim.fn
 key = vim.keymap
 au = vim.api.nvim_create_autocmd
+cmd = vim.cmd
 home = os.getenv("HOME")
 
 if g.neovide then
   g.neovide_position_animation_length = 0
   g.neovide_scroll_animation_length = 0
   g.neovide_scroll_animation_far_lines = 0
-  g.neovide_hide_mouse_when_typing = true
+  g.neovide_hide_mouse_when_typing = false
 end
 
 set.dir = home .. "/.local/state/nvim/swap//"
@@ -73,17 +74,25 @@ key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { sil
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
-  vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-  vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
-  vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
-  vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
-  vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
-  vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
-  vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+  key.set("t", "<esc>", [[<C-\><C-n>]], opts)
+  key.set("t", "jk", [[<C-\><C-n>]], opts)
+  key.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+  key.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+  key.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+  key.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+  key.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+-- auto enable LSP for all available configs, based on neovim's 0.11 capabilities
+local configs = {}
+for _, v in ipairs(vim.api.nvim_get_runtime_file("lsp/*", true)) do
+  local name = fn.fnamemodify(v, ":t:r")
+  configs[name] = true
+end
+vim.lsp.enable(vim.tbl_keys(configs))
 
 au({ "BufRead", "BufNewFile" }, {
   pattern = "*.csx",
@@ -113,14 +122,14 @@ au("User", {
   end,
 })
 
-vim.cmd([[
+cmd([[
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 ]])
 
 local function bootstrap_lazy()
-  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
   if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
+    fn.system({
       "git",
       "clone",
       "--filter=blob:none",
@@ -138,7 +147,7 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim", -- colorscheme
   "Mofiqul/vscode.nvim", -- colorscheme
   {
-    "zbirenbaum/copilot.lua",
+    "zbirenbaum/copilot.lua", -- github copilot
     opts = {
       suggestion = {
         auto_trigger = true,
@@ -146,6 +155,51 @@ require("lazy").setup({
       filetypes = {
         markdown = true,
         ["."] = false,
+      },
+    },
+  },
+  {
+    "williamboman/mason.nvim", -- package manager, install LSP servers, linters, formatters
+    build = ":MasonUpdate",
+    opts = {},
+  },
+  {
+    "williamboman/mason-lspconfig.nvim", -- bridges mason and lspconfig
+    opts = {
+      ensure_installed = {
+        "denols",
+        "fsautocomplete",
+        "lua_ls",
+        "rust_analyzer",
+      },
+    },
+  },
+  "neovim/nvim-lspconfig", -- enable LSP
+  {
+    "nvim-treesitter/nvim-treesitter", -- syntax highlighting
+    build = ":TSUpdate",
+    opts = {
+      auto_install = true,
+      ensure_installed = {
+        "bash",
+        "css",
+        "c_sharp",
+        "dockerfile",
+        "fish",
+        "fsharp",
+        "go",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "python",
+        "rust",
+        "typescript",
+        "yaml",
+      },
+      highlight = {
+        enable = true,
       },
     },
   },
@@ -217,7 +271,7 @@ require("lazy").setup({
       -- C-k: Toggle signature help (if signature.enabled = true)
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
-      keymap = { preset = "super-tab" },
+      keymap = { preset = "enter" },
 
       appearance = {
         -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
@@ -244,7 +298,7 @@ require("lazy").setup({
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { "lsp", "path", "snippets", "buffer" },
+        default = { "lsp", "path" }, --  ,"snippets", "buffer" },
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -266,11 +320,11 @@ require("lazy").setup({
       update_interval = 3000,
       set_dark_mode = function()
         set.background = "dark"
-        vim.cmd("colorscheme vscode")
+        cmd("colorscheme vscode")
       end,
       set_light_mode = function()
         set.background = "light"
-        vim.cmd("colorscheme vscode")
+        cmd("colorscheme vscode")
       end,
     },
   },
