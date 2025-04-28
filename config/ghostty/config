@@ -1,0 +1,4 @@
+cursor-color = 00ff5f
+cursor-invert-fg-bg = true
+adjust-cursor-thickness = 2
+theme = dark:matrix,light:Espresso
