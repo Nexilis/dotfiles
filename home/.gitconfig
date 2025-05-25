@@ -2,9 +2,9 @@
   helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
   useHttpPath = true
-[includeIf "gitdir:~/code/gh/cyb"]
+[includeIf "gitdir:~/code/gh/cyb/"]
   path = ~/.gitconfig.cyb
-[includeIf "gitdir:~/code/gh/prv"]
+[includeIf "gitdir:~/code/gh/prv/"]
   path = ~/.gitconfig.prv
 [core]
   autocrlf = input
