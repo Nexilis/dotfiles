@@ -42,17 +42,31 @@ alias grs="git reset --hard"
 alias gcl="git clean -xdf"
 alias gpsup='git push --set-upstream origin (git_current_branch)'
 
-alias l="exa -lah --git --time-style long-iso --group-directories-first"
-alias lg="lazygit"
-alias cat="bat -p --paging=never"
+if type -q lazygit
+  abbr --add -g lg 'lazygit'
+end
+
+# `ls` → `eza` abbreviation
+# Requires `brew install eza`
+if type -q eza
+  abbr --add -g l 'eza -lah --git --time-style long-iso --group-directories-first'
+end
+
+# `cat` → `bat` abbreviation
+# Requires `brew install bat`
+if type -q bat
+  abbr --add -g cat 'bat -p --paging=never'
+end
+
 alias dec="gocryptfs '$HOME/pCloud Drive/.cipher' $HOME/plain"
 alias unmount="umount -f $HOME/plain"
-alias w="curl http://wttr.in/"
 
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
 alias python="python3"
 alias lua="lua5.4"
+
+zoxide init fish | source
 
 starship init fish | source
 
