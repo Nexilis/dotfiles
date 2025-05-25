@@ -1,0 +1,31 @@
+{
+  "schemes" : [
+    {
+      "pointer" : {
+        "speed" : 0.085,
+        "disableAcceleration" : false,
+        "acceleration" : 0.5
+      },
+      "if" : {
+        "device" : {
+          "vendorID" : "0x47d",
+          "productID" : "0x80fa",
+          "category" : "mouse",
+          "productName" : "TB450 2.4GHz Receiver"
+        }
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1
+        },
+        "distance" : {
+          "vertical" : "64px"
+        },
+        "speed" : {
+          "vertical" : 0
+        }
+      }
+    }
+  ],
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+}

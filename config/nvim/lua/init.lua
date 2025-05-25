@@ -422,10 +422,7 @@ require("lazy").setup({
     end,
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-  },
+  { "natecraddock/telescope-zf-native.nvim" },
   {
     "nvim-telescope/telescope.nvim",
     config = function()
@@ -460,10 +457,10 @@ require("lazy").setup({
           },
         },
       })
-      telescope.load_extension("fzf")
+      telescope.load_extension("zf-native")
     end,
     event = "VeryLazy",
-    dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzf-native.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "natecraddock/telescope-zf-native.nvim" },
   },
   {
     "Shatur/neovim-session-manager",
@@ -623,12 +620,5 @@ require("lazy").setup({
       "MunifTanjim/nui.nvim", -- UI Component Library for Neovim, e.g. Layout, Popup, Input, etc.
       "rcarriga/nvim-notify", -- A fancy, configurable, notification manager for NeoVim
     },
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
-    ---@module 'render-markdown'
-    ---@type render.md.UserConfig
-    opts = {},
   },
 })
