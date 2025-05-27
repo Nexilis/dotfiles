@@ -7,7 +7,7 @@ after-startup-command = []
 start-at-login = true
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
-accordion-padding = 30
+accordion-padding = 80
 default-root-container-layout = 'tiles'
 default-root-container-orientation = 'auto'
 on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
@@ -44,8 +44,8 @@ ctrl-shift-k = 'move up'
 ctrl-shift-l = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
-ctrl-shift-minus = 'resize smart -50'
-ctrl-shift-equal = 'resize smart +50'
+ctrl-shift-minus = 'resize smart -150'
+ctrl-shift-equal = 'resize smart +150'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 ctrl-shift-tab = 'move-workspace-to-monitor --wrap-around next'
@@ -82,4 +82,39 @@ ctrl-shift-9 = 'move-node-to-workspace 9'
 #     if.app-id = 'com.wulkano.kap'
 #     check-further-callbacks = true
 #     run = 'layout floating'
+
+[[on-window-detected]]
+    if.app-id = 'com.google.Chrome'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
+    if.app-id = 'com.neovide.neovide'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
+    if.app-id = 'com.mitchellh.ghostty'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 2']
+
+[[on-window-detected]]
+    if.app-id = 'com.tinyspeck.slackmacgap'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+    if.app-id = 'ru.keepcoder.Telegram'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
+    if.app-id = 'org.mozilla.firefox'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+    if.app-id = 'com.spotify.client'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 5']
 
