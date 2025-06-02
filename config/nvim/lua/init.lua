@@ -147,6 +147,7 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim", -- colorscheme
   "Mofiqul/vscode.nvim", -- colorscheme
   {
+    -- Once copilot is running, run `:Copilot auth` to start the authentication process.
     "zbirenbaum/copilot.lua", -- github copilot
     opts = {
       suggestion = {
