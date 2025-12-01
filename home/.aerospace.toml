@@ -119,7 +119,12 @@ ctrl-shift-6 = 'move-node-to-workspace 6'
     run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
-    if.app-id = 'org.brave.Browser'
+    if.app-id = 'com.brave.Browser'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 4']
+
+[[on-window-detected]]
+    if.app-id = 'app.zen-browser.zen'
     check-further-callbacks = true
     run = ['move-node-to-workspace 4']
 
@@ -142,3 +147,9 @@ ctrl-shift-6 = 'move-node-to-workspace 6'
     if.app-id = 'com.apple.Terminal'
     check-further-callbacks = true
     run = ['move-node-to-workspace 6']
+
+[[on-window-detected]]
+    if.app-id = 'org.tabby'
+    check-further-callbacks = true
+    run = ['move-node-to-workspace 6']
+
