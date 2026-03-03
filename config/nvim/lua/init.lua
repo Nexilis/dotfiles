@@ -63,6 +63,10 @@ key.set("i", "<D-v>", "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopast
 
 -- delete without copying
 key.set("n", "x", '"_x')
+
+-- line moving
+key.set("n", "<c-j>", "<cmd>move .+1<cr>==", { silent = true })
+key.set("n", "<c-k>", "<cmd>move .-2<cr>==", { silent = true })
 key.set({ "n", "v" }, "d", '"_d')
 key.set("n", "D", '"_D')
 
@@ -170,6 +174,7 @@ require("lazy").setup({
       ensure_installed = {
         "denols",
         "fsautocomplete",
+--        "harper_ls",
         "lua_ls",
         "rust_analyzer",
       },
@@ -205,42 +210,33 @@ require("lazy").setup({
     },
   },
   {
-    "olimorris/codecompanion.nvim",
-    config = true,
-    strategies = {
-      chat = {
-        adapter = "copilot",
-      },
-      inline = {
-        adapter = "copilot",
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
+    "MeanderingProgrammer/render-markdown.nvim",
     opts = {
-      adapters = {
-        copilot = function()
-          return require("codecompanion.adapters").extend("copilot", {
-            schema = {
-              model = {
-                default = "claude-3.7-sonnet",
-              },
-            },
-          })
-        end,
-        ollama = function()
-          return require("codecompanion.adapters").extend("ollama", {
-            url = "http://localhost:11434", -- Adjust if you're using a different URL
-            schema = {
-              model = {
-                default = "gemma3:12b",
-              },
-            },
-          })
-        end,
+      file_types = { "markdown", "Avante" },
+    },
+    ft = { "markdown", "Avante" },
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    version = false, -- never set to "*"
+    opts = {
+      provider = "copilot",
+      providers = {
+        copilot = {
+          model = "claude-sonnet-4.6",
+        },
       },
+    },
+    build = "make",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "zbirenbaum/copilot.lua",
+      "MeanderingProgrammer/render-markdown.nvim",
     },
   },
 
@@ -299,7 +295,7 @@ require("lazy").setup({
       -- Default list of enabled providers defined so that you can extend it
       -- elsewhere in your config, without redefining it, due to `opts_extend`
       sources = {
-        default = { "lsp", "path" }, --  ,"snippets", "buffer" },
+        default = { "lsp", "path", "snippets" },
       },
 
       -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -403,25 +399,39 @@ require("lazy").setup({
       },
     },
   },
-  {
-    "numToStr/Comment.nvim", -- gcc to toggle line comment, gbb to toggle block comment
-    opts = {},
-    lazy = false,
-  },
-  {
-    "tpope/vim-unimpaired", -- toggles yoh, yob, yow, yos
-    config = function()
-      -- lines moving
-      key.set("n", "<c-j>", "]e", { remap = true })
-      key.set("n", "<c-k>", "[e", { remap = true })
-    end,
-  },
+  -- line moving (replaces vim-unimpaired)
+  -- Comment.nvim removed: nvim 0.10+ has built-in gc/gb operators
   {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup()
     end,
     dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { "rustfmt" },
+        typescript = { "deno_fmt" },
+        javascript = { "deno_fmt" },
+        typescriptreact = { "deno_fmt" },
+        javascriptreact = { "deno_fmt" },
+        fsharp = { "fantomas" },
+        python = { "ruff_format" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
+  },
+  {
+    "sindrets/diffview.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
   },
   { "natecraddock/telescope-zf-native.nvim" },
   {
@@ -464,16 +474,20 @@ require("lazy").setup({
     dependencies = { "nvim-lua/plenary.nvim", "natecraddock/telescope-zf-native.nvim" },
   },
   {
-    "Shatur/neovim-session-manager",
+    "folke/persistence.nvim",
     config = function()
-      local smc = require("session_manager.config")
-      require("session_manager").setup({
-        autoload_mode = smc.AutoloadMode.CurrentDir,
+      require("persistence").setup()
+      -- auto-load session for current directory on startup (when no file args given)
+      vim.api.nvim_create_autocmd("VimEnter", {
+        nested = true,
+        once = true,
+        callback = function()
+          if vim.fn.argc() == 0 then
+            require("persistence").load()
+          end
+        end,
       })
     end,
-    dependencies = {
-      "stevearc/dressing.nvim",
-    },
   },
   {
     "Sup3Legacy/fontsize.nvim",
@@ -492,7 +506,18 @@ require("lazy").setup({
   {
     "akinsho/toggleterm.nvim",
     version = "*",
-    opts = {},
+    config = function()
+      require("toggleterm").setup()
+      local Terminal = require("toggleterm.terminal").Terminal
+      local lazygit = Terminal:new({
+        cmd = "lazygit",
+        direction = "float",
+        hidden = true,
+      })
+      function _G.lazygit_toggle()
+        lazygit:toggle()
+      end
+    end,
   },
   {
     "folke/which-key.nvim",
@@ -505,12 +530,18 @@ require("lazy").setup({
         { "<leader>bn", "<cmd>enew<cr>", desc = "new" },
         { "<leader>bo", "<cmd>NvimTreeToggle<cr>", desc = "open" },
         { "<leader>br", "<cmd>Telescope oldfiles<cr>", desc = "recent" },
-        { "<leader>bs", "<cmd>SessionManager load_session<cr>", desc = "sessions" },
+        { "<leader>bs", "<cmd>lua require('persistence').select()<cr>", desc = "sessions" },
         { "<leader>bw", "<cmd>w!<cr>", desc = "write" },
         { "<leader>bx", "<cmd>Bdelete<cr>", desc = "close" },
         { "<leader>c", group = "CODE" },
-        { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "chat" },
-        { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "actions" },
+        { "<leader>g", group = "GIT" },
+        { "<leader>gg", "<cmd>lua lazygit_toggle()<cr>", desc = "lazygit" },
+        { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "diff" },
+        { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "history" },
+        { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "diff-close" },
+        { "<leader>cc", "<cmd>AvanteToggle<cr>", desc = "chat" },
+        { "<leader>ca", "<cmd>AvanteAsk<cr>", desc = "ask" },
+        { "<leader>cf", function() require("conform").format({ async = true }) end, desc = "format" },
         { "<leader>f", group = "FONT" },
         { "<leader>f-", "<cmd>FontDecrease<cr>", desc = "size-down" },
         { "<leader>f0", "<cmd>FontReset<cr>", desc = "reset" },
@@ -605,7 +636,6 @@ require("lazy").setup({
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
         },
       },
       -- you can enable a preset for easier configuration
