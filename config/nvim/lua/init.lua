@@ -174,7 +174,7 @@ require("lazy").setup({
       ensure_installed = {
         "denols",
         "fsautocomplete",
---        "harper_ls",
+        --        "harper_ls",
         "lua_ls",
         "rust_analyzer",
       },
@@ -213,6 +213,13 @@ require("lazy").setup({
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
       file_types = { "markdown", "Avante" },
+      heading = { sign = false },
+      code = { sign = false },
+      render_modes = { "n", "i" },
+      checkbox = { enabled = false },
+      win_options = {
+        conceallevel = { rendered = 0 },
+      },
     },
     ft = { "markdown", "Avante" },
   },
@@ -541,7 +548,13 @@ require("lazy").setup({
         { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "diff-close" },
         { "<leader>cc", "<cmd>AvanteToggle<cr>", desc = "chat" },
         { "<leader>ca", "<cmd>AvanteAsk<cr>", desc = "ask" },
-        { "<leader>cf", function() require("conform").format({ async = true }) end, desc = "format" },
+        {
+          "<leader>cf",
+          function()
+            require("conform").format({ async = true })
+          end,
+          desc = "format",
+        },
         { "<leader>f", group = "FONT" },
         { "<leader>f-", "<cmd>FontDecrease<cr>", desc = "size-down" },
         { "<leader>f0", "<cmd>FontReset<cr>", desc = "reset" },
