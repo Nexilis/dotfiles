@@ -151,6 +151,11 @@ require("lazy").setup({
   "rebelot/kanagawa.nvim", -- colorscheme
   "Mofiqul/vscode.nvim", -- colorscheme
   {
+    "projekt0n/github-nvim-theme", -- colorscheme
+    lazy = false,
+    priority = 1000,
+  },
+  {
     -- Once copilot is running, run `:Copilot auth` to start the authentication process.
     "zbirenbaum/copilot.lua", -- github copilot
     opts = {
@@ -224,6 +229,19 @@ require("lazy").setup({
     ft = { "markdown", "Avante" },
   },
   {
+    "Zeioth/markmap.nvim",
+    build = "npm install -g markmap-cli",
+    cmd = { "MarkmapOpen", "MarkmapSave", "MarkmapWatch", "MarkmapWatchStop" },
+    opts = {
+      html_output = "/tmp/markmap.html",
+      hide_toolbar = false,
+      grace_period = 3600000,
+    },
+    config = function(_, opts)
+      require("markmap").setup(opts)
+    end,
+  },
+  {
     "yetone/avante.nvim",
     event = "VeryLazy",
     version = false, -- never set to "*"
@@ -233,6 +251,9 @@ require("lazy").setup({
         copilot = {
           model = "claude-sonnet-4.6",
         },
+      },
+      behaviour = {
+        auto_set_keymaps = false,
       },
     },
     build = "make",
@@ -324,11 +345,11 @@ require("lazy").setup({
       update_interval = 3000,
       set_dark_mode = function()
         set.background = "dark"
-        cmd("colorscheme vscode")
+        cmd("colorscheme github_dark_high_contrast")
       end,
       set_light_mode = function()
         set.background = "light"
-        cmd("colorscheme vscode")
+        cmd("colorscheme github_light_high_contrast")
       end,
     },
   },
@@ -343,7 +364,7 @@ require("lazy").setup({
         section_separators = { left = "", right = "" },
         component_separators = { left = "", right = "" },
         globalstatus = true,
-        theme = "vscode",
+        theme = "auto",
       },
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -429,11 +450,82 @@ require("lazy").setup({
         fsharp = { "fantomas" },
         python = { "ruff_format" },
       },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
+      format_on_save = function()
+        if vim.g.auto_saving then return end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
     },
+  },
+  {
+    "okuuva/auto-save.nvim",
+    event = { "InsertLeave", "TextChanged", "TextChangedI" },
+    opts = {
+      trigger_events = {
+        immediate_save = { "BufLeave", "FocusLost", "QuitPre", "VimSuspend" },
+        defer_save = { "InsertLeave", "TextChanged" },
+        cancel_deferred_save = {},
+      },
+      debounce_delay = 3000,
+      condition = function(buf)
+        return vim.fn.bufname(buf) ~= "" and vim.bo[buf].modifiable
+      end,
+    },
+    config = function(_, opts)
+      require("auto-save").setup(opts)
+
+      -- Separate longer timer for saves during insert mode
+      local insert_timer = nil
+      local grp = vim.api.nvim_create_augroup("auto_save_insert_mode", { clear = true })
+      vim.api.nvim_create_autocmd("TextChangedI", {
+        group = grp,
+        callback = function(ev)
+          local buf = ev.buf
+          if vim.fn.bufname(buf) == "" or not vim.bo[buf].modifiable then
+            return
+          end
+          if insert_timer then
+            insert_timer:close()
+          end
+          insert_timer = vim.defer_fn(function()
+            insert_timer = nil
+            if not vim.api.nvim_buf_get_option(buf, "modified") then
+              return
+            end
+            vim.g.auto_saving = true
+            vim.api.nvim_buf_call(buf, function()
+              vim.cmd("silent! write")
+            end)
+            vim.g.auto_saving = false
+          end, 15000)
+        end,
+      })
+      vim.api.nvim_create_autocmd("InsertLeave", {
+        group = grp,
+        callback = function()
+          if insert_timer then
+            insert_timer:close()
+            insert_timer = nil
+          end
+        end,
+      })
+    end,
+    init = function()
+      local grp = vim.api.nvim_create_augroup("auto_save_skip_format", { clear = true })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "AutoSaveWritePre",
+        group = grp,
+        callback = function()
+          vim.g.auto_saving = true
+        end,
+      })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "AutoSaveWritePost",
+        group = grp,
+        callback = function()
+          vim.g.auto_saving = false
+        end,
+      })
+    end,
   },
   {
     "sindrets/diffview.nvim",
@@ -548,6 +640,10 @@ require("lazy").setup({
         { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "diff-close" },
         { "<leader>cc", "<cmd>AvanteToggle<cr>", desc = "chat" },
         { "<leader>ca", "<cmd>AvanteAsk<cr>", desc = "ask" },
+        { "<leader>cn", "<cmd>AvanteNewAsk<cr>", desc = "new-ask" },
+        { "<leader>ce", "<cmd>AvanteEdit<cr>", desc = "edit", mode = { "n", "v" } },
+        { "<leader>cs", "<cmd>AvanteStop<cr>", desc = "stop" },
+        { "<leader>cm", "<cmd>AvanteSelectModel<cr>", desc = "model" },
         {
           "<leader>cf",
           function()
@@ -562,7 +658,25 @@ require("lazy").setup({
         { "<leader>j", "<cmd>bprevious<cr>", desc = "buffer-previous" },
         { "<leader>k", "<cmd>bnext<cr>", desc = "buffer-next" },
         { "<leader>l", "<cmd>nohl<cr>", desc = "clear-highlight" },
+        { "<leader>m", group = "MARKMAP" },
+        { "<leader>mo", "<cmd>MarkmapOpen<cr>", desc = "open" },
+        { "<leader>mw", "<cmd>MarkmapWatch<cr>", desc = "watch" },
+        { "<leader>ms", "<cmd>MarkmapSave<cr>", desc = "save" },
+        { "<leader>mx", "<cmd>MarkmapWatchStop<cr>", desc = "watch-stop" },
         { "<leader>o", group = "OPTIONS" },
+        {
+          "<leader>od",
+          function()
+            if vim.o.background == "light" then
+              set.background = "dark"
+              cmd("colorscheme github_dark_high_contrast")
+            else
+              set.background = "light"
+              cmd("colorscheme github_light_high_contrast")
+            end
+          end,
+          desc = "dark-mode-toggle",
+        },
         { "<leader>or", "<cmd>so $MYVIMRC<cr>", desc = "config-reload" },
         { "<leader>os", "<cmd>setlocal spell! spelllang=en_us<cr>", desc = "spellchecker-toggle" },
         { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
