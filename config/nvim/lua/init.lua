@@ -378,7 +378,10 @@ require("lazy").setup({
     init = function()
       vim.g.barbar_auto_setup = false
     end,
-    opts = {},
+    opts = {
+      sort = { ignore_case = true },
+      insert_at_end = true,
+    },
   },
   {
     "folke/flash.nvim", -- improved movements
@@ -583,6 +586,9 @@ require("lazy").setup({
         callback = function()
           if vim.fn.argc() == 0 then
             require("persistence").load()
+            vim.defer_fn(function()
+              vim.cmd("BufferOrderByName")
+            end, 100)
           end
         end,
       })
@@ -655,8 +661,8 @@ require("lazy").setup({
         { "<leader>f-", "<cmd>FontDecrease<cr>", desc = "size-down" },
         { "<leader>f0", "<cmd>FontReset<cr>", desc = "reset" },
         { "<leader>f=", "<cmd>FontIncrease<cr>", desc = "size-up" },
-        { "<leader>j", "<cmd>bprevious<cr>", desc = "buffer-previous" },
-        { "<leader>k", "<cmd>bnext<cr>", desc = "buffer-next" },
+        { "<leader>j", "<cmd>BufferPrevious<cr>", desc = "buffer-previous" },
+        { "<leader>k", "<cmd>BufferNext<cr>", desc = "buffer-next" },
         { "<leader>l", "<cmd>nohl<cr>", desc = "clear-highlight" },
         { "<leader>m", group = "MARKMAP" },
         { "<leader>mo", "<cmd>MarkmapOpen<cr>", desc = "open" },
