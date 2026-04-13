@@ -1,11 +1,15 @@
-[credential]
-  helper = /usr/local/share/gcm-core/git-credential-manager
-[credential "https://dev.azure.com"]
-  useHttpPath = true
-[includeIf "gitdir:~/code/gh/cyb/"]
-  path = ~/.gitconfig.cyb
+[user]
+  name = Bartek Łukasik
+  email = blukasik@cybervadis.com
 [includeIf "gitdir:~/code/gh/prv/"]
+  path = ~/.gitconfig.prv
+[includeIf "gitdir:~/Documents/sync/private-sync/"]
   path = ~/.gitconfig.prv
 [core]
   autocrlf = input
   editor = vim
+[credential]
+	helper =
+	helper = /usr/local/share/gcm-core/git-credential-manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
