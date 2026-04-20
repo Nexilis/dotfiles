@@ -1,8 +1,10 @@
 -- Hide Hammerspoon menubar icon
 hs.menuIcon(false)
 
+local home = os.getenv("HOME")
+
 -- Auto-reload config by polling file modification time
-local initPath = os.getenv("HOME") .. "/.config/hammerspoon/init.lua"
+local initPath = home .. "/.config/hammerspoon/init.lua"
 local lastMod = hs.fs.attributes(initPath, "modification")
 hs.timer.doEvery(2, function()
     local mod = hs.fs.attributes(initPath, "modification")
@@ -93,6 +95,33 @@ end):start()
 
 -- Current space number in menubar
 local spaceMenu = hs.menubar.new()
+local function runPrivilegedScript(scriptPath)
+    local appleScript = string.format(
+        'do shell script "/bin/bash " & quoted form of POSIX path of "%s" with administrator privileges',
+        scriptPath
+    )
+    local ok, _, err = hs.osascript.applescript(appleScript)
+    if not ok then
+        hs.alert.show("Admin command failed")
+        print(("Failed to run %s: %s"):format(scriptPath, tostring(err)))
+    end
+end
+
+spaceMenu:setMenu({
+    {
+        title = "Kill Zscaler",
+        fn = function()
+            runPrivilegedScript(home .. "/kill-zscaler.sh")
+        end,
+    },
+    {
+        title = "Run Zscaler",
+        fn = function()
+            runPrivilegedScript(home .. "/run-zscaler.sh")
+        end,
+    },
+})
+
 local function updateSpaceNumber()
     local currentSpace = hs.spaces.focusedSpace()
     local screen = hs.screen.mainScreen()
