@@ -189,6 +189,62 @@ require("lazy").setup({
   {
     "nvim-treesitter/nvim-treesitter", -- syntax highlighting
     build = ":TSUpdate",
+    config = function(_, opts)
+      -- REMOVE-WHEN-FIXED (task nvi-bkv4):
+      -- nvim-treesitter master branch is archived and query_predicates.lua is not updated for
+      -- nvim 0.12, which changed directive match[capture_id] from TSNode to TSNode[].
+      -- When upstream fixes this (check query_predicates.lua for vim.islist/unwrap handling),
+      -- remove this entire config block and restore: main = "nvim-treesitter.configs"
+      package.loaded["nvim-treesitter.query_predicates"] = {}
+      require("nvim-treesitter.configs").setup(opts)
+
+      local query = require("vim.treesitter.query")
+      local dir_opts = { force = true, all = false }
+
+      local function unwrap(node)
+        if vim.islist(node) then return node[1] end
+        return node
+      end
+
+      local html_langs = {
+        importmap = "json",
+        module = "javascript",
+        ["application/ecmascript"] = "javascript",
+        ["text/ecmascript"] = "javascript",
+      }
+      local md_aliases = { ex = "elixir", pl = "perl", sh = "bash", uxn = "uxntal", ts = "typescript" }
+
+      query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
+        local node = unwrap(match[pred[2]])
+        if not node then return end
+        local val = vim.treesitter.get_node_text(node, bufnr)
+        if html_langs[val] then
+          metadata["injection.language"] = html_langs[val]
+        else
+          local parts = vim.split(val, "/", {})
+          metadata["injection.language"] = parts[#parts]
+        end
+      end, dir_opts)
+
+      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
+        local node = unwrap(match[pred[2]])
+        if not node then return end
+        local alias = vim.treesitter.get_node_text(node, bufnr):lower()
+        local ft = vim.filetype.match({ filename = "a." .. alias })
+        metadata["injection.language"] = ft or md_aliases[alias] or alias
+      end, dir_opts)
+
+      query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
+        local id = pred[2]
+        local node = unwrap(match[id])
+        if not node then return end
+        local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[id] }) or ""
+        if not metadata[id] then metadata[id] = {} end
+        metadata[id].text = string.lower(text)
+      end, dir_opts)
+
+      query.add_directive("make-range!", function() end, dir_opts)
+    end,
     opts = {
       auto_install = true,
       ensure_installed = {
