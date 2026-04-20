@@ -29,13 +29,106 @@ spoon.MiroWindowsManager:bindHotkeys({
 
 -- Tile visible windows: cycles 50/50 -> 30/70 -> 70/30 on repeated presses
 local tileLayouts = { {0.5, 0.5}, {0.3, 0.7}, {0.7, 0.3} }
-local tileIndex = 0
+local tileState = {
+    index = 0,
+    swapped = false,
+    screen = nil,
+    windowIds = nil,
+}
 local tileTimer = nil
+
+local function resetTileState()
+    tileState.index = 0
+    tileState.swapped = false
+    tileState.screen = nil
+    tileState.windowIds = nil
+end
+
+local function sameWindowSet(wins)
+    if not tileState.windowIds or #wins ~= #tileState.windowIds then
+        return false
+    end
+
+    local ids = {}
+    for _, win in ipairs(wins) do
+        ids[win:id()] = true
+    end
+
+    for _, id in ipairs(tileState.windowIds) do
+        if not ids[id] then
+            return false
+        end
+    end
+
+    return true
+end
+
+local function initializeTileWindows(wins, focusedWindow, currentScreen)
+    table.sort(wins, function(a, b)
+        local aIsFocused = focusedWindow and a:id() == focusedWindow:id()
+        local bIsFocused = focusedWindow and b:id() == focusedWindow:id()
+        if aIsFocused ~= bIsFocused then
+            return aIsFocused
+        end
+
+        local aFrame = a:frame()
+        local bFrame = b:frame()
+        if aFrame.x ~= bFrame.x then
+            return aFrame.x < bFrame.x
+        end
+
+        return a:id() < b:id()
+    end)
+
+    tileState.swapped = false
+    tileState.screen = currentScreen
+    tileState.windowIds = {}
+    for _, win in ipairs(wins) do
+        table.insert(tileState.windowIds, win:id())
+    end
+end
+
+local function orderedTileWindows(wins)
+    if not tileState.windowIds then
+        return wins
+    end
+
+    local winsById = {}
+    for _, win in ipairs(wins) do
+        winsById[win:id()] = win
+    end
+
+    local ordered = {}
+    for _, id in ipairs(tileState.windowIds) do
+        local win = winsById[id]
+        if win then
+            table.insert(ordered, win)
+        end
+    end
+
+    if tileState.swapped and #ordered >= 2 then
+        ordered[1], ordered[2] = ordered[2], ordered[1]
+    end
+
+    return ordered
+end
+
+local function applyTileLayout(wins, frame, layout)
+    local x = frame.x
+    for i, win in ipairs(wins) do
+        local ratio = layout[i] or (1 / #wins)
+        local w = frame.w * ratio
+        win:setFrame(hs.geometry.rect(x, frame.y, w, frame.h))
+        x = x + w
+    end
+end
 
 hs.hotkey.bind(hyper, "o", function()
     if tileTimer then tileTimer:stop() end
-    tileTimer = hs.timer.doAfter(10, function() tileIndex = 0 end)
-    local currentScreen = hs.screen.mainScreen()
+    tileTimer = hs.timer.doAfter(10, resetTileState)
+
+    local focusedWindow = hs.window.focusedWindow()
+    local currentScreen = focusedWindow and focusedWindow:screen() or hs.screen.mainScreen()
     local allWindows = hs.window.visibleWindows()
 
     local wins = {}
@@ -50,21 +143,36 @@ hs.hotkey.bind(hyper, "o", function()
     local frame = currentScreen:frame()
 
     if #wins == 1 then
+        resetTileState()
         wins[1]:setFrame(frame)
         return
     end
 
-    tileIndex = (tileIndex % #tileLayouts) + 1
-    local layout = tileLayouts[tileIndex]
+    tileState.index = (tileState.index % #tileLayouts) + 1
 
-    -- first two windows get the layout proportions, rest split equally after
-    local x = frame.x
-    for i, win in ipairs(wins) do
-        local ratio = layout[i] or (1 / #wins)
-        local w = frame.w * ratio
-        win:setFrame(hs.geometry.rect(x, frame.y, w, frame.h))
-        x = x + w
+    if #wins == 2 then
+        if tileState.screen ~= currentScreen or not sameWindowSet(wins) then
+            initializeTileWindows(wins, focusedWindow, currentScreen)
+            tileState.index = 1
+        elseif tileState.index == 1 then
+            tileState.swapped = not tileState.swapped
+        end
+
+        local layout = tileLayouts[tileState.index]
+        local orderedWins = orderedTileWindows(wins)
+        applyTileLayout(orderedWins, frame, layout)
+
+        if layout[1] ~= layout[2] then
+            local largerWindow = layout[1] > layout[2] and orderedWins[1] or orderedWins[2]
+            largerWindow:focus()
+        end
+        return
     end
+
+    tileState.swapped = false
+    tileState.screen = nil
+    tileState.windowIds = nil
+    applyTileLayout(wins, frame, tileLayouts[tileState.index])
 end)
 
 -- Caffeinate toggle in menubar
