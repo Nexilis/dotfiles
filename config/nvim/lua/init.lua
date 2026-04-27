@@ -188,63 +188,8 @@ require("lazy").setup({
   "neovim/nvim-lspconfig", -- enable LSP
   {
     "nvim-treesitter/nvim-treesitter", -- syntax highlighting
+    branch = "main",
     build = ":TSUpdate",
-    config = function(_, opts)
-      -- REMOVE-WHEN-FIXED (task nvi-bkv4):
-      -- nvim-treesitter master branch is archived and query_predicates.lua is not updated for
-      -- nvim 0.12, which changed directive match[capture_id] from TSNode to TSNode[].
-      -- When upstream fixes this (check query_predicates.lua for vim.islist/unwrap handling),
-      -- remove this entire config block and restore: main = "nvim-treesitter.configs"
-      package.loaded["nvim-treesitter.query_predicates"] = {}
-      require("nvim-treesitter.configs").setup(opts)
-
-      local query = require("vim.treesitter.query")
-      local dir_opts = { force = true, all = false }
-
-      local function unwrap(node)
-        if vim.islist(node) then return node[1] end
-        return node
-      end
-
-      local html_langs = {
-        importmap = "json",
-        module = "javascript",
-        ["application/ecmascript"] = "javascript",
-        ["text/ecmascript"] = "javascript",
-      }
-      local md_aliases = { ex = "elixir", pl = "perl", sh = "bash", uxn = "uxntal", ts = "typescript" }
-
-      query.add_directive("set-lang-from-mimetype!", function(match, _, bufnr, pred, metadata)
-        local node = unwrap(match[pred[2]])
-        if not node then return end
-        local val = vim.treesitter.get_node_text(node, bufnr)
-        if html_langs[val] then
-          metadata["injection.language"] = html_langs[val]
-        else
-          local parts = vim.split(val, "/", {})
-          metadata["injection.language"] = parts[#parts]
-        end
-      end, dir_opts)
-
-      query.add_directive("set-lang-from-info-string!", function(match, _, bufnr, pred, metadata)
-        local node = unwrap(match[pred[2]])
-        if not node then return end
-        local alias = vim.treesitter.get_node_text(node, bufnr):lower()
-        local ft = vim.filetype.match({ filename = "a." .. alias })
-        metadata["injection.language"] = ft or md_aliases[alias] or alias
-      end, dir_opts)
-
-      query.add_directive("downcase!", function(match, _, bufnr, pred, metadata)
-        local id = pred[2]
-        local node = unwrap(match[id])
-        if not node then return end
-        local text = vim.treesitter.get_node_text(node, bufnr, { metadata = metadata[id] }) or ""
-        if not metadata[id] then metadata[id] = {} end
-        metadata[id].text = string.lower(text)
-      end, dir_opts)
-
-      query.add_directive("make-range!", function() end, dir_opts)
-    end,
     opts = {
       auto_install = true,
       ensure_installed = {
@@ -821,24 +766,31 @@ require("lazy").setup({
     --event = 'VeryLazy',
     opts = {
       lsp = {
-        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
           ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
           ["vim.lsp.util.stylize_markdown"] = true,
         },
       },
-      -- you can enable a preset for easier configuration
+      routes = {
+        { filter = { error = true }, view = "split" },
+        { filter = { warning = true }, view = "split" },
+      },
       presets = {
-        bottom_search = false, -- use a classic bottom cmdline for search
-        command_palette = true, -- position the cmdline and popupmenu together
-        long_message_to_split = true, -- long messages will be sent to a split
-        inc_rename = false, -- enables an input dialog for inc-rename.nvim
-        lsp_doc_border = false, -- add a border to hover docs and signature help
+        bottom_search = false,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+        lsp_doc_border = false,
       },
     },
     dependencies = {
-      "MunifTanjim/nui.nvim", -- UI Component Library for Neovim, e.g. Layout, Popup, Input, etc.
-      "rcarriga/nvim-notify", -- A fancy, configurable, notification manager for NeoVim
+      "MunifTanjim/nui.nvim",
+      {
+        "rcarriga/nvim-notify",
+        opts = {
+          top_down = false,
+        },
+      },
     },
   },
 })
