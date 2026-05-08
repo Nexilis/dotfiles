@@ -218,7 +218,7 @@ require("lazy").setup({
   {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {
-      file_types = { "markdown", "Avante" },
+      file_types = { "markdown" },
       heading = { sign = false },
       code = { sign = false },
       render_modes = { "n", "i" },
@@ -227,7 +227,7 @@ require("lazy").setup({
         conceallevel = { rendered = 0 },
       },
     },
-    ft = { "markdown", "Avante" },
+    ft = { "markdown" },
   },
   {
     "Zeioth/markmap.nvim",
@@ -242,33 +242,6 @@ require("lazy").setup({
       require("markmap").setup(opts)
     end,
   },
-  {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    version = false, -- never set to "*"
-    opts = {
-      provider = "copilot",
-      providers = {
-        copilot = {
-          model = "claude-sonnet-4.6",
-        },
-      },
-      behaviour = {
-        auto_set_keymaps = false,
-      },
-    },
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-tree/nvim-web-devicons",
-      "zbirenbaum/copilot.lua",
-      "MeanderingProgrammer/render-markdown.nvim",
-    },
-  },
-
   "famiu/bufdelete.nvim", -- delete buffers without wiping layout
   "dstein64/nvim-scrollview", -- scrollbar
   {
@@ -645,12 +618,6 @@ require("lazy").setup({
         { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "diff" },
         { "<leader>gh", "<cmd>DiffviewFileHistory<cr>", desc = "history" },
         { "<leader>gq", "<cmd>DiffviewClose<cr>", desc = "diff-close" },
-        { "<leader>cc", "<cmd>AvanteToggle<cr>", desc = "chat" },
-        { "<leader>ca", "<cmd>AvanteAsk<cr>", desc = "ask" },
-        { "<leader>cn", "<cmd>AvanteNewAsk<cr>", desc = "new-ask" },
-        { "<leader>ce", "<cmd>AvanteEdit<cr>", desc = "edit", mode = { "n", "v" } },
-        { "<leader>cs", "<cmd>AvanteStop<cr>", desc = "stop" },
-        { "<leader>cm", "<cmd>AvanteSelectModel<cr>", desc = "model" },
         {
           "<leader>cf",
           function()
