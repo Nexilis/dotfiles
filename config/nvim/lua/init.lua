@@ -105,6 +105,13 @@ au({ "BufRead", "BufNewFile" }, {
   end,
 })
 
+au("SwapExists", {
+  pattern = "*",
+  callback = function()
+    vim.v.swapchoice = "e"
+  end,
+})
+
 au("TextYankPost", {
   pattern = "*",
   callback = function()
