@@ -661,6 +661,34 @@ require("lazy").setup({
         { "<leader>or", "<cmd>so $MYVIMRC<cr>", desc = "config-reload" },
         { "<leader>os", "<cmd>setlocal spell! spelllang=en_us<cr>", desc = "spellchecker-toggle" },
         { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
+        { "<leader>y", group = "YANK" },
+        {
+          "<leader>yp",
+          function()
+            local path = vim.fn.expand("%:p")
+            vim.fn.setreg("+", path)
+            vim.notify(path, vim.log.levels.INFO, { title = "Copied full path" })
+          end,
+          desc = "full-path",
+        },
+        {
+          "<leader>yn",
+          function()
+            local name = vim.fn.expand("%:t")
+            vim.fn.setreg("+", name)
+            vim.notify(name, vim.log.levels.INFO, { title = "Copied filename" })
+          end,
+          desc = "filename",
+        },
+        {
+          "<leader>yd",
+          function()
+            local dir = vim.fn.expand("%:p:h")
+            vim.fn.setreg("+", dir)
+            vim.notify(dir, vim.log.levels.INFO, { title = "Copied directory" })
+          end,
+          desc = "directory",
+        },
         { "<leader>r", "<cmd>SearchReplaceSingleBufferOpen<cr>", desc = "search-replace" },
         { "<leader>s", group = "SEARCH" },
         { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "buffer (fuzzy)" },
