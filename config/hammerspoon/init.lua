@@ -2,6 +2,19 @@
 hs.menuIcon(false)
 
 local home = os.getenv("HOME")
+local hyper = { "cmd", "ctrl", "alt", "shift" }
+
+-- Instant Space Switcher (github.com/joshuarli/iss)
+local issDir = home .. "/.config/hammerspoon/iss"
+local issPath = issDir .. "/iss"
+if not hs.fs.attributes(issPath) then
+    hs.execute("cd " .. issDir .. " && make 2>&1")
+end
+hs.execute("pkill -xf '" .. issPath .. "' 2>/dev/null", true)
+if hs.fs.attributes(issPath) then
+    issTask = hs.task.new(issPath, function() end)
+    issTask:start()
+end
 
 -- Auto-reload config by polling file modification time
 local initPath = home .. "/.config/hammerspoon/init.lua"
@@ -13,8 +26,6 @@ hs.timer.doEvery(2, function()
         hs.reload()
     end
 end)
-
-local hyper = { "cmd", "ctrl", "alt", "shift" }
 
 hs.loadSpoon("MiroWindowsManager")
 
@@ -204,14 +215,26 @@ end):start()
 -- Current space number in menubar
 local spaceMenu = hs.menubar.new()
 local function runPrivilegedScript(scriptPath)
+    local f = io.open(scriptPath, "r")
+    if not f then
+        hs.alert.show("Script not found: " .. scriptPath)
+        return
+    end
+    local content = f:read("*a")
+    f:close()
+    local tmp = os.tmpname()
+    local tf = io.open(tmp, "w")
+    tf:write(content)
+    tf:close()
+    os.execute("chmod +x " .. tmp)
     local appleScript = string.format(
-        'do shell script "/bin/bash " & quoted form of POSIX path of "%s" with administrator privileges',
-        scriptPath
+        'do shell script "/bin/bash %s; rm -f %s" with administrator privileges',
+        tmp, tmp
     )
-    local ok, _, err = hs.osascript.applescript(appleScript)
+    local ok = hs.osascript.applescript(appleScript)
     if not ok then
         hs.alert.show("Admin command failed")
-        print(("Failed to run %s: %s"):format(scriptPath, tostring(err)))
+        os.execute("rm -f " .. tmp)
     end
 end
 
