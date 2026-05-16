@@ -23,3 +23,7 @@ This applies to all changes: plugin configuration, keybindings, options, new fil
 ## Project Context
 
 This is a Neovim configuration repository located at `~/.config/nvim`.
+
+## Temporary Workarounds
+
+- **`queries/lua/highlights.scm`** — Overrides the bundled Lua treesitter highlights query to fix a Neovim 0.12.2 bug (parser removed the `operator` field but queries still reference it). Must be in `queries/` (not `after/queries/`) because Neovim picks the first non-extending file in rtp order as the base query. Delete this file when upgrading to a Neovim version that fixes the query/parser mismatch.
