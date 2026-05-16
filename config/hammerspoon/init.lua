@@ -16,17 +16,6 @@ if hs.fs.attributes(issPath) then
     issTask:start()
 end
 
--- Auto-reload config by polling file modification time
-local initPath = home .. "/.config/hammerspoon/init.lua"
-local lastMod = hs.fs.attributes(initPath, "modification")
-hs.timer.doEvery(2, function()
-    local mod = hs.fs.attributes(initPath, "modification")
-    if mod ~= lastMod then
-        lastMod = mod
-        hs.reload()
-    end
-end)
-
 hs.loadSpoon("MiroWindowsManager")
 
 spoon.MiroWindowsManager:bindHotkeys({
@@ -186,34 +175,27 @@ hs.hotkey.bind(hyper, "o", function()
     applyTileLayout(wins, frame, tileLayouts[tileState.index])
 end)
 
--- Caffeinate toggle in menubar
-local caffMenu = hs.menubar.new()
+-- Unified menubar: space number + caffeinate + Zscaler
+local menu = hs.menubar.new()
+
 local function setCaffState(state)
     if state then
         hs.caffeinate.set("displayIdle", true)
         hs.caffeinate.set("systemIdle", true)
-        caffMenu:setTitle("AW")
     else
         hs.caffeinate.set("displayIdle", false)
         hs.caffeinate.set("systemIdle", false)
-        caffMenu:setTitle("zz")
     end
 end
 
 setCaffState(false)
-caffMenu:setClickCallback(function()
-    setCaffState(not hs.caffeinate.get("displayIdle"))
-end)
 
--- Auto-disable caffeinate when switching to battery
 hs.battery.watcher.new(function()
     if not hs.battery.isCharging() and not hs.battery.isCharged() then
         setCaffState(false)
     end
 end):start()
 
--- Current space number in menubar
-local spaceMenu = hs.menubar.new()
 local function runPrivilegedScript(scriptPath)
     local f = io.open(scriptPath, "r")
     if not f then
@@ -238,20 +220,74 @@ local function runPrivilegedScript(scriptPath)
     end
 end
 
-spaceMenu:setMenu({
-    {
-        title = "Kill Zscaler",
-        fn = function()
-            runPrivilegedScript(home .. "/kill-zscaler.sh")
-        end,
-    },
-    {
-        title = "Run Zscaler",
-        fn = function()
-            runPrivilegedScript(home .. "/run-zscaler.sh")
-        end,
-    },
-})
+menu:setMenu(function()
+    local caffOn = hs.caffeinate.get("displayIdle")
+    return {
+        {
+            title = caffOn and "☕ Caffeinate: ON" or "💤 Caffeinate: OFF",
+            fn = function() setCaffState(not caffOn) end,
+        },
+        { title = "-" },
+        {
+            title = "Window",
+            menu = {
+                { title = "Hyper+H   Left",         fn = function() hs.eventtap.keyStroke(hyper, "h") end },
+                { title = "Hyper+J   Down",         fn = function() hs.eventtap.keyStroke(hyper, "j") end },
+                { title = "Hyper+K   Up",           fn = function() hs.eventtap.keyStroke(hyper, "k") end },
+                { title = "Hyper+L   Right",        fn = function() hs.eventtap.keyStroke(hyper, "l") end },
+                { title = "Hyper+N   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "n") end },
+                { title = "Hyper+O   Tile",         fn = function() hs.eventtap.keyStroke(hyper, "o") end },
+            },
+        },
+        { title = "-" },
+        {
+            title = "Kill Zscaler",
+            fn = function() runPrivilegedScript(home .. "/kill-zscaler.sh") end,
+        },
+        {
+            title = "Run Zscaler",
+            fn = function() runPrivilegedScript(home .. "/run-zscaler.sh") end,
+        },
+        { title = "-" },
+        {
+            title = "Reload",
+            fn = function() hs.reload() end,
+        },
+        {
+            title = "Close",
+            fn = function() hs.closeConsole(); os.exit() end,
+        },
+    }
+end)
+
+local function numberIcon(n)
+    local size = 18
+    local r = 3
+    local fontSize = 12
+    local canvas = hs.canvas.new({ x = 0, y = 0, w = size, h = size })
+    canvas:appendElements(
+        {
+            type = "rectangle",
+            fillColor = { white = 0 },
+            roundedRectRadii = { xRadius = r, yRadius = r },
+            frame = { x = 1, y = 1, w = size - 2, h = size - 2 },
+        },
+        {
+            type = "text",
+            text = tostring(n),
+            textFont = "Helvetica Bold",
+            textSize = fontSize,
+            textColor = { white = 1 },
+            textAlignment = "center",
+            frame = { x = 0.5, y = (size - fontSize) / 2 - 1, w = size, h = fontSize + 4 },
+            compositeRule = "destinationOut",
+        }
+    )
+    local image = canvas:imageFromCanvas()
+    canvas:delete()
+    image:template(true)
+    return image
+end
 
 local function updateSpaceNumber()
     local currentSpace = hs.spaces.focusedSpace()
@@ -259,7 +295,8 @@ local function updateSpaceNumber()
     local spaces = hs.spaces.spacesForScreen(screen)
     for i, space in ipairs(spaces) do
         if space == currentSpace then
-            spaceMenu:setTitle(tostring(i))
+            menu:setTitle("")
+            menu:setIcon(numberIcon(i))
             return
         end
     end
