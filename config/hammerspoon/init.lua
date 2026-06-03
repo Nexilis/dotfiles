@@ -220,12 +220,56 @@ local function runPrivilegedScript(scriptPath)
     end
 end
 
+-- Secure Event Input blocks all CGEventTaps from seeing keystrokes, which kills
+-- iss (Hyper+arrow). Apps sometimes enable it and leak it on quit, leaving it
+-- stuck on a dead pid. This surfaces the current holder in the menu.
+local function secureInputStatus()
+    local out = hs.execute("ioreg -l -w 0 | grep -a kCGSSessionSecureInputPID")
+    local pid = out and out:match('kCGSSessionSecureInputPID"=(%d+)')
+    if not pid or pid == "0" then
+        return { enabled = false }
+    end
+    local app = hs.execute("ps -p " .. pid .. " -o comm= 2>/dev/null")
+    app = app and app:gsub("%s+", "") -- comm path, no spaces; trims trailing newline
+    local alive = app ~= nil and app ~= ""
+    return {
+        enabled = true,
+        pid = pid,
+        app = alive and (app:match("([^/]+)$") or app) or nil,
+        dead = not alive,
+    }
+end
+
 menu:setMenu(function()
     local caffOn = hs.caffeinate.get("displayIdle")
+    local sec = secureInputStatus()
+    local secTitle, secDetail
+    if not sec.enabled then
+        secTitle = "🔓 Secure Input: off"
+        secDetail = "Secure Event Input is off. CGEventTaps (iss Hyper+arrow) work."
+    elseif sec.dead then
+        secTitle = string.format("🔒 Secure Input: STUCK on dead pid %s", sec.pid)
+        secDetail = string.format(
+            "Secure Event Input stuck on dead pid %s. This blocks iss Hyper+arrow. Reboot to clear.",
+            sec.pid)
+    else
+        secTitle = string.format("🔒 Secure Input: %s (%s)", sec.app or "?", sec.pid)
+        secDetail = string.format(
+            "%s (pid %s) holds Secure Event Input. This blocks iss Hyper+arrow. Quit it to release.",
+            sec.app or "?", sec.pid)
+    end
     return {
         {
             title = caffOn and "☕ Caffeinate: ON" or "💤 Caffeinate: OFF",
             fn = function() setCaffState(not caffOn) end,
+        },
+        { title = "-" },
+        {
+            title = secTitle,
+            fn = function()
+                hs.pasteboard.setContents(secTitle:gsub("^%S+%s", ""))
+                hs.alert.show(secDetail)
+            end,
         },
         { title = "-" },
         {
