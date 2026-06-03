@@ -224,7 +224,9 @@ end
 -- iss (Hyper+arrow). Apps sometimes enable it and leak it on quit, leaving it
 -- stuck on a dead pid. This surfaces the current holder in the menu.
 local function secureInputStatus()
-    local out = hs.execute("ioreg -l -w 0 | grep -a kCGSSessionSecureInputPID")
+    -- Target only the IOConsoleUsers property (~0.02s) instead of dumping the
+    -- whole IORegistry with `ioreg -l` (~1.5s, which froze the menu).
+    local out = hs.execute("ioreg -w0 -d1 -k IOConsoleUsers")
     local pid = out and out:match('kCGSSessionSecureInputPID"=(%d+)')
     if not pid or pid == "0" then
         return { enabled = false }
@@ -243,20 +245,26 @@ end
 menu:setMenu(function()
     local caffOn = hs.caffeinate.get("displayIdle")
     local sec = secureInputStatus()
-    local secTitle, secDetail
+    local secTitle, secAction, secDetail, secCopy
     if not sec.enabled then
-        secTitle = "🔓 Secure Input: off"
-        secDetail = "Secure Event Input is off. CGEventTaps (iss Hyper+arrow) work."
+        secTitle  = "✅ Secure Input: OK"
+        secAction = "      Caps+arrow works"
+        secDetail = "Secure Event Input is off. Keystrokes reach iss; Caps+arrow works."
+        secCopy   = "Secure Input: off (OK)"
     elseif sec.dead then
-        secTitle = string.format("🔒 Secure Input: STUCK on dead pid %s", sec.pid)
+        secTitle  = string.format("🛑 Secure Input: stuck (dead pid %s)", sec.pid)
+        secAction = "      Reboot to clear — blocks Caps+arrow"
         secDetail = string.format(
-            "Secure Event Input stuck on dead pid %s. This blocks iss Hyper+arrow. Reboot to clear.",
+            "Secure Event Input is stuck on dead pid %s, which blocks iss Caps+arrow. Reboot to clear it.",
             sec.pid)
+        secCopy   = string.format("Secure Input stuck on dead pid %s", sec.pid)
     else
-        secTitle = string.format("🔒 Secure Input: %s (%s)", sec.app or "?", sec.pid)
+        secTitle  = string.format("⚠️ Secure Input: held by %s", sec.app or "?")
+        secAction = string.format("      Quit %s to fix Caps+arrow", sec.app or "?")
         secDetail = string.format(
-            "%s (pid %s) holds Secure Event Input. This blocks iss Hyper+arrow. Quit it to release.",
-            sec.app or "?", sec.pid)
+            "%s (pid %s) holds Secure Event Input, which blocks iss Caps+arrow. Quit %s to release it.",
+            sec.app or "?", sec.pid, sec.app or "?")
+        secCopy   = string.format("%s (pid %s) holds Secure Input", sec.app or "?", sec.pid)
     end
     return {
         {
@@ -266,11 +274,13 @@ menu:setMenu(function()
         { title = "-" },
         {
             title = secTitle,
+            tooltip = secDetail,
             fn = function()
-                hs.pasteboard.setContents(secTitle:gsub("^%S+%s", ""))
+                hs.pasteboard.setContents(secCopy)
                 hs.alert.show(secDetail)
             end,
         },
+        { title = secAction, tooltip = secDetail, disabled = true },
         { title = "-" },
         {
             title = "Window",
