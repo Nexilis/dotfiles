@@ -7,3 +7,16 @@
 [tabs]
 active   = { fg = "#11111b", bg = "#fab387", bold = true }
 inactive = { fg = "#cdd6f4", bg = "#45475a" }
+
+# Same fix for the bottom status-bar mode indicator. yazi's default mode style
+# uses bare named colours (bg = "blue"/"red") with no fg, so the dark default
+# text lands on a dark-ish background. These pills get fixed hex fg+bg, and the
+# "alt" segments reuse the inactive-tab colours, so both bottom corners stay
+# readable in either kitty theme. select/unset are styled too for consistency.
+[mode]
+normal_main = { fg = "#11111b", bg = "#89b4fa", bold = true }
+normal_alt  = { fg = "#cdd6f4", bg = "#45475a" }
+select_main = { fg = "#11111b", bg = "#a6e3a1", bold = true }
+select_alt  = { fg = "#cdd6f4", bg = "#45475a" }
+unset_main  = { fg = "#11111b", bg = "#f9e2af", bold = true }
+unset_alt   = { fg = "#cdd6f4", bg = "#45475a" }
