@@ -61,7 +61,7 @@ if type -q bat
   abbr --add -g cat 'bat -p --paging=never'
 end
 
-alias dec="gocryptfs '$HOME/pCloud Drive/.cipher' $HOME/plain"
+alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/plain"
 alias unmount="umount -f $HOME/plain"
 
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"

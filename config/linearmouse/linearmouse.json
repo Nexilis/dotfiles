@@ -1,31 +1,77 @@
 {
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.4",
   "schemes" : [
     {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x80fa",
+          "productName" : "TB450 2.4GHz Receiver",
+          "vendorID" : "0x47d"
+        }
+      },
       "pointer" : {
-        "speed" : 0.085,
+        "acceleration" : 0.5,
         "disableAcceleration" : false,
-        "acceleration" : 0.5
+        "speed" : 0.085
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 0.4
+        },
+        "distance" : {
+          "vertical" : "auto"
+        },
+        "speed" : {
+          "vertical" : 1
+        }
+      }
+    },
+    {
+      "buttons" : {
+        "universalBackForward" : true
       },
       "if" : {
         "device" : {
-          "vendorID" : "0x47d",
-          "productID" : "0x80fa",
           "category" : "mouse",
-          "productName" : "TB450 2.4GHz Receiver"
+          "productID" : "0xfa7c",
+          "productName" : "2.4G Wireless Receiver",
+          "vendorID" : "0x25a7"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 1,
+        "disableAcceleration" : true
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 0.4
+        },
+        "speed" : {
+          "vertical" : 1
+        }
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x80fc",
+          "productName" : "TB450 ",
+          "vendorID" : "0x47d"
         }
       },
       "scrolling" : {
         "acceleration" : {
-          "vertical" : 1
+          "vertical" : 0.2
         },
         "distance" : {
-          "vertical" : "64px"
+          "vertical" : "auto"
         },
         "speed" : {
-          "vertical" : 0
+          "vertical" : 1
         }
       }
     }
-  ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.0"
+  ]
 }
