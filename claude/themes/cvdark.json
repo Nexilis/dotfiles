@@ -1,0 +1,9 @@
+{
+  "name": "CV Dark",
+  "base": "dark",
+  "overrides": {
+    "userMessageBackground": "#2a2a2a",
+    "autoAccept": "#e8b32a",
+    "inactive": "#8a8d8a"
+  }
+}

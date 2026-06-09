@@ -1,0 +1,9 @@
+{
+  "name": "CV Light",
+  "base": "light",
+  "overrides": {
+    "userMessageBackground": "#e6e9ef",
+    "autoAccept": "#8a6500",
+    "inactive": "#6c6f85"
+  }
+}

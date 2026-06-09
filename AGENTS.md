@@ -68,9 +68,19 @@ Keep full task state in the ticket and reference it here, do not duplicate it.
   `~/.config`. To keep it inside the symlink migration, `config/fish/config.fish`
   sets `LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml`, so lazygit loads the
   repo-symlinked config. State (`state.yml`) still lives in Application Support.
-- Claude Code's own light-theme colors (the dark user-message chip, the amber
-  "auto mode on" hint, dim secondary text) are NOT from the kitty palette and
-  cannot be fixed here; change them via Claude Code's theme settings.
+- Claude Code's own theme colors (the dark user-message chip, the amber "auto
+  mode on" hint, dim secondary text) are NOT from the kitty palette. They are
+  overridable only through a custom theme, so `claude/themes/` ships two:
+  `cvlight.json` (base `light`) and `cvdark.json` (base `dark`), each overriding
+  `userMessageBackground`, `autoAccept`, and `inactive`. `_link.sh` links the
+  dir to `~/.claude/themes` (a nested link; the rest of `~/.claude` is state and
+  must not be symlinked). Claude Code hot-reloads that dir.
+  - Trade-off: a custom theme pins one base, so it does NOT follow the OS
+    light/dark like the default `auto`. Switch manually with `/theme` (pick
+    "CV Light" or "CV Dark") when you flip appearance. The active selection is
+    stored by Claude Code in an undocumented spot, so it is not committed here.
+  - `userMessageBackground` only shows in fullscreen rendering mode (`/tui
+    fullscreen`); inline mode has no message chip.
 
 ## Repo notes
 

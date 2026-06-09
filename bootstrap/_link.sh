@@ -7,6 +7,9 @@
 # Maps:
 #   config/<name>  ->  ~/.config/<name>
 #   home/<name>    ->  ~/<name>
+#   claude/themes  ->  ~/.claude/themes   (nested: ~/.claude holds session
+#                                          state, so only the themes subdir is
+#                                          linked, never the whole dir)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -90,3 +93,10 @@ done
 for src in "$REPO"/home/*; do
   link_one "$src" "$HOME/$(basename "$src")"
 done
+
+# Nested links: a specific subdir under a parent we must not symlink wholesale.
+# ~/.claude holds session state (projects, history), so link only themes/.
+if [ -d "$REPO/claude/themes" ]; then
+  mkdir -p "$HOME/.claude"
+  link_one "$REPO/claude/themes" "$HOME/.claude/themes"
+fi
