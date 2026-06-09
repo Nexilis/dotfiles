@@ -1,0 +1,9 @@
+# yazi theme overrides. Merges over yazi's default theme.
+#
+# Contrast fix: yazi's default tab styling uses the named ANSI "blue", which
+# kitty's light theme renders as a dark blue with low-contrast text on top.
+# These tabs use fixed hex colours with their own background, so they stay
+# readable regardless of the kitty light/dark background behind them.
+[tabs]
+active   = { fg = "#11111b", bg = "#fab387", bold = true }
+inactive = { fg = "#cdd6f4", bg = "#45475a" }
