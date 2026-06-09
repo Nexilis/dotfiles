@@ -8,19 +8,21 @@ this repo.
 
 Personal dotfiles. Solo repo, no PR flow; commit directly to `master`.
 
-- Real local path is `~/code/gh/prv/dotfiles`. The README still points at the
-  old `~/proj/dotfiles`, and bootstrap paths are hardcoded to it, so treat the
-  README path as stale.
-- Primary machine is macOS. The bootstrap scripts are Linux-only (see below).
+- Real local path is `~/code/gh/prv/dotfiles`. Bootstrap scripts and the README
+  are now self-locating / path-independent, so the clone can live anywhere.
+- Primary machine is macOS. `bootstrap-macos.sh` covers it (Homebrew + optional
+  Brewfile + linking); `bootstrap-fedora.sh` / `bootstrap-ubuntu.sh` cover Linux.
 
 ## Layout
 
 - `config/<app>/` mirrors `~/.config/<app>/` (kitty, fish, nvim, helix, yazi,
   zed, ghostty, alacritty, and more).
 - `home/` holds files that live in `~`.
-- `bootstrap/` holds provisioning scripts. `bootstrap-fedora.sh` and
-  `bootstrap-ubuntu.sh` are the entry points; `_config.sh` deploys configs;
-  `*.bin.sh` install individual tools.
+- `bootstrap/` holds provisioning scripts. `bootstrap-macos.sh`,
+  `bootstrap-fedora.sh`, and `bootstrap-ubuntu.sh` are the entry points (all
+  self-locating); `_config.sh`/`_link.sh` deploy configs; `*.bin.sh` install
+  individual tools (Linux); macOS installs come from a `Brewfile` via
+  `brew bundle` if present.
 - `.tickets/` holds `tk` tickets.
 
 ## Deploy mechanism (symlinks)
@@ -33,9 +35,9 @@ differs from the repo unless `--force`, and backs up anything it replaces to
 `<target>.bak.<timestamp>`. Use `--dry-run` to preview. `_config.sh` now just
 delegates to `_link.sh` (it no longer does `rm -rf` + `cp -r`).
 
-Migration tracked in `tk` ticket `dot-4u09`. Most entries are linked; a few
-dirs whose live content has diverged from the repo are still skipped pending
-manual reconcile (which side wins). The skip list and per-dir details live in
+Migration tracked in `tk` ticket `dot-4u09`. All `config/*` and `home/*`
+entries are now symlinked (no skips). App-generated state inside symlinked
+dirs is kept out of git via `.gitignore`. Per-dir reconcile details live in
 `tk show dot-4u09`.
 
 ## Tickets
