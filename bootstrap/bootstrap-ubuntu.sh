@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Self-locating: derive the bootstrap dir from this script's path so the repo
+# can live anywhere (no hardcoded clone path).
+BOOT="$(cd "$(dirname "$0")" && pwd)"
+
 sudo apt update -y
 
 sudo apt install fish software-properties-common apt-transport-https alacritty imagemagick mc -y
@@ -7,9 +11,9 @@ sudo apt install fish software-properties-common apt-transport-https alacritty i
 sudo apt install curl libssl-dev libcurl4-openssl-dev -y
 chsh -s $(which fish)
 
-sh ~/proj/dotfiles/bootstrap/_local.sh
-sh ~/proj/dotfiles/bootstrap/_config.sh
-sh ~/proj/dotfiles/bootstrap/_fonts.sh
+sh "$BOOT/_local.sh"
+sh "$BOOT/_config.sh"
+sh "$BOOT/_fonts.sh"
 
 echo "flatpak"
 sudo apt install flatpak -y

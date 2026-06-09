@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Self-locating: derive the bootstrap dir from this script's path so the repo
+# can live anywhere (no hardcoded clone path).
+BOOT="$(cd "$(dirname "$0")" && pwd)"
+
 # rlwrap is clojure dep, xclip is needed to be able to copy from nvim to sys-clipboard
 sudo dnf install xclip fish util-linux-user alacritty ImageMagick rlwrap mc hunspell-pl -y
 chsh -s $(which fish)
@@ -11,9 +15,9 @@ chsh -s $(which fish)
 # curl with sources
 sudo dnf install curl libcurl-devel -y
 
-sh ~/proj/dotfiles/bootstrap/_local.sh
-sh ~/proj/dotfiles/bootstrap/_config.sh
-sh ~/proj/dotfiles/bootstrap/_fonts.sh
+sh "$BOOT/_local.sh"
+sh "$BOOT/_config.sh"
+sh "$BOOT/_fonts.sh"
 
 echo "python3"
 sudo dnf install python3 python3-pip -y
