@@ -81,6 +81,9 @@ Keep full task state in the ticket and reference it here, do not duplicate it.
     stored by Claude Code in an undocumented spot, so it is not committed here.
   - `userMessageBackground` only shows in fullscreen rendering mode (`/tui
     fullscreen`); inline mode has no message chip.
+  - Gotcha: a brand-new theme file needs a Claude Code restart to appear in
+    `/theme` the first time (the watcher only catches changes to a dir it
+    already scanned at startup). Later edits to an existing file hot-reload.
 
 ## Repo notes
 
