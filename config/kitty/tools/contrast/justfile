@@ -1,0 +1,20 @@
+default:
+    @just --list
+
+# Report WCAG contrast of every color in a kitty theme against its background
+check theme:
+    go run . {{theme}}
+
+# Check both auto themes shipped in this kitty config
+check-all:
+    go run . ../../light-theme.auto.conf
+    go run . ../../dark-theme.auto.conf
+
+# Run unit tests
+test:
+    go test ./...
+
+# Static analysis
+lint:
+    go vet ./...
+    staticcheck ./... || true
