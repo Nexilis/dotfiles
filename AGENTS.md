@@ -48,6 +48,29 @@ Keep full task state in the ticket and reference it here, do not duplicate it.
 
 - `config/kitty/tools/contrast/` is a Go module that reports WCAG contrast of a
   kitty theme against its background. Run `just check-all` from that dir.
+- `config/kitty/tools/colorpick/` is a Go module that reports the most common
+  colors inside a rectangular region of a PNG. Use it to ground-truth which
+  palette color an app paints in a screenshot before changing a theme, instead
+  of guessing. `just pick <image> <x> <y> <w> <h> [topN]`.
+
+## App theming notes
+
+- The kitty `*.auto.conf` palette tunes the ANSI colors to read as *foreground*
+  text on the background (AA). TUIs that paint an ANSI color as a *background*
+  (lazygit selected line, yazi tabs) then get dark default text on a dark-ish
+  blue, which fails contrast. A single ANSI slot can't be both, so those are
+  fixed per-app, not in the kitty palette:
+  - `config/lazygit/config.yml`: `selectedLineBgColor: [reverse]` (reverse is
+    theme-agnostic; readable in both light and dark kitty).
+  - `config/yazi/theme.toml`: `[tabs]` active/inactive use fixed hex colors with
+    their own background, so they read regardless of the kitty background.
+- lazygit on macOS reads `~/Library/Application Support/lazygit`, not
+  `~/.config`. To keep it inside the symlink migration, `config/fish/config.fish`
+  sets `LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml`, so lazygit loads the
+  repo-symlinked config. State (`state.yml`) still lives in Application Support.
+- Claude Code's own light-theme colors (the dark user-message chip, the amber
+  "auto mode on" hint, dim secondary text) are NOT from the kitty palette and
+  cannot be fixed here; change them via Claude Code's theme settings.
 
 ## Repo notes
 
