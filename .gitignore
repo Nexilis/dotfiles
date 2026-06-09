@@ -27,5 +27,8 @@ config/karabiner/automatic_backups/
 .claude/
 .claude.json
 
+# tk tickets: local task state, not committed (any .tickets dir, at any level)
+.tickets/
+
 # OS noise
 .DS_Store
