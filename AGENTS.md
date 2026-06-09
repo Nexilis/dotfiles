@@ -46,6 +46,9 @@ Tasks are tracked with the `tk` CLI; tickets are markdown in `.tickets/`.
 `tk list`, `tk show <id>`, `tk add-note <id> "..."`, `tk status <id> <state>`.
 Keep full task state in the ticket and reference it here, do not duplicate it.
 
+`.tickets/` is local-only: gitignored and not committed (the repo is public).
+The files live on disk so `tk` works; they are just never tracked.
+
 ## Tools
 
 - `config/kitty/tools/contrast/` is a Go module that reports WCAG contrast of a
