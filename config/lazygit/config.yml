@@ -1,0 +1,15 @@
+# lazygit config. Lives in the repo, symlinked to ~/.config/lazygit and loaded
+# via the LG_CONFIG_FILE env var set in config/fish/config.fish (macOS lazygit
+# otherwise reads ~/Library/Application Support/lazygit).
+#
+# Contrast fix: the default selected-line background is the ANSI blue, which
+# kitty's light theme renders as a dark blue with dark default text on top
+# (~1.3:1, unreadable). "reverse" inverts the cell instead of picking a fixed
+# colour, so the selection stays readable in BOTH the light and dark kitty
+# themes without a per-theme variant. Documented as the high-contrast option.
+gui:
+  theme:
+    selectedLineBgColor:
+      - reverse
+    selectedRangeBgColor:
+      - reverse

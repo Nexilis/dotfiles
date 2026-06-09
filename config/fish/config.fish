@@ -44,6 +44,9 @@ alias gpsup='git push --set-upstream origin (git_current_branch)'
 
 if type -q lazygit
   abbr --add -g lg 'lazygit'
+  # macOS lazygit defaults to ~/Library/Application Support; point it at the
+  # repo-symlinked config under ~/.config so it follows the dotfiles migration.
+  set -xg LG_CONFIG_FILE $HOME/.config/lazygit/config.yml
 end
 
 # `ls` → `eza` abbreviation
