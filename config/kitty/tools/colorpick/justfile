@@ -1,0 +1,15 @@
+default:
+    @just --list
+
+# Report the most common colors in a region of a PNG: <image> <x> <y> <w> <h> [topN]
+pick image x y w h topN="8":
+    go run . {{image}} {{x}} {{y}} {{w}} {{h}} {{topN}}
+
+# Run unit tests
+test:
+    go test ./...
+
+# Static analysis
+lint:
+    go vet ./...
+    staticcheck ./... || true
