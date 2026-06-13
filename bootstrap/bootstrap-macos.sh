@@ -31,7 +31,12 @@ brew install LucasPickering/homebrew-tap/slumber
 brew install alt-tab linearmouse karabiner-elements kitty telegram gimp libreoffice shottr skim qview syncthing
 
 # Programming
-brew install zed nvim neovide lua luarocks stylua lua-language-server node git-credential-manager cmake just
+brew install zed nvim lua luarocks stylua lua-language-server node git-credential-manager cmake just
+# Neovide GUI: use the cask (homebrew-cask), not the homebrew-core formula. The
+# formula builds a CLI-only bottle and leaves Neovide.app buried in the Cellar
+# (never placed in /Applications). The cask installs the official signed app to
+# /Applications AND links the `neovide` binary onto PATH, so we get both.
+brew install --cask neovide-app
 # Optional: Java, Clojure, Go
 brew install temurin leiningen go
 
@@ -63,6 +68,10 @@ brew install --cask macfuse
 # no C headers) into ~/.local/bin, which sits ahead of the rest on PATH.
 command -v gocryptfs >/dev/null 2>&1 || \
   GOBIN="$HOME/.local/bin" go install -tags without_openssl github.com/rfjakob/gocryptfs/v2@v2.6.1
+
+# NOTE: we keep neovide's stock (upstream) app icon. An optional inset squircle
+# icon override lives in bootstrap/macos/ (neovide-app.sh + neovide.icns) if we
+# ever want it back; it is deliberately NOT run here.
 
 # --- Symlink configs --------------------------------------------------------
 bash "$BOOT/_link.sh" "$@"

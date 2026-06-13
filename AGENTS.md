@@ -58,6 +58,24 @@ The files live on disk so `tk` works; they are just never tracked.
   palette color an app paints in a screenshot before changing a theme, instead
   of guessing. `just pick <image> <x> <y> <w> <h> [topN]`.
 
+## macOS app icons
+
+- Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the
+  homebrew-core `neovide` **formula**. The formula is a CLI-only bottle that
+  leaves `Neovide.app` buried in the Cellar (never in `/Applications`); the cask
+  installs the signed app to `/Applications` and links the `neovide` binary onto
+  PATH, so we get both. Set in `bootstrap-macos.sh`.
+- We use neovide's **stock** (upstream) icon. An optional inset squircle icon
+  override is kept in `bootstrap/macos/` for reference but is NOT applied:
+  `bootstrap-macos.sh` does not run it. To turn it back on, run
+  `bootstrap/macos/neovide-app.sh` (and re-add the call to `bootstrap-macos.sh`).
+  It sets `bootstrap/macos/neovide.icns` (generated from the vendored
+  `neovide-256x256.png`; regen recipe in the script header) as a macOS **custom
+  icon** via `NSWorkspace -setIcon:forFile:` (an `Icon` resource + FinderInfo
+  xattr), not by overwriting the bundle's `.icns` (which would break the cask
+  app's hardened-runtime signature). The full "why" is in the script header.
+  Originally migrated from `work-sync/operations/scripts/shell/`.
+
 ## App theming notes
 
 - The kitty `*.auto.conf` palette tunes the ANSI colors to read as *foreground*
