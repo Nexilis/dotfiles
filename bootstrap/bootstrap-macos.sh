@@ -53,7 +53,7 @@ brew install --cask hammerspoon mouseless@preview
 [ -d /Applications/FreeTube.app ] && xattr -d com.apple.quarantine /Applications/FreeTube.app 2>/dev/null
 
 # Rejected (tried, removed; do NOT reinstall):
-#   shortcat (cask)
+#   shortcat (cask): does not work with kitty (e.g. terminal apps)
 
 # --- Non-Homebrew installs --------------------------------------------------
 # Rust (rustup)
