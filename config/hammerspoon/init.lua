@@ -175,6 +175,159 @@ hs.hotkey.bind(hyper, "o", function()
     applyTileLayout(wins, frame, tileLayouts[tileState.index])
 end)
 
+-- Hyper+Tab application switcher: a searchable, most-recently-used list of
+-- running apps (hs.chooser). It switches at the application level on purpose.
+-- An earlier version listed individual windows via hs.window.filter, but
+-- getWindows() forces a synchronous all-windows AX refresh that freezes for
+-- seconds after a Space switch (Hammerspoon issue #3712: _timed_allWindows
+-- stalls on WebKit helper processes). Running apps and app:activate() read
+-- cached NSRunningApplication data and are Space-independent, so there is no
+-- window-AX enumeration and no freeze. Trade-off: it switches by app (its
+-- frontmost window), not between separate windows of the same app, which is
+-- exactly the macOS cmd+tab model.
+-- cmd+tab itself is owned by the system switcher (which wins the race for it),
+-- so we trigger on Hyper+Tab via an eventtap (a CGEventTap, the same primitive
+-- AltTab uses). Caveat: like iss, the tap is blocked while any app holds Secure
+-- Event Input; Hyper+Tab then does nothing (see the menubar Secure Input item).
+local switcherChooser = nil
+local switcherApps = {}   -- chooser row index -> hs.application
+local iconCache = {}      -- bundleID -> hs.image (false once known to have none)
+local appMRU = {}         -- bundleIDs, most-recently-activated first
+
+-- Track activation order so the list is MRU like cmd+tab. The watcher reads
+-- only NSRunningApplication data, so it is cheap and never touches window AX.
+appSwitcherWatcher = hs.application.watcher.new(function(_, event, app)
+    if event == hs.application.watcher.activated and app then
+        local bid = app:bundleID()
+        if bid then
+            for i, b in ipairs(appMRU) do
+                if b == bid then
+                    table.remove(appMRU, i)
+                    break
+                end
+            end
+            table.insert(appMRU, 1, bid)
+        end
+    end
+end)
+appSwitcherWatcher:start()
+do
+    -- Seed MRU with the current frontmost app so the first switch is sensible.
+    local front = hs.application.frontmostApplication()
+    if front and front:bundleID() then
+        appMRU = { front:bundleID() }
+    end
+end
+
+local function appIcon(bundleID)
+    if not bundleID then return nil end
+    if iconCache[bundleID] == nil then
+        iconCache[bundleID] = hs.image.imageFromAppBundle(bundleID) or false
+    end
+    return iconCache[bundleID] or nil
+end
+
+-- Running, regular (Dock-visible) apps, ordered most-recently-used first.
+local function buildAppChoices()
+    local byBundle = {}
+    for _, app in ipairs(hs.application.runningApplications()) do
+        local bid = app:bundleID()
+        if bid and app:kind() == 1 and not byBundle[bid] then
+            byBundle[bid] = app
+        end
+    end
+
+    local ordered = {}
+    local added = {}
+    for _, bid in ipairs(appMRU) do
+        if byBundle[bid] and not added[bid] then
+            ordered[#ordered + 1] = byBundle[bid]
+            added[bid] = true
+        end
+    end
+    for bid, app in pairs(byBundle) do
+        if not added[bid] then
+            ordered[#ordered + 1] = app
+        end
+    end
+
+    local choices = {}
+    switcherApps = {}
+    for i, app in ipairs(ordered) do
+        switcherApps[i] = app
+        choices[i] = {
+            text = app:name() or "?",
+            image = appIcon(app:bundleID()),
+            index = i,
+        }
+    end
+    return choices
+end
+
+local function showSwitcher()
+    if not switcherChooser then
+        switcherChooser = hs.chooser.new(function(choice)
+            if choice and choice.index then
+                local app = switcherApps[choice.index]
+                if app then app:activate(true) end
+            end
+        end)
+        switcherChooser:bgDark(true)
+        switcherChooser:width(28)
+        switcherChooser:rows(7)
+        switcherChooser:placeholderText("Switch to app…")
+    end
+    switcherChooser:choices(buildAppChoices())
+    switcherChooser:query("")
+    switcherChooser:show()
+    -- Row 1 is the current app (MRU head); default to row 2 so Hyper+Tab then
+    -- Return/Space jumps to the previous app.
+    if #switcherApps >= 2 then
+        switcherChooser:selectedRow(2)
+    end
+end
+
+-- Wrap-around move of the chooser selection.
+local function moveSelection(delta)
+    local n = #switcherApps
+    if n == 0 then return end
+    local cur = switcherChooser:selectedRow()
+    switcherChooser:selectedRow((cur - 1 + delta) % n + 1)
+end
+
+-- Global so the tap is not garbage-collected after init.lua finishes.
+-- Trigger is Hyper+Tab. While the chooser is open the tap drives it directly:
+-- Tab (or another Hyper+Tab) steps down, a bare Shift+Tab steps up, Space
+-- activates the highlighted app. A repeated Hyper+Tab steps through the list
+-- instead of rebuilding it, which also debounces. Return and the arrow keys
+-- keep working via the chooser itself.
+windowSwitcherTap = hs.eventtap.new({ hs.eventtap.event.types.keyDown }, function(event)
+    local code = event:getKeyCode()
+    local flags = event:getFlags()
+    local open = switcherChooser ~= nil and switcherChooser:isVisible()
+
+    if code == hs.keycodes.map.tab then
+        if open then
+            -- step up only on a bare Shift+Tab; a repeated Hyper+Tab steps down
+            local up = flags.shift and not flags.cmd and not flags.ctrl and not flags.alt
+            moveSelection(up and -1 or 1)
+        elseif flags.cmd and flags.ctrl and flags.alt and flags.shift then
+            showSwitcher()
+        else
+            return false
+        end
+        return true
+    end
+
+    if open and code == hs.keycodes.map.space then
+        switcherChooser:select()
+        return true
+    end
+
+    return false
+end)
+windowSwitcherTap:start()
+
 -- Unified menubar: space number + caffeinate + Zscaler
 local menu = hs.menubar.new()
 
