@@ -54,12 +54,15 @@ command -v rustup >/dev/null 2>&1 || curl --proto '=https' --tlsv1.2 -sSf https:
 # GitHub Copilot CLI
 command -v copilot >/dev/null 2>&1 || npm install -g @github/copilot
 
-# gocryptfs is not in Homebrew on macOS; install via MacPorts if available.
-if command -v port >/dev/null 2>&1; then
-  sudo port install gocryptfs
-else
-  echo "MacPorts not found. Install it (https://guide.macports.org), then: sudo port install gocryptfs"
-fi
+# Work-secret encryption: gocryptfs (transparent on-demand mount; `dec`/`unmount`
+# fish aliases). Needs FUSE -> macFUSE on macOS, a kernel extension that requires
+# one-time reduced security on Apple Silicon. See AGENTS.md "Work secrets".
+brew install --cask macfuse
+# gocryptfs is not in Homebrew on macOS (Linux-only formula) and we no longer use
+# MacPorts. Build it from source with Go (the pure-Go without_openssl build needs
+# no C headers) into ~/.local/bin, which sits ahead of the rest on PATH.
+command -v gocryptfs >/dev/null 2>&1 || \
+  GOBIN="$HOME/.local/bin" go install -tags without_openssl github.com/rfjakob/gocryptfs/v2@v2.6.1
 
 # --- Symlink configs --------------------------------------------------------
 bash "$BOOT/_link.sh" "$@"

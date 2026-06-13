@@ -4,7 +4,7 @@ set -xg MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -xg FZF_DEFAULT_COMMAND "fd -H --type f -E .cache -E flatpak -E .rustup -E .steam -E .mozilla"
 set -xg FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
 set -xg FZF_ALT_C_COMMAND "fd -H -t d -E .cache -E .git -E flatpak -E .steam -E .mozilla"
-set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin /opt/local/bin $PATH
+set -xg PATH /snap/bin ~/.bin ~/.local/bin ~/.cargo/bin ~/.luarocks/bin $PATH
 
 set -l LUA_VER 5.4
 set -xg LUA_PATH $HOME/.luarocks/share/lua/$LUA_VER/\?.lua\;$HOME/.luarocks/share/lua/$LUA_VER/\?/init.lua\;/usr/local/share/lua/$LUA_VER/\?.lua\;/usr/local/share/lua/$LUA_VER/\?/init.lua\;/usr/local/lib/lua/$LUA_VER/\?.lua\;/usr/local/lib/lua/$LUA_VER/\?/init.lua\;/usr/share/lua/$LUA_VER/\?.lua\;/usr/share/lua/$LUA_VER/\?/init.lua\;./\?.lua\;./\?/init.lua\;$LUA_PATH
@@ -61,8 +61,8 @@ if type -q bat
   abbr --add -g cat 'bat -p --paging=never'
 end
 
-alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/plain"
-alias unmount="umount -f $HOME/plain"
+alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/Documents/work-synced-secrets"
+alias unmount="umount -f $HOME/Documents/work-synced-secrets"
 
 alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
 
