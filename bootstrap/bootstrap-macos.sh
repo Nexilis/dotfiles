@@ -28,7 +28,7 @@ brew install yazi ffmpeg sevenzip jq poppler zoxide resvg imagemagick font-symbo
 brew install LucasPickering/homebrew-tap/slumber
 
 # GUI utilities
-brew install alt-tab linearmouse karabiner-elements kitty telegram gimp libreoffice shottr skim qview syncthing
+brew install linearmouse karabiner-elements kitty telegram gimp libreoffice shottr skim qview syncthing
 
 # Programming
 brew install zed nvim lua luarocks stylua lua-language-server node git-credential-manager cmake just
