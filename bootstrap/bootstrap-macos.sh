@@ -48,7 +48,7 @@ brew install font-hack-nerd-font font-fira-code-nerd-font font-jetbrains-mono-ne
 
 # Extras / tryout
 brew install cmus mole obs shotcut freetube qpdf vienna googleworkspace-cli rtk
-brew install --cask shortcat hammerspoon
+brew install --cask shortcat hammerspoon mouseless@preview
 # FreeTube is unsigned; clear the quarantine flag so it opens.
 [ -d /Applications/FreeTube.app ] && xattr -d com.apple.quarantine /Applications/FreeTube.app 2>/dev/null
 
