@@ -72,4 +72,3 @@ alias lua="lua5.4"
 zoxide init fish | source
 
 starship init fish | source
-

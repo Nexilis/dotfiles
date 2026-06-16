@@ -62,6 +62,10 @@ command -v rustup >/dev/null 2>&1 || curl --proto '=https' --tlsv1.2 -sSf https:
 # GitHub Copilot CLI
 command -v copilot >/dev/null 2>&1 || npm install -g @github/copilot
 
+# Antigravity CLI (Google) — tryout. Installs the `agy` binary into ~/.local/bin
+# (already on PATH via config.fish), so no extra PATH setup is needed.
+command -v agy >/dev/null 2>&1 || curl -fsSL https://antigravity.google/cli/install.sh | bash
+
 # Work-secret encryption: gocryptfs (transparent on-demand mount; `dec`/`unmount`
 # fish aliases). Needs FUSE -> macFUSE on macOS, a kernel extension that requires
 # one-time reduced security on Apple Silicon. See AGENTS.md "Work secrets".
