@@ -20,3 +20,15 @@ select_main = { fg = "#11111b", bg = "#a6e3a1", bold = true }
 select_alt  = { fg = "#cdd6f4", bg = "#45475a" }
 unset_main  = { fg = "#11111b", bg = "#f9e2af", bold = true }
 unset_alt   = { fg = "#cdd6f4", bg = "#45475a" }
+
+# Same fix for the which-key popup (the prefix-key hint bar at the bottom).
+# yazi's default mask is a medium grey-purple (#5c5f77) with dim text on top,
+# so on the light kitty theme the keys and descriptions barely read. Pin a solid
+# dark mask with bright fg + a peach accent for the candidate keys, so the popup
+# is high-contrast and self-contained regardless of the kitty background.
+[which]
+mask            = { bg = "#1e1e2e" }
+cand            = { fg = "#fab387", bold = true }
+rest            = { fg = "#6c7086" }
+desc            = { fg = "#cdd6f4" }
+separator_style = { fg = "#6c7086" }
