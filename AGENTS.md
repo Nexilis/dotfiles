@@ -94,8 +94,9 @@ The files live on disk so `tk` works; they are just never tracked.
   fixed per-app, not in the kitty palette:
   - `config/lazygit/config.yml`: `selectedLineBgColor: [reverse]` (reverse is
     theme-agnostic; readable in both light and dark kitty).
-  - `config/yazi/theme.toml`: `[tabs]` active/inactive use fixed hex colors with
-    their own background, so they read regardless of the kitty background.
+  - `config/yazi/theme.toml`: `[tabs]`, `[mode]`, and `[which]` (the which-key
+    prefix popup) use fixed hex fg+bg with their own background, so they read
+    regardless of the kitty background.
 - lazygit on macOS reads `~/Library/Application Support/lazygit`, not
   `~/.config`. To keep it inside the symlink migration, `config/fish/config.fish`
   sets `LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml`, so lazygit loads the
