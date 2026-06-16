@@ -13,6 +13,15 @@ Personal dotfiles. Solo repo, no PR flow; commit directly to `master`.
 - Primary machine is macOS. `bootstrap-macos.sh` covers it (Homebrew + optional
   Brewfile + linking); `bootstrap-fedora.sh` / `bootstrap-ubuntu.sh` cover Linux.
 
+## Public repo: secrets hygiene
+
+This repo is public. Do not commit secrets here, and be just as careful with
+"semi-secrets": absolute paths that expose account or folder layout, internal
+hostnames, and step-by-step notes on how local security is set up. None of that
+belongs in a public file. When something is useful but too revealing, keep it
+local-only (gitignored, like `.tickets/`) or in `tk`, and leave only a short
+pointer here. See "Work secrets" for an example of that split.
+
 ## Layout
 
 - `config/<app>/` mirrors `~/.config/<app>/` (kitty, fish, nvim, helix, yazi,
