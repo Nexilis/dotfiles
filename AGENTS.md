@@ -108,6 +108,13 @@ The files live on disk so `tk` works; they are just never tracked.
     `/theme` the first time (the watcher only catches changes to a dir it
     already scanned at startup). Later edits to an existing file hot-reload.
 
+## Work secrets
+
+Work secrets use a gocryptfs vault, mounted on demand via the `dec` / `unmount`
+aliases in `config/fish/config.fish`. Install steps are in `bootstrap-macos.sh`.
+Setup details and the rationale for the tooling choice are kept local-only in
+`tk dot-0te4`, not in this public repo.
+
 ## Repo notes
 
 - `config/nvim/lazy-lock.json` shows up untracked; it is noise, do not commit it.
