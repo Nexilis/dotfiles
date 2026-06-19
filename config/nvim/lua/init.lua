@@ -89,19 +89,18 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 local term_grp = vim.api.nvim_create_augroup("user_terminal", { clear = true })
-local term_count = 0
+math.randomseed(vim.loop.hrtime())
 au("TermOpen", {
   group = term_grp,
   pattern = "term://*",
   callback = function()
     set_terminal_keymaps()
-    -- give each plain terminal a short numbered name so barbar tabs are distinct.
+    -- give each plain terminal a random 3-digit name so barbar tabs are distinct.
     -- skip toggleterm/lazygit terminals: their name carries a #toggleterm# id used
     -- to track them, and rewriting the suffix would clobber it.
     local name = vim.api.nvim_buf_get_name(0)
     if not name:match("#toggleterm#") then
-      term_count = term_count + 1
-      local renamed = name:gsub("(//%d+:).*", "%1term " .. term_count)
+      local renamed = name:gsub("(//%d+:).*", "%1term " .. math.random(100, 999))
       vim.cmd("keepalt file " .. fn.fnameescape(renamed))
     end
   end,
