@@ -717,14 +717,25 @@ require("lazy").setup({
           "<leader>ws",
           function()
             -- in a terminal, spawn a fresh terminal in the split instead of mirroring it
-            vim.cmd(vim.bo.buftype == "terminal" and "split | terminal | startinsert" or "split")
+            -- (note: :terminal eats the rest of the line as its command, so keep these separate)
+            local is_term = vim.bo.buftype == "terminal"
+            vim.cmd("split")
+            if is_term then
+              vim.cmd("terminal")
+              vim.cmd("startinsert")
+            end
           end,
           desc = "split-horizontal",
         },
         {
           "<leader>wv",
           function()
-            vim.cmd(vim.bo.buftype == "terminal" and "vsplit | terminal | startinsert" or "vsplit")
+            local is_term = vim.bo.buftype == "terminal"
+            vim.cmd("vsplit")
+            if is_term then
+              vim.cmd("terminal")
+              vim.cmd("startinsert")
+            end
           end,
           desc = "split-vertical",
         },
