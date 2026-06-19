@@ -100,7 +100,7 @@ au("TermOpen", {
     -- to track them, and rewriting the suffix would clobber it.
     local name = vim.api.nvim_buf_get_name(0)
     if not name:match("#toggleterm#") then
-      local renamed = name:gsub("(//%d+:).*", "%1term " .. math.random(100, 999))
+      local renamed = name:gsub("(//%d+:).*", "%1term-" .. math.random(100, 999))
       vim.cmd("keepalt file " .. fn.fnameescape(renamed))
     end
   end,
