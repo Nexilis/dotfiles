@@ -88,7 +88,24 @@ function _G.set_terminal_keymaps()
 end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
-cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+local term_grp = vim.api.nvim_create_augroup("user_terminal", { clear = true })
+local term_count = 0
+au("TermOpen", {
+  group = term_grp,
+  pattern = "term://*",
+  callback = function()
+    set_terminal_keymaps()
+    -- give each plain terminal a short numbered name so barbar tabs are distinct.
+    -- skip toggleterm/lazygit terminals: their name carries a #toggleterm# id used
+    -- to track them, and rewriting the suffix would clobber it.
+    local name = vim.api.nvim_buf_get_name(0)
+    if not name:match("#toggleterm#") then
+      term_count = term_count + 1
+      local renamed = name:gsub("(//%d+:).*", "%1term " .. term_count)
+      vim.cmd("keepalt file " .. fn.fnameescape(renamed))
+    end
+  end,
+})
 
 -- auto enable LSP for all available configs, based on neovim's 0.11 capabilities
 local configs = {}
