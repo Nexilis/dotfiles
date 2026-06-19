@@ -713,8 +713,21 @@ require("lazy").setup({
         { "<leader>wl", "<c-w>l", desc = "focus-right" },
         { "<leader>wo", "<cmd>only<cr>", desc = "only-current-window" },
         { "<leader>wq", "<c-w>q", desc = "close" },
-        { "<leader>ws", "<cmd>split<cr>", desc = "split-horizontal" },
-        { "<leader>wv", "<cmd>vsplit<cr>", desc = "split-vertical" },
+        {
+          "<leader>ws",
+          function()
+            -- in a terminal, spawn a fresh terminal in the split instead of mirroring it
+            vim.cmd(vim.bo.buftype == "terminal" and "split | terminal | startinsert" or "split")
+          end,
+          desc = "split-horizontal",
+        },
+        {
+          "<leader>wv",
+          function()
+            vim.cmd(vim.bo.buftype == "terminal" and "vsplit | terminal | startinsert" or "vsplit")
+          end,
+          desc = "split-vertical",
+        },
       }
       wkey.add(keymap)
     end,
