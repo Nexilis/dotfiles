@@ -44,7 +44,7 @@ set.shortmess:append("c")
 set.number = true
 set.timeoutlen = 500
 set.clipboard = "unnamed,unnamedplus"
-set.guifont = "Hack Nerd Font Mono:h14" -- overwritten by fontsize.nvim plugin
+set.guifont = "Hack Nerd Font Mono:h12" -- overwritten by fontsize.nvim plugin
 set.inccommand = "split" -- show live preview of search-replace
 
 g.loaded_netrw = 1
@@ -617,6 +617,7 @@ require("lazy").setup({
         { "<leader>bo", "<cmd>NvimTreeToggle<cr>", desc = "open" },
         { "<leader>br", "<cmd>Telescope oldfiles<cr>", desc = "recent" },
         { "<leader>bs", "<cmd>lua require('persistence').select()<cr>", desc = "sessions" },
+        { "<leader>bt", "<cmd>terminal<cr>", desc = "terminal" },
         { "<leader>bw", "<cmd>w!<cr>", desc = "write" },
         { "<leader>bx", "<cmd>Bdelete<cr>", desc = "close" },
         { "<leader>c", group = "CODE" },
