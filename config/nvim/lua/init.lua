@@ -617,7 +617,15 @@ require("lazy").setup({
         { "<leader>bo", "<cmd>NvimTreeToggle<cr>", desc = "open" },
         { "<leader>br", "<cmd>Telescope oldfiles<cr>", desc = "recent" },
         { "<leader>bs", "<cmd>lua require('persistence').select()<cr>", desc = "sessions" },
-        { "<leader>bt", "<cmd>terminal<cr>", desc = "terminal" },
+        {
+          "<leader>bt",
+          function()
+            vim.cmd("only") -- collapse splits so the terminal fills the whole window
+            vim.cmd("terminal")
+            vim.cmd("startinsert")
+          end,
+          desc = "terminal",
+        },
         { "<leader>bw", "<cmd>w!<cr>", desc = "write" },
         { "<leader>bx", "<cmd>Bdelete<cr>", desc = "close" },
         { "<leader>c", group = "CODE" },
