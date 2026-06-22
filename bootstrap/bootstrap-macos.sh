@@ -17,6 +17,14 @@ fi
 # Put brew on PATH for this shell (Apple Silicon location).
 [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# --- Trusted third-party taps -----------------------------------------------
+# Only consulted when HOMEBREW_REQUIRE_TAP_TRUST is set; needed to load formulae
+# or casks from these non-official taps (e.g. slumber below). Harmless otherwise.
+brew trust lucaspickering/tap
+brew trust nikitabobko/tap
+brew trust wedow/tools
+brew trust jurplel/tap
+
 # --- Homebrew packages ------------------------------------------------------
 # Core CLI
 brew install wget curl fish fzf fd ripgrep btop lazygit starship eza bat gh
