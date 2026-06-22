@@ -21,7 +21,6 @@ fi
 # Only consulted when HOMEBREW_REQUIRE_TAP_TRUST is set; needed to load formulae
 # or casks from these non-official taps (e.g. slumber below). Harmless otherwise.
 brew trust lucaspickering/tap
-brew trust nikitabobko/tap
 brew trust wedow/tools
 brew trust jurplel/tap
 
@@ -62,6 +61,7 @@ brew install --cask hammerspoon mouseless@preview
 
 # Rejected (tried, removed; do NOT reinstall):
 #   shortcat (cask): does not work with kitty (e.g. terminal apps)
+#   aerospace (nikitabobko/tap cask): tiling WM, not used
 
 # --- Non-Homebrew installs --------------------------------------------------
 # Rust (rustup)
