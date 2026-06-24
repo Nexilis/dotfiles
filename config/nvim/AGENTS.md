@@ -34,6 +34,13 @@ Terminals run as normal buffers, so each gets a barbar top-bar tab.
 - `<leader>ws` / `<leader>wv` detect a terminal buffer and open a split with a
   *fresh* terminal instead of mirroring the current one (a split alone shows the
   same buffer twice). For non-terminal buffers they split as before.
+- Terminal-mode keymaps (set per buffer in `set_terminal_keymaps()`): `<esc>`
+  and `<C-[>` both leave terminal mode. `<C-[>` needs its own map because
+  Neovide (and the kitty keyboard protocol) sends it as a distinct key, so the
+  `<esc>` map does not catch it. On macOS only, `<D-v>` (Cmd+V) pastes the `+`
+  register into the running shell via `nvim_chan_send`. A matching global
+  insert-mode `<D-v>` (`<C-R><C-O>+`, macOS-guarded) pastes the clipboard in any
+  buffer's insert mode.
 - A `TermOpen` autocmd (augroup `user_terminal`) renames each plain terminal to
   `term-NNN` (random 3-digit) so tabs are distinguishable; barbar's tab label is
   derived from the `term://<cwd>//<pid>:<suffix>` buffer name, and this barbar

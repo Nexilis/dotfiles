@@ -70,6 +70,12 @@ key.set("n", "<c-k>", "<cmd>move .-2<cr>==", { silent = true })
 key.set({ "n", "v" }, "d", '"_d')
 key.set("n", "D", '"_D')
 
+-- macOS: Cmd+V pastes the system clipboard in insert mode everywhere.
+-- <C-R><C-O>+ inserts the + register literally, with no auto-indent reflow.
+if vim.fn.has("mac") == 1 then
+  key.set("i", "<D-v>", "<C-R><C-O>+", { silent = true })
+end
+
 -- copilot
 key.set("i", "<D-s>", "<cmd>lua require('copilot.suggestion').accept_word()<cr>", { silent = true })
 key.set("i", "<D-d>", "<cmd>lua require('copilot.suggestion').accept_line()<cr>", { silent = true })
@@ -79,7 +85,16 @@ key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { sil
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
   key.set("t", "<esc>", [[<C-\><C-n>]], opts)
+  -- <C-[> is a distinct key under Neovide / kitty keyboard protocol, so it is
+  -- not caught by the <esc> map above; map it explicitly to leave terminal mode.
+  key.set("t", "<C-[>", [[<C-\><C-n>]], opts)
   key.set("t", "jk", [[<C-\><C-n>]], opts)
+  -- macOS: Cmd+V sends the system clipboard into the running shell.
+  if vim.fn.has("mac") == 1 then
+    key.set("t", "<D-v>", function()
+      vim.api.nvim_chan_send(vim.b.terminal_job_id, vim.fn.getreg("+"))
+    end, opts)
+  end
   key.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
   key.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
   key.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
