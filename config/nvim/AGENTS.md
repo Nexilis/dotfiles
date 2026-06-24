@@ -38,9 +38,11 @@ Terminals run as normal buffers, so each gets a barbar top-bar tab.
   and `<C-[>` both leave terminal mode. `<C-[>` needs its own map because
   Neovide (and the kitty keyboard protocol) sends it as a distinct key, so the
   `<esc>` map does not catch it. On macOS only, `<D-v>` (Cmd+V) pastes the `+`
-  register into the running shell via `nvim_chan_send`. A matching global
-  insert-mode `<D-v>` (`<C-R><C-O>+`, macOS-guarded) pastes the clipboard in any
-  buffer's insert mode.
+  register into the running shell via `nvim_chan_send`.
+- Insert-mode paste has one shortcut per platform (top of `init.lua`): macOS
+  binds `<D-v>` (Cmd+V), other platforms bind `<c-v>` (Ctrl+V). On macOS `<c-v>`
+  is intentionally left unbound so there is a single paste key and Ctrl+V keeps
+  its default insert-literal behaviour.
 - A `TermOpen` autocmd (augroup `user_terminal`) renames each plain terminal to
   `term-NNN` (random 3-digit) so tabs are distinguishable; barbar's tab label is
   derived from the `term://<cwd>//<pid>:<suffix>` buffer name, and this barbar

@@ -53,13 +53,19 @@ g.loaded_netrwPlugin = 1
 g.mapleader = " "
 g.maplocalleader = ","
 
--- ctrl+z, ctrl+v
+-- undo: ctrl+z, and command+z on macOS
 key.set("i", "<c-z>", "<c-o>:u<cr>", { silent = true })
-key.set("i", "<c-v>", "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a", { silent = true })
-
--- command+z, command+v
 key.set("i", "<D-z>", "<c-o>:u<cr>", { silent = true })
-key.set("i", "<D-v>", "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a", { silent = true })
+
+-- paste in insert mode: one shortcut per platform. macOS binds Cmd+V (<D-v>);
+-- other platforms bind Ctrl+V (<c-v>). On macOS <c-v> is left unbound so paste
+-- has a single key and Ctrl+V keeps its default insert-literal behaviour.
+local paste_clip = "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a"
+if vim.fn.has("mac") == 1 then
+  key.set("i", "<D-v>", paste_clip, { silent = true })
+else
+  key.set("i", "<c-v>", paste_clip, { silent = true })
+end
 
 -- delete without copying
 key.set("n", "x", '"_x')
@@ -69,12 +75,6 @@ key.set("n", "<c-j>", "<cmd>move .+1<cr>==", { silent = true })
 key.set("n", "<c-k>", "<cmd>move .-2<cr>==", { silent = true })
 key.set({ "n", "v" }, "d", '"_d')
 key.set("n", "D", '"_D')
-
--- macOS: Cmd+V pastes the system clipboard in insert mode everywhere.
--- <C-R><C-O>+ inserts the + register literally, with no auto-indent reflow.
-if vim.fn.has("mac") == 1 then
-  key.set("i", "<D-v>", "<C-R><C-O>+", { silent = true })
-end
 
 -- copilot
 key.set("i", "<D-s>", "<cmd>lua require('copilot.suggestion').accept_word()<cr>", { silent = true })
