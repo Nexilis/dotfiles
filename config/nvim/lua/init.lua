@@ -712,6 +712,15 @@ require("lazy").setup({
         { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
         { "<leader>y", group = "YANK" },
         {
+          "<leader>ya",
+          function()
+            local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+            vim.fn.setreg("+", table.concat(lines, "\n"))
+            vim.notify(#lines .. " lines", vim.log.levels.INFO, { title = "Yanked whole buffer" })
+          end,
+          desc = "all-buffer",
+        },
+        {
           "<leader>yp",
           function()
             local path = vim.fn.expand("%:p")
