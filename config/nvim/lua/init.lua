@@ -91,11 +91,18 @@ function _G.set_terminal_keymaps()
   -- not caught by the <esc> map above; map it explicitly to leave terminal mode.
   key.set("t", "<C-[>", [[<C-\><C-n>]], opts)
   key.set("t", "jk", [[<C-\><C-n>]], opts)
-  -- macOS: Cmd+V sends the system clipboard into the running shell.
+  -- paste the system clipboard into the running shell: one key per platform,
+  -- mirroring the insert-mode binding. macOS uses Cmd+V (<D-v>), others Ctrl+V
+  -- (<c-v>); the off-platform key is disabled with <Nop>.
+  local term_paste = function()
+    vim.api.nvim_chan_send(vim.b.terminal_job_id, vim.fn.getreg("+"))
+  end
   if vim.fn.has("mac") == 1 then
-    key.set("t", "<D-v>", function()
-      vim.api.nvim_chan_send(vim.b.terminal_job_id, vim.fn.getreg("+"))
-    end, opts)
+    key.set("t", "<D-v>", term_paste, opts)
+    key.set("t", "<c-v>", "<Nop>", opts)
+  else
+    key.set("t", "<c-v>", term_paste, opts)
+    key.set("t", "<D-v>", "<Nop>", opts)
   end
   key.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
   key.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)

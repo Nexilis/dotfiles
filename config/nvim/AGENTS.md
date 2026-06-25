@@ -37,8 +37,10 @@ Terminals run as normal buffers, so each gets a barbar top-bar tab.
 - Terminal-mode keymaps (set per buffer in `set_terminal_keymaps()`): `<esc>`
   and `<C-[>` both leave terminal mode. `<C-[>` needs its own map because
   Neovide (and the kitty keyboard protocol) sends it as a distinct key, so the
-  `<esc>` map does not catch it. On macOS only, `<D-v>` (Cmd+V) pastes the `+`
-  register into the running shell via `nvim_chan_send`.
+  `<esc>` map does not catch it. Terminal-mode paste mirrors the insert-mode
+  binding: macOS uses `<D-v>` (Cmd+V), other platforms use `<c-v>` (Ctrl+V),
+  and the off-platform key is `<Nop>`. The paste key sends the `+` register
+  into the running shell via `nvim_chan_send`.
 - Insert-mode paste has one shortcut per platform (top of `init.lua`): macOS
   binds `<D-v>` (Cmd+V) and disables `<c-v>`; other platforms bind `<c-v>`
   (Ctrl+V) and disable `<D-v>`. The unused key is mapped to `<Nop>` so each
