@@ -57,14 +57,16 @@ g.maplocalleader = ","
 key.set("i", "<c-z>", "<c-o>:u<cr>", { silent = true })
 key.set("i", "<D-z>", "<c-o>:u<cr>", { silent = true })
 
--- paste in insert mode: one shortcut per platform. macOS binds Cmd+V (<D-v>);
--- other platforms bind Ctrl+V (<c-v>). On macOS <c-v> is left unbound so paste
--- has a single key and Ctrl+V keeps its default insert-literal behaviour.
+-- paste in insert mode: one shortcut per platform. macOS binds Cmd+V (<D-v>)
+-- and disables Ctrl+V; other platforms bind Ctrl+V (<c-v>) and disable Cmd+V.
+-- The unused key is mapped to <Nop> so paste has exactly one key per platform.
 local paste_clip = "<esc>:set paste<cr>a<c-r>=getreg('+')<cr><esc>:set nopaste<cr>a"
 if vim.fn.has("mac") == 1 then
   key.set("i", "<D-v>", paste_clip, { silent = true })
+  key.set("i", "<c-v>", "<Nop>", { silent = true })
 else
   key.set("i", "<c-v>", paste_clip, { silent = true })
+  key.set("i", "<D-v>", "<Nop>", { silent = true })
 end
 
 -- delete without copying

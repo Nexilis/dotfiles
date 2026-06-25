@@ -40,9 +40,9 @@ Terminals run as normal buffers, so each gets a barbar top-bar tab.
   `<esc>` map does not catch it. On macOS only, `<D-v>` (Cmd+V) pastes the `+`
   register into the running shell via `nvim_chan_send`.
 - Insert-mode paste has one shortcut per platform (top of `init.lua`): macOS
-  binds `<D-v>` (Cmd+V), other platforms bind `<c-v>` (Ctrl+V). On macOS `<c-v>`
-  is intentionally left unbound so there is a single paste key and Ctrl+V keeps
-  its default insert-literal behaviour.
+  binds `<D-v>` (Cmd+V) and disables `<c-v>`; other platforms bind `<c-v>`
+  (Ctrl+V) and disable `<D-v>`. The unused key is mapped to `<Nop>` so each
+  platform has exactly one paste key.
 - A `TermOpen` autocmd (augroup `user_terminal`) renames each plain terminal to
   `term-NNN` (random 3-digit) so tabs are distinguishable; barbar's tab label is
   derived from the `term://<cwd>//<pid>:<suffix>` buffer name, and this barbar
