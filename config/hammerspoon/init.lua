@@ -175,6 +175,48 @@ hs.hotkey.bind(hyper, "o", function()
     applyTileLayout(wins, frame, tileLayouts[tileState.index])
 end)
 
+-- Hyper+1..9: send the focused window to the Nth space on its OWN screen.
+-- Move only (the view stays put), with a brief alert. N indexes the same list
+-- the menubar number uses (hs.spaces.spacesForScreen orders user + fullscreen
+-- spaces the way Mission Control shows them), so Hyper+N matches what the
+-- menubar would read after switching there. Pairs with iss (Hyper+arrow) for
+-- switching spaces. moveWindowToSpace cannot move a fullscreen/tiled window,
+-- nor target a fullscreen space, so those cases just alert instead.
+local function moveFocusedWindowToSpace(n)
+    local win = hs.window.focusedWindow()
+    if not win then
+        hs.alert.show("No focused window", 0.7)
+        return
+    end
+    if win:isFullScreen() then
+        hs.alert.show("Can't move a fullscreen window", 0.9)
+        return
+    end
+
+    local screen = win:screen()
+    local spaces = hs.spaces.spacesForScreen(screen)
+    local target = spaces and spaces[n]
+    if not target then
+        hs.alert.show("No space " .. n .. " on this screen", 0.9)
+        return
+    end
+    if target == hs.spaces.activeSpaceOnScreen(screen) then
+        hs.alert.show("Already on space " .. n, 0.7)
+        return
+    end
+
+    local ok, err = hs.spaces.moveWindowToSpace(win, target)
+    if ok then
+        hs.alert.show("→ space " .. n, 0.7)
+    else
+        hs.alert.show("Move failed: " .. (err or "?"), 1.2)
+    end
+end
+
+for i = 1, 9 do
+    hs.hotkey.bind(hyper, tostring(i), function() moveFocusedWindowToSpace(i) end)
+end
+
 -- Hyper+Tab application switcher: a searchable, most-recently-used list of
 -- running apps (hs.chooser). It switches at the application level on purpose.
 -- An earlier version listed individual windows via hs.window.filter, but
@@ -444,6 +486,8 @@ menu:setMenu(function()
                 { title = "Hyper+L   Right",        fn = function() hs.eventtap.keyStroke(hyper, "l") end },
                 { title = "Hyper+N   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "n") end },
                 { title = "Hyper+O   Tile",         fn = function() hs.eventtap.keyStroke(hyper, "o") end },
+                { title = "-" },
+                { title = "Hyper+1…9  Send window to space N", disabled = true },
             },
         },
         { title = "-" },
