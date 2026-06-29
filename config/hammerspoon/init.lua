@@ -27,11 +27,17 @@ spoon.MiroWindowsManager:bindHotkeys({
     nextscreen = { hyper, "n" },
 })
 
--- Tile visible windows: cycles 50/50 -> 30/70 -> 70/30 on repeated presses
+-- Tile the standard windows on the focused screen (Hyper+O):
+--   1 window  : maximize.
+--   2 windows : cycle 50/50 -> 30/70 -> 70/30; a repeat at 50/50 swaps sides.
+--   3+ windows: main + stack (one big window left, the rest stacked right);
+--               each repeat rotates which window is the main one.
 local tileLayouts = { {0.5, 0.5}, {0.3, 0.7}, {0.7, 0.3} }
+local mainStackRatio = 0.6   -- main window width as a fraction of the screen
 local tileState = {
     index = 0,
     swapped = false,
+    mainIndex = 0,
     screen = nil,
     windowIds = nil,
 }
@@ -40,6 +46,7 @@ local tileTimer = nil
 local function resetTileState()
     tileState.index = 0
     tileState.swapped = false
+    tileState.mainIndex = 0
     tileState.screen = nil
     tileState.windowIds = nil
 end
@@ -123,6 +130,30 @@ local function applyTileLayout(wins, frame, layout)
     end
 end
 
+-- One main window on the left (mainStackRatio of the width, full height); the
+-- remaining windows stacked top-to-bottom in the right column. Integer y-edges
+-- so the stack rows meet without gaps. `wins` is the ordered list; mainIndex is
+-- the position within it that becomes the main window.
+local function applyMainStackLayout(wins, frame, mainIndex, ratio)
+    local mainW = math.floor(frame.w * ratio)
+    local stackX = frame.x + mainW
+    local stackW = frame.w - mainW
+    local stackCount = #wins - 1
+
+    wins[mainIndex]:setFrame(hs.geometry.rect(frame.x, frame.y, mainW, frame.h))
+
+    local placed = 0
+    local top = frame.y
+    for i, win in ipairs(wins) do
+        if i ~= mainIndex then
+            placed = placed + 1
+            local nextTop = frame.y + math.floor(placed * frame.h / stackCount)
+            win:setFrame(hs.geometry.rect(stackX, top, stackW, nextTop - top))
+            top = nextTop
+        end
+    end
+end
+
 hs.hotkey.bind(hyper, "o", function()
     if tileTimer then tileTimer:stop() end
     tileTimer = hs.timer.doAfter(10, resetTileState)
@@ -169,10 +200,19 @@ hs.hotkey.bind(hyper, "o", function()
         return
     end
 
-    tileState.swapped = false
-    tileState.screen = nil
-    tileState.windowIds = nil
-    applyTileLayout(wins, frame, tileLayouts[tileState.index])
+    -- 3+ windows: main + stack. On a fresh window set the focused window is the
+    -- main one (initializeTileWindows sorts it to position 1); pressing again
+    -- with the same set rotates the main window to the next in order.
+    if tileState.screen ~= currentScreen or not sameWindowSet(wins) then
+        initializeTileWindows(wins, focusedWindow, currentScreen)
+        tileState.mainIndex = 1
+    else
+        tileState.mainIndex = (tileState.mainIndex % #tileState.windowIds) + 1
+    end
+
+    local orderedWins = orderedTileWindows(wins)
+    applyMainStackLayout(orderedWins, frame, tileState.mainIndex, mainStackRatio)
+    orderedWins[tileState.mainIndex]:focus()
 end)
 
 -- Hyper+1..9: send the focused window to the Nth space on its OWN screen.
