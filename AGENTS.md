@@ -87,11 +87,14 @@ The files live on disk so `tk` works; they are just never tracked.
   cask install (non-fatal; it is cosmetic). Originally migrated from
   `work-sync/operations/scripts/shell/`.
 - **Gotcha: `brew upgrade --cask neovide-app` reverts the icon to stock.** The
-  upgrade replaces the whole `.app` bundle, dropping the custom-icon attributes.
-  Re-run `bootstrap/macos/neovide-app.sh` to reapply (the symptom is the oversized
-  plate-less icon back in the Dock/cmd+tab while the Applications list may still
-  show a cached correct one). If the Dock stays stale after, log out/in to clear
-  the icon-services cache.
+  upgrade replaces the whole `.app` bundle, dropping the custom-icon attributes
+  (symptom: the oversized plate-less icon back in the Dock/cmd+tab, while the
+  Applications list may still show a cached correct one). The `u` fish function
+  (the brew-update wrapper in `config/fish/config.fish`) handles this: after the
+  brew steps it re-applies the icon only when the FinderInfo marker is gone, so
+  it does not restart the Dock on every update. Manual reapply is still
+  `bootstrap/macos/neovide-app.sh`. If the Dock stays stale after, log out/in to
+  clear the icon-services cache.
 
 ## Hammerspoon
 

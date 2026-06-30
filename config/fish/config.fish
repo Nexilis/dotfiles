@@ -64,7 +64,20 @@ end
 alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/Documents/work-synced-secrets"
 alias unmount="umount -f $HOME/Documents/work-synced-secrets"
 
-alias u="brew update && brew upgrade && brew upgrade --cask && brew cleanup"
+# Update Homebrew, then re-apply the Neovide icon if the upgrade reverted it.
+# A `brew upgrade --cask neovide-app` replaces the bundle and clears the custom
+# icon, so the oversized stock icon comes back. Re-apply only when the marker is
+# actually gone, so the Dock is not restarted on every `u`. See AGENTS.md
+# "macOS app icons". The script path is resolved from this file's symlink, so it
+# works wherever the repo clone lives.
+function u --description 'brew update/upgrade/cleanup, then fix the Neovide icon if reverted'
+    brew update && brew upgrade && brew upgrade --cask && brew cleanup
+    set -l app /Applications/Neovide.app
+    if test -d $app; and not xattr "$app" 2>/dev/null | string match -q '*com.apple.FinderInfo*'
+        set -l script (path dirname (path dirname (path dirname (path resolve (status --current-filename)))))/bootstrap/macos/neovide-app.sh
+        test -f "$script" && bash "$script"
+    end
+end
 
 alias python="python3"
 alias lua="lua5.4"
