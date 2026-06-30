@@ -215,47 +215,25 @@ hs.hotkey.bind(hyper, "o", function()
     orderedWins[tileState.mainIndex]:focus()
 end)
 
--- Hyper+1..9: send the focused window to the Nth space on its OWN screen.
--- Move only (the view stays put), with a brief alert. N indexes the same list
--- the menubar number uses (hs.spaces.spacesForScreen orders user + fullscreen
--- spaces the way Mission Control shows them), so Hyper+N matches what the
--- menubar would read after switching there. Pairs with iss (Hyper+arrow) for
--- switching spaces. moveWindowToSpace cannot move a fullscreen/tiled window,
--- nor target a fullscreen space, so those cases just alert instead.
-local function moveFocusedWindowToSpace(n)
-    local win = hs.window.focusedWindow()
-    if not win then
-        hs.alert.show("No focused window", 0.7)
-        return
-    end
-    if win:isFullScreen() then
-        hs.alert.show("Can't move a fullscreen window", 0.9)
-        return
-    end
-
-    local screen = win:screen()
-    local spaces = hs.spaces.spacesForScreen(screen)
-    local target = spaces and spaces[n]
-    if not target then
-        hs.alert.show("No space " .. n .. " on this screen", 0.9)
-        return
-    end
-    if target == hs.spaces.activeSpaceOnScreen(screen) then
-        hs.alert.show("Already on space " .. n, 0.7)
-        return
-    end
-
-    local ok, err = hs.spaces.moveWindowToSpace(win, target)
-    if ok then
-        hs.alert.show("→ space " .. n, 0.7)
-    else
-        hs.alert.show("Move failed: " .. (err or "?"), 1.2)
-    end
-end
-
-for i = 1, 9 do
-    hs.hotkey.bind(hyper, tostring(i), function() moveFocusedWindowToSpace(i) end)
-end
+-- NOT IMPLEMENTED: "Hyper+1..9 send the focused window to space N".
+-- We tried it (hs.spaces.moveWindowToSpace) and it is not possible cleanly on
+-- this machine. Apple disabled the private Spaces API in macOS 15 Sequoia and
+-- it is still gone in macOS 26 Tahoe: moveWindowToSpace returns true but does
+-- nothing (the call no-ops, so an alert "succeeds" while the window never
+-- moves). Tracked upstream in Hammerspoon issues #3636 and #3698.
+--
+-- The only userspace workaround is a visible hack: synthesize a mouse-down on
+-- the window titlebar, fire the NATIVE Mission Control space-switch shortcut
+-- (Ctrl+arrow, or Ctrl+number if "Switch to Desktop N" is enabled in System
+-- Settings) so the held window is dragged along, then release. Consequences:
+--   * it always FOLLOWS the window (you land on the target space; no move-only),
+--   * it rides the ~0.5-0.7s animated space-switch and briefly moves the cursor
+--     (a reliability floor: releasing before the switch lands drops the window
+--     on the wrong space), so it cannot be instant like iss,
+--   * Electron/atypical-titlebar apps (e.g. Slack) need an extra 1px drag step.
+-- Clean, invisible moves need the SIP-disabled route (yabai), which iss exists
+-- precisely to avoid. Decision: not worth it; drag windows by hand for now.
+-- Revisit if Apple/Hammerspoon restore the API.
 
 -- Hyper+Tab application switcher: a searchable, most-recently-used list of
 -- running apps (hs.chooser). It switches at the application level on purpose.
@@ -526,8 +504,6 @@ menu:setMenu(function()
                 { title = "Hyper+L   Right",        fn = function() hs.eventtap.keyStroke(hyper, "l") end },
                 { title = "Hyper+N   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "n") end },
                 { title = "Hyper+O   Tile",         fn = function() hs.eventtap.keyStroke(hyper, "o") end },
-                { title = "-" },
-                { title = "Hyper+1…9  Send window to space N", disabled = true },
             },
         },
         { title = "-" },
