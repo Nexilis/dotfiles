@@ -44,6 +44,12 @@ brew install zed nvim lua luarocks stylua lua-language-server node git-credentia
 # (never placed in /Applications). The cask installs the official signed app to
 # /Applications AND links the `neovide` binary onto PATH, so we get both.
 brew install --cask neovide-app
+# Neovide ships a full-bleed upstream icon that looks oversized and plate-less
+# next to native macOS apps in the Dock/cmd+tab. Swap in our inset squircle
+# icon (signature-safe custom-icon attributes, not a bundle overwrite). Cosmetic,
+# so never fatal. NOTE: a later `brew upgrade --cask neovide-app` replaces the
+# bundle and drops the icon; re-run bootstrap/macos/neovide-app.sh to reapply.
+bash "$BOOT/macos/neovide-app.sh" || true
 # Optional: Java, Clojure, Go
 brew install temurin leiningen go
 
@@ -83,10 +89,6 @@ brew install --cask macfuse
 # no C headers) into ~/.local/bin, which sits ahead of the rest on PATH.
 command -v gocryptfs >/dev/null 2>&1 || \
   GOBIN="$HOME/.local/bin" go install -tags without_openssl github.com/rfjakob/gocryptfs/v2@v2.6.1
-
-# NOTE: we keep neovide's stock (upstream) app icon. An optional inset squircle
-# icon override lives in bootstrap/macos/ (neovide-app.sh + neovide.icns) if we
-# ever want it back; it is deliberately NOT run here.
 
 # --- Symlink configs --------------------------------------------------------
 bash "$BOOT/_link.sh" "$@"
