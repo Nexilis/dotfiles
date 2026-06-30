@@ -216,24 +216,9 @@ hs.hotkey.bind(hyper, "o", function()
 end)
 
 -- NOT IMPLEMENTED: "Hyper+1..9 send the focused window to space N".
--- We tried it (hs.spaces.moveWindowToSpace) and it is not possible cleanly on
--- this machine. Apple disabled the private Spaces API in macOS 15 Sequoia and
--- it is still gone in macOS 26 Tahoe: moveWindowToSpace returns true but does
--- nothing (the call no-ops, so an alert "succeeds" while the window never
--- moves). Tracked upstream in Hammerspoon issues #3636 and #3698.
---
--- The only userspace workaround is a visible hack: synthesize a mouse-down on
--- the window titlebar, fire the NATIVE Mission Control space-switch shortcut
--- (Ctrl+arrow, or Ctrl+number if "Switch to Desktop N" is enabled in System
--- Settings) so the held window is dragged along, then release. Consequences:
---   * it always FOLLOWS the window (you land on the target space; no move-only),
---   * it rides the ~0.5-0.7s animated space-switch and briefly moves the cursor
---     (a reliability floor: releasing before the switch lands drops the window
---     on the wrong space), so it cannot be instant like iss,
---   * Electron/atypical-titlebar apps (e.g. Slack) need an extra 1px drag step.
--- Clean, invisible moves need the SIP-disabled route (yabai), which iss exists
--- precisely to avoid. Decision: not worth it; drag windows by hand for now.
--- Revisit if Apple/Hammerspoon restore the API.
+-- hs.spaces.moveWindowToSpace is dead on macOS 15+/26 (returns true, no-ops);
+-- the only workaround is a visible drag hack that follows the window. Decided
+-- not worth it. Full finding + why in AGENTS.md "Hammerspoon".
 
 -- Hyper+Tab application switcher: a searchable, most-recently-used list of
 -- running apps (hs.chooser). It switches at the application level on purpose.

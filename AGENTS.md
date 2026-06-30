@@ -74,16 +74,62 @@ The files live on disk so `tk` works; they are just never tracked.
   leaves `Neovide.app` buried in the Cellar (never in `/Applications`); the cask
   installs the signed app to `/Applications` and links the `neovide` binary onto
   PATH, so we get both. Set in `bootstrap-macos.sh`.
-- We use neovide's **stock** (upstream) icon. An optional inset squircle icon
-  override is kept in `bootstrap/macos/` for reference but is NOT applied:
-  `bootstrap-macos.sh` does not run it. To turn it back on, run
-  `bootstrap/macos/neovide-app.sh` (and re-add the call to `bootstrap-macos.sh`).
-  It sets `bootstrap/macos/neovide.icns` (generated from the vendored
+- We override neovide's icon with an **inset squircle**. Its stock upstream icon
+  is a full-bleed cog on a transparent background, so next to native macOS apps
+  (inset rounded-rectangle with a plate) it looks oversized and plate-less in the
+  Dock and cmd+tab. `bootstrap/macos/neovide-app.sh` applies our own
+  `bootstrap/macos/neovide.icns` (generated from the vendored
   `neovide-256x256.png`; regen recipe in the script header) as a macOS **custom
-  icon** via `NSWorkspace -setIcon:forFile:` (an `Icon` resource + FinderInfo
-  xattr), not by overwriting the bundle's `.icns` (which would break the cask
-  app's hardened-runtime signature). The full "why" is in the script header.
-  Originally migrated from `work-sync/operations/scripts/shell/`.
+  icon** via `NSWorkspace -setIcon:forFile:` (a FinderInfo xattr + Icon resource),
+  not by overwriting the bundle's `.icns` (which would break the cask app's
+  hardened-runtime signature; `codesign --verify` still passes after). The full
+  "why" is in the script header. `bootstrap-macos.sh` runs it right after the
+  cask install (non-fatal; it is cosmetic). Originally migrated from
+  `work-sync/operations/scripts/shell/`.
+- **Gotcha: `brew upgrade --cask neovide-app` reverts the icon to stock.** The
+  upgrade replaces the whole `.app` bundle, dropping the custom-icon attributes.
+  Re-run `bootstrap/macos/neovide-app.sh` to reapply (the symptom is the oversized
+  plate-less icon back in the Dock/cmd+tab while the Applications list may still
+  show a cached correct one). If the Dock stays stale after, log out/in to clear
+  the icon-services cache.
+
+## Hammerspoon
+
+Config is `config/hammerspoon/init.lua`. `Hyper` = `cmd+ctrl+alt+shift`.
+Keybindings:
+
+- `Hyper+h/j/k/l/f/n`: window moves via MiroWindowsManager (left/down/up/right,
+  fullscreen, next screen).
+- `Hyper+o`: tile standard windows on the focused screen. 1 window maximizes;
+  2 windows cycle 50/50 -> 30/70 -> 70/30 (a repeat at 50/50 swaps sides);
+  3+ windows use main+stack (one big left, the rest stacked right) and each
+  repeat rotates which window is main.
+- `Hyper+Tab`: MRU application switcher (`hs.chooser`). App-level on purpose; the
+  code comment explains why window-level froze (HS #3712 all-windows AX stall).
+- `iss` (`Hyper+arrow`): instant Space switch. Separate Go binary
+  (github.com/joshuarli/iss), built and launched from `init.lua`.
+
+Gotchas:
+
+- **Reload**: the AppleScript/IPC bridges are off, so a tool can't reload it.
+  Reload from the menubar space-number icon -> Reload.
+- **Secure Event Input** blocks all CGEventTaps, which kills `iss` (Hyper+arrow)
+  and Hyper+Tab. Apps sometimes leak it on a dead pid. The menubar surfaces the
+  current holder; reboot clears a stuck one.
+
+**Dead end - "move focused window to space N" is not possible cleanly.** We tried
+`Hyper+1..9` -> `hs.spaces.moveWindowToSpace`. Apple disabled the private Spaces
+API in macOS 15 Sequoia and it is still gone in macOS 26 Tahoe: the call returns
+`true` but no-ops (so an alert "succeeds" while the window never moves). Upstream:
+Hammerspoon issues #3636 and #3698. The only userspace workaround is a visible
+hack: synthesize a mouse-down on the titlebar, fire the native Mission Control
+space-switch shortcut so the held window is dragged along, then release. It
+always follows the window (no move-only), rides the ~0.5-0.7s animated switch and
+moves the cursor, needs native MC shortcuts enabled, and Electron/atypical-titlebar
+apps (Slack) need an extra 1px drag step. Clean, invisible moves need the
+SIP-disabled route (yabai), which `iss` exists to avoid. Decided not worth it;
+drag windows by hand. A short pointer sits where the binding would go in
+`init.lua`.
 
 ## App theming notes
 
