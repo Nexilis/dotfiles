@@ -80,6 +80,11 @@ command -v copilot >/dev/null 2>&1 || npm install -g @github/copilot
 # (already on PATH via config.fish), so no extra PATH setup is needed.
 command -v agy >/dev/null 2>&1 || curl -fsSL https://antigravity.google/cli/install.sh | bash
 
+# maki AI coding agent (Rust, tontinton/maki). Tryout. No Homebrew formula, so the
+# installer fetches the latest release binary. MAKI_INSTALL_DIR points it at
+# ~/.local/bin (on PATH via config.fish) to avoid the default /usr/local/bin sudo write.
+command -v maki >/dev/null 2>&1 || curl -fsSL https://maki.sh/install.sh | MAKI_INSTALL_DIR="$HOME/.local/bin" sh
+
 # Work-secret encryption: gocryptfs (transparent on-demand mount; `dec`/`unmount`
 # fish aliases). Needs FUSE -> macFUSE on macOS, a kernel extension that requires
 # one-time reduced security on Apple Silicon. See AGENTS.md "Work secrets".
