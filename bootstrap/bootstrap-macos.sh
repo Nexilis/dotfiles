@@ -85,6 +85,10 @@ command -v agy >/dev/null 2>&1 || curl -fsSL https://antigravity.google/cli/inst
 # ~/.local/bin (on PATH via config.fish) to avoid the default /usr/local/bin sudo write.
 command -v maki >/dev/null 2>&1 || curl -fsSL https://maki.sh/install.sh | MAKI_INSTALL_DIR="$HOME/.local/bin" sh
 
+# pi AI coding agent (Node, earendil-works/pi-coding-agent). Tryout. --ignore-scripts
+# skips the package's install hooks (BYOK CLI, no build step needed).
+command -v pi >/dev/null 2>&1 || npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+
 # Work-secret encryption: gocryptfs (transparent on-demand mount; `dec`/`unmount`
 # fish aliases). Needs FUSE -> macFUSE on macOS, a kernel extension that requires
 # one-time reduced security on Apple Silicon. See AGENTS.md "Work secrets".
