@@ -86,12 +86,11 @@ key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { sil
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
-  -- ESC is intentionally NOT mapped to leave terminal mode: TUIs running inside
-  -- the terminal (e.g. maki, pi) need ESC themselves. Leave terminal mode with
-  -- <C-[>, "jk", or <C-w>.
-  -- <C-[> is a distinct key under Neovide / kitty keyboard protocol, so it does
-  -- not double as ESC here; map it explicitly to leave terminal mode.
-  key.set("t", "<C-[>", [[<C-\><C-n>]], opts)
+  -- ESC / <C-[> are intentionally NOT mapped in terminal mode: TUIs running
+  -- inside (maki, pi) need ESC themselves. Under Neovide ESC and <C-[> arrive as
+  -- the same key, so mapping <C-[> would also swallow ESC. This unbind is scoped
+  -- to terminal mode only; ESC/<C-[> in normal/insert are untouched. Leave
+  -- terminal mode with "jk" or <C-w><win-cmd> (e.g. <C-w>w for the next window).
   key.set("t", "jk", [[<C-\><C-n>]], opts)
   -- paste the system clipboard into the running shell: one key per platform,
   -- mirroring the insert-mode binding. macOS uses Cmd+V (<D-v>), others Ctrl+V
