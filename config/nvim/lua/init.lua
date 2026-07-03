@@ -90,8 +90,8 @@ function _G.set_terminal_keymaps()
   -- inside (maki, pi) need ESC themselves. Under Neovide ESC and <C-[> arrive as
   -- the same key, so mapping <C-[> would also swallow ESC. This unbind is scoped
   -- to terminal mode only; ESC/<C-[> in normal/insert are untouched. Leave
-  -- terminal mode with "jk" or <C-w><win-cmd> (e.g. <C-w>w for the next window).
-  key.set("t", "jk", [[<C-\><C-n>]], opts)
+  -- terminal mode with <C-w><win-cmd> (e.g. <C-w>w for the next window). "jk" is
+  -- deliberately not mapped, so it can be typed literally into the TUI.
   -- paste the system clipboard into the running shell: one key per platform,
   -- mirroring the insert-mode binding. macOS uses Cmd+V (<D-v>), others Ctrl+V
   -- (<c-v>); the off-platform key is disabled with <Nop>.
