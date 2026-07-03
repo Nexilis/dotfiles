@@ -1,0 +1,4 @@
+{
+  "defaultProvider": "openrouter",
+  "defaultModel": "@preset/deepseek-flash-private"
+}

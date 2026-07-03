@@ -10,6 +10,9 @@
 #   claude/themes  ->  ~/.claude/themes   (nested: ~/.claude holds session
 #                                          state, so only the themes subdir is
 #                                          linked, never the whole dir)
+#   pi/settings.json -> ~/.pi/agent/settings.json (nested file: ~/.pi/agent also
+#                                          holds auth.json with the API key, so
+#                                          only settings.json is linked)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -99,4 +102,11 @@ done
 if [ -d "$REPO/claude/themes" ]; then
   mkdir -p "$HOME/.claude"
   link_one "$REPO/claude/themes" "$HOME/.claude/themes"
+fi
+
+# pi keeps settings.json next to auth.json (API key) in ~/.pi/agent, so link only
+# the settings file and never the dir, to keep the key out of this public repo.
+if [ -f "$REPO/pi/settings.json" ]; then
+  mkdir -p "$HOME/.pi/agent"
+  link_one "$REPO/pi/settings.json" "$HOME/.pi/agent/settings.json"
 fi

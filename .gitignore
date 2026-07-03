@@ -23,6 +23,10 @@ config/zed/settings_backup.json
 config/karabiner/assets/
 config/karabiner/automatic_backups/
 
+# maki: track only init.lua; keep any state/creds maki may write here out of git
+config/maki/*
+!config/maki/init.lua
+
 # Stray Claude Code local state that lands in a working directory
 .claude/
 .claude.json
