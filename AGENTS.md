@@ -167,6 +167,19 @@ drag windows by hand. A short pointer sits where the binding would go in
     `/theme` the first time (the watcher only catches changes to a dir it
     already scanned at startup). Later edits to an existing file hot-reload.
 
+## Neovim terminal mode
+
+Terminal-mode keymaps live in `config/nvim/lua/init.lua` (`set_terminal_keymaps`,
+run from a `term://*` TermOpen autocmd). ESC and `<C-[>` are deliberately NOT
+mapped there: TUIs running inside the terminal (maki, pi) need ESC themselves.
+
+**Gotcha (hard-won):** under Neovide, ESC and `<C-[>` arrive as the *same* key, so
+any `<C-[>` terminal map also swallows ESC. You cannot have both "ESC reaches the
+TUI" and "Ctrl+[ leaves terminal mode" in Neovide; they are one keystroke. Leave
+terminal mode with `<C-w>w` (jump to next window) or the built-in `<C-\><C-n>`. Do
+not re-add an `<esc>`, `<C-[>`, or `jk` terminal-mode exit unless you want ESC
+captured again (which breaks TUIs like maki/pi).
+
 ## Work secrets
 
 Work secrets use a gocryptfs vault, mounted on demand via the `dec` / `unmount`
