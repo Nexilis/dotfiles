@@ -86,9 +86,11 @@ key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { sil
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
-  key.set("t", "<esc>", [[<C-\><C-n>]], opts)
-  -- <C-[> is a distinct key under Neovide / kitty keyboard protocol, so it is
-  -- not caught by the <esc> map above; map it explicitly to leave terminal mode.
+  -- ESC is intentionally NOT mapped to leave terminal mode: TUIs running inside
+  -- the terminal (e.g. maki, pi) need ESC themselves. Leave terminal mode with
+  -- <C-[>, "jk", or <C-w>.
+  -- <C-[> is a distinct key under Neovide / kitty keyboard protocol, so it does
+  -- not double as ESC here; map it explicitly to leave terminal mode.
   key.set("t", "<C-[>", [[<C-\><C-n>]], opts)
   key.set("t", "jk", [[<C-\><C-n>]], opts)
   -- paste the system clipboard into the running shell: one key per platform,
