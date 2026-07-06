@@ -35,7 +35,13 @@ brew install yazi ffmpeg sevenzip jq poppler zoxide resvg imagemagick font-symbo
 brew install LucasPickering/homebrew-tap/slumber
 
 # GUI utilities
-brew install linearmouse karabiner-elements kitty telegram gimp libreoffice shottr skim qview syncthing
+brew install linearmouse karabiner-elements kitty telegram gimp libreoffice shottr skim qview
+# Syncthing: install the CASK (syncthing-app), not the formula. `brew install
+# syncthing` picks the homebrew-core formula (a headless CLI daemon with no menu
+# bar icon). The `syncthing-app` cask installs Syncthing.app with the menu bar UI.
+# This is the ONLY GUI app on the line above that also exists as a formula, so the
+# rest auto-resolve to their casks; only this one needs to be pinned explicitly.
+brew install --cask syncthing-app
 
 # Programming
 brew install zed nvim lua luarocks stylua lua-language-server node git-credential-manager cmake just
@@ -61,7 +67,7 @@ brew install font-hack-nerd-font font-fira-code-nerd-font font-jetbrains-mono-ne
 
 # Extras / tryout
 brew install cmus mole obs shotcut freetube qpdf vienna googleworkspace-cli rtk
-brew install --cask hammerspoon mouseless@preview
+brew install --cask hammerspoon mouseless@preview snapzy
 # FreeTube is unsigned; clear the quarantine flag so it opens.
 [ -d /Applications/FreeTube.app ] && xattr -d com.apple.quarantine /Applications/FreeTube.app 2>/dev/null
 
