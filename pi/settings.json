@@ -1,4 +1,6 @@
 {
   "defaultProvider": "openrouter",
-  "defaultModel": "@preset/deepseek-flash-private"
+  "defaultModel": "@preset/my-fav-model-preset",
+  "lastChangelogVersion": "0.80.3",
+  "theme": "light"
 }
