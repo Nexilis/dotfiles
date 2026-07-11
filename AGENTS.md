@@ -180,6 +180,28 @@ terminal mode with `<C-w>w` (jump to next window) or the built-in `<C-\><C-n>`. 
 not re-add an `<esc>`, `<C-[>`, or `jk` terminal-mode exit unless you want ESC
 captured again (which breaks TUIs like omp).
 
+## omp (oh-my-pi AI coding agent)
+
+Current AI-agent tryout (replaced maki and pi). Installed from `can1357/tap`
+via `bootstrap-macos.sh`; `omp/config.yml` and `omp/models.yml` are linked into
+`~/.omp/agent/` by `_link.sh` (only these files; the dir also holds the auth
+store and sessions). Model auth is the exported `OPENROUTER_API_KEY` fish
+universal variable. `models.yml` pins the OpenRouter upstream provider for
+glm-5.2 to Novita (`openRouterRouting.only`); may move to an OpenRouter-side
+preset later.
+
+Gotchas learned the hard way:
+
+- **web_search is broken in published builds** (baked CI `__dirname` for the
+  `header-generator` package). Local workaround: the package is copied under
+  `/Users/runner/work/oh-my-pi/oh-my-pi/node_modules/`. Cleanup tracked in
+  `tk dot-l6vh`; once upstream fixes bundling, remove `/Users/runner`.
+- **omp discovery inherits Claude Code config**, including plugin MCP servers
+  from `~/.claude/plugins/cache/` — and it ignores Claude's `enabledPlugins`
+  disable flag. To turn a discovered server off, add its **plugin-qualified**
+  name (`<plugin>:<server>`) to `disabledServers` in `~/.omp/agent/mcp.json`;
+  the bare server name does not match.
+
 ## Work secrets
 
 Work secrets use a gocryptfs vault, mounted on demand via the `dec` / `unmount`
