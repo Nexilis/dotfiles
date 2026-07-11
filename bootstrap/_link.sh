@@ -10,9 +10,9 @@
 #   claude/themes  ->  ~/.claude/themes   (nested: ~/.claude holds session
 #                                          state, so only the themes subdir is
 #                                          linked, never the whole dir)
-#   omp/config.yml -> ~/.omp/agent/config.yml (nested files: ~/.omp/agent also
-#   omp/mcp.json   -> ~/.omp/agent/mcp.json    holds the auth store and sessions,
-#                                          so only these files are linked)
+#   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
+#                                          holds the auth store and sessions, so
+#                                          only config.yml is linked)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -110,11 +110,4 @@ fi
 if [ -f "$REPO/omp/config.yml" ]; then
   mkdir -p "$HOME/.omp/agent"
   link_one "$REPO/omp/config.yml" "$HOME/.omp/agent/config.yml"
-fi
-# omp MCP config: disables the context-mode MCP server inherited from Claude
-# Code plugin discovery (node-ABI mismatch there, and omp has its own
-# compaction/memory anyway).
-if [ -f "$REPO/omp/mcp.json" ]; then
-  mkdir -p "$HOME/.omp/agent"
-  link_one "$REPO/omp/mcp.json" "$HOME/.omp/agent/mcp.json"
 fi
