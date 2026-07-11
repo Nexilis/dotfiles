@@ -1,0 +1,12 @@
+# omp model overrides (~/.omp/agent/models.yml, linked by bootstrap/_link.sh).
+# Pin the OpenRouter upstream inference provider for GLM to Novita
+# (slug list: https://openrouter.ai/api/v1/models/z-ai/glm-5.2/endpoints).
+# NOTE: `only` hard-pins; requests fail when Novita is down. Use
+# `order: [novita]` instead for "prefer Novita, fall back to others".
+providers:
+  openrouter:
+    modelOverrides:
+      z-ai/glm-5.2:
+        compat:
+          openRouterRouting:
+            only: [novita]

@@ -104,10 +104,13 @@ if [ -d "$REPO/claude/themes" ]; then
   link_one "$REPO/claude/themes" "$HOME/.claude/themes"
 fi
 
-# omp keeps config.yml next to the auth store (agent.db) and sessions in
-# ~/.omp/agent, so link only the config file and never the dir, to keep
-# credentials and local state out of this public repo.
-if [ -f "$REPO/omp/config.yml" ]; then
-  mkdir -p "$HOME/.omp/agent"
-  link_one "$REPO/omp/config.yml" "$HOME/.omp/agent/config.yml"
-fi
+# omp keeps its config files next to the auth store (agent.db) and sessions in
+# ~/.omp/agent, so link only these files and never the dir, to keep credentials
+# and local state out of this public repo. models.yml can reference API keys for
+# custom providers; keep it to routing/overrides only (no secrets) here.
+for f in config.yml models.yml; do
+  if [ -f "$REPO/omp/$f" ]; then
+    mkdir -p "$HOME/.omp/agent"
+    link_one "$REPO/omp/$f" "$HOME/.omp/agent/$f"
+  fi
+done
