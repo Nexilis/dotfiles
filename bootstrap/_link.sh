@@ -10,9 +10,9 @@
 #   claude/themes  ->  ~/.claude/themes   (nested: ~/.claude holds session
 #                                          state, so only the themes subdir is
 #                                          linked, never the whole dir)
-#   pi/settings.json -> ~/.pi/agent/settings.json (nested file: ~/.pi/agent also
-#                                          holds auth.json with the API key, so
-#                                          only settings.json is linked)
+#   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
+#                                          holds the auth store and sessions, so
+#                                          only config.yml is linked)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -104,9 +104,10 @@ if [ -d "$REPO/claude/themes" ]; then
   link_one "$REPO/claude/themes" "$HOME/.claude/themes"
 fi
 
-# pi keeps settings.json next to auth.json (API key) in ~/.pi/agent, so link only
-# the settings file and never the dir, to keep the key out of this public repo.
-if [ -f "$REPO/pi/settings.json" ]; then
-  mkdir -p "$HOME/.pi/agent"
-  link_one "$REPO/pi/settings.json" "$HOME/.pi/agent/settings.json"
+# omp keeps config.yml next to the auth store (agent.db) and sessions in
+# ~/.omp/agent, so link only the config file and never the dir, to keep
+# credentials and local state out of this public repo.
+if [ -f "$REPO/omp/config.yml" ]; then
+  mkdir -p "$HOME/.omp/agent"
+  link_one "$REPO/omp/config.yml" "$HOME/.omp/agent/config.yml"
 fi

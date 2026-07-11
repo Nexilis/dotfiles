@@ -23,6 +23,7 @@ fi
 brew trust lucaspickering/tap
 brew trust wedow/tools
 brew trust jurplel/tap
+brew trust can1357/tap
 
 # --- Homebrew packages ------------------------------------------------------
 # Core CLI
@@ -86,14 +87,11 @@ command -v copilot >/dev/null 2>&1 || npm install -g @github/copilot
 # (already on PATH via config.fish), so no extra PATH setup is needed.
 command -v agy >/dev/null 2>&1 || curl -fsSL https://antigravity.google/cli/install.sh | bash
 
-# maki AI coding agent (Rust, tontinton/maki). Tryout. No Homebrew formula, so the
-# installer fetches the latest release binary. MAKI_INSTALL_DIR points it at
-# ~/.local/bin (on PATH via config.fish) to avoid the default /usr/local/bin sudo write.
-command -v maki >/dev/null 2>&1 || curl -fsSL https://maki.sh/install.sh | MAKI_INSTALL_DIR="$HOME/.local/bin" sh
-
-# pi AI coding agent (Node, earendil-works/pi-coding-agent). Tryout. --ignore-scripts
-# skips the package's install hooks (BYOK CLI, no build step needed).
-command -v pi >/dev/null 2>&1 || npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+# oh-my-pi AI coding agent (can1357/oh-my-pi, `omp` binary). Tryout; replaced the
+# earlier maki and pi experiments (both removed). Installed from the author's tap;
+# config is omp/config.yml, linked by _link.sh into ~/.omp/agent/. Model auth
+# comes from the OPENROUTER_API_KEY fish universal variable.
+brew install can1357/tap/omp
 
 # Work-secret encryption: gocryptfs (transparent on-demand mount; `dec`/`unmount`
 # fish aliases). Needs FUSE -> macFUSE on macOS, a kernel extension that requires

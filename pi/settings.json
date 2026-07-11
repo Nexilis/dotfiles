@@ -1,6 +1,0 @@
-{
-  "defaultProvider": "openrouter",
-  "defaultModel": "@preset/my-fav-model-preset",
-  "lastChangelogVersion": "0.80.3",
-  "theme": "light"
-}
