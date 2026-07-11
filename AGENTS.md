@@ -180,6 +180,14 @@ terminal mode with `<C-w>w` (jump to next window) or the built-in `<C-\><C-n>`. 
 not re-add an `<esc>`, `<C-[>`, or `jk` terminal-mode exit unless you want ESC
 captured again (which breaks TUIs like omp).
 
+**Gotcha: cmd+v paste into a TUI running in the nvim terminal may not work.**
+The terminal-mode cmd+v mapping sends the clipboard raw via `chan_send`, with
+no bracketed-paste markers. TUIs that route pastes through bracketed/enhanced
+paste (omp does) may not deliver that raw stream to the focused input field.
+Confirmed with omp's API-key field: paste failed in the nvim terminal and
+worked in kitty directly (native bracketed paste). Workaround: paste into such
+TUIs from kitty, not from inside nvim.
+
 ## Work secrets
 
 Work secrets use a gocryptfs vault, mounted on demand via the `dec` / `unmount`
