@@ -1,2 +1,7 @@
 modelRoles: 
   default: openrouter/z-ai/glm-5.2
+symbolPreset: nerd
+theme: 
+  dark: titanium
+  light: light
+setupVersion: 1
