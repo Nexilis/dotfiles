@@ -7,7 +7,20 @@
                     {
                         "manipulators": [
                             {
-                                "description": "Change caps_lock to command+control+option+shift.",
+                                "description": "Change caps_lock to command+control+option+shift (Hyper) on the built-in and the Perixx keyboard only.",
+                                "conditions": [
+                                    {
+                                        "identifiers": [
+                                            { "is_built_in_keyboard": true },
+                                            {
+                                                "is_keyboard": true,
+                                                "product_id": 8537,
+                                                "vendor_id": 1266
+                                            }
+                                        ],
+                                        "type": "device_if"
+                                    }
+                                ],
                                 "from": {
                                     "key_code": "caps_lock",
                                     "modifiers": { "optional": ["any"] }
