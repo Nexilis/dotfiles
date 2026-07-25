@@ -1,0 +1,139 @@
+# Package manifest for the macOS bootstrap. Source of truth for what gets
+# installed on a Mac; bootstrap/macos/install-group.sh reads it and
+# bootstrap/justfile exposes one recipe per group.
+#
+# Columns, whitespace-separated:
+#   group   kind   package   [# note]
+#
+# kind:
+#   formula  brew install <package>          (tap-qualified names are fine)
+#   cask     brew install --cask <package>
+#   script   bash bootstrap/macos/<package>.sh   (non-brew installers)
+#
+# Order matters inside a group: scripts run after the brew steps of the same
+# group, in manifest order.
+#
+# Only leaves belong here. Anything Homebrew pulls in as a dependency (ffmpeg's
+# codecs, poppler's gnupg, lua under luarocks) is deliberately absent.
+
+# --- shell: the terminal itself and the login shell -------------------------
+shell       formula   fish
+shell       formula   starship
+shell       formula   fzf
+shell       formula   zoxide
+shell       cask      kitty
+
+# --- cli-core: everyday command line tools ----------------------------------
+cli-core    formula   wget
+cli-core    formula   curl
+cli-core    formula   fd
+cli-core    formula   ripgrep
+cli-core    formula   bat
+cli-core    formula   eza
+cli-core    formula   jq
+cli-core    formula   btop
+cli-core    formula   just
+cli-core    formula   uv                          # python runner, never bare python
+cli-core    formula   age                         # file encryption
+cli-core    formula   mole                        # mac cleanup / optimize
+cli-core    formula   wedow/tools/ticket          # the tk CLI used for .tickets/
+
+# --- fonts: nerd fonts for kitty and the TUIs -------------------------------
+fonts       cask      font-hack-nerd-font
+fonts       cask      font-fira-code-nerd-font
+fonts       cask      font-jetbrains-mono-nerd-font
+fonts       cask      font-symbols-only-nerd-font  # yazi/starship glyph fallback
+
+# --- git --------------------------------------------------------------------
+git         formula   gh
+git         formula   lazygit
+git         formula   git-filter-repo             # history rewrite, secret removal
+git         cask      git-credential-manager      # referenced from home/.gitconfig
+git         cask      kdiff3                      # GUI 3-way diff
+
+# --- files: yazi and the previewers it shells out to ------------------------
+# yazi also uses jq and zoxide from cli-core.
+files       formula   yazi
+files       formula   ffmpeg
+files       formula   sevenzip
+files       formula   poppler
+files       formula   resvg
+files       formula   imagemagick
+files       formula   qpdf
+
+# --- editors ----------------------------------------------------------------
+# Neovide comes from the CASK, not the homebrew-core formula; see AGENTS.md.
+editors     formula   neovim
+editors     cask      neovide-app
+editors     formula   lua-language-server
+editors     formula   luarocks
+editors     formula   stylua
+editors     script    neovide-app                 # inset squircle icon, cosmetic
+
+# --- langs: toolchains ------------------------------------------------------
+langs       formula   go
+langs       formula   node
+langs       formula   cmake
+langs       formula   pkgconf
+langs       formula   leiningen
+langs       cask      temurin                     # JDK
+langs       script    rustup
+
+# --- ai-agents --------------------------------------------------------------
+ai-agents   formula   can1357/tap/omp             # oh-my-pi, tryout
+ai-agents   formula   rtk                         # token-saving CLI proxy
+ai-agents   script    antigravity                 # Google `agy` CLI, tryout
+
+# --- desktop: input devices and window behaviour ----------------------------
+desktop     cask      linearmouse                 # kills mouse acceleration
+desktop     cask      karabiner-elements
+
+# --- apps: daily drivers ----------------------------------------------------
+apps        cask      keepassxc
+apps        cask      syncthing-app               # the CASK has the menu bar UI
+apps        cask      shottr
+apps        cask      skim                        # PDF reader
+apps        cask      qview                       # image viewer
+apps        cask      telegram
+apps        cask      firefox
+
+# --- media ------------------------------------------------------------------
+media       cask      spotify
+media       cask      gimp
+media       cask      calibre
+media       cask      libreoffice
+media       formula   cmus                        # terminal music player
+
+# --- work: only on a machine used for CyberVadis ----------------------------
+# Defaults to NO in the interactive run; the private Mac skips all of it.
+# macfuse is a kernel extension and needs one-time reduced security on Apple
+# Silicon, so this is also the most invasive group.
+work        cask      macfuse
+work        script    gocryptfs                   # needs macfuse; work secrets vault
+work        cask      keeper-password-manager
+work        cask      zed
+work        cask      hammerspoon                 # Hyper window management
+work        cask      snapzy
+work        formula   lucaspickering/homebrew-tap/slumber   # REST client
+work        formula   googleworkspace-cli                   # the gws CLI
+
+# --- Rejected: tried and removed, do NOT reinstall --------------------------
+#   shortcat (cask)        does not work with kitty or other terminal apps
+#   aerospace (tap cask)   tiling WM, many issues on macOS 26
+#   amethyst               tiling WM, no concept of Spaces
+#   flashspace             replaced by the custom Hammerspoon script
+#   instant-space-switcher replaced by iss, launched from Hammerspoon
+#   raycast                Spotlight is good enough
+#   mouseless@preview      not used
+#   obsidian               not used
+#   copilot CLI (npm)      not used
+#   brave-browser          firefox instead
+#   diff-so-fancy          delta/lazygit cover it
+#   tabby                  kitty is the terminal
+#   cool-retro-term        novelty only
+#
+# Deliberately unmanaged (install by hand if the hardware shows up):
+#   8bitdo-ultimate-software-v2   gamepad firmware/config tool, one-off
+#
+# Parked, see tech/apple-macbook.md "software na wypadek potrzeby":
+#   shotcut, obs, freetube, vienna, monitorcontrol

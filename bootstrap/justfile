@@ -1,0 +1,76 @@
+default:
+    @just --list
+
+install := "macos/install-group.sh"
+
+# Ask y/n per package group, then install the selected ones (the usual entry point)
+pick *ARGS:
+    bash {{install}} --interactive {{ARGS}}
+
+# Install every group in the manifest
+all *ARGS:
+    bash {{install}} --all {{ARGS}}
+
+# List the groups with package counts
+groups:
+    bash {{install}} --list
+
+# Install one or more groups by name
+group +NAMES:
+    bash {{install}} {{NAMES}}
+
+# Terminal itself: fish, starship, fzf, zoxide, kitty
+shell *ARGS:
+    bash {{install}} shell {{ARGS}}
+
+# Everyday CLI: fd, ripgrep, bat, eza, jq, btop, just, uv, age, mole, tk
+cli-core *ARGS:
+    bash {{install}} cli-core {{ARGS}}
+
+# Nerd fonts for kitty and the TUIs
+fonts *ARGS:
+    bash {{install}} fonts {{ARGS}}
+
+# git: gh, lazygit, git-filter-repo, credential manager, kdiff3
+git *ARGS:
+    bash {{install}} git {{ARGS}}
+
+# yazi and the previewers it shells out to
+files *ARGS:
+    bash {{install}} files {{ARGS}}
+
+# neovim, neovide, lua toolchain
+editors *ARGS:
+    bash {{install}} editors {{ARGS}}
+
+# Toolchains: go, node, rust, java, cmake
+langs *ARGS:
+    bash {{install}} langs {{ARGS}}
+
+# AI coding agents: omp, rtk, agy
+ai-agents *ARGS:
+    bash {{install}} ai-agents {{ARGS}}
+
+# Input devices: linearmouse, karabiner-elements
+desktop *ARGS:
+    bash {{install}} desktop {{ARGS}}
+
+# Daily driver apps: keepassxc, syncthing, shottr, skim, qview, telegram, firefox
+apps *ARGS:
+    bash {{install}} apps {{ARGS}}
+
+# spotify, gimp, calibre, libreoffice, cmus
+media *ARGS:
+    bash {{install}} media {{ARGS}}
+
+# CyberVadis machines only: gocryptfs vault, keeper, zed, hammerspoon, slumber, gws
+work *ARGS:
+    bash {{install}} work {{ARGS}}
+
+# Symlink configs into place (--dry-run to preview, --force to replace differing files)
+link *ARGS:
+    bash _link.sh {{ARGS}}
+
+# Re-apply the custom Neovide dock icon (a cask upgrade reverts it to stock)
+neovide-icon:
+    bash macos/neovide-app.sh
