@@ -51,7 +51,7 @@ langs *ARGS:
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
 
-# Input devices: linearmouse, karabiner-elements
+# Input devices: linearmouse, karabiner-elements, 8bitdo gamepad software
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 

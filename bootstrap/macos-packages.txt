@@ -87,6 +87,7 @@ ai-agents   script    antigravity                 # Google `agy` CLI, tryout
 # --- desktop: input devices and window behaviour ----------------------------
 desktop     cask      linearmouse                 # kills mouse acceleration
 desktop     cask      karabiner-elements
+desktop     cask      8bitdo-ultimate-software-v2 # 8BitDo gamepad config + firmware
 
 # --- apps: daily drivers ----------------------------------------------------
 apps        cask      keepassxc
@@ -131,9 +132,6 @@ work        formula   googleworkspace-cli                   # the gws CLI
 #   diff-so-fancy          delta/lazygit cover it
 #   tabby                  kitty is the terminal
 #   cool-retro-term        novelty only
-#
-# Deliberately unmanaged (install by hand if the hardware shows up):
-#   8bitdo-ultimate-software-v2   gamepad firmware/config tool, one-off
 #
 # Parked, see tech/apple-macbook.md "software na wypadek potrzeby":
 #   shotcut, obs, freetube, vienna, monitorcontrol
