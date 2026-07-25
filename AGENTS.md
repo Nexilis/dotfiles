@@ -271,3 +271,14 @@ Setup details and the rationale for the tooling choice are kept local-only in
 ## Repo notes
 
 - `config/nvim/lazy-lock.json` shows up untracked; it is noise, do not commit it.
+- **`home/.gitconfig`: section order is load-bearing, do not "tidy" it.** The
+  generic `[credential]` block MUST stay above the per-URL ones. Each block
+  starts with an empty `helper =`, which resets the accumulated helper list, and
+  git applies the blocks in file order. With the generic block last, its reset
+  wipes the GitHub-specific `gh auth git-credential` and leaves
+  git-credential-manager (the Azure DevOps one) handling github.com. Verified
+  with `git credential fill` against both orderings: generic-first invokes the
+  gh helper, generic-last invokes gcm. Something occasionally rewrites the file
+  into the wrong order (a `git config --global` write reorders sections), so if
+  `.gitconfig` turns up modified with only a reordering, discard it rather than
+  commit it.
