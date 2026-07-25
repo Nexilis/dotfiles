@@ -30,9 +30,43 @@ pointer here. See "Work secrets" for an example of that split.
 - `bootstrap/` holds provisioning scripts. `bootstrap-macos.sh`,
   `bootstrap-fedora.sh`, and `bootstrap-ubuntu.sh` are the entry points (all
   self-locating); `_config.sh`/`_link.sh` deploy configs; `*.bin.sh` install
-  individual tools (Linux); macOS installs come from a `Brewfile` via
-  `brew bundle` if present.
+  individual tools (Linux). macOS package installs are group-based, see below.
 - `.tickets/` holds `tk` tickets.
+
+## macOS packages: manifest + groups
+
+`bootstrap-macos.sh` is only stage 0 now: Homebrew, `brew trust` for the taps,
+and `just`. It then hands over to `bootstrap/justfile`, and runs `_link.sh` last.
+What gets installed is NOT decided in the script.
+
+- **`bootstrap/macos-packages.txt`** is the manifest and the source of truth.
+  Columns are `group  kind  package  [# note]`, whitespace-separated; `kind` is
+  `formula`, `cask`, or `script` (the last one runs `bootstrap/macos/<pkg>.sh`,
+  which is how the non-brew installers rustup / antigravity / gocryptfs are
+  wired in). Only leaves belong here, never Homebrew dependencies. The rejected
+  and parked packages are listed at the bottom with reasons, so the "do not
+  reinstall this" knowledge sits next to the list.
+- **`bootstrap/macos/install-group.sh`** installs by group: `--list`, `--all`,
+  `--interactive`, `--dry-run`. A failed batch is retried per package so the log
+  names the one that broke, and no failure aborts the rest of the run.
+- **`bootstrap/justfile`** exposes one recipe per group plus `pick`, `all`,
+  `groups`, `link`. A bare `just` in `bootstrap/` lists everything, which is the
+  point: nothing has to be remembered on a fresh Mac.
+- The **`work`** group (macfuse + gocryptfs, keeper, zed, hammerspoon, snapzy,
+  slumber, googleworkspace-cli) defaults to **no** in `--interactive`. The
+  private Mac runs without it, Hammerspoon included.
+
+Gotcha: do not name a bash array `GROUPS`. It is a bash special variable holding
+the user's unix group IDs, and assigning to it silently gives you group numbers
+instead of your values. `install-group.sh` uses `SELECTED`.
+
+Gotcha: macOS ships bash 3.2, where `"${arr[@]}"` on an empty array trips
+`set -u`. Empty-array expansions need the `${arr[@]+"${arr[@]}"}` guard.
+
+The private-side counterpart is `private-sync/tech/apple-macbook.md`: the four
+commands to start a fresh Mac, the manual steps no script can do (Privacy &
+Security permissions per app, `.git` in the Syncthing `.stignore`, FileVault,
+macFUSE reduced security), and the parked software list.
 
 ## Deploy mechanism (symlinks)
 
@@ -96,7 +130,32 @@ The files live on disk so `tk` works; they are just never tracked.
   `bootstrap/macos/neovide-app.sh`. If the Dock stays stale after, log out/in to
   clear the icon-services cache.
 
+## Karabiner-Elements
+
+`config/karabiner/karabiner.json` does three things: `caps_lock` -> Hyper, a
+right `cmd`/`option` swap globally, and a left `cmd`/`option` swap plus a device
+ignore for specific external keyboards.
+
+The `caps_lock` -> Hyper rule carries a `device_if` condition
+(`is_built_in_keyboard`, plus Perixx Ergo 1266/8537) instead of being global.
+Hyper only has a consumer where Hammerspoon runs, and the private Mac runs
+without Hammerspoon, so an unscoped rule would turn `caps_lock` into a dead key
+on any keyboard that gets attached. Scoping was chosen over a private/work
+profile split because Karabiner stores the active profile as `"selected": true`
+inside this same file, which is symlinked to both machines, so a split would
+churn that flag on every switch.
+
+**kanata was evaluated as a replacement and rejected.** On macOS it still needs
+the Karabiner DriverKit VirtualHIDDevice driver, so it does not remove the
+Karabiner dependency, and it only offers `macos-dev-names-include` /
+`macos-dev-names-exclude` (which devices to grab). It cannot give *different
+mappings per keyboard*, which this config depends on.
+
 ## Hammerspoon
+
+Only installed on a machine used for work (it is in the `work` package group).
+The private Mac runs without it, which is why the `caps_lock` -> Hyper remap is
+device-scoped rather than global; see the Karabiner section.
 
 Config is `config/hammerspoon/init.lua`. `Hyper` = `cmd+ctrl+alt+shift`.
 Keybindings:
