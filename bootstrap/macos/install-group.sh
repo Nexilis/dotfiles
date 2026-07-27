@@ -133,12 +133,28 @@ case "$MODE" in
     while read -r g; do SELECTED+=("$g"); done < <(all_groups)
     ;;
   interactive)
+    # Answers are read from /dev/tty, never from stdin. stdin here is whatever
+    # the caller left behind (just runs the recipe through a shell, a pipe, a
+    # redirect), and reading it made the prompts fly past without waiting.
+    #
+    # There is deliberately NO fallback to defaults. An earlier version printed
+    # "taking the defaults" on end of input, which meant 11 of 12 groups were
+    # answered YES by nobody. Installing software the operator never approved is
+    # worse than doing nothing, so a missing terminal is a hard error.
+    #
+    # Test that /dev/tty can actually be OPENED. A permission check is not
+    # enough: the node exists and looks readable even where there is no
+    # controlling terminal (cron, a CI runner, a sandbox).
+    if ! { : </dev/tty; } 2>/dev/null; then
+      echo "brak terminala: --interactive potrzebuje /dev/tty." >&2
+      echo "Uruchom skrypt z terminala, albo podaj grupy jawnie: install-group.sh <grupa>..., --all" >&2
+      exit 3
+    fi
+
     echo "Pick groups to install. Enter accepts the default in brackets."
     echo
-    # Collect the group names FIRST, then prompt. Prompting inside a
-    # `while read ... < <(all_groups)` loop would hold stdin, which is where the
-    # answers come from. With the names in an array, stdin stays free, so both a
-    # terminal and piped answers work.
+    # Collect the group names FIRST: prompting inside a
+    # `while read ... < <(all_groups)` loop would fight over the descriptor.
     ALL=()
     while read -r g; do ALL+=("$g"); done < <(all_groups)
 
@@ -150,8 +166,11 @@ case "$MODE" in
         prompt="[Y/n]"; default=y
       fi
       printf '  %-12s %2s pkgs  %s ' "$g" "$n" "$prompt"
-      ans=""
-      read -r ans || { ans=""; echo "(end of input; taking the defaults)"; }
+      if ! { read -r ans </dev/tty; } 2>/dev/null; then
+        echo
+        echo "przerwane (koniec wejścia); nic nie zostało zainstalowane." >&2
+        exit 3
+      fi
       ans=${ans:-$default}
       case "$ans" in
         [yY]*) SELECTED+=("$g") ;;
@@ -162,7 +181,21 @@ case "$MODE" in
       echo "nothing selected"
       exit 0
     fi
-    echo "selected: ${SELECTED[*]}"
+
+    # Last gate before anything is written. The whole point of the group split
+    # is that no package arrives unasked, so the choice is restated and has to be
+    # confirmed explicitly.
+    echo "Do instalacji: ${SELECTED[*]}"
+    printf 'Kontynuować? [y/N] '
+    if ! { read -r confirm </dev/tty; } 2>/dev/null; then
+      echo
+      echo "przerwane; nic nie zostało zainstalowane." >&2
+      exit 3
+    fi
+    case "$confirm" in
+      [yY]*) ;;
+      *) echo "przerwane; nic nie zostało zainstalowane."; exit 0 ;;
+    esac
     echo
     ;;
 esac
