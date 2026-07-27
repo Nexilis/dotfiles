@@ -35,9 +35,14 @@ pointer here. See "Work secrets" for an example of that split.
 
 ## macOS packages: manifest + groups
 
-`bootstrap-macos.sh` is only stage 0 now: Homebrew, `brew trust` for the taps,
-and `just`. It then hands over to `bootstrap/justfile`, and runs `_link.sh` last.
-What gets installed is NOT decided in the script.
+`bootstrap-macos.sh` runs three steps in this order: stage 0 (Homebrew,
+`brew trust` for the taps, `just`), then `_link.sh`, then the package groups via
+`bootstrap/justfile`. What gets installed is NOT decided in the script.
+
+**Configs are linked BEFORE packages, deliberately.** Package installs are the
+long, noisy, interruptible part. When that half is cancelled or dies, the shell,
+editor and terminal config are already in place and the machine is usable. Do not
+move `_link.sh` back to the end.
 
 - **`bootstrap/macos-packages.txt`** is the manifest and the source of truth.
   Columns are `group  kind  package  [# note]`, whitespace-separated; `kind` is
@@ -52,9 +57,23 @@ What gets installed is NOT decided in the script.
 - **`bootstrap/justfile`** exposes one recipe per group plus `pick`, `all`,
   `groups`, `link`. A bare `just` in `bootstrap/` lists everything, which is the
   point: nothing has to be remembered on a fresh Mac.
-- The **`work`** group (macfuse + gocryptfs, keeper, zed, hammerspoon, snapzy,
-  slumber, googleworkspace-cli) defaults to **no** in `--interactive`. The
-  private Mac runs without it, Hammerspoon included.
+- The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
+  googleworkspace-cli) defaults to **no** in `--interactive`; the private Mac
+  runs without it. Hammerspoon is NOT in it: it lives in `desktop` and belongs on
+  both machines.
+
+**Consent rules for `--interactive` (learned the hard way).** The first real run
+installed groups nobody approved. Two causes, both fixed, neither to be undone:
+
+- Answers are read from **`/dev/tty`**, never from stdin. `just` runs the recipe
+  through a shell, so stdin is whatever the caller left behind; reading it made
+  every prompt return instantly and the whole list flew past unanswered.
+- There is **no fallback to defaults**. The old code printed "taking the
+  defaults" on end of input, which answered YES for 11 of 12 groups on nobody's
+  behalf, `work` (macfuse, a kernel extension) included once answers shifted by
+  one. No terminal is now a hard error, exit 3. Installing unapproved software is
+  worse than doing nothing.
+- The chosen groups are restated and confirmed once more before the first install.
 
 Gotcha: do not name a bash array `GROUPS`. It is a bash special variable holding
 the user's unix group IDs, and assigning to it silently gives you group numbers
@@ -101,34 +120,22 @@ The files live on disk so `tk` works; they are just never tracked.
   palette color an app paints in a screenshot before changing a theme, instead
   of guessing. `just pick <image> <x> <y> <w> <h> [topN]`.
 
-## macOS app icons
+## Neovide
 
-- Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the
-  homebrew-core `neovide` **formula**. The formula is a CLI-only bottle that
-  leaves `Neovide.app` buried in the Cellar (never in `/Applications`); the cask
-  installs the signed app to `/Applications` and links the `neovide` binary onto
-  PATH, so we get both. Set in `bootstrap-macos.sh`.
-- We override neovide's icon with an **inset squircle**. Its stock upstream icon
-  is a full-bleed cog on a transparent background, so next to native macOS apps
-  (inset rounded-rectangle with a plate) it looks oversized and plate-less in the
-  Dock and cmd+tab. `bootstrap/macos/neovide-app.sh` applies our own
-  `bootstrap/macos/neovide.icns` (generated from the vendored
-  `neovide-256x256.png`; regen recipe in the script header) as a macOS **custom
-  icon** via `NSWorkspace -setIcon:forFile:` (a FinderInfo xattr + Icon resource),
-  not by overwriting the bundle's `.icns` (which would break the cask app's
-  hardened-runtime signature; `codesign --verify` still passes after). The full
-  "why" is in the script header. `bootstrap-macos.sh` runs it right after the
-  cask install (non-fatal; it is cosmetic). Originally migrated from
-  `work-sync/operations/scripts/shell/`.
-- **Gotcha: `brew upgrade --cask neovide-app` reverts the icon to stock.** The
-  upgrade replaces the whole `.app` bundle, dropping the custom-icon attributes
-  (symptom: the oversized plate-less icon back in the Dock/cmd+tab, while the
-  Applications list may still show a cached correct one). The `u` fish function
-  (the brew-update wrapper in `config/fish/config.fish`) handles this: after the
-  brew steps it re-applies the icon only when the FinderInfo marker is gone, so
-  it does not restart the Dock on every update. Manual reapply is still
-  `bootstrap/macos/neovide-app.sh`. If the Dock stays stale after, log out/in to
-  clear the icon-services cache.
+Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the
+homebrew-core `neovide` **formula**. The formula is a CLI-only bottle that leaves
+`Neovide.app` buried in the Cellar (never in `/Applications`); the cask installs
+the signed app to `/Applications` and links the `neovide` binary onto PATH, so we
+get both. Set in `macos-packages.txt`, group `editors`.
+
+**Do not reintroduce a custom Dock icon.** We used to ship an inset-squircle
+`.icns` and apply it as a macOS custom icon (FinderInfo xattr + Icon resource),
+because the stock upstream icon is a full-bleed cog that looks oversized and
+plate-less next to native apps. It was removed: the icon reverts to stock on
+launch anyway, and Neovide runs almost all day here, so the machinery cost more
+than it delivered. Gone with it: `bootstrap/macos/neovide-app.sh`, the vendored
+`.icns` and PNG, the `neovide-icon` just recipe, the manifest `script` row, and
+the reapply hook that used to live in the `u` fish function.
 
 ## Karabiner-Elements
 
@@ -136,14 +143,14 @@ The files live on disk so `tk` works; they are just never tracked.
 right `cmd`/`option` swap globally, and a left `cmd`/`option` swap plus a device
 ignore for specific external keyboards.
 
-The `caps_lock` -> Hyper rule carries a `device_if` condition
-(`is_built_in_keyboard`, plus Perixx Ergo 1266/8537) instead of being global.
-Hyper only has a consumer where Hammerspoon runs, and the private Mac runs
-without Hammerspoon, so an unscoped rule would turn `caps_lock` into a dead key
-on any keyboard that gets attached. Scoping was chosen over a private/work
-profile split because Karabiner stores the active profile as `"selected": true`
-inside this same file, which is symlinked to both machines, so a split would
-churn that flag on every switch.
+**`caps_lock` -> Hyper must stay global, on every keyboard.** It was briefly
+scoped with a `device_if` condition (built-in keyboard plus one external), on the
+assumption that Hyper only matters where Hammerspoon runs and that the private
+Mac would go without Hammerspoon. Both halves were wrong: Hammerspoon is needed
+on the private Mac as well (the virtual desktop shortcuts are not optional), and
+scoping silently kills Hyper the moment a keyboard outside the list is attached,
+which reads as "Hammerspoon did not load my config". Reverted; do not scope it
+again.
 
 **kanata was evaluated as a replacement and rejected.** On macOS it still needs
 the Karabiner DriverKit VirtualHIDDevice driver, so it does not remove the
@@ -153,9 +160,17 @@ mappings per keyboard*, which this config depends on.
 
 ## Hammerspoon
 
-Only installed on a machine used for work (it is in the `work` package group).
-The private Mac runs without it, which is why the `caps_lock` -> Hyper remap is
-device-scoped rather than global; see the Karabiner section.
+Installed on every machine, private included: it carries the virtual desktop
+switching shortcuts, which are daily-use. It sits in the `desktop` package group,
+not `work`.
+
+**Diagnosing "Hammerspoon did not load my config".** Check whether the `iss`
+process is running: `pgrep -fl hammerspoon/iss/iss`. Only `init.lua` starts it,
+so a live `iss` proves the config loaded and the problem is downstream, almost
+always the `Hyper` modifier not arriving (see Karabiner) or Secure Event Input.
+Reloading is awkward by design: the AppleScript/IPC bridges are off and
+`init.lua` hides the default menubar icon, so there is no tool-driven reload;
+quit and relaunch the app.
 
 Config is `config/hammerspoon/init.lua`. `Hyper` = `cmd+ctrl+alt+shift`.
 Keybindings:
@@ -211,11 +226,12 @@ drag windows by hand. A short pointer sits where the binding would go in
   repo-symlinked config. State (`state.yml`) still lives in Application Support.
 - Claude Code's own theme colors (the dark user-message chip, the amber "auto
   mode on" hint, dim secondary text) are NOT from the kitty palette. They are
-  overridable only through a custom theme, so `claude/themes/` ships two:
+  overridable only through a custom theme, so `home/.claude/themes/` ships two:
   `cvlight.json` (base `light`) and `cvdark.json` (base `dark`), each overriding
   `userMessageBackground`, `autoAccept`, and `inactive`. `_link.sh` links the
   dir to `~/.claude/themes` (a nested link; the rest of `~/.claude` is state and
-  must not be symlinked). Claude Code hot-reloads that dir.
+  must not be symlinked, so `.claude` is listed in `NESTED_ONLY` and skipped by
+  the wholesale `home/*` pass). Claude Code hot-reloads that dir.
   - Trade-off: a custom theme pins one base, so it does NOT follow the OS
     light/dark like the default `auto`. Switch manually with `/theme` (pick
     "CV Light" or "CV Dark") when you flip appearance. The active selection is
