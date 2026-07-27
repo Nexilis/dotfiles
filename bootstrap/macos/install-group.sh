@@ -146,8 +146,8 @@ case "$MODE" in
     # enough: the node exists and looks readable even where there is no
     # controlling terminal (cron, a CI runner, a sandbox).
     if ! { : </dev/tty; } 2>/dev/null; then
-      echo "brak terminala: --interactive potrzebuje /dev/tty." >&2
-      echo "Uruchom skrypt z terminala, albo podaj grupy jawnie: install-group.sh <grupa>..., --all" >&2
+      echo "no terminal: --interactive needs /dev/tty." >&2
+      echo "Run it from a terminal, or name the groups: install-group.sh <group>..., --all" >&2
       exit 3
     fi
 
@@ -168,7 +168,7 @@ case "$MODE" in
       printf '  %-12s %2s pkgs  %s ' "$g" "$n" "$prompt"
       if ! { read -r ans </dev/tty; } 2>/dev/null; then
         echo
-        echo "przerwane (koniec wejścia); nic nie zostało zainstalowane." >&2
+        echo "aborted (end of input); nothing was installed." >&2
         exit 3
       fi
       ans=${ans:-$default}
@@ -185,16 +185,16 @@ case "$MODE" in
     # Last gate before anything is written. The whole point of the group split
     # is that no package arrives unasked, so the choice is restated and has to be
     # confirmed explicitly.
-    echo "Do instalacji: ${SELECTED[*]}"
-    printf 'Kontynuować? [y/N] '
+    echo "About to install: ${SELECTED[*]}"
+    printf 'Continue? [y/N] '
     if ! { read -r confirm </dev/tty; } 2>/dev/null; then
       echo
-      echo "przerwane; nic nie zostało zainstalowane." >&2
+      echo "aborted; nothing was installed." >&2
       exit 3
     fi
     case "$confirm" in
       [yY]*) ;;
-      *) echo "przerwane; nic nie zostało zainstalowane."; exit 0 ;;
+      *) echo "aborted; nothing was installed."; exit 0 ;;
     esac
     echo
     ;;

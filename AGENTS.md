@@ -4,6 +4,16 @@ Repo-specific context for AI agents. General coding and commit conventions
 come from the agent's own config; this file only records what is true about
 this repo.
 
+## Language: code is always English
+
+Everything inside a code file is English, with no exceptions: identifiers,
+comments, commit messages, and **every string the program prints** (prompts,
+errors, progress, report headings). The owner is Polish and chats in Polish, which
+is not a reason to emit Polish from a script; a message printed by code is part of
+the code. Same rule holds in the private notes repo (`private-sync/AGENTS.md`).
+Polish belongs in notes and in conversation, never in a `.sh`, `.go`, `.lua`,
+`.fish`, or `justfile`.
+
 ## What this is
 
 Personal dotfiles. Solo repo, no PR flow; commit directly to `master`.
