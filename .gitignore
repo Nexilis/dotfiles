@@ -27,9 +27,18 @@ config/karabiner/automatic_backups/
 config/maki/*
 !config/maki/init.lua
 
-# Stray Claude Code local state that lands in a working directory
+# Stray Claude Code local state that lands in a working directory. The pattern is
+# unanchored on purpose: this state shows up at the repo root and inside config
+# dirs (config/hammerspoon/.claude/), so it has to match at any depth.
 .claude/
 .claude.json
+
+# ...but home/.claude/ is OURS: it mirrors ~/.claude and carries the custom
+# themes, which are tracked config, not state. Re-include it. The directory
+# itself has to be un-ignored first, otherwise git never descends into it and any
+# negation for the files inside is dead.
+!home/.claude/
+!home/.claude/themes/
 
 # tk tickets: local task state, not committed (any .tickets dir, at any level)
 .tickets/
