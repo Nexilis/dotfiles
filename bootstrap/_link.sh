@@ -7,9 +7,10 @@
 # Maps:
 #   config/<name>  ->  ~/.config/<name>
 #   home/<name>    ->  ~/<name>
-#   claude/themes  ->  ~/.claude/themes   (nested: ~/.claude holds session
+#   home/.claude/themes -> ~/.claude/themes  (nested: ~/.claude holds session
 #                                          state, so only the themes subdir is
-#                                          linked, never the whole dir)
+#                                          linked, never the whole dir. .claude
+#                                          is therefore skipped by the home pass)
 #   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
 #                                          holds the auth store and sessions, so
 #                                          only config.yml is linked)
@@ -93,15 +94,24 @@ for src in "$REPO"/config/*/; do
   link_one "$src" "$HOME/.config/$(basename "$src")"
 done
 
+# Entries under home/ that must NOT be symlinked wholesale, because the live
+# directory also holds machine-local state. Only the named subdirs get linked,
+# by the nested pass below.
+NESTED_ONLY=".claude"
+
 for src in "$REPO"/home/*; do
-  link_one "$src" "$HOME/$(basename "$src")"
+  name=$(basename "$src")
+  case " $NESTED_ONLY " in
+    *" $name "*) continue ;;
+  esac
+  link_one "$src" "$HOME/$name"
 done
 
 # Nested links: a specific subdir under a parent we must not symlink wholesale.
-# ~/.claude holds session state (projects, history), so link only themes/.
-if [ -d "$REPO/claude/themes" ]; then
+# ~/.claude holds session state (projects, history, todos), so link only themes/.
+if [ -d "$REPO/home/.claude/themes" ]; then
   mkdir -p "$HOME/.claude"
-  link_one "$REPO/claude/themes" "$HOME/.claude/themes"
+  link_one "$REPO/home/.claude/themes" "$HOME/.claude/themes"
 fi
 
 # omp keeps its config files next to the auth store (agent.db) and sessions in
