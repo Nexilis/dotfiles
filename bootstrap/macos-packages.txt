@@ -68,7 +68,6 @@ editors     cask      neovide-app
 editors     formula   lua-language-server
 editors     formula   luarocks
 editors     formula   stylua
-editors     script    neovide-app                 # inset squircle icon, cosmetic
 
 # --- langs: toolchains ------------------------------------------------------
 langs       formula   go
@@ -88,6 +87,11 @@ ai-agents   script    antigravity                 # Google `agy` CLI, tryout
 desktop     cask      linearmouse                 # kills mouse acceleration
 desktop     cask      karabiner-elements
 desktop     cask      8bitdo-ultimate-software-v2 # 8BitDo gamepad config + firmware
+# Hammerspoon is needed on the PRIVATE Mac too, not just for work: the virtual
+# desktop switching shortcuts (Hyper+arrow via iss) are not optional in daily
+# use. This is also why caps_lock -> Hyper in karabiner.json applies to every
+# keyboard rather than a scoped list.
+desktop     cask      hammerspoon
 
 # --- apps: daily drivers ----------------------------------------------------
 apps        cask      keepassxc
@@ -113,7 +117,6 @@ work        cask      macfuse
 work        script    gocryptfs                   # needs macfuse; work secrets vault
 work        cask      keeper-password-manager
 work        cask      zed
-work        cask      hammerspoon                 # Hyper window management
 work        cask      snapzy
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
@@ -133,5 +136,7 @@ work        formula   googleworkspace-cli                   # the gws CLI
 #   tabby                  kitty is the terminal
 #   cool-retro-term        novelty only
 #
-# Parked, see tech/apple-macbook.md "software na wypadek potrzeby":
-#   shotcut, obs, freetube, vienna, monitorcontrol
+# Software kept in mind but not installed (video editing, screen recording, RSS,
+# external monitor brightness) is listed ONLY in private-sync/tech/apple-macbook.md
+# under "software na wypadek potrzeby". It is deliberately not repeated here: a
+# name in this file reads like something the bootstrap installs.

@@ -51,7 +51,7 @@ langs *ARGS:
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
 
-# Input devices: linearmouse, karabiner-elements, 8bitdo gamepad software
+# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon, 8bitdo
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
@@ -63,14 +63,10 @@ apps *ARGS:
 media *ARGS:
     bash {{install}} media {{ARGS}}
 
-# CyberVadis machines only: gocryptfs vault, keeper, zed, hammerspoon, slumber, gws
+# CyberVadis machines only: gocryptfs vault, keeper, zed, snapzy, slumber, gws
 work *ARGS:
     bash {{install}} work {{ARGS}}
 
 # Symlink configs into place (--dry-run to preview, --force to replace differing files)
 link *ARGS:
     bash _link.sh {{ARGS}}
-
-# Re-apply the custom Neovide dock icon (a cask upgrade reverts it to stock)
-neovide-icon:
-    bash macos/neovide-app.sh
