@@ -1,12 +1,17 @@
 #!/usr/bin/env bash
-# macOS bootstrap. Two jobs only:
+# macOS bootstrap. Three steps, in this order:
 #   1. get Homebrew and `just` onto the machine (stage 0),
-#   2. hand over to bootstrap/justfile, which drives the package groups.
+#   2. symlink the configs,
+#   3. hand over to bootstrap/justfile, which drives the package groups.
+#
+# Configs go BEFORE packages on purpose. Package installs are the long, noisy,
+# interruptible part; if the run dies halfway (or gets cancelled), the shell,
+# editor and terminal config are already in place and the machine is usable.
 #
 # What to install is NOT decided here. The list lives in macos-packages.txt and
 # the groups are picked at run time, so a fresh Mac needs nothing memorised:
 #
-#   sh bootstrap/bootstrap-macos.sh          # y/n per group, then link configs
+#   sh bootstrap/bootstrap-macos.sh          # link configs, then y/n per group
 #   sh bootstrap/bootstrap-macos.sh --all    # every group, no questions
 #   sh bootstrap/bootstrap-macos.sh --skip-packages   # only link configs
 #
@@ -49,6 +54,10 @@ done
 # --- Stage 0: just, the entry point for everything below --------------------
 command -v just >/dev/null 2>&1 || brew install just
 
+# --- Symlink configs (before packages; see the header) ----------------------
+bash "$BOOT/_link.sh" "${LINK_ARGS[@]+"${LINK_ARGS[@]}"}"
+echo
+
 # --- Packages: groups picked at run time ------------------------------------
 JUST=(just --justfile "$BOOT/justfile" --working-directory "$BOOT")
 case "$MODE" in
@@ -56,9 +65,6 @@ case "$MODE" in
   all)  "${JUST[@]}" all ${DRY[@]+"${DRY[@]}"} ;;
   none) echo "skipping packages" ;;
 esac
-
-# --- Symlink configs --------------------------------------------------------
-bash "$BOOT/_link.sh" "${LINK_ARGS[@]+"${LINK_ARGS[@]}"}"
 
 # --- Post-install hints (manual, not automated) -----------------------------
 if command -v fish >/dev/null 2>&1 && [ "$SHELL" != "$(command -v fish)" ]; then
