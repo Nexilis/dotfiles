@@ -2,21 +2,27 @@
 # Loaded via `startup_session startup.session` in kitty.conf.
 # Applies to kitty startup only; a new OS window (Cmd+N) gets one plain tab.
 # Tab titles set here are fixed and are not overwritten by the shell.
-# Add a `cd <dir>` line above a `launch` to give that tab a working directory.
+# `cd` sets the working directory for the launches that follow it in the tab.
 
 new_tab work-1
+cd ~/Documents/sync/work-sync
 launch
 
 new_tab work-2
+cd ~/Documents/sync/work-sync
 launch
 
+# fish -C runs the command after config.fish, then drops into the interactive
+# shell, so quitting yazi leaves a usable prompt in the tab.
 new_tab tools
-launch
+launch fish -C yy
 
 new_tab priv
+cd ~/Documents/sync/private-sync
 launch
 
-new_tab temp
+new_tab downloads
+cd ~/Downloads
 launch
 
 focus_tab 0
