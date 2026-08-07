@@ -1,0 +1,22 @@
+# Startup layout: five pre-named tabs in the first OS window.
+# Loaded via `startup_session startup.session` in kitty.conf.
+# Applies to kitty startup only; a new OS window (Cmd+N) gets one plain tab.
+# Tab titles set here are fixed and are not overwritten by the shell.
+# Add a `cd <dir>` line above a `launch` to give that tab a working directory.
+
+new_tab work-1
+launch
+
+new_tab work-2
+launch
+
+new_tab tools
+launch
+
+new_tab priv
+launch
+
+new_tab temp
+launch
+
+focus_tab 0
