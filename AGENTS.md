@@ -168,6 +168,45 @@ Karabiner dependency, and it only offers `macos-dev-names-include` /
 `macos-dev-names-exclude` (which devices to grab). It cannot give *different
 mappings per keyboard*, which this config depends on.
 
+## BetterCmdTab
+
+Replaces the macOS Cmd+Tab switcher. The reason it is here: the built-in one
+skips minimized windows unless you hold `option` and release `cmd` before it,
+and that trick cannot be automated from Karabiner. Karabiner emits modifiers
+wrapped around the mapped key, so `option` would go up before `cmd` does, and
+`to.sticky_modifier` does not document when it clears. The fix belongs in an app
+that reopens the windows, not in a key remap.
+
+`config/bettercmdtab/config.json` is tracked and symlinked by `_link.sh` like
+any other `config/*` dir. This works because the app resolves symlinks before
+its atomic write (`ConfigFile.swift`: `data.write(to: url.resolvingSymlinksInPath(),
+options: .atomic)`), so the temp+rename replaces the repo file instead of eating
+the link. The sync is two-way and live: edits to the file apply within a second,
+GUI changes are written back after a 500 ms debounce plus a flush at quit. The
+round trip is byte-stable, so no-op churn does not show up in `git status`.
+
+**A fresh machine needs no import step.** The only thing that arms the sync is
+the file existing: `armWatcher()` opens `config.json` and sets `watchingFile`,
+with no preference gating it. So `_link.sh` running before the first launch is
+enough, and the settings apply on their own. The Settings -> General -> Backup ->
+Configuration file -> Create button only writes the file the first time, on a
+machine that does not have it yet. The plist domain
+`pro.bettercmdtab.BetterCmdTab` stays the primary store; the JSON is the synced
+mirror of it.
+
+Two things to know:
+
+- **After moving or relinking the file, restart the app.** It watches an open
+  file descriptor, so the live config keeps pointing at the old inode until the
+  watcher re-arms; writes still land in the repo, reads do not.
+- **Never track the plist domain instead.** `~/Library/Preferences/pro.bettercmdtab.BetterCmdTab.plist`
+  is owned by `cfprefsd` (which rewrites it out from under a symlink) and it
+  carries volatile state: an update-check timestamp and `Switcher.recentlyClosed`
+  with app names and window titles. This repo is public.
+
+`schema.json` sits next to the config, is generated from the running build, and
+is gitignored; the app rewrites it when absent, so a fresh clone self-heals.
+
 ## Hammerspoon
 
 Installed on every machine, private included: it carries the virtual desktop
