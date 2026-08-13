@@ -92,6 +92,9 @@ desktop     cask      8bitdo-ultimate-software-v2 # 8BitDo gamepad config + firm
 # use. This is also why caps_lock -> Hyper in karabiner.json applies to every
 # keyboard rather than a scoped list.
 desktop     cask      hammerspoon
+# BetterCmdTab replaces the Cmd+Tab switcher; unlike the macOS one it reopens
+# minimized windows without the hold-Option-release-Cmd trick. Tryout.
+desktop     cask      bettercmdtab
 
 # --- apps: daily drivers ----------------------------------------------------
 apps        cask      keepassxc
