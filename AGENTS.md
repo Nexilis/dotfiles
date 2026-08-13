@@ -207,14 +207,26 @@ Two things to know:
 `schema.json` sits next to the config, is generated from the running build, and
 is gitignored; the app rewrites it when absent, so a fresh clone self-heals.
 
-**The file does not carry the keybindings.** The 18 `BetterShortcuts_*` keys and
-`Switcher.disabledSymbolicHotKeys` (which native hotkeys the app took over) exist
+**The file does not carry the keybindings.** The 18 `BetterShortcuts_*` keys exist
 only in the plist domain. The Settings export is no way around it: it takes the
 same key set as the config file, which upstream's config reference states
 outright. So `config.json` covers preferences, `appExceptions`,
 `scopedShortcutList` and `shortcutOverrides`, and every actual key assignment
 falls back to the app default on a fresh machine. Nothing is lost while the
 bindings are the defaults, which is the case today. Tracked in `tk dot-v0b2`.
+
+**`Switcher.disabledSymbolicHotKeys` is crash bookkeeping, not config; leave it
+out.** The app takes cmd+Tab, cmd+shift+Tab and cmd+` from the WindowServer at
+runtime through the private `CGSSetSymbolicHotKeyEnabled`, so nothing lands in
+`com.apple.symbolichotkeys` and an empty check there proves nothing. That key is
+just the record of what to re-enable, and copying it between machines would only
+describe a state some other machine was in.
+
+**If cmd+Tab does nothing at all, relaunch BetterCmdTab.** The WindowServer
+disable outlives the process, and a SIGKILL or a crash skips the restore path, so
+the native switcher stays dead system-wide. The next launch clears it
+unconditionally (`SwitcherController.start()` self-heals; see
+`SymbolicHotkeyGuard.swift`), and a reboot works too.
 
 ## Hammerspoon
 
