@@ -19,6 +19,11 @@ config/zed/prompts/
 config/zed/themes/
 config/zed/settings_backup.json
 
+# bettercmdtab: the sidecar JSON Schema, regenerated from the running build at
+# every launch, so it would churn on each app update. The app rewrites it when
+# absent, which is what a fresh clone gets.
+config/bettercmdtab/schema.json
+
 # karabiner: generated assets and automatic backups
 config/karabiner/assets/
 config/karabiner/automatic_backups/

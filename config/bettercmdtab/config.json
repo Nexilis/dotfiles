@@ -1,0 +1,39 @@
+{
+  "$schema" : "schema.json",
+  "animationsEnabled" : false,
+  "appExceptions" : [
+    {
+      "bundleID" : "com.apple.finder",
+      "hide" : "whenNoWindows",
+      "ignore" : "never"
+    }
+  ],
+  "applicationsOnly" : false,
+  "cycleTileWidths" : true,
+  "experimentalInstantSpaceSwitch" : false,
+  "gridSingleRow" : true,
+  "hideMenuBarIcon" : true,
+  "layoutMode" : "list",
+  "nextScopedShortcutID" : 0,
+  "panelOpacity" : 100,
+  "panelScalePercent" : 75,
+  "previewTitleAlignment" : "trailing",
+  "revealDelayMs" : 40,
+  "scopedShortcutList" : [
+
+  ],
+  "shortcutOverrides" : [
+    {
+      "showMinimized" : "true",
+      "sortOrder" : "alphabetical",
+      "spaceScope" : "allSpaces",
+      "stayOpenOnQuickTap" : "true",
+      "stayOpenOnRelease" : "true",
+      "target" : "switchApps"
+    }
+  ],
+  "showApplicationNames" : false,
+  "showWindowTitleLabel" : true,
+  "sortOrder" : "alphabetical",
+  "titleTruncationMode" : "tail"
+}
