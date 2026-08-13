@@ -230,10 +230,16 @@ end)
 -- window-AX enumeration and no freeze. Trade-off: it switches by app (its
 -- frontmost window), not between separate windows of the same app, which is
 -- exactly the macOS cmd+tab model.
--- cmd+tab itself is owned by the system switcher (which wins the race for it),
--- so we trigger on Hyper+Tab via an eventtap (a CGEventTap, the same primitive
--- AltTab uses). Caveat: like iss, the tap is blocked while any app holds Secure
--- Event Input; Hyper+Tab then does nothing (see the menubar Secure Input item).
+-- This is the second of two switchers on purpose, and it does not sit on
+-- cmd+tab. cmd+tab belongs to BetterCmdTab, which takes the key over from the
+-- system switcher by disabling the native symbolic hotkeys; before that app it
+-- was the system switcher itself that owned the key. Either way cmd+tab is not
+-- ours to bind, so this one triggers on Hyper+Tab via an eventtap (a CGEventTap,
+-- the same primitive AltTab uses). Keep both: cmd+tab is the muscle-memory path
+-- with window previews, Hyper+Tab is the type-to-filter path, and it is the one
+-- that survives when BetterCmdTab is not running.
+-- Caveat: like iss, the tap is blocked while any app holds Secure Event Input;
+-- Hyper+Tab then does nothing (see the menubar Secure Input item).
 local switcherChooser = nil
 local switcherApps = {}   -- chooser row index -> hs.application
 local iconCache = {}      -- bundleID -> hs.image (false once known to have none)
