@@ -2,3 +2,8 @@
 on   = [ "<Enter>" ]
 run  = "plugin --sync smart-enter"
 desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+on   = [ ".", "s" ]
+run  = "plugin what-size"
+desc = "Calculate size of selection or cwd"
