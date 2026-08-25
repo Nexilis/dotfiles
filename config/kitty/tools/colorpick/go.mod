@@ -1,3 +1,3 @@
 module colorpick
 
-go 1.22
+go 1.27.0
