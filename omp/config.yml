@@ -1,7 +1,24 @@
-modelRoles: 
-  {}
+modelRoles:
+  default: google/gemini-3.6-flash
 symbolPreset: nerd
-theme: 
+theme:
   dark: titanium
   light: light
-setupVersion: 1
+setupVersion: 2
+composer:
+  shape: box
+disabledExtensions:
+  - slash-command:ai-tooling-and-practices
+  - slash-command:copyrights-report
+  - slash-command:fibery-api
+  - slash-command:frontend-slides
+  - slash-command:googleworkspace-api
+  - slash-command:handoff
+  - slash-command:interview
+  - slash-command:knowledge-hub
+  - slash-command:monthly-kpis
+  - slash-command:performance-review-architect
+  - slash-command:product-management
+  - slash-command:slack-cli
+  - slash-command:team-gathering-organizer
+defaultThinkingLevel: auto

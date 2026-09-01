@@ -50,3 +50,6 @@ config/maki/*
 
 # OS noise
 .DS_Store
+
+# omp: runtime lock file
+omp/config.yml.lock
