@@ -1,5 +1,14 @@
 modelRoles:
-  default: google/gemini-3.6-flash
+  default: google/gemini-3.7-flash
+  slow: google/gemini-3.7-flash
+  plan: "@default"
+  vision: "@default"
+  task: "@default"
+  designer: "@default"
+  smol: openrouter/z-ai/glm-5.3-flash
+  tiny: "@smol"
+  commit: "@smol"
+  advisor: "@smol"
 symbolPreset: nerd
 theme:
   dark: titanium
@@ -22,3 +31,17 @@ disabledExtensions:
   - slash-command:slack-cli
   - slash-command:team-gathering-organizer
 defaultThinkingLevel: auto
+
+retry:
+  fallbackChains:
+    # Model-selector keys follow the model, not the role, so every role
+    # pointing at Flash is covered by the one chain. Same model over
+    # OpenRouter first: a Google 503 is a capacity problem on that route,
+    # not on the model.
+    google/gemini-3.7-flash:
+      - openrouter/google/gemini-3.7-flash
+      - openrouter/google/gemini-3.6-flash
+      - openrouter/z-ai/glm-5.3
+    openrouter/z-ai/glm-5.3-flash:
+      - openrouter/deepseek/deepseek-v4-flash
+      - google/gemini-3.1-flash-lite
