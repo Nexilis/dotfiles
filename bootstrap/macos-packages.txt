@@ -101,7 +101,7 @@ apps        cask      keepassxc
 apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
 apps        cask      skim                        # PDF reader
-apps        cask      qview                       # image viewer
+apps        cask      picview                     # image viewer
 apps        cask      telegram
 apps        cask      firefox
 
