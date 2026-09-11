@@ -102,6 +102,8 @@ apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
 apps        cask      skim                        # PDF reader
 apps        cask      picview                     # image viewer
+apps        formula   duti                        # default-app handler for picview-default
+apps        script    picview-default             # PicView opens image files
 apps        cask      telegram
 apps        cask      firefox
 
