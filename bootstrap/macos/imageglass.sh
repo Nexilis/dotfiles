@@ -7,6 +7,10 @@
 #
 # Idempotent: skips when /Applications/ImageGlass.app already exists. Pass
 # --force to reinstall the latest release over it.
+#
+# After installing, open the app once and go through its first-run setup.
+# Until that is done, images opened from Finder render as a white canvas.
+# The free Classic edition is enough; Pro only adds tools like HDR tone mapping.
 set -uo pipefail
 
 APP=/Applications/ImageGlass.app
