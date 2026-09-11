@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Default apps for file types: PicView for images, Skim for PDF. Runs after the
+# Default apps for file types: ImageGlass for images, Skim for PDF. Runs after the
 # apps casks, so the apps and duti are already installed. Idempotent: duti
 # overwrites.
 #
@@ -10,11 +10,12 @@
 # Images get both a UTI list and an extension list, because LaunchServices
 # resolves some formats (avif, jxl, webp on older macOS) only by extension.
 #
-# `duti -x` can lag a few seconds behind `duti -s`; if the summary line below
-# shows the old handler, check again before rerunning.
+# macOS 26 asks for confirmation in a dialog for each handler change made by a
+# third-party tool. Approve the dialogs; until then `duti -x` still reports the
+# old handler, so a stale summary line below is expected.
 set -uo pipefail
 
-PICVIEW=com.ruben2776.picview
+IMAGEGLASS=com.duongdieuphap.imageglass
 SKIM=net.sourceforge.skim-app.skim
 
 if ! command -v duti >/dev/null 2>&1; then
@@ -22,9 +23,19 @@ if ! command -v duti >/dev/null 2>&1; then
   exit 1
 fi
 
+# Spotlight is not consulted: a copy made seconds ago is not indexed yet.
+installed() {
+  local plist
+  for plist in /Applications/*.app/Contents/Info.plist "$HOME"/Applications/*.app/Contents/Info.plist; do
+    [ -f "$plist" ] || continue
+    [ "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "$plist" 2>/dev/null)" = "$1" ] && return 0
+  done
+  return 1
+}
+
 # $1 bundle id, $2 an extension whose handler tells whether the app already won
 warm_up() {
-  if ! mdfind "kMDItemCFBundleIdentifier == '$1'" | grep -q .; then
+  if ! installed "$1"; then
     echo "not installed: $1" >&2
     return 1
   fi
@@ -34,16 +45,16 @@ warm_up() {
   fi
 }
 
-if warm_up "$PICVIEW" png; then
+if warm_up "$IMAGEGLASS" png; then
   for uti in public.image public.png public.jpeg public.jpeg-2000 public.tiff \
              public.heic public.heif public.avif public.svg-image \
              com.compuserve.gif com.microsoft.bmp com.microsoft.ico \
              org.webmproject.webp com.adobe.raw-image public.camera-raw-image; do
-    duti -s "$PICVIEW" "$uti" all 2>/dev/null || true
+    duti -s "$IMAGEGLASS" "$uti" all 2>/dev/null || true
   done
   for ext in png jpg jpeg jpe gif webp heic heif avif bmp tif tiff ico svg jxl \
              psd tga dds raw arw cr2 cr3 nef dng orf raf rw2; do
-    duti -s "$PICVIEW" ".$ext" all 2>/dev/null || true
+    duti -s "$IMAGEGLASS" ".$ext" all 2>/dev/null || true
   done
   echo "images: $(duti -x png | tail -1)"
 fi

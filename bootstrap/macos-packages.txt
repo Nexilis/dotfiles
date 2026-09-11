@@ -101,11 +101,11 @@ apps        cask      keepassxc
 apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
 apps        cask      skim                        # PDF reader
-apps        cask      picview                     # image viewer
+apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
 apps        cask      telegram
 apps        cask      firefox
 apps        formula   duti                        # sets default apps; used by default-apps
-apps        script    default-apps                # PicView opens images, Skim opens PDF
+apps        script    default-apps                # ImageGlass opens images, Skim opens PDF
 
 # --- media ------------------------------------------------------------------
 media       cask      spotify
@@ -128,6 +128,9 @@ work        formula   googleworkspace-cli                   # the gws CLI
 
 # --- Rejected: tried and removed, do NOT reinstall --------------------------
 #   shortcat (cask)        does not work with kitty or other terminal apps
+#   qview (cask)           stopped launching; cask disabled 2026-09-01, fails Gatekeeper
+#   picview (cask)         5.0.6 crashes on every file opened from Finder (macOS 26)
+#   nomacs (GitHub dmg)    ad-hoc signature, Gatekeeper rejects it on macOS 26
 #   aerospace (tap cask)   tiling WM, many issues on macOS 26
 #   amethyst               tiling WM, no concept of Spaces
 #   flashspace             replaced by the custom Hammerspoon script

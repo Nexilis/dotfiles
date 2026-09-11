@@ -55,7 +55,7 @@ ai-agents *ARGS:
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
-# Daily driver apps: keepassxc, syncthing, shottr, skim, picview, telegram, firefox
+# Daily driver apps: keepassxc, syncthing, shottr, skim, imageglass, telegram, firefox
 apps *ARGS:
     bash {{install}} apps {{ARGS}}
 
