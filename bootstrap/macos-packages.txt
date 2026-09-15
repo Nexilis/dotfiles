@@ -86,7 +86,6 @@ ai-agents   script    antigravity                 # Google `agy` CLI, tryout
 # --- desktop: input devices and window behaviour ----------------------------
 desktop     cask      linearmouse                 # kills mouse acceleration
 desktop     cask      karabiner-elements
-desktop     cask      8bitdo-ultimate-software-v2 # 8BitDo gamepad config + firmware
 # Hammerspoon is needed on the PRIVATE Mac too, not just for work: the virtual
 # desktop switching shortcuts (Hyper+arrow via iss) are not optional in daily
 # use. This is also why caps_lock -> Hyper in karabiner.json applies to every

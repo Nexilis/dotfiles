@@ -51,7 +51,7 @@ langs *ARGS:
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
 
-# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon, 8bitdo
+# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
