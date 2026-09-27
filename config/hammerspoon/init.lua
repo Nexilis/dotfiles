@@ -382,9 +382,10 @@ windowSwitcherTap:start()
 local menu = hs.menubar.new()
 
 -- Two sources share the system-sleep assertion: the manual toggle (screen and
--- system awake, off on battery) and Claude Code sessions that are mid-turn
--- (system only, on battery too). claude-busy.sh, run from Claude Code hooks,
--- keeps one marker file per working session in claudeBusyDir.
+-- system awake, off on battery) and Claude Code or omp sessions that are
+-- mid-turn (system only, on battery too). claude-busy.sh (Claude Code hooks)
+-- and omp/extensions/keep-awake.ts keep one marker per working session in
+-- claudeBusyDir.
 local caffManual = false
 local claudeBusyCount = 0
 local claudeBusyDir = home .. "/.cache/claude-busy"
@@ -402,7 +403,7 @@ local function setCaffState(state)
 end
 
 local function refreshClaudeBusy()
-    local claudeRunning = hs.execute("pgrep -x claude") ~= ""
+    local claudeRunning = hs.execute("pgrep -x 'claude|omp'") ~= ""
     local now = os.time()
     local count = 0
     for name in hs.fs.dir(claudeBusyDir) do
@@ -481,8 +482,8 @@ menu:setMenu(function()
     local caffOn = caffManual
     refreshClaudeBusy()
     local claudeTitle = claudeBusyCount > 0
-        and string.format("🤖 Claude keep-awake: %d working", claudeBusyCount)
-        or "🤖 Claude keep-awake: idle"
+        and string.format("🤖 Agent keep-awake: %d working", claudeBusyCount)
+        or "🤖 Agent keep-awake: idle"
     local sec = secureInputStatus()
     local secTitle, secAction, secDetail, secCopy
     if not sec.enabled then
@@ -512,7 +513,7 @@ menu:setMenu(function()
         },
         {
             title = claudeTitle,
-            tooltip = "Keeps the system (not the screen) awake while a Claude Code turn runs",
+            tooltip = "Keeps the system (not the screen) awake while a Claude Code or omp turn runs",
             disabled = true,
         },
         { title = "-" },

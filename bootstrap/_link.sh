@@ -13,7 +13,7 @@
 #                                          is therefore skipped by the home pass)
 #   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
 #                                          holds the auth store and sessions, so
-#                                          only config.yml is linked)
+#                                          only single files are linked)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -118,9 +118,9 @@ fi
 # ~/.omp/agent, so link only these files and never the dir, to keep credentials
 # and local state out of this public repo. models.yml can reference API keys for
 # custom providers; keep it to routing/overrides only (no secrets) here.
-for f in config.yml models.yml; do
+for f in config.yml models.yml extensions/keep-awake.ts; do
   if [ -f "$REPO/omp/$f" ]; then
-    mkdir -p "$HOME/.omp/agent"
+    mkdir -p "$(dirname "$HOME/.omp/agent/$f")"
     link_one "$REPO/omp/$f" "$HOME/.omp/agent/$f"
   fi
 done

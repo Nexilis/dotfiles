@@ -271,9 +271,10 @@ Keybindings:
   switching after an OS update. `init.lua` runs `make` on every load, so a
   Hammerspoon relaunch picks up a changed `iss.c`.
 - Menubar keep-awake has two sources. The manual Caffeinate toggle holds screen
-  and system awake and turns off on battery. The Claude keep-awake is always on:
-  it holds only the system awake (`systemIdle`) while any Claude Code turn runs,
-  battery included, and the menu shows how many sessions are working. Lid close
+  and system awake and turns off on battery. The Agent keep-awake is always on:
+  it holds only the system awake (`systemIdle`) while any Claude Code or omp
+  turn runs, battery included, and the menu shows how many sessions are working.
+  The omp side is `omp/extensions/keep-awake.ts` (see the omp section). Lid close
   still sleeps. `claude-busy.sh` keeps one marker per working session in
   `~/.cache/claude-busy`; it is wired as Claude Code hooks in
   `~/.claude/settings.json`, which is not in this repo, so add them by hand on a
@@ -281,7 +282,9 @@ Keybindings:
   `Stop`, `StopFailure` (fires on Esc and API errors, `Stop` does not) and
   `SessionEnd` run `claude-busy.sh idle`. Command:
   `"$HOME/.config/hammerspoon/claude-busy.sh" busy`, timeout 5. Hammerspoon
-  drops markers older than 2 h and all of them when no `claude` process runs.
+  drops markers older than 2 h and all of them when no `claude` or `omp`
+  process runs. Testing from a Claude Code shell: macOS `pgrep` skips its own
+  ancestors, so `pgrep -x claude` finds nothing there; add `-a`.
   Claude Code itself also spawns `caffeinate -i -t 300` during a turn (seen on
   2026-09-27, not in its docs). The hooks stay: they are the documented path
   and feed the menu status.
@@ -360,7 +363,13 @@ captured again (which breaks TUIs like omp).
 Current AI-agent tryout (replaced maki and pi). Installed from `can1357/tap`
 via `bootstrap-macos.sh`; `omp/config.yml` and `omp/models.yml` are linked into
 `~/.omp/agent/` by `_link.sh` (only these files; the dir also holds the auth
-store and sessions). Model auth is the exported `OPENROUTER_API_KEY` fish
+store and sessions), and so is `omp/extensions/keep-awake.ts`, which is
+auto-discovered from `~/.omp/agent/extensions/`. It writes the Hammerspoon
+keep-awake marker (`omp-<sessionId>`) on `agent_start` and `tool_result`, and
+removes it on `agent_end` (fires on abort and error too; skipped while
+`willContinue` says an auto-retry follows) and `session_shutdown`. Subagents
+(`ctx.agent.kind === "sub"`) are ignored. omp does not run the Claude Code
+hooks in `~/.claude/settings.json`. Model auth is the exported `OPENROUTER_API_KEY` fish
 universal variable. `models.yml` pins the OpenRouter upstream provider for
 glm-5.2 to Novita (`openRouterRouting.only`); may move to an OpenRouter-side
 preset later.
