@@ -7,9 +7,8 @@ local hyper = { "cmd", "ctrl", "alt", "shift" }
 -- Instant Space Switcher (github.com/joshuarli/iss)
 local issDir = home .. "/.config/hammerspoon/iss"
 local issPath = issDir .. "/iss"
-if not hs.fs.attributes(issPath) then
-    hs.execute("cd " .. issDir .. " && make 2>&1")
-end
+-- Always run make: it rebuilds only when iss.c is newer than the binary.
+hs.execute("cd " .. issDir .. " && make 2>&1")
 hs.execute("pkill -xf '" .. issPath .. "' 2>/dev/null", true)
 if hs.fs.attributes(issPath) then
     issTask = hs.task.new(issPath, function() end)
