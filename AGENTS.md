@@ -262,8 +262,10 @@ Keybindings:
   code comment explains why window-level froze (HS #3712 all-windows AX stall).
 - `iss` (`Hyper+arrow`): instant Space switch. Vendored C source from
   github.com/joshuarli/iss, built and launched from `init.lua`. Upstream has
-  no keyboard trigger; the Hyper+Left/Right block in `cb()` and the keyDown bit
-  in the tap mask are ours, so re-add them when re-syncing from upstream.
+  no keyboard trigger; the Hyper+Left/Right block in `cb()`, the keyDown bit
+  in the tap mask, and the `can_switch` edge check on the macOS 27 path in
+  `post_switch()` (stops the black bounce past the first/last Space) are ours,
+  so re-add them when re-syncing from upstream.
   macOS 27 ignores synthetic dock swipes without a raw IOHID payload (CGEvent
   field 4205); upstream 09beeb6 added it, and an older copy silently stops
   switching after an OS update. `init.lua` runs `make` on every load, so a

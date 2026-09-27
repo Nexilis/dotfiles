@@ -392,9 +392,11 @@ cleanup:
 
 static void post_switch(bool right) {
     bool augmented = requires_event_augmentation();
-    // On macOS 27, CGSGetActiveSpace() can lag behind the Dock's synthetic
-    // switch, so the Dock itself handles boundary spaces on this path.
-    if (!augmented && !can_switch(right)) return;
+    // Local change: upstream skips this on macOS 27, and the Dock then shows a
+    // black overscroll bounce past the first/last space. CGSGetActiveSpace()
+    // trails a switch by ~50 ms, so only presses faster than that slip past.
+    // On the augmented path `right` means "previous space", hence the flip.
+    if (!can_switch(augmented ? !right : right)) return;
 
     if (augmented) {
         post_augmented_switch(right);
