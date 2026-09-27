@@ -282,6 +282,9 @@ Keybindings:
   `SessionEnd` run `claude-busy.sh idle`. Command:
   `"$HOME/.config/hammerspoon/claude-busy.sh" busy`, timeout 5. Hammerspoon
   drops markers older than 2 h and all of them when no `claude` process runs.
+  Claude Code itself also spawns `caffeinate -i -t 300` during a turn (seen on
+  2026-09-27, not in its docs). The hooks stay: they are the documented path
+  and feed the menu status.
 
 Gotchas:
 
