@@ -381,17 +381,49 @@ windowSwitcherTap:start()
 -- Unified menubar: space number + caffeinate + Zscaler
 local menu = hs.menubar.new()
 
-local function setCaffState(state)
-    if state then
-        hs.caffeinate.set("displayIdle", true)
-        hs.caffeinate.set("systemIdle", true)
-    else
-        hs.caffeinate.set("displayIdle", false)
-        hs.caffeinate.set("systemIdle", false)
-    end
+-- Two sources share the system-sleep assertion: the manual toggle (screen and
+-- system awake, off on battery) and Claude Code sessions that are mid-turn
+-- (system only, on battery too). claude-busy.sh, run from Claude Code hooks,
+-- keeps one marker file per working session in claudeBusyDir.
+local caffManual = false
+local claudeBusyCount = 0
+local claudeBusyDir = home .. "/.cache/claude-busy"
+-- Esc and crashes can leave a marker behind; one this old is not a real turn.
+local claudeStaleSeconds = 2 * 60 * 60
+
+local function applyCaffeinate()
+    hs.caffeinate.set("displayIdle", caffManual)
+    hs.caffeinate.set("systemIdle", caffManual or claudeBusyCount > 0)
 end
 
-setCaffState(false)
+local function setCaffState(state)
+    caffManual = state
+    applyCaffeinate()
+end
+
+local function refreshClaudeBusy()
+    local claudeRunning = hs.execute("pgrep -x claude") ~= ""
+    local now = os.time()
+    local count = 0
+    for name in hs.fs.dir(claudeBusyDir) do
+        if name:sub(1, 1) ~= "." then
+            local path = claudeBusyDir .. "/" .. name
+            local mtime = hs.fs.attributes(path, "modification")
+            if claudeRunning and mtime and now - mtime < claudeStaleSeconds then
+                count = count + 1
+            else
+                os.remove(path)
+            end
+        end
+    end
+    claudeBusyCount = count
+    applyCaffeinate()
+end
+
+hs.execute("mkdir -p '" .. claudeBusyDir .. "'")
+claudeBusyWatcher = hs.pathwatcher.new(claudeBusyDir, refreshClaudeBusy):start()
+claudeBusyTimer = hs.timer.doEvery(60, refreshClaudeBusy)
+refreshClaudeBusy()
 
 hs.battery.watcher.new(function()
     if not hs.battery.isCharging() and not hs.battery.isCharged() then
@@ -446,7 +478,11 @@ local function secureInputStatus()
 end
 
 menu:setMenu(function()
-    local caffOn = hs.caffeinate.get("displayIdle")
+    local caffOn = caffManual
+    refreshClaudeBusy()
+    local claudeTitle = claudeBusyCount > 0
+        and string.format("🤖 Claude keep-awake: %d working", claudeBusyCount)
+        or "🤖 Claude keep-awake: idle"
     local sec = secureInputStatus()
     local secTitle, secAction, secDetail, secCopy
     if not sec.enabled then
@@ -473,6 +509,11 @@ menu:setMenu(function()
         {
             title = caffOn and "☕ Caffeinate: ON" or "💤 Caffeinate: OFF",
             fn = function() setCaffState(not caffOn) end,
+        },
+        {
+            title = claudeTitle,
+            tooltip = "Keeps the system (not the screen) awake while a Claude Code turn runs",
+            disabled = true,
         },
         { title = "-" },
         {

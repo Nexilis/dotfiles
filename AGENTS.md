@@ -270,6 +270,18 @@ Keybindings:
   field 4205); upstream 09beeb6 added it, and an older copy silently stops
   switching after an OS update. `init.lua` runs `make` on every load, so a
   Hammerspoon relaunch picks up a changed `iss.c`.
+- Menubar keep-awake has two sources. The manual Caffeinate toggle holds screen
+  and system awake and turns off on battery. The Claude keep-awake is always on:
+  it holds only the system awake (`systemIdle`) while any Claude Code turn runs,
+  battery included, and the menu shows how many sessions are working. Lid close
+  still sleeps. `claude-busy.sh` keeps one marker per working session in
+  `~/.cache/claude-busy`; it is wired as Claude Code hooks in
+  `~/.claude/settings.json`, which is not in this repo, so add them by hand on a
+  new Mac: `UserPromptSubmit` and `PostToolUse` run `claude-busy.sh busy`;
+  `Stop`, `StopFailure` (fires on Esc and API errors, `Stop` does not) and
+  `SessionEnd` run `claude-busy.sh idle`. Command:
+  `"$HOME/.config/hammerspoon/claude-busy.sh" busy`, timeout 5. Hammerspoon
+  drops markers older than 2 h and all of them when no `claude` process runs.
 
 Gotchas:
 
