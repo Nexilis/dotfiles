@@ -260,8 +260,14 @@ Keybindings:
   repeat rotates which window is main.
 - `Hyper+Tab`: MRU application switcher (`hs.chooser`). App-level on purpose; the
   code comment explains why window-level froze (HS #3712 all-windows AX stall).
-- `iss` (`Hyper+arrow`): instant Space switch. Separate Go binary
-  (github.com/joshuarli/iss), built and launched from `init.lua`.
+- `iss` (`Hyper+arrow`): instant Space switch. Vendored C source from
+  github.com/joshuarli/iss, built and launched from `init.lua`. Upstream has
+  no keyboard trigger; the Hyper+Left/Right block in `cb()` and the keyDown bit
+  in the tap mask are ours, so re-add them when re-syncing from upstream.
+  macOS 27 ignores synthetic dock swipes without a raw IOHID payload (CGEvent
+  field 4205); upstream 09beeb6 added it, and an older copy silently stops
+  switching after an OS update. `init.lua` runs `make` on every load, so a
+  Hammerspoon relaunch picks up a changed `iss.c`.
 
 Gotchas:
 
