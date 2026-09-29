@@ -1,4 +1,4 @@
-# Startup layout: five pre-named tabs in the first OS window.
+# Startup layout: six pre-named tabs in the first OS window.
 # Loaded via `startup_session startup.session` in kitty.conf.
 # Applies to kitty startup only; a new OS window (Cmd+N) gets one plain tab.
 # Tab titles set here are fixed and are not overwritten by the shell.
@@ -15,10 +15,14 @@ launch
 new_tab aux
 launch
 
+new_tab priv
+cd ~/Documents/sync/private-sync
+launch
+
 # fish -C runs the command after config.fish, then drops into the interactive
 # shell, so quitting yazi leaves a usable prompt in the tab.
 new_tab yazi
-cd ~/Documents/sync/private-sync
+cd ~/Downloads
 launch fish -C yy
 
 new_tab one-offs
