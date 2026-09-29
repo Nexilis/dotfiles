@@ -4,24 +4,24 @@
 # Tab titles set here are fixed and are not overwritten by the shell.
 # `cd` sets the working directory for the launches that follow it in the tab.
 
-new_tab work-1
+new_tab main
 cd ~/Documents/sync/work-sync
 launch
 
-new_tab work-2
+new_tab secondary
 cd ~/Documents/sync/work-sync
+launch
+
+new_tab aux
 launch
 
 # fish -C runs the command after config.fish, then drops into the interactive
 # shell, so quitting yazi leaves a usable prompt in the tab.
-new_tab tools
+new_tab yazi
+cd ~/Documents/sync/private-sync
 launch fish -C yy
 
-new_tab priv
-cd ~/Documents/sync/private-sync
-launch
-
-new_tab downloads
+new_tab one-offs
 cd ~/Downloads
 launch
 
