@@ -75,7 +75,8 @@ move `_link.sh` back to the end.
   `groups`, `link`. A bare `just` in `bootstrap/` lists everything, which is the
   point: nothing has to be remembered on a fresh Mac.
 - The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
-  googleworkspace-cli) defaults to **no** in `--interactive`; the private Mac
+  googleworkspace-cli, azure-cli, and colima + docker + docker-compose for the
+  CubeJs local stack; Colima replaces Docker Desktop) defaults to **no** in `--interactive`; the private Mac
   runs without it. Hammerspoon is NOT in it: it lives in `desktop` and belongs on
   both machines.
 
