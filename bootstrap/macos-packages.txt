@@ -101,7 +101,7 @@ apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
 apps        cask      skim                        # PDF reader
 apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
-apps        cask      telegram
+apps        cask      telegram-desktop
 apps        cask      firefox
 apps        formula   duti                        # sets default apps; used by default-apps
 apps        script    default-apps                # ImageGlass opens images, Skim opens PDF
