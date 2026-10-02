@@ -129,6 +129,8 @@ work        formula   colima                                # free Docker engine
 work        formula   docker                                # docker CLI only, talks to colima
 work        formula   docker-compose
 work        script    docker-compose-plugin                 # links compose so `docker compose` works
+work        formula   vale                                  # prose linter for the Claudette writing rules
+work        script    claudette-vale                        # links the synced Claudette style, adds the Claude Code hook
 
 # --- Rejected: tried and removed, do NOT reinstall --------------------------
 #   shortcat (cask)        does not work with kitty or other terminal apps
