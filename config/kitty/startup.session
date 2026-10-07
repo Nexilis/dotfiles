@@ -8,7 +8,7 @@ new_tab main
 cd ~/Documents/sync/work-sync
 launch
 
-new_tab secondary
+new_tab sec
 cd ~/Documents/sync/work-sync
 launch
 launch
@@ -26,7 +26,7 @@ new_tab yazi
 cd ~/Downloads
 launch fish -C yy
 
-new_tab one-offs
+new_tab misc
 cd ~/Downloads
 launch
 launch
