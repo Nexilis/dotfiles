@@ -15,7 +15,7 @@ for tool in vale jq; do
 done
 
 if [ ! -L "$HOME/.claude/claudette.md" ]; then
-  echo "~/.claude/claudette.md is not linked yet; link the synced Claude folder, then rerun" >&2
+  echo "~/.claude/claudette.md is not linked yet; run claude-sync-links.sh first, then rerun" >&2
   exit 1
 fi
 

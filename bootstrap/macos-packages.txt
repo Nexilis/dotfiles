@@ -130,6 +130,7 @@ work        formula   docker                                # docker CLI only, t
 work        formula   docker-compose
 work        script    docker-compose-plugin                 # links compose so `docker compose` works
 work        formula   vale                                  # prose linter for the Claudette writing rules
+work        script    claude-sync-links                     # links the synced Claude folder (CLAUDE.md, agents, commands, vale) into ~/.claude
 work        script    claudette-vale                        # links the synced Claudette style, adds the Claude Code hook
 
 # --- Rejected: tried and removed, do NOT reinstall --------------------------
