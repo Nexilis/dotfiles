@@ -11,7 +11,7 @@ DRY=0
 
 SRC="$HOME/Documents/sync/.claude"
 DST="$HOME/.claude"
-ENTRIES="CLAUDE.md claudette.md claudette-hook.md vale agents commands"
+ENTRIES="CLAUDE.md claudette.md codette.md claudette-hook.md vale agents commands"
 
 if [ ! -d "$SRC" ]; then
   echo "$SRC not found; wait for Syncthing to finish, then rerun" >&2
