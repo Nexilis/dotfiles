@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-flatpak install flathub com.github.xournalpp.xournalpp -y
+# PdfCraft is not on Flathub; its GitHub release ships a flatpak bundle.
+PDFCRAFT=0.6.0
+wget https://github.com/storytold/pdfcraft/releases/download/v$PDFCRAFT/pdfcraft-$PDFCRAFT-linux-x86_64.flatpak -O $HOME/Downloads/pdfcraft.flatpak
+flatpak install --bundle $HOME/Downloads/pdfcraft.flatpak -y
+rm -vf $HOME/Downloads/pdfcraft.flatpak
 flatpak install flathub org.libreoffice.LibreOffice -y
 flatpak install flathub com.spotify.Client -y
 flatpak install flathub org.gimp.GIMP -y
