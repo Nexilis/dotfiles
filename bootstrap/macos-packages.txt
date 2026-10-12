@@ -99,16 +99,16 @@ desktop     cask      bettercmdtab
 apps        cask      keepassxc
 apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
-apps        cask      skim                        # PDF reader
+apps        cask      pdfcraft                    # PDF reader and editor
 apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
 apps        cask      telegram-desktop
 apps        cask      firefox
 apps        formula   duti                        # sets default apps; used by default-apps
-apps        script    default-apps                # ImageGlass opens images, Skim opens PDF
+apps        script    default-apps                # ImageGlass opens images, PdfCraft opens PDF
 
 # --- media ------------------------------------------------------------------
 media       cask      spotify
-media       cask      gimp
+media       cask      photocraft                  # image editor
 media       cask      calibre
 media       cask      libreoffice
 media       formula   cmus                        # terminal music player

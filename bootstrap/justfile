@@ -55,11 +55,11 @@ ai-agents *ARGS:
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
-# Daily driver apps: keepassxc, syncthing, shottr, skim, imageglass, telegram-desktop, firefox
+# Daily driver apps: keepassxc, syncthing, shottr, pdfcraft, imageglass, telegram-desktop, firefox
 apps *ARGS:
     bash {{install}} apps {{ARGS}}
 
-# spotify, gimp, calibre, libreoffice, cmus
+# spotify, photocraft, calibre, libreoffice, cmus
 media *ARGS:
     bash {{install}} media {{ARGS}}
 

@@ -59,7 +59,7 @@ move `_link.sh` back to the end.
   `formula`, `cask`, or `script` (the last one runs `bootstrap/macos/<pkg>.sh`,
   which is how the non-brew installers rustup / antigravity / gocryptfs are
   wired in). Scripts run after the group's casks, so `default-apps` (duti:
-  ImageGlass for images, Skim for PDF) can rely on the apps being present. Each
+  ImageGlass for images, PdfCraft for PDF) can rely on the apps being present. Each
   app must be launched once before duti has any effect; the script does that.
   macOS 26 then asks for confirmation per handler change; approve the dialogs.
   ImageGlass itself comes from the GitHub dmg via `imageglass` (script): no cask

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Default apps for file types: ImageGlass for images, Skim for PDF. Runs after the
+# Default apps for file types: ImageGlass for images, PdfCraft for PDF. Runs after the
 # apps casks, so the apps and duti are already installed. Idempotent: duti
 # overwrites.
 #
@@ -16,7 +16,7 @@
 set -uo pipefail
 
 IMAGEGLASS=com.duongdieuphap.imageglass
-SKIM=net.sourceforge.skim-app.skim
+PDFCRAFT=ai.storyteller.pdfcraft
 
 if ! command -v duti >/dev/null 2>&1; then
   echo "duti not on PATH; it is in the apps group" >&2
@@ -59,8 +59,8 @@ if warm_up "$IMAGEGLASS" png; then
   echo "images: $(duti -x png | tail -1)"
 fi
 
-if warm_up "$SKIM" pdf; then
-  duti -s "$SKIM" com.adobe.pdf all
-  duti -s "$SKIM" .pdf all
+if warm_up "$PDFCRAFT" pdf; then
+  duti -s "$PDFCRAFT" com.adobe.pdf all
+  duti -s "$PDFCRAFT" .pdf all
   echo "pdf: $(duti -x pdf | tail -1)"
 fi
