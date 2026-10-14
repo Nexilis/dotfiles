@@ -91,6 +91,7 @@ claude      script    claude-code                 # native installer; updates it
 claude      script    claude-sync-links           # links CLAUDE.md, settings.json, RTK.md, agents, commands, vale into ~/.claude
 claude      script    claudette-vale              # links the synced Claudette style, adds the Claude Code hook
 claude      script    claude-plugins              # installs the plugins settings.json enables
+claude      script    claude-powerline            # statusline, pinned npm package; needs node from langs
 
 # --- desktop: input devices and window behaviour ----------------------------
 desktop     cask      linearmouse                 # kills mouse acceleration

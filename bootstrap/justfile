@@ -51,7 +51,7 @@ langs *ARGS:
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
 
-# Claude Code: rtk, vale, the binary, synced config links, Claudette style, plugins
+# Claude Code: rtk, vale, the binary, synced config links, Claudette style, plugins, statusline
 claude *ARGS:
     bash {{install}} claude {{ARGS}}
 
