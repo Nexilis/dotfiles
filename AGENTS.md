@@ -77,9 +77,11 @@ move `_link.sh` back to the end.
   point: nothing has to be remembered on a fresh Mac.
 - The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
   googleworkspace-cli, azure-cli, and colima + docker + docker-compose for the
-  CubeJs local stack; Colima replaces Docker Desktop; vale plus the `claude-sync-links` script, which symlinks the synced Claude folder (`~/Documents/sync/.claude`: CLAUDE.md, claudette files, vale, agents, commands) into `~/.claude`, and the `claudette-vale` script, which runs the Claudette style's own installer from the synced Claude folder) defaults to **no** in `--interactive`; the private Mac
-  runs without it. Hammerspoon is NOT in it: it lives in `desktop` and belongs on
-  both machines.
+  CubeJs local stack; Colima replaces Docker Desktop) defaults to **no** in
+  `--interactive`; the private Mac runs without it. Hammerspoon is NOT in it: it
+  lives in `desktop` and belongs on both machines.
+- The **`claude`** group (`just claude`) sets up Claude Code on both Macs; see
+  the Claude Code section.
 
 **Consent rules for `--interactive` (learned the hard way).** The first real run
 installed groups nobody approved. Two causes, both fixed, neither to be undone:
@@ -105,6 +107,30 @@ The private-side counterpart is `private-sync/tech/apple-macbook.md`: the four
 commands to start a fresh Mac, the manual steps no script can do (Privacy &
 Security permissions per app, `.git` in the Syncthing `.stignore`, FileVault,
 macFUSE reduced security), and the parked software list.
+
+## Claude Code
+
+The `claude` group installs and configures everything, in this order: `rtk` and
+`vale` (brew), `claude-code.sh` (native installer, which updates itself; the
+Homebrew casks do not), `claude-sync-links.sh`, `claudette-vale.sh`, then
+`claude-plugins.sh`. Every step is a no-op on a configured Mac.
+
+- **Config lives in the synced Claude folder** (`~/Documents/sync/.claude`,
+  Syncthing), never in this public repo: settings.json carries company skill
+  names and permission rules. `claude-sync-links.sh` symlinks CLAUDE.md, the
+  claudette/codette files, RTK.md, settings.json, vale, agents and commands
+  into `~/.claude`. The only Claude file here is `home/.claude/themes`.
+- **A symlinked settings.json survives Claude Code's own writes** (tested
+  2026-10-14 with `claude plugin disable`/`enable`: the link stayed and the
+  synced file changed).
+- **Per machine, deliberately not synced:** settings.local.json, and
+  `plugins/installed_plugins.json` / `known_marketplaces.json`, which hold
+  absolute cache paths and install times. `claude-plugins.sh` installs every
+  plugin `enabledPlugins` lists instead.
+- `~/.claude` is also a local git repo (no remote) used for snapshots before
+  config moves.
+- The statusline binary is not provisioned yet; replacing the private one with
+  a public tool is open in `tk dot-errv`.
 
 ## Deploy mechanism (symlinks)
 
@@ -279,8 +305,8 @@ Keybindings:
   The omp side is `omp/extensions/keep-awake.ts` (see the omp section). Lid close
   still sleeps. `claude-busy.sh` keeps one marker per working session in
   `~/.cache/claude-busy`; it is wired as Claude Code hooks in
-  `~/.claude/settings.json`, which is not in this repo, so add them by hand on a
-  new Mac: `UserPromptSubmit` and `PostToolUse` run `claude-busy.sh busy`;
+  `~/.claude/settings.json`, which comes from the synced Claude folder (see the
+  Claude Code section): `UserPromptSubmit` and `PostToolUse` run `claude-busy.sh busy`;
   `Stop`, `StopFailure` (fires on Esc and API errors, `Stop` does not) and
   `SessionEnd` run `claude-busy.sh idle`. Command:
   `"$HOME/.config/hammerspoon/claude-busy.sh" busy`, timeout 5. Hammerspoon
