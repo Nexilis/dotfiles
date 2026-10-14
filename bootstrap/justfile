@@ -67,6 +67,10 @@ media *ARGS:
 work *ARGS:
     bash {{install}} work {{ARGS}}
 
+# Apply macOS settings (hidden files visible) and restart Finder
+defaults:
+    bash macos/defaults.sh
+
 # Symlink configs into place (--dry-run to preview, --force to replace differing files)
 link *ARGS:
     bash _link.sh {{ARGS}}

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
-# macOS bootstrap. Three steps, in this order:
+# macOS bootstrap. Four steps, in this order:
 #   1. get Homebrew and `just` onto the machine (stage 0),
 #   2. symlink the configs,
-#   3. hand over to bootstrap/justfile, which drives the package groups.
+#   3. apply macOS settings (macos/defaults.sh),
+#   4. hand over to bootstrap/justfile, which drives the package groups.
 #
 # Configs go BEFORE packages on purpose. Package installs are the long, noisy,
 # interruptible part; if the run dies halfway (or gets cancelled), the shell,
@@ -57,6 +58,13 @@ command -v just >/dev/null 2>&1 || brew install just
 # --- Symlink configs (before packages; see the header) ----------------------
 bash "$BOOT/_link.sh" "${LINK_ARGS[@]+"${LINK_ARGS[@]}"}"
 echo
+
+# --- macOS settings (defaults write) ----------------------------------------
+if [ -n "${DRY[*]+set}" ]; then
+  echo "dry run: skipping macOS defaults"
+else
+  bash "$BOOT/macos/defaults.sh"
+fi
 
 # --- Packages: groups picked at run time ------------------------------------
 JUST=(just --justfile "$BOOT/justfile" --working-directory "$BOOT")

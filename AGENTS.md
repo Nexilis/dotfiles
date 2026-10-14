@@ -45,9 +45,10 @@ pointer here. See "Work secrets" for an example of that split.
 
 ## macOS packages: manifest + groups
 
-`bootstrap-macos.sh` runs three steps in this order: stage 0 (Homebrew,
-`brew trust` for the taps, `just`), then `_link.sh`, then the package groups via
-`bootstrap/justfile`. What gets installed is NOT decided in the script.
+`bootstrap-macos.sh` runs four steps in this order: stage 0 (Homebrew,
+`brew trust` for the taps, `just`), then `_link.sh`, then `macos/defaults.sh`
+(system settings via `defaults write`; also `just defaults`), then the package
+groups via `bootstrap/justfile`. What gets installed is NOT decided in the script.
 
 **Configs are linked BEFORE packages, deliberately.** Package installs are the
 long, noisy, interruptible part. When that half is cancelled or dies, the shell,
