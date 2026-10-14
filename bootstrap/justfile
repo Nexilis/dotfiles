@@ -47,9 +47,13 @@ editors *ARGS:
 langs *ARGS:
     bash {{install}} langs {{ARGS}}
 
-# AI coding agents: omp, rtk, agy
+# AI coding agents: omp, agy
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
+
+# Claude Code: rtk, vale, the binary, synced config links, Claudette style, plugins
+claude *ARGS:
+    bash {{install}} claude {{ARGS}}
 
 # Input and window behaviour: linearmouse, karabiner-elements, hammerspoon
 desktop *ARGS:

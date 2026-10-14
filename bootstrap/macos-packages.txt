@@ -80,8 +80,17 @@ langs       script    rustup
 
 # --- ai-agents --------------------------------------------------------------
 ai-agents   formula   can1357/tap/omp             # oh-my-pi, tryout
-ai-agents   formula   rtk                         # token-saving CLI proxy
 ai-agents   script    antigravity                 # Google `agy` CLI, tryout
+
+# --- claude: Claude Code and every file it reads ---------------------------
+# On both Macs. Needs the synced Claude folder (~/Documents/sync/.claude) from
+# Syncthing; the scripts stop with a message when it is missing.
+claude      formula   rtk                         # token-saving CLI proxy; the settings.json hook calls it
+claude      formula   vale                        # prose linter for the Claudette writing rules
+claude      script    claude-code                 # native installer; updates itself
+claude      script    claude-sync-links           # links CLAUDE.md, settings.json, RTK.md, agents, commands, vale into ~/.claude
+claude      script    claudette-vale              # links the synced Claudette style, adds the Claude Code hook
+claude      script    claude-plugins              # installs the plugins settings.json enables
 
 # --- desktop: input devices and window behaviour ----------------------------
 desktop     cask      linearmouse                 # kills mouse acceleration
@@ -129,9 +138,6 @@ work        formula   colima                                # free Docker engine
 work        formula   docker                                # docker CLI only, talks to colima
 work        formula   docker-compose
 work        script    docker-compose-plugin                 # links compose so `docker compose` works
-work        formula   vale                                  # prose linter for the Claudette writing rules
-work        script    claude-sync-links                     # links the synced Claude folder (CLAUDE.md, agents, commands, vale) into ~/.claude
-work        script    claudette-vale                        # links the synced Claudette style, adds the Claude Code hook
 
 # --- Rejected: tried and removed, do NOT reinstall --------------------------
 #   shortcat (cask)        does not work with kitty or other terminal apps
