@@ -113,13 +113,15 @@ macFUSE reduced security), and the parked software list.
 The `claude` group installs and configures everything, in this order: `rtk` and
 `vale` (brew), `claude-code.sh` (native installer, which updates itself; the
 Homebrew casks do not), `claude-sync-links.sh`, `claudette-vale.sh`, then
-`claude-plugins.sh`. Every step is a no-op on a configured Mac.
+`claude-plugins.sh` and `claude-powerline.sh`. Every step is a no-op on a
+configured Mac.
 
 - **Config lives in the synced Claude folder** (`~/Documents/sync/.claude`,
   Syncthing), never in this public repo: settings.json carries company skill
   names and permission rules. `claude-sync-links.sh` symlinks CLAUDE.md, the
   claudette/codette files, RTK.md, settings.json, vale, agents and commands
-  into `~/.claude`. The only Claude file here is `home/.claude/themes`.
+  into `~/.claude`. The Claude files here are `home/.claude/themes` and the
+  statusline in `config/claude-powerline`.
 - **A symlinked settings.json survives Claude Code's own writes** (tested
   2026-10-14 with `claude plugin disable`/`enable`: the link stayed and the
   synced file changed).
@@ -129,8 +131,15 @@ Homebrew casks do not), `claude-sync-links.sh`, `claudette-vale.sh`, then
   plugin `enabledPlugins` lists instead.
 - `~/.claude` is also a local git repo (no remote) used for snapshots before
   config moves.
-- The statusline binary is not provisioned yet; replacing the private one with
-  a public tool is open in `tk dot-errv`.
+- **Statusline: claude-powerline**, a global npm package pinned in
+  `claude-powerline.sh` (bump `VERSION` only to a release at least 7 days old).
+  settings.json runs `~/.config/claude-powerline/statusline.sh`, which calls
+  powerline and swaps the 5-hour and 7-day reset countdowns for clock times
+  (`14:53`, `Fri 14:53`); powerline has no option for that. The wrapper matches
+  powerline's countdown format (`2h 10m`, `3d 5h`), so a release that changes
+  it makes the countdowns show again; nothing else breaks. The 5-hour and 7-day
+  segments only appear when Claude Code sends `rate_limits` (subscription
+  plans). It replaced a private custom statusline, removed 2026-10-14.
 
 ## Deploy mechanism (symlinks)
 
