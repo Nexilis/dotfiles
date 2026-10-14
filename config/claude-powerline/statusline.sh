@@ -5,6 +5,17 @@
 set -uo pipefail
 
 input="$(cat)"
+
+# Running sub-agents, from the markers subagents.sh keeps; the env segment hides
+# itself when the value is empty. A sub-agent killed without SubagentStop leaves
+# a marker behind, so markers older than 2 hours are ignored.
+session="$(jq -r '.session_id // empty' <<<"$input")"
+agents=0
+if [ -n "$session" ] && [ -d "$HOME/.cache/claude-subagents/$session" ]; then
+  agents="$(find "$HOME/.cache/claude-subagents/$session" -type f -mmin -120 | wc -l | tr -d ' ')"
+fi
+[ "$agents" -gt 0 ] && export CLAUDE_SUBAGENTS="$agents"
+
 line="$(claude-powerline --style=powerline <<<"$input")"
 
 clock() { [ -n "$1" ] && date -r "$1" "$2"; }

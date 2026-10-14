@@ -3,12 +3,36 @@
     "lines": [
       {
         "segments": {
-          "directory": { "enabled": true, "style": "basename" },
-          "git": { "enabled": true },
-          "model": { "enabled": true },
-          "context": { "enabled": true, "percentageMode": "used" },
-          "block": { "enabled": true },
-          "weekly": { "enabled": true }
+          "directory": {
+            "enabled": true,
+            "style": "basename"
+          },
+          "git": {
+            "enabled": true
+          },
+          "model": {
+            "enabled": true
+          },
+          "thinking": {
+            "enabled": true,
+            "showEnabled": false,
+            "showEffort": true
+          },
+          "context": {
+            "enabled": true,
+            "percentageMode": "used"
+          },
+          "block": {
+            "enabled": true
+          },
+          "weekly": {
+            "enabled": true
+          },
+          "env": {
+            "enabled": true,
+            "variable": "CLAUDE_SUBAGENTS",
+            "prefix": "agents"
+          }
         }
       }
     ]
