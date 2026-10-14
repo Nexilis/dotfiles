@@ -1,0 +1,16 @@
+{
+  "display": {
+    "lines": [
+      {
+        "segments": {
+          "directory": { "enabled": true, "style": "basename" },
+          "git": { "enabled": true },
+          "model": { "enabled": true },
+          "context": { "enabled": true, "percentageMode": "used" },
+          "block": { "enabled": true },
+          "weekly": { "enabled": true }
+        }
+      }
+    ]
+  }
+}
