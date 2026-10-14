@@ -119,8 +119,8 @@ configured Mac.
 - **Config lives in the synced Claude folder** (`~/Documents/sync/.claude`,
   Syncthing), never in this public repo: settings.json carries company skill
   names and permission rules. `claude-sync-links.sh` symlinks CLAUDE.md, the
-  claudette/codette files, RTK.md, settings.json, vale, agents and commands
-  into `~/.claude`. The Claude files here are `home/.claude/themes` and the
+  claudette/codette files, RTK.md, settings.json, vale, agents, commands and
+  mods into `~/.claude`. The Claude files here are `home/.claude/themes` and the
   statusline in `config/claude-powerline`.
 - **A symlinked settings.json survives Claude Code's own writes** (tested
   2026-10-14 with `claude plugin disable`/`enable`: the link stayed and the
@@ -129,6 +129,13 @@ configured Mac.
   `plugins/installed_plugins.json` / `known_marketplaces.json`, which hold
   absolute cache paths and install times. `claude-plugins.sh` installs every
   plugin `enabledPlugins` lists instead.
+- **Mods** (plugins that change the terminal view) live in the synced
+  `mods/` folder, registered in settings.json as the `local-mods` directory
+  marketplace. It holds `tool-lines` (each tool call as one clickable line,
+  `/tool-lines [on|off]`), a copy of a colleague's mod from a private company
+  repo, which is why it is not in this public repo. The copy does not follow
+  upstream; re-copy to update. The marketplace path in settings.json is
+  absolute, so it assumes the same username on every Mac.
 - `~/.claude` is also a local git repo (no remote) used for snapshots before
   config moves.
 - **Statusline: claude-powerline**, a global npm package pinned in
