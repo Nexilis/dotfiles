@@ -140,6 +140,18 @@ configured Mac.
   it makes the countdowns show again; nothing else breaks. The 5-hour and 7-day
   segments only appear when Claude Code sends `rate_limits` (subscription
   plans). It replaced a private custom statusline, removed 2026-10-14.
+- **Sub-agent count** (`⚙ agents: N`): the statusline input has no field for
+  running sub-agents, so `config/claude-powerline/subagents.sh` keeps one
+  marker per sub-agent in `~/.cache/claude-subagents/<session>`, wired as
+  SubagentStart / SubagentStop / SessionEnd hooks in the synced settings.json.
+  `statusline.sh` counts them into `CLAUDE_SUBAGENTS` for powerline's `env`
+  segment and skips markers older than 2 hours (a killed sub-agent may never
+  fire SubagentStop). `refreshInterval: 5` keeps the count fresh while the main
+  session is idle.
+- **The footer row under the statusline cannot be hidden.** It carries the
+  permission mode ("auto mode on") and background task count; the settings
+  reference (checked 2026-10-14) only offers `hideVimModeIndicator` and
+  `prStatusFooterEnabled`.
 
 ## Deploy mechanism (symlinks)
 
