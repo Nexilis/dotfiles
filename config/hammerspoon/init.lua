@@ -15,16 +15,13 @@ if hs.fs.attributes(issPath) then
     issTask:start()
 end
 
-hs.loadSpoon("MiroWindowsManager")
-
-spoon.MiroWindowsManager:bindHotkeys({
-    up         = { hyper, "k" },
-    down       = { hyper, "j" },
-    left       = { hyper, "h" },
-    right      = { hyper, "l" },
-    fullscreen = { hyper, "f" },
-    nextscreen = { hyper, "n" },
-})
+-- Move the focused window to the next screen, keeping its relative frame.
+hs.hotkey.bind(hyper, "p", function()
+    local win = hs.window.focusedWindow()
+    if not win then return end
+    local screen = win:screen()
+    win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
+end)
 
 -- Tile the standard windows on the focused screen (Hyper+O):
 --   1 window  : maximize.
@@ -530,11 +527,7 @@ menu:setMenu(function()
         {
             title = "Window",
             menu = {
-                { title = "Hyper+H   Left",         fn = function() hs.eventtap.keyStroke(hyper, "h") end },
-                { title = "Hyper+J   Down",         fn = function() hs.eventtap.keyStroke(hyper, "j") end },
-                { title = "Hyper+K   Up",           fn = function() hs.eventtap.keyStroke(hyper, "k") end },
-                { title = "Hyper+L   Right",        fn = function() hs.eventtap.keyStroke(hyper, "l") end },
-                { title = "Hyper+N   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "n") end },
+                { title = "Hyper+P   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "p") end },
                 { title = "Hyper+O   Tile",         fn = function() hs.eventtap.keyStroke(hyper, "o") end },
             },
         },

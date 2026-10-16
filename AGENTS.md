@@ -308,8 +308,8 @@ quit and relaunch the app.
 Config is `config/hammerspoon/init.lua`. `Hyper` = `cmd+ctrl+alt+shift`.
 Keybindings:
 
-- `Hyper+h/j/k/l/f/n`: window moves via MiroWindowsManager (left/down/up/right,
-  fullscreen, next screen).
+- `Hyper+p`: move the focused window to the next screen, keeping its relative
+  frame.
 - `Hyper+o`: tile standard windows on the focused screen. 1 window maximizes;
   2 windows cycle 50/50 -> 30/70 -> 70/30 (a repeat at 50/50 swaps sides);
   3+ windows use main+stack (one big left, the rest stacked right) and each
