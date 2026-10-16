@@ -524,13 +524,8 @@ menu:setMenu(function()
         },
         { title = secAction, tooltip = secDetail, disabled = true },
         { title = "-" },
-        {
-            title = "Window",
-            menu = {
-                { title = "Hyper+P   Next Screen",  fn = function() hs.eventtap.keyStroke(hyper, "p") end },
-                { title = "Hyper+O   Tile",         fn = function() hs.eventtap.keyStroke(hyper, "o") end },
-            },
-        },
+        { title = "Hyper+P   Next Screen", fn = function() hs.eventtap.keyStroke(hyper, "p") end },
+        { title = "Hyper+O   Tile",        fn = function() hs.eventtap.keyStroke(hyper, "o") end },
         { title = "-" },
         {
             title = "Kill Zscaler",
