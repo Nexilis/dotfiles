@@ -104,6 +104,9 @@ desktop     cask      hammerspoon
 # BetterCmdTab replaces the Cmd+Tab switcher; unlike the macOS one it reopens
 # minimized windows without the hold-Option-release-Cmd trick. Tryout.
 desktop     cask      bettercmdtab
+# Loop moves and resizes windows (trigger key plus direction, or the radial menu).
+desktop     cask      loop
+desktop     script    loop                        # imports bootstrap/macos/loop.plist on a machine without Loop settings
 
 # --- apps: daily drivers ----------------------------------------------------
 apps        cask      keepassxc

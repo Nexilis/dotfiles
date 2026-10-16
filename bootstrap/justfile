@@ -55,7 +55,7 @@ ai-agents *ARGS:
 claude *ARGS:
     bash {{install}} claude {{ARGS}}
 
-# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon
+# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon, bettercmdtab, loop
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
@@ -78,3 +78,11 @@ defaults:
 # Symlink configs into place (--dry-run to preview, --force to replace differing files)
 link *ARGS:
     bash _link.sh {{ARGS}}
+
+# Save the live Loop settings to macos/loop.plist (commit it after)
+loop-export:
+    bash macos/loop.sh export
+
+# Load macos/loop.plist into Loop, replacing the live settings
+loop-import:
+    bash macos/loop.sh import --force

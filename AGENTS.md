@@ -73,8 +73,9 @@ move `_link.sh` back to the end.
   `--interactive`, `--dry-run`. A failed batch is retried per package so the log
   names the one that broke, and no failure aborts the rest of the run.
 - **`bootstrap/justfile`** exposes one recipe per group plus `pick`, `all`,
-  `groups`, `link`. A bare `just` in `bootstrap/` lists everything, which is the
-  point: nothing has to be remembered on a fresh Mac.
+  `groups`, `link`, `loop-export`, `loop-import`. A bare `just` in
+  `bootstrap/` lists everything, which is the point: nothing has to be
+  remembered on a fresh Mac.
 - The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
   googleworkspace-cli, azure-cli, and colima + docker + docker-compose for the
   CubeJs local stack; Colima replaces Docker Desktop) defaults to **no** in
@@ -290,6 +291,26 @@ disable outlives the process, and a SIGKILL or a crash skips the restore path, s
 the native switcher stays dead system-wide. The next launch clears it
 unconditionally (`SwitcherController.start()` self-heals; see
 `SymbolicHotkeyGuard.swift`), and a reboot works too.
+
+## Loop
+
+Window manager: hold the trigger key and pick a direction, or use the radial
+menu. It took over the window moves Hammerspoon used to do; Hammerspoon keeps
+only `Hyper+o` and `Hyper+p`.
+
+Settings live in the `com.MrKai77.Loop` defaults domain. `cfprefsd` owns that
+plist, so it is tracked as a copy, not a symlink: `bootstrap/macos/loop.plist`,
+moved by `bootstrap/macos/loop.sh`.
+
+- **After changing settings in the app, run `just loop-export` in `bootstrap/`**
+  and commit `loop.plist`. Nothing writes it back on its own.
+- The export drops per-machine keys: `timesLooped`, `lastUsedAccentColor1/2` and
+  every `*__DEFAULTS__synchronizeTimestamp`. It is stable, so a repeated export
+  with no setting change leaves `git status` clean.
+- The `desktop` group's `loop` script imports only when the domain has no
+  `keybinds` yet, so a rerun never overwrites local changes. `just loop-import`
+  forces it. Import quits Loop first, because Loop writes its in-memory settings
+  back at quit.
 
 ## Hammerspoon
 
