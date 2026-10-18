@@ -77,6 +77,9 @@ langs       formula   pkgconf
 langs       formula   leiningen
 langs       cask      temurin                     # JDK
 langs       cask      dotnet-sdk                  # .NET; Mason builds fsautocomplete with it
+langs       formula   python                      # replaces macOS python3 3.9 on PATH
+langs       formula   ruff                        # lint and format; nvim formats Python with it
+langs       formula   mypy
 langs       script    rustup
 
 # --- ai-agents --------------------------------------------------------------
