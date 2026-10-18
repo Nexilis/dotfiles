@@ -224,13 +224,12 @@ require("lazy").setup({
   {
     "williamboman/mason-lspconfig.nvim", -- bridges mason and lspconfig
     opts = {
-      ensure_installed = {
+      ensure_installed = vim.list_extend({
         "denols",
-        "fsautocomplete",
         --        "harper_ls",
         "lua_ls",
         "rust_analyzer",
-      },
+      }, vim.fn.executable("dotnet") == 1 and { "fsautocomplete" } or {}), -- Mason builds it with dotnet
     },
   },
   "neovim/nvim-lspconfig", -- enable LSP
@@ -841,6 +840,11 @@ require("lazy").setup({
           end,
         },
         update_focused_file = { enable = true },
+        filesystem_watchers = {
+          -- the list replaces the plugin defaults, so they are repeated; macOS
+          -- privacy rules deny watching folders inside ~/Library (EPERM)
+          ignore_dirs = { "/.ccls-cache", "/build", "/node_modules", "/target", "/.zig-cache", "^" .. vim.env.HOME .. "/Library/" },
+        },
       })
     end,
     event = "VeryLazy",
