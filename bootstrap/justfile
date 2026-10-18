@@ -43,7 +43,7 @@ files *ARGS:
 editors *ARGS:
     bash {{install}} editors {{ARGS}}
 
-# Toolchains: go, node, rust, java, cmake
+# Toolchains: go, node, rust, java, .NET, python, cmake
 langs *ARGS:
     bash {{install}} langs {{ARGS}}
 
