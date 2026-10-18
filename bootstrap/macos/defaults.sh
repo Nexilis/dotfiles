@@ -14,5 +14,9 @@ fi
 defaults write -g AppleShowAllFiles -bool true
 defaults write com.apple.finder AppleShowAllFiles -bool true
 
+# Hammerspoon reads ~/.hammerspoon/init.lua unless told otherwise; the config is
+# linked to ~/.config/hammerspoon. Read at launch, so relaunch Hammerspoon.
+defaults write org.hammerspoon.Hammerspoon MJConfigFile "~/.config/hammerspoon/init.lua"
+
 # Not running is fine; launchd starts Finder again on its own.
 killall Finder 2>/dev/null || true

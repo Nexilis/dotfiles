@@ -332,7 +332,10 @@ Reloading is awkward by design: the AppleScript/IPC bridges are off and
 `init.lua` hides the default menubar icon, so there is no tool-driven reload;
 quit and relaunch the app.
 
-Config is `config/hammerspoon/init.lua`. `Hyper` = `cmd+ctrl+alt+shift`.
+Config is `config/hammerspoon/init.lua`, linked to `~/.config/hammerspoon`.
+Hammerspoon only finds it there because `macos/defaults.sh` sets the
+`MJConfigFile` default; without it the console says "Can't find
+~/.hammerspoon/init.lua". `Hyper` = `cmd+ctrl+alt+shift`.
 Keybindings:
 
 - `Hyper+p`: move the focused window to the next screen, keeping its relative
