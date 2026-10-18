@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Links the synced Claude folder (~/Documents/sync/.claude, carried by
 # Syncthing) into ~/.claude. Only named entries are linked: ~/.claude itself
-# holds per-machine session state. Safe to rerun; never replaces a real file.
+# holds per-machine session state. Safe to rerun. A real file or dir in the way
+# (e.g. one written by `rtk init` or Claude Code before this ran) is moved to
+# <name>.bak.<timestamp> and replaced by the link, so the synced config wins.
 #
 # Usage: claude-sync-links.sh [--dry-run]
 set -uo pipefail
@@ -11,6 +13,7 @@ DRY=0
 
 SRC="$HOME/Documents/sync/.claude"
 DST="$HOME/.claude"
+STAMP=$(date +%Y%m%d-%H%M%S)
 ENTRIES="CLAUDE.md claudette.md codette.md claudette-hook.md RTK.md settings.json vale agents commands mods"
 
 if [ ! -d "$SRC" ]; then
@@ -34,7 +37,9 @@ for name in $ENTRIES; do
     continue
   fi
   if [ -e "$dst" ]; then
-    echo "SKIP  $dst (real file or dir; move it aside, then rerun)"; status=1; continue
+    echo "repl  $dst (real file or dir; backed up to $dst.bak.$STAMP)"
+    [ "$DRY" = 1 ] || { mv "$dst" "$dst.bak.$STAMP"; ln -s "$src" "$dst"; }
+    continue
   fi
   echo "link  $dst"
   [ "$DRY" = 1 ] || ln -s "$src" "$dst"
