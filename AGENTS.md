@@ -78,7 +78,9 @@ move `_link.sh` back to the end.
   remembered on a fresh Mac.
 - The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
   googleworkspace-cli, azure-cli, and colima + docker + docker-compose for the
-  CubeJs local stack; Colima replaces Docker Desktop) defaults to **no** in
+  CubeJs local stack; Colima replaces Docker Desktop; `nvim-copilot`, which
+  creates `~/.local/share/nvim/copilot`, the marker without which Neovim does
+  not load copilot.lua; Linux never gets it) defaults to **no** in
   `--interactive`; the private Mac runs without it. Hammerspoon is NOT in it: it
   lives in `desktop` and belongs on both machines.
 - The **`claude`** group (`just claude`) sets up Claude Code on both Macs; see

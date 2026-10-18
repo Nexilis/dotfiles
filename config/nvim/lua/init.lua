@@ -78,11 +78,17 @@ key.set("n", "<c-k>", "<cmd>move .-2<cr>==", { silent = true })
 key.set({ "n", "v" }, "d", '"_d')
 key.set("n", "D", '"_D')
 
--- copilot
-key.set("i", "<D-s>", "<cmd>lua require('copilot.suggestion').accept_word()<cr>", { silent = true })
-key.set("i", "<D-d>", "<cmd>lua require('copilot.suggestion').accept_line()<cr>", { silent = true })
-key.set("i", "<D-]>", "<cmd>lua require('copilot.suggestion').next()<cr>", { silent = true })
-key.set("i", "<D-[>", "<cmd>lua require('copilot.suggestion').prev()<cr>", { silent = true })
+-- copilot; the keys do nothing where the plugin is not loaded
+local function copilot(action)
+  return function()
+    local ok, suggestion = pcall(require, "copilot.suggestion")
+    if ok then suggestion[action]() end
+  end
+end
+key.set("i", "<D-s>", copilot("accept_word"), { silent = true })
+key.set("i", "<D-d>", copilot("accept_line"), { silent = true })
+key.set("i", "<D-]>", copilot("next"), { silent = true })
+key.set("i", "<D-[>", copilot("prev"), { silent = true })
 
 function _G.set_terminal_keymaps()
   local opts = { buffer = 0 }
@@ -206,6 +212,8 @@ require("lazy").setup({
   {
     -- Once copilot is running, run `:Copilot auth` to start the authentication process.
     "zbirenbaum/copilot.lua", -- github copilot
+    -- the work package group creates the marker (bootstrap/macos/nvim-copilot.sh)
+    cond = vim.uv.fs_stat(vim.fn.stdpath("data") .. "/copilot") ~= nil,
     opts = {
       suggestion = {
         auto_trigger = true,
