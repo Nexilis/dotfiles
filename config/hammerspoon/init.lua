@@ -503,7 +503,7 @@ menu:setMenu(function()
             sec.app or "?", sec.pid, sec.app or "?")
         secCopy   = string.format("%s (pid %s) holds Secure Input", sec.app or "?", sec.pid)
     end
-    return {
+    local items = {
         {
             title = caffOn and "☕ Caffeinate: ON" or "💤 Caffeinate: OFF",
             fn = function() setCaffState(not caffOn) end,
@@ -527,24 +527,27 @@ menu:setMenu(function()
         { title = "Hyper+P   Next Screen", fn = function() hs.eventtap.keyStroke(hyper, "p") end },
         { title = "Hyper+O   Tile",        fn = function() hs.eventtap.keyStroke(hyper, "o") end },
         { title = "-" },
-        {
+    }
+    if hs.fs.attributes("/Applications/Zscaler") then
+        table.insert(items, {
             title = "Kill Zscaler",
             fn = function() runPrivilegedScript(home .. "/kill-zscaler.sh") end,
-        },
-        {
+        })
+        table.insert(items, {
             title = "Run Zscaler",
             fn = function() runPrivilegedScript(home .. "/run-zscaler.sh") end,
-        },
-        { title = "-" },
-        {
-            title = "Reload",
-            fn = function() hs.reload() end,
-        },
-        {
-            title = "Close",
-            fn = function() hs.closeConsole(); os.exit() end,
-        },
-    }
+        })
+        table.insert(items, { title = "-" })
+    end
+    table.insert(items, {
+        title = "Reload",
+        fn = function() hs.reload() end,
+    })
+    table.insert(items, {
+        title = "Close",
+        fn = function() hs.closeConsole(); os.exit() end,
+    })
+    return items
 end)
 
 local function numberIcon(n)

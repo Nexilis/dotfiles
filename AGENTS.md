@@ -356,6 +356,9 @@ Keybindings:
   field 4205); upstream 09beeb6 added it, and an older copy silently stops
   switching after an OS update. `init.lua` runs `make` on every load, so a
   Hammerspoon relaunch picks up a changed `iss.c`.
+- Menubar Kill/Run Zscaler items appear only when `/Applications/Zscaler`
+  exists, so the private Mac does not show them. They run `~/kill-zscaler.sh`
+  and `~/run-zscaler.sh`, which live only on the work Mac, outside this repo.
 - Menubar keep-awake has two sources. The manual Caffeinate toggle holds screen
   and system awake and turns off on battery. The Agent keep-awake is always on:
   it holds only the system awake (`systemIdle`) while any Claude Code or omp
