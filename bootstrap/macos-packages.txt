@@ -76,6 +76,7 @@ langs       formula   cmake
 langs       formula   pkgconf
 langs       formula   leiningen
 langs       cask      temurin                     # JDK
+langs       cask      dotnet-sdk                  # .NET; Mason builds fsautocomplete with it
 langs       script    rustup
 
 # --- ai-agents --------------------------------------------------------------
