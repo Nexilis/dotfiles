@@ -6,6 +6,8 @@
 	<string>0</string>
 	<key>animateStashedWindows</key>
 	<true/>
+	<key>animateWindowResizes</key>
+	<false/>
 	<key>animationConfiguration</key>
 	<integer>4</integer>
 	<key>automaticallyUpdate</key>
@@ -37,14 +39,14 @@
 	<integer>3</integer>
 	<key>radialMenuActions</key>
 	<array>
-		<string>{"id":"70DF49C1-7680-4488-B8BB-BFF9404C9DC1","type":{"custom":{"_0":{"direction":"AlmostMaximize","id":"B478D017-2AD6-4966-A0A1-2B55D00053FA","keybind":[]}}}}</string>
-		<string>{"id":"590F64F6-59B2-4E21-948E-3C8EC57A53A6","type":{"custom":{"_0":{"direction":"TopRightQuarter","id":"5797FC21-ABAF-4A53-A081-288ED2CC1239","keybind":[]}}}}</string>
+		<string>{"id":"70DF49C1-7680-4488-B8BB-BFF9404C9DC1","type":{"custom":{"_0":{"direction":"FillAvailableSpace","id":"3F79744B-5CE9-4C24-A96A-C3A748EAC805","keybind":[]}}}}</string>
+		<string>{"id":"590F64F6-59B2-4E21-948E-3C8EC57A53A6","type":{"custom":{"_0":{"direction":"RightThreeFourths","id":"72AF475B-709E-4D29-88B2-AE2B49EA3A1B","keybind":[]}}}}</string>
 		<string>{"id":"09DD975A-686A-45C8-BF35-C86D17D8BDB8","type":{"custom":{"_0":{"cycle":[{"direction":"RightHalf","id":"58029F68-E979-4A1C-AA30-819471CE56AF","keybind":[]},{"direction":"RightThird","id":"6465C795-0898-4C74-A54F-ADB06F3191B0","keybind":[]},{"direction":"RightTwoThirds","id":"8BF79A35-D4CF-451E-A11A-CA41D8C5EF05","keybind":[]}],"direction":"Cycle","id":"6F9255DC-B4C5-4B01-B64D-3192F7F43729","keybind":[],"name":"Right Cycle"}}}}</string>
-		<string>{"id":"2ACB9253-D247-42E5-91DF-4EC33610EC11","type":{"custom":{"_0":{"direction":"BottomRightQuarter","id":"174D0F2F-92F9-407A-9D9E-BE9CFE735F58","keybind":[]}}}}</string>
+		<string>{"id":"2ACB9253-D247-42E5-91DF-4EC33610EC11","type":{"custom":{"_0":{"direction":"RightThird","id":"6A9CC808-C045-4714-A505-573E40DE091A","keybind":[]}}}}</string>
 		<string>{"id":"0EF1AD2A-2E07-4056-8391-B495F12E440F","type":{"custom":{"_0":{"direction":"MaximizeHeight","id":"A7EEB470-76A6-4389-9ED4-4A3BEF228DAB","keybind":[]}}}}</string>
-		<string>{"id":"9E2CB8AB-6CB7-44D1-A178-8DB904712AE9","type":{"custom":{"_0":{"direction":"BottomLeftQuarter","id":"C1F32CB9-22AB-4A03-AAED-0858D9C9987D","keybind":[]}}}}</string>
+		<string>{"id":"9E2CB8AB-6CB7-44D1-A178-8DB904712AE9","type":{"custom":{"_0":{"direction":"LeftThird","id":"F025E4D3-5B80-42BF-AB7E-62F0ADB2B270","keybind":[]}}}}</string>
 		<string>{"id":"7A775BFB-F8FA-4B76-932A-BCEFD4D4F2A9","type":{"custom":{"_0":{"cycle":[{"direction":"LeftHalf","id":"A07A06FB-819A-4DE0-9710-0C125BE4DC95","keybind":[]},{"direction":"LeftThird","id":"DD744859-E4BA-4FCA-B239-F244DB219C43","keybind":[]},{"direction":"LeftTwoThirds","id":"155920E7-B03B-4289-83DA-8F50E894445C","keybind":[]}],"direction":"Cycle","id":"829221DB-42D5-4996-9795-2BBC60BCE30E","keybind":[],"name":"Left Cycle"}}}}</string>
-		<string>{"id":"5227C30C-CAC2-4E70-A79F-FF5BCDBA3BF5","type":{"custom":{"_0":{"direction":"TopLeftQuarter","id":"EB9C57BA-2BC8-4C70-A97D-5255BB0719D1","keybind":[]}}}}</string>
+		<string>{"id":"5227C30C-CAC2-4E70-A79F-FF5BCDBA3BF5","type":{"custom":{"_0":{"direction":"LeftTwoThirds","id":"BAB66A20-7B90-4B79-ABAC-7ABD18F04572","keybind":[]}}}}</string>
 		<string>{"id":"1112828A-B735-4DD6-B812-B5FCBC72A7EE","type":{"custom":{"_0":{"direction":"Center","id":"07FAE00C-5F99-4DCC-83EC-63D3169A5781","keybind":[]}}}}</string>
 	</array>
 	<key>trigger</key>
