@@ -64,8 +64,11 @@ end
 alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/Documents/work-synced-secrets"
 alias unmount="umount -f $HOME/Documents/work-synced-secrets"
 
-function u --description 'brew update/upgrade/cleanup'
+function u --description 'brew update/upgrade/cleanup, claude update'
     brew update && brew upgrade && brew upgrade --cask && brew cleanup
+    if type -q claude
+        claude update
+    end
 end
 
 alias python="python3"
