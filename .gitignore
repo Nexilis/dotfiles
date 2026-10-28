@@ -53,3 +53,6 @@ config/maki/*
 
 # omp: runtime lock file
 omp/config.yml.lock
+
+# ghostty: light/dark switch state written by toggle-theme.sh
+config/ghostty/theme-override

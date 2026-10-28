@@ -1,4 +1,3 @@
-cursor-color = 00ff5f
-cursor-invert-fg-bg = true
-adjust-cursor-thickness = 2
-theme = dark:matrix,light:Smyck
+theme = Smyck
+# toggle-theme.sh (Hyper+T) writes theme-override to switch to light.
+config-file = ?theme-override
