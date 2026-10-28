@@ -1,3 +1,5 @@
 theme = Smyck
 # toggle-theme.sh (Hyper+T) writes theme-override to switch to light.
 config-file = ?theme-override
+# Reopen the last windows, tabs and splits on every launch.
+window-save-state = always
