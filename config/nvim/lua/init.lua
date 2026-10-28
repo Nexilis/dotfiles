@@ -211,6 +211,11 @@ require("lazy").setup({
     priority = 1000,
   },
   {
+    "miikanissi/modus-themes.nvim", -- colorscheme, same Modus Operandi as the Ghostty light theme
+    lazy = false,
+    priority = 1000,
+  },
+  {
     -- Once copilot is running, run `:Copilot auth` to start the authentication process.
     "zbirenbaum/copilot.lua", -- github copilot
     -- the work package group creates the marker (bootstrap/macos/nvim-copilot.sh)
@@ -375,11 +380,11 @@ require("lazy").setup({
       update_interval = 3000,
       set_dark_mode = function()
         set.background = "dark"
-        cmd("colorscheme github_dark_high_contrast")
+        cmd("colorscheme smyck")
       end,
       set_light_mode = function()
         set.background = "light"
-        cmd("colorscheme github_light_high_contrast")
+        cmd("colorscheme modus")
       end,
     },
   },
@@ -714,10 +719,10 @@ require("lazy").setup({
           function()
             if vim.o.background == "light" then
               set.background = "dark"
-              cmd("colorscheme github_dark_high_contrast")
+              cmd("colorscheme smyck")
             else
               set.background = "light"
-              cmd("colorscheme github_light_high_contrast")
+              cmd("colorscheme modus")
             end
           end,
           desc = "dark-mode-toggle",
