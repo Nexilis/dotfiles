@@ -202,6 +202,18 @@ The files live on disk so `tk` works; they are just never tracked.
   palette color an app paints in a screenshot before changing a theme, instead
   of guessing. `just pick <image> <x> <y> <w> <h> [topN]`.
 
+## Ghostty
+
+Ghostty is the terminal (cask `ghostty`, group `shell`). kitty is no longer
+installed; `config/kitty/` stays only as reference and for its `tools/`.
+
+- The config file is `config/ghostty/config.ghostty`, the name Ghostty 1.4
+  documents. `_link.sh` links the whole dir like every other `config/*`.
+- Dark is `theme = Smyck`. Hyper+T (Hammerspoon) runs
+  `config/ghostty/toggle-theme.sh`, which creates or deletes the gitignored
+  `theme-override` (light: Modus Operandi) and reloads Ghostty over AppleScript.
+  Ghostty has no theme-toggle action of its own.
+
 ## Neovide
 
 Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the
