@@ -19,7 +19,7 @@ groups:
 group +NAMES:
     bash {{install}} {{NAMES}}
 
-# Terminal itself: fish, starship, fzf, zoxide, kitty
+# Terminal itself: fish, starship, fzf, zoxide, ghostty
 shell *ARGS:
     bash {{install}} shell {{ARGS}}
 
@@ -27,7 +27,7 @@ shell *ARGS:
 cli-core *ARGS:
     bash {{install}} cli-core {{ARGS}}
 
-# Nerd fonts for kitty and the TUIs
+# Nerd fonts for the terminal and the TUIs
 fonts *ARGS:
     bash {{install}} fonts {{ARGS}}
 

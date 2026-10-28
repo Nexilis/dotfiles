@@ -21,7 +21,7 @@ shell       formula   fish
 shell       formula   starship
 shell       formula   fzf
 shell       formula   zoxide
-shell       cask      kitty
+shell       cask      ghostty
 
 # --- cli-core: everyday command line tools ----------------------------------
 cli-core    formula   wget
@@ -38,7 +38,7 @@ cli-core    formula   age                         # file encryption
 cli-core    formula   mole                        # mac cleanup / optimize
 cli-core    formula   wedow/tools/ticket          # the tk CLI used for .tickets/
 
-# --- fonts: nerd fonts for kitty and the TUIs -------------------------------
+# --- fonts: nerd fonts for the terminal and the TUIs ------------------------
 fonts       cask      font-hack-nerd-font
 fonts       cask      font-fira-code-nerd-font
 fonts       cask      font-jetbrains-mono-nerd-font
@@ -163,7 +163,7 @@ work        script    nvim-copilot                          # marker that makes 
 #   copilot CLI (npm)      not used
 #   brave-browser          firefox instead
 #   diff-so-fancy          delta/lazygit cover it
-#   tabby                  kitty is the terminal
+#   tabby                  ghostty is the terminal
 #   cool-retro-term        novelty only
 #
 # Software kept in mind but not installed (video editing, screen recording, RSS,
