@@ -11,6 +11,7 @@ if g.neovide then
   g.neovide_scroll_animation_length = 0
   g.neovide_scroll_animation_far_lines = 0
   g.neovide_hide_mouse_when_typing = false
+  g.neovide_theme = "bg_color" -- title bar follows the colorscheme background
 end
 
 set.dir = home .. "/.local/state/nvim/swap//"
@@ -44,7 +45,7 @@ set.shortmess:append("c")
 set.number = true
 set.timeoutlen = 500
 set.clipboard = "unnamed,unnamedplus"
-set.guifont = "Hack Nerd Font Mono:h12" -- overwritten by fontsize.nvim plugin
+set.guifont = "JetBrainsMono Nerd Font Mono:h13" -- overwritten by fontsize.nvim plugin
 set.inccommand = "split" -- show live preview of search-replace
 
 g.loaded_netrw = 1
@@ -626,12 +627,18 @@ require("lazy").setup({
   {
     "Sup3Legacy/fontsize.nvim",
     config = function()
-      require("fontsize").init({
+      local fontsize = require("fontsize")
+      -- The plugin cannot pass font options; add #h-none (no hinting, as
+      -- CoreText in Ghostty) so glyphs are not thickened to the pixel grid.
+      fontsize.update_font = function()
+        set.guifont = "JetBrainsMono Nerd Font Mono:h" .. fontsize.indicator():match("%d+") .. ":#h-none"
+      end
+      fontsize.init({
         -- Required argument
-        font = "Hack Nerd Font Mono",
+        font = "JetBrainsMono Nerd Font Mono",
         -- Optional arguments
         min = 6,
-        default = 14,
+        default = 13,
         max = 22,
         step = 4,
       })
