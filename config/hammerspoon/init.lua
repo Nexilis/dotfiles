@@ -23,6 +23,11 @@ hs.hotkey.bind(hyper, "p", function()
     win:move(win:frame():toUnitRect(screen:frame()), screen:next(), true, 0)
 end)
 
+-- Switch Ghostty between its dark and light theme.
+hs.hotkey.bind(hyper, "t", function()
+    hs.task.new(home .. "/.config/ghostty/toggle-theme.sh", nil):start()
+end)
+
 -- Tile the standard windows on the focused screen (Hyper+O):
 --   1 window  : maximize.
 --   2 windows : cycle 50/50 -> 30/70 -> 70/30; a repeat at 50/50 swaps sides.
@@ -526,6 +531,7 @@ menu:setMenu(function()
         { title = "-" },
         { title = "Hyper+P   Next Screen", fn = function() hs.eventtap.keyStroke(hyper, "p") end },
         { title = "Hyper+O   Tile",        fn = function() hs.eventtap.keyStroke(hyper, "o") end },
+        { title = "Hyper+T   Ghostty Light/Dark", fn = function() hs.eventtap.keyStroke(hyper, "t") end },
         { title = "-" },
     }
     if hs.fs.attributes("/Applications/Zscaler") then
