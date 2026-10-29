@@ -8,32 +8,47 @@
       "ignore" : "never"
     }
   ],
-  "applicationsOnly" : false,
+  "applicationsOnly" : true,
+  "boldSelectedLabel" : true,
+  "commitSoundName" : "Tink",
   "cycleTileWidths" : true,
+  "expandBrowserTabsAsWindows" : false,
   "experimentalInstantSpaceSwitch" : false,
+  "fontFace" : "system",
+  "fontScale" : "standard",
   "gridSingleRow" : true,
   "hideMenuBarIcon" : true,
-  "layoutMode" : "list",
+  "instantSpaceSwitch" : false,
+  "layoutMode" : "iconDock",
   "nextScopedShortcutID" : 0,
   "panelOpacity" : 100,
   "panelScalePercent" : 75,
-  "previewTitleAlignment" : "trailing",
+  "previewTitleAlignment" : "center",
   "revealDelayMs" : 40,
   "scopedShortcutList" : [
 
   ],
   "shortcutOverrides" : [
     {
+      "showHidden" : "false",
       "showMinimized" : "true",
-      "sortOrder" : "alphabetical",
+      "showWindowless" : "false",
+      "sortOrder" : "mru",
       "spaceScope" : "allSpaces",
       "stayOpenOnQuickTap" : "true",
       "stayOpenOnRelease" : "true",
       "target" : "switchApps"
     }
   ],
-  "showApplicationNames" : false,
-  "showWindowTitleLabel" : true,
-  "sortOrder" : "alphabetical",
-  "titleTruncationMode" : "tail"
+  "showApplicationNames" : true,
+  "showHiddenApps" : false,
+  "showRecentlyClosed" : false,
+  "showWindowlessApps" : false,
+  "showWindowStatusIcons" : true,
+  "showWindowTitleLabel" : false,
+  "sortOrder" : "mru",
+  "soundOnCommit" : true,
+  "tabDrillEnabled" : false,
+  "titleTruncationMode" : "middle",
+  "windowDrillEnabled" : false
 }
