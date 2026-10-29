@@ -23,7 +23,9 @@ so each commit is one topic and no commit undoes or redoes another: fold a
 rename, fix-up or revert into the commit it corrects, and merge commits that
 belong to one change (code plus its AGENTS.md note). Check that the final tree
 is unchanged (`git diff <old-head> HEAD` is empty), and keep uncommitted local
-changes out of it. Never rewrite what is already on `origin`.
+changes out of it. Never rewrite what is already on `origin`. A backup branch
+made for the rewrite is deleted, without asking, once the push succeeds; the
+repo keeps only `master`.
 
 - Real local path is `~/code/gh/prv/dotfiles`. Bootstrap scripts and the README
   are now self-locating / path-independent, so the clone can live anywhere.
