@@ -61,6 +61,10 @@ if type -q bat
   abbr --add -g cat 'bat -p --paging=never'
 end
 
+if type -q claude
+  abbr --add -g cld 'claude --chrome'
+end
+
 alias dec="gocryptfs '$HOME/Documents/sync/work-sync/.cipher' $HOME/Documents/work-synced-secrets"
 alias unmount="umount -f $HOME/Documents/work-synced-secrets"
 
