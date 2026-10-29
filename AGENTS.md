@@ -18,6 +18,13 @@ Polish belongs in notes and in conversation, never in a `.sh`, `.go`, `.lua`,
 
 Personal dotfiles. Solo repo, no PR flow; commit directly to `master`.
 
+**Tidy unpushed history before every push.** Rewrite `origin/master..HEAD`
+so each commit is one topic and no commit undoes or redoes another: fold a
+rename, fix-up or revert into the commit it corrects, and merge commits that
+belong to one change (code plus its AGENTS.md note). Check that the final tree
+is unchanged (`git diff <old-head> HEAD` is empty), and keep uncommitted local
+changes out of it. Never rewrite what is already on `origin`.
+
 - Real local path is `~/code/gh/prv/dotfiles`. Bootstrap scripts and the README
   are now self-locating / path-independent, so the clone can live anywhere.
 - Primary machine is macOS. `bootstrap-macos.sh` covers it (Homebrew + optional
