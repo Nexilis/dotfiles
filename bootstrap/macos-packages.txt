@@ -111,6 +111,10 @@ desktop     cask      bettercmdtab@beta  # conflicts with the stable cask; unins
 # Loop moves and resizes windows (trigger key plus direction, or the radial menu).
 desktop     cask      loop
 desktop     script    loop                        # imports bootstrap/macos/loop.plist on a machine without Loop settings
+# RemoveMacAI turns off Apple Intelligence, analytics, ads and pop-ups. Installs
+# the CLI; the script step applies the recommended preset.
+desktop     formula   omlahore/tap/removemacai
+desktop     script    removemacai                 # applies the preset; macOS asks to approve its profile
 
 # --- apps: daily drivers ----------------------------------------------------
 apps        cask      keepassxc

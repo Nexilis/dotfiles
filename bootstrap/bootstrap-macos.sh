@@ -48,7 +48,7 @@ fi
 # --- Stage 0: trusted third-party taps --------------------------------------
 # Only consulted when HOMEBREW_REQUIRE_TAP_TRUST is set; needed to load formulae
 # or casks from these non-official taps. Harmless otherwise.
-for tap in lucaspickering/tap wedow/tools can1357/tap; do
+for tap in lucaspickering/tap wedow/tools can1357/tap omlahore/tap; do
   brew trust "$tap" 2>/dev/null || true
 done
 

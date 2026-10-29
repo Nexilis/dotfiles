@@ -55,7 +55,7 @@ ai-agents *ARGS:
 claude *ARGS:
     bash {{install}} claude {{ARGS}}
 
-# Input and window behaviour: linearmouse, karabiner-elements, hammerspoon, bettercmdtab, loop
+# Input, window behaviour, debloat: linearmouse, karabiner-elements, hammerspoon, bettercmdtab, loop, removemacai
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
