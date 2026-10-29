@@ -98,6 +98,12 @@ installed groups nobody approved. Two causes, both fixed, neither to be undone:
   one. No terminal is now a hard error, exit 3. Installing unapproved software is
   worse than doing nothing.
 - The chosen groups are restated and confirmed once more before the first install.
+- The confirmed groups are saved per machine in
+  `~/.local/state/dotfiles/macos-groups` (`$XDG_STATE_HOME` if set; not with
+  `--dry-run`). The next `just pick` offers to reuse them; answering no asks per
+  group again, with each default taken from the saved choice (a group missing
+  from it defaults to no, so a group new in the manifest is never installed
+  unasked). Delete the file to get the original defaults back.
 
 Gotcha: do not name a bash array `GROUPS`. It is a bash special variable holding
 the user's unix group IDs, and assigning to it silently gives you group numbers

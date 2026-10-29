@@ -10,6 +10,10 @@
 # Extra flags:
 #   --dry-run   print the brew commands instead of running them
 #
+# --interactive saves the confirmed groups to $STATE (per machine, outside the
+# repo). The next run offers to reuse them; picking again starts each prompt
+# from the saved answer.
+#
 # Nothing here fails the whole run. A package that will not install is reported
 # and the rest continue; the failures are listed again at the end. brew is
 # idempotent, so re-running a group is safe.
@@ -26,6 +30,8 @@ MANIFEST="$BOOT/macos-packages.txt"
 
 # Groups that default to "no" when asked interactively.
 DEFAULT_NO="work"
+
+STATE="${XDG_STATE_HOME:-$HOME/.local/state}/dotfiles/macos-groups"
 
 DRY=0
 MODE=groups
@@ -158,9 +164,40 @@ case "$MODE" in
     ALL=()
     while read -r g; do ALL+=("$g"); done < <(all_groups)
 
+    # Previous choice, limited to groups still in the manifest.
+    PREV=""
+    if [ -s "$STATE" ]; then
+      for g in $(cat "$STATE"); do
+        [[ " ${ALL[*]} " == *" $g "* ]] && PREV="$PREV $g"
+      done
+      PREV=${PREV# }
+    fi
+
+    REUSE=n
+    if [ -s "$STATE" ]; then
+      echo "Previous choice: ${PREV:-(none)}"
+      printf 'Reuse it? [Y/n] '
+      if ! { read -r REUSE </dev/tty; } 2>/dev/null; then
+        echo
+        echo "aborted (end of input); nothing was installed." >&2
+        exit 3
+      fi
+      REUSE=${REUSE:-y}
+      echo
+    fi
+
     for g in ${ALL[@]+"${ALL[@]}"}; do
+      case "$REUSE" in [yY]*) break ;; esac
       n=$(rows "$g" | wc -l | tr -d ' ')
-      if [[ " $DEFAULT_NO " == *" $g "* ]]; then
+      # With a saved choice, it sets the default; a group missing from it
+      # (new in the manifest, or declined last time) defaults to no.
+      if [ -s "$STATE" ]; then
+        if [[ " $PREV " == *" $g "* ]]; then
+          prompt="[Y/n]"; default=y
+        else
+          prompt="[y/N]"; default=n
+        fi
+      elif [[ " $DEFAULT_NO " == *" $g "* ]]; then
         prompt="[y/N]"; default=n
       else
         prompt="[Y/n]"; default=y
@@ -176,7 +213,10 @@ case "$MODE" in
         [yY]*) SELECTED+=("$g") ;;
       esac
     done
-    echo
+    case "$REUSE" in
+      [yY]*) for g in $PREV; do SELECTED+=("$g"); done ;;
+      *) echo ;;
+    esac
     if [ ${#SELECTED[@]} -eq 0 ]; then
       echo "nothing selected"
       exit 0
@@ -197,6 +237,10 @@ case "$MODE" in
       *) echo "aborted; nothing was installed."; exit 0 ;;
     esac
     echo
+    if [ "$DRY" = 0 ]; then
+      mkdir -p "$(dirname "$STATE")"
+      echo "${SELECTED[*]}" >"$STATE"
+    fi
     ;;
 esac
 
