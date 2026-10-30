@@ -86,7 +86,7 @@ move `_link.sh` back to the end.
   `bootstrap/` lists everything, which is the point: nothing has to be
   remembered on a fresh Mac.
 - The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
-  googleworkspace-cli, azure-cli, and colima + docker + docker-compose for the
+  googleworkspace-cli, azure-cli, git-credential-manager (see Repo notes), and colima + docker + docker-compose for the
   CubeJs local stack; Colima replaces Docker Desktop; `nvim-copilot`, which
   creates `~/.local/share/nvim/copilot`, the marker without which Neovim does
   not load copilot.lua; Linux never gets it) defaults to **no** in
@@ -521,7 +521,11 @@ Setup details and the rationale for the tooling choice are kept local-only in
   wipes the GitHub-specific `gh auth git-credential` and leaves
   git-credential-manager (the Azure DevOps one) handling github.com. Verified
   with `git credential fill` against both orderings: generic-first invokes the
-  gh helper, generic-last invokes gcm. Something occasionally rewrites the file
-  into the wrong order (a `git config --global` write reorders sections), so if
-  `.gitconfig` turns up modified with only a reordering, discard it rather than
-  commit it.
+  gh helper, generic-last invokes gcm. The GCM installer rewrites the file into
+  the wrong order: its pkg `postinstall` runs `git-credential-manager configure`,
+  so every install or upgrade does it. `bootstrap/macos/gitconfig-restore.sh`
+  checks out the repo version when the file differs only by line order; the
+  `work` group runs it after the GCM cask and the `u` fish function after
+  `brew upgrade`. GCM lives in `work` because only Azure DevOps needs it; on a
+  Mac without it, non-GitHub HTTPS hosts print one "No such file" line and fall
+  back to the normal prompt.

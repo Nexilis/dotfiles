@@ -31,7 +31,7 @@ cli-core *ARGS:
 fonts *ARGS:
     bash {{install}} fonts {{ARGS}}
 
-# git: gh, lazygit, git-filter-repo, credential manager, kdiff3
+# git: gh, lazygit, git-filter-repo, kdiff3
 git *ARGS:
     bash {{install}} git {{ARGS}}
 
@@ -67,7 +67,7 @@ apps *ARGS:
 media *ARGS:
     bash {{install}} media {{ARGS}}
 
-# CyberVadis machines only: gocryptfs vault, keeper, zed, snapzy, slumber, gws
+# CyberVadis machines only: gocryptfs vault, keeper, zed, snapzy, slumber, gws, credential manager
 work *ARGS:
     bash {{install}} work {{ARGS}}
 

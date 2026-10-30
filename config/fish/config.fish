@@ -70,6 +70,10 @@ alias unmount="umount -f $HOME/Documents/work-synced-secrets"
 
 function u --description 'brew update/upgrade/cleanup, claude update'
     brew update && brew upgrade && brew upgrade --cask && brew cleanup
+    set -l dotfiles (path resolve ~/.gitconfig | path dirname | path dirname)
+    if test -f $dotfiles/bootstrap/macos/gitconfig-restore.sh
+        bash $dotfiles/bootstrap/macos/gitconfig-restore.sh
+    end
     if type -q claude
         claude update
     end

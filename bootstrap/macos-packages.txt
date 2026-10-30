@@ -48,7 +48,6 @@ fonts       cask      font-symbols-only-nerd-font  # yazi/starship glyph fallbac
 git         formula   gh
 git         formula   lazygit
 git         formula   git-filter-repo             # history rewrite, secret removal
-git         cask      git-credential-manager      # referenced from home/.gitconfig
 git         cask      kdiff3                      # GUI 3-way diff
 
 # --- files: yazi and the previewers it shells out to ------------------------
@@ -145,6 +144,8 @@ work        cask      zed
 work        cask      snapzy
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
+work        cask      git-credential-manager                # Azure DevOps git auth; its installer reorders ~/.gitconfig
+work        script    gitconfig-restore                     # puts the gh helper back first for github.com
 work        formula   azure-cli                             # az; CubeJs stack mints DB tokens with it
 work        formula   colima                                # free Docker engine in a Linux VM; `colima start`
 work        formula   docker                                # docker CLI only, talks to colima
