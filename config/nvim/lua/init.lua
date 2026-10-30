@@ -614,6 +614,12 @@ require("lazy").setup({
     "folke/persistence.nvim",
     config = function()
       require("persistence").setup()
+      -- the arglist is saved into the session and re-added on load, so a file
+      -- once opened as an argument comes back even after its buffer is closed
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "PersistenceSavePre",
+        command = "silent! %argdelete",
+      })
       -- auto-load session for current directory on startup (when no file args given)
       vim.api.nvim_create_autocmd("VimEnter", {
         nested = true,
