@@ -341,6 +341,12 @@ moved by `bootstrap/macos/loop.sh`.
 apps he does not use, so Loop is driven by the trigger key and the radial menu
 only. Do not restore the default keybinds.
 
+The last entry of `radialMenuActions` is the centre action; the rest share the
+ring. Within 10 pt of the start point nothing is selected, so the very centre of
+the menu is dead by design (hardcoded `noActionDistance` in
+`MouseInteractionObserver.swift`, upstream declined a change in
+https://github.com/mrkai77/Loop/issues/1149). Esc closes the menu without acting.
+
 - **After changing settings in the app, run `just loop-export` in `bootstrap/`**
   and commit `loop.plist`. Nothing writes it back on its own.
 - The export drops per-machine keys: `timesLooped`, `lastUsedAccentColor1/2` and
