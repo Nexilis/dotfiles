@@ -372,7 +372,8 @@ Keybindings:
 - `Hyper+o`: tile standard windows on the focused screen. 1 window maximizes;
   2 windows cycle 50/50 -> 30/70 -> 70/30 (a repeat at 50/50 swaps sides);
   3+ windows use main+stack (one big left, the rest stacked right) and each
-  repeat rotates which window is main.
+  repeat rotates which window is main. Moves are instant:
+  `hs.window.animationDuration = 0`.
 - `Hyper+Tab`: MRU application switcher (`hs.chooser`). App-level on purpose; the
   code comment explains why window-level froze (HS #3712 all-windows AX stall).
 - `iss` (`Hyper+arrow`): instant Space switch. Vendored C source from

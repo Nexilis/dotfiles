@@ -4,6 +4,8 @@ hs.menuIcon(false)
 local home = os.getenv("HOME")
 local hyper = { "cmd", "ctrl", "alt", "shift" }
 
+hs.window.animationDuration = 0
+
 -- Instant Space Switcher (github.com/joshuarli/iss)
 local issDir = home .. "/.config/hammerspoon/iss"
 local issPath = issDir .. "/iss"
