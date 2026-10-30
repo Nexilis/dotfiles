@@ -14,32 +14,27 @@
 	<true/>
 	<key>currentIcon</key>
 	<string>AppIcon-Classic</string>
+	<key>disableCursorInteraction</key>
+	<false/>
+	<key>enablePadding</key>
+	<false/>
 	<key>enableRadialMenuCustomization</key>
 	<true/>
 	<key>hideUntilDirectionIsChosen</key>
 	<true/>
 	<key>keybinds</key>
-	<array>
-		<string>{"direction":"Maximize","id":"7D920068-C111-43DB-9112-7BECF0B65814","keybind":[49]}</string>
-		<string>{"direction":"Center","id":"87F931BC-938D-40A7-B79B-D16936E33FE8","keybind":[36]}</string>
-		<string>{"cycle":[{"direction":"TopHalf","id":"2856891D-A9CD-4F56-8E71-44186D3EB44C","keybind":[]},{"direction":"TopThird","id":"86DE64A2-E8A2-4462-B33C-9893778DE680","keybind":[]},{"direction":"TopTwoThirds","id":"2A992C52-47AE-4CF3-8E07-CDDA514D9E24","keybind":[]}],"direction":"Cycle","id":"A8688F76-D2DB-4A27-83C3-80B5BED34316","keybind":[126],"name":"Top Cycle"}</string>
-		<string>{"cycle":[{"direction":"BottomHalf","id":"3F79011B-DD85-4929-868E-7513B214F647","keybind":[]},{"direction":"BottomThird","id":"4ECA9C57-DB7F-4707-90D5-04793F4FE647","keybind":[]},{"direction":"BottomTwoThirds","id":"2A67D9FE-6E87-4268-A1AF-C3E1474EA95D","keybind":[]}],"direction":"Cycle","id":"E69C7EE0-5393-4E1F-81BD-FDA9EC102742","keybind":[125],"name":"Bottom Cycle"}</string>
-		<string>{"cycle":[{"direction":"RightHalf","id":"7F352F36-06E9-47E7-BB7A-808E7FB9A9CF","keybind":[]},{"direction":"RightThird","id":"0368F546-F614-4A74-B242-16533BBF1140","keybind":[]},{"direction":"RightTwoThirds","id":"4D765C26-60E1-4191-AB11-B9F64E15EEBF","keybind":[]}],"direction":"Cycle","id":"BB5B6364-ECB8-4A6F-BAA1-8F9B76B4D272","keybind":[124],"name":"Right Cycle"}</string>
-		<string>{"cycle":[{"direction":"LeftHalf","id":"65EC4A89-5E74-453D-B6AD-89F6803F1491","keybind":[]},{"direction":"LeftThird","id":"BBEDFAFC-75EF-4CA2-8463-E9ADC212AB87","keybind":[]},{"direction":"LeftTwoThirds","id":"BEDADFD5-AA5E-4A50-A8D4-1A2E04F04A8E","keybind":[]}],"direction":"Cycle","id":"A95E16FA-4E8B-4169-9D25-C93C4C66FF9C","keybind":[123],"name":"Left Cycle"}</string>
-		<string>{"direction":"TopLeftQuarter","id":"F8DA9BBC-636A-4BDF-A078-E037AA047833","keybind":[123,126]}</string>
-		<string>{"direction":"TopRightQuarter","id":"7A3AFE1E-9FC4-4A3F-B8E6-A36E68425843","keybind":[126,124]}</string>
-		<string>{"direction":"BottomRightQuarter","id":"3B5D1C1F-88E2-47EA-9ADC-B559978167D9","keybind":[125,124]}</string>
-		<string>{"direction":"BottomLeftQuarter","id":"ED5339DB-EFFA-47E0-A894-D4CFDDE97AA2","keybind":[125,123]}</string>
-	</array>
+	<array/>
 	<key>launchAtLogin</key>
 	<true/>
 	<key>notificationWhenIconUnlocked</key>
 	<false/>
+	<key>padding</key>
+	<string>{"bottom":14.566781426553671,"configureScreenPadding":false,"externalBar":0,"left":14.566781426553671,"right":14.566781426553671,"top":14.566781426553671,"window":14.566781426553671}</string>
 	<key>patchesApplied</key>
 	<integer>3</integer>
 	<key>radialMenuActions</key>
 	<array>
-		<string>{"id":"70DF49C1-7680-4488-B8BB-BFF9404C9DC1","type":{"custom":{"_0":{"direction":"FillAvailableSpace","id":"3F79744B-5CE9-4C24-A96A-C3A748EAC805","keybind":[]}}}}</string>
+		<string>{"id":"70DF49C1-7680-4488-B8BB-BFF9404C9DC1","type":{"custom":{"_0":{"direction":"Center","id":"E59E174E-0205-471C-970C-28B32DE4E00B","keybind":[]}}}}</string>
 		<string>{"id":"590F64F6-59B2-4E21-948E-3C8EC57A53A6","type":{"custom":{"_0":{"direction":"RightThreeFourths","id":"72AF475B-709E-4D29-88B2-AE2B49EA3A1B","keybind":[]}}}}</string>
 		<string>{"id":"09DD975A-686A-45C8-BF35-C86D17D8BDB8","type":{"custom":{"_0":{"cycle":[{"direction":"RightHalf","id":"58029F68-E979-4A1C-AA30-819471CE56AF","keybind":[]},{"direction":"RightThird","id":"6465C795-0898-4C74-A54F-ADB06F3191B0","keybind":[]},{"direction":"RightTwoThirds","id":"8BF79A35-D4CF-451E-A11A-CA41D8C5EF05","keybind":[]}],"direction":"Cycle","id":"6F9255DC-B4C5-4B01-B64D-3192F7F43729","keybind":[],"name":"Right Cycle"}}}}</string>
 		<string>{"id":"2ACB9253-D247-42E5-91DF-4EC33610EC11","type":{"custom":{"_0":{"direction":"RightThird","id":"6A9CC808-C045-4714-A505-573E40DE091A","keybind":[]}}}}</string>
@@ -47,8 +42,14 @@
 		<string>{"id":"9E2CB8AB-6CB7-44D1-A178-8DB904712AE9","type":{"custom":{"_0":{"direction":"LeftThird","id":"F025E4D3-5B80-42BF-AB7E-62F0ADB2B270","keybind":[]}}}}</string>
 		<string>{"id":"7A775BFB-F8FA-4B76-932A-BCEFD4D4F2A9","type":{"custom":{"_0":{"cycle":[{"direction":"LeftHalf","id":"A07A06FB-819A-4DE0-9710-0C125BE4DC95","keybind":[]},{"direction":"LeftThird","id":"DD744859-E4BA-4FCA-B239-F244DB219C43","keybind":[]},{"direction":"LeftTwoThirds","id":"155920E7-B03B-4289-83DA-8F50E894445C","keybind":[]}],"direction":"Cycle","id":"829221DB-42D5-4996-9795-2BBC60BCE30E","keybind":[],"name":"Left Cycle"}}}}</string>
 		<string>{"id":"5227C30C-CAC2-4E70-A79F-FF5BCDBA3BF5","type":{"custom":{"_0":{"direction":"LeftTwoThirds","id":"BAB66A20-7B90-4B79-ABAC-7ABD18F04572","keybind":[]}}}}</string>
-		<string>{"id":"1112828A-B735-4DD6-B812-B5FCBC72A7EE","type":{"custom":{"_0":{"direction":"Center","id":"07FAE00C-5F99-4DCC-83EC-63D3169A5781","keybind":[]}}}}</string>
+		<string>{"id":"9F8138DA-D1EE-43C7-9F60-F91D2DCA7E53","type":{"custom":{"_0":{"direction":"Maximize","id":"3A979DEE-D62B-47AC-BC18-619968F6DE01","keybind":[]}}}}</string>
 	</array>
+	<key>radialMenuCornerRadius</key>
+	<real>50</real>
+	<key>radialMenuThickness</key>
+	<real>22.02056884765625</real>
+	<key>radialMenuVisibility</key>
+	<true/>
 	<key>trigger</key>
 	<array>
 		<integer>55</integer>
@@ -57,6 +58,6 @@
 		<integer>56</integer>
 	</array>
 	<key>useGradient</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

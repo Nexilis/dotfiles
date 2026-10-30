@@ -337,6 +337,10 @@ Settings live in the `com.MrKai77.Loop` defaults domain. `cfprefsd` owns that
 plist, so it is tracked as a copy, not a symlink: `bootstrap/macos/loop.plist`,
 moved by `bootstrap/macos/loop.sh`.
 
+`keybinds` is empty on purpose: the owner keeps no shortcuts from third-party
+apps he does not use, so Loop is driven by the trigger key and the radial menu
+only. Do not restore the default keybinds.
+
 - **After changing settings in the app, run `just loop-export` in `bootstrap/`**
   and commit `loop.plist`. Nothing writes it back on its own.
 - The export drops per-machine keys: `timesLooped`, `lastUsedAccentColor1/2` and
