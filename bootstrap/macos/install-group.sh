@@ -77,7 +77,8 @@ install_batch() {
   [ $# -gt 0 ] || return 0
 
   local -a cmd=(brew install)
-  [ "$kind" = cask ] && cmd+=(--cask)
+  # --adopt takes over an app installed by hand instead of failing on it.
+  [ "$kind" = cask ] && cmd+=(--cask --adopt)
 
   echo "  $kind: $*"
   run "${cmd[@]}" "$@" && return 0
