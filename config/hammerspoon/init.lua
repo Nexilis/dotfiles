@@ -587,6 +587,14 @@ local function numberIcon(n)
     return image
 end
 
+local spaceAlertStyle = {
+    textSize = 48,
+    radius = 14,
+    strokeWidth = 0,
+    fadeInDuration = 0.05,
+    fadeOutDuration = 0.2,
+}
+
 local function updateSpaceNumber()
     local currentSpace = hs.spaces.focusedSpace()
     local screen = hs.screen.mainScreen()
@@ -595,10 +603,17 @@ local function updateSpaceNumber()
         if space == currentSpace then
             menu:setTitle("")
             menu:setIcon(numberIcon(i))
-            return
+            return i, screen
         end
     end
 end
 
 updateSpaceNumber()
-hs.spaces.watcher.new(updateSpaceNumber):start()
+spaceWatcher = hs.spaces.watcher.new(function()
+    local n, screen = updateSpaceNumber()
+    if n then
+        -- Rapid Hyper+arrow presses would otherwise stack one alert per switch.
+        hs.alert.closeAll(0)
+        hs.alert.show("Desktop " .. n, spaceAlertStyle, screen, 0.7)
+    end
+end):start()
