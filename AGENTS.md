@@ -398,7 +398,7 @@ Keybindings:
   Hammerspoon relaunch picks up a changed `iss.c`.
 - Every Space change (Hyper+arrow, trackpad swipe, Mission Control) shows a
   short "Desktop N" alert on that screen; the same `hs.spaces.watcher`
-  updates the menubar number icon. Reading Spaces still works on macOS 26;
+  updates the menubar number icon. Reading Spaces still works;
   only moving windows between them is dead (see below).
 - Menubar Kill/Run Zscaler items appear only when `/Applications/Zscaler`
   exists, so the private Mac does not show them. They run `~/kill-zscaler.sh`
