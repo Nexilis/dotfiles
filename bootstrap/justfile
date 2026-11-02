@@ -59,7 +59,7 @@ claude *ARGS:
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
-# Daily driver apps: keepassxc, syncthing, shottr, pdfcraft, imageglass, telegram-desktop, firefox
+# Daily driver apps: keepassxc, syncthing, shottr, pdfcraft, imageglass, telegram-desktop
 apps *ARGS:
     bash {{install}} apps {{ARGS}}
 
@@ -67,7 +67,7 @@ apps *ARGS:
 media *ARGS:
     bash {{install}} media {{ARGS}}
 
-# CyberVadis machines only: gocryptfs vault, keeper, zed, snapzy, slumber, gws, credential manager
+# CyberVadis machines only: gocryptfs vault, keeper, zed, slumber, gws, credential manager
 work *ARGS:
     bash {{install}} work {{ARGS}}
 

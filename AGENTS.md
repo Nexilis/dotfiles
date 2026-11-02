@@ -85,7 +85,7 @@ move `_link.sh` back to the end.
   `groups`, `link`, `loop-export`, `loop-import`. A bare `just` in
   `bootstrap/` lists everything, which is the point: nothing has to be
   remembered on a fresh Mac.
-- The **`work`** group (macfuse + gocryptfs, keeper, zed, snapzy, slumber,
+- The **`work`** group (macfuse + gocryptfs, keeper, zed, slumber,
   googleworkspace-cli, azure-cli, git-credential-manager (see Repo notes), and colima + docker + docker-compose for the
   CubeJs local stack; Colima replaces Docker Desktop; `nvim-copilot`, which
   creates `~/.local/share/nvim/copilot`, the marker without which Neovim does

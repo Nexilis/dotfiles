@@ -122,7 +122,6 @@ apps        cask      shottr
 apps        cask      pdfcraft                    # PDF reader and editor
 apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
 apps        cask      telegram-desktop
-apps        cask      firefox
 apps        formula   duti                        # sets default apps; used by default-apps
 apps        script    default-apps                # ImageGlass opens images, PdfCraft opens PDF
 
@@ -141,7 +140,6 @@ work        cask      macfuse
 work        script    gocryptfs                   # needs macfuse; work secrets vault
 work        cask      keeper-password-manager
 work        cask      zed
-work        cask      snapzy
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
 work        cask      git-credential-manager                # Azure DevOps git auth; its installer reorders ~/.gitconfig
@@ -166,7 +164,10 @@ work        script    nvim-copilot                          # marker that makes 
 #   mouseless@preview      not used
 #   obsidian               not used
 #   copilot CLI (npm)      not used
-#   brave-browser          firefox instead
+#   brave-browser          not used
+#   firefox (cask)         removed 2026-11-02
+#   snapzy (cask)          removed 2026-11-02
+#   kitty (cask)           ghostty is the terminal; config/kitty stays as reference
 #   diff-so-fancy          delta/lazygit cover it
 #   tabby                  ghostty is the terminal
 #   cool-retro-term        novelty only
