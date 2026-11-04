@@ -120,16 +120,17 @@ apps        cask      keepassxc
 apps        cask      syncthing-app               # the CASK has the menu bar UI
 apps        cask      shottr
 apps        cask      pdfcraft                    # PDF reader and editor
+apps        cask      gridcraft                   # spreadsheet viewer; replaces libreoffice
+apps        cask      wordcraft                   # word processor; replaces libreoffice
 apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
 apps        cask      telegram-desktop
 apps        formula   duti                        # sets default apps; used by default-apps
-apps        script    default-apps                # ImageGlass opens images, PdfCraft opens PDF
+apps        script    default-apps                # ImageGlass opens images, PdfCraft opens PDF, GridCraft and WordCraft open office files
 
 # --- media ------------------------------------------------------------------
 media       cask      spotify
 media       cask      photocraft                  # image editor
 media       cask      calibre
-media       cask      libreoffice
 media       formula   cmus                        # terminal music player
 
 # --- work: only on a machine used for CyberVadis ----------------------------
@@ -171,6 +172,7 @@ work        script    nvim-copilot                          # marker that makes 
 #   diff-so-fancy          delta/lazygit cover it
 #   tabby                  ghostty is the terminal
 #   cool-retro-term        novelty only
+#   libreoffice (cask)     replaced by gridcraft and wordcraft 2026-11-04
 #
 # Software kept in mind but not installed (video editing, screen recording, RSS,
 # external monitor brightness) is listed ONLY in private-sync/tech/apple-macbook.md

@@ -59,11 +59,11 @@ claude *ARGS:
 desktop *ARGS:
     bash {{install}} desktop {{ARGS}}
 
-# Daily driver apps: keepassxc, syncthing, shottr, pdfcraft, imageglass, telegram-desktop
+# Daily driver apps: keepassxc, syncthing, shottr, pdfcraft, gridcraft, wordcraft, imageglass, telegram-desktop
 apps *ARGS:
     bash {{install}} apps {{ARGS}}
 
-# spotify, photocraft, calibre, libreoffice, cmus
+# spotify, photocraft, calibre, cmus
 media *ARGS:
     bash {{install}} media {{ARGS}}
 

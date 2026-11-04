@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Default apps for file types: ImageGlass for images, PdfCraft for PDF. Runs after the
-# apps casks, so the apps and duti are already installed. Idempotent: duti
-# overwrites.
+# Default apps for file types: ImageGlass for images, PdfCraft for PDF, GridCraft
+# for spreadsheets, WordCraft for word processor files. Runs after the apps
+# casks, so the apps and duti are already installed. Idempotent: duti overwrites.
 #
 # An app has to be launched once before duti has any effect on it. A freshly
 # installed cask is not fully registered with LaunchServices; duti then exits 0
@@ -17,6 +17,8 @@ set -uo pipefail
 
 IMAGEGLASS=com.duongdieuphap.imageglass
 PDFCRAFT=ai.storyteller.pdfcraft
+GRIDCRAFT=ai.storyteller.gridcraft
+WORDCRAFT=ai.storyteller.wordcraft
 
 if ! command -v duti >/dev/null 2>&1; then
   echo "duti not on PATH; it is in the apps group" >&2
@@ -63,4 +65,19 @@ if warm_up "$PDFCRAFT" pdf; then
   duti -s "$PDFCRAFT" com.adobe.pdf all
   duti -s "$PDFCRAFT" .pdf all
   echo "pdf: $(duti -x pdf | tail -1)"
+fi
+
+# GridCraft opens xls although its Info.plist does not declare it.
+if warm_up "$GRIDCRAFT" xlsx; then
+  for ext in xlsx xlsm xlsb xls ods csv tsv; do
+    duti -s "$GRIDCRAFT" ".$ext" all 2>/dev/null || true
+  done
+  echo "spreadsheets: $(duti -x xlsx | tail -1)"
+fi
+
+if warm_up "$WORDCRAFT" docx; then
+  for ext in docx dotx doc odt rtf; do
+    duti -s "$WORDCRAFT" ".$ext" all 2>/dev/null || true
+  done
+  echo "documents: $(duti -x docx | tail -1)"
 fi
