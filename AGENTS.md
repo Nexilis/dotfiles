@@ -44,7 +44,7 @@ pointer here. See "Work secrets" for an example of that split.
 ## Layout
 
 - `config/<app>/` mirrors `~/.config/<app>/` (kitty, fish, nvim, helix, yazi,
-  zed, ghostty, alacritty, and more).
+  ghostty, alacritty, and more).
 - `home/` holds files that live in `~`.
 - `bootstrap/` holds provisioning scripts. `bootstrap-macos.sh`,
   `bootstrap-fedora.sh`, and `bootstrap-ubuntu.sh` are the entry points (all
@@ -86,7 +86,7 @@ move `_link.sh` back to the end.
   `groups`, `link`, `loop-export`, `loop-import`. A bare `just` in
   `bootstrap/` lists everything, which is the point: nothing has to be
   remembered on a fresh Mac.
-- The **`work`** group (macfuse + gocryptfs, keeper, zed, dbx (database client, tryout), slumber,
+- The **`work`** group (macfuse + gocryptfs, keeper, dbx (database client, tryout), slumber,
   googleworkspace-cli, azure-cli, git-credential-manager (see Repo notes), and colima + docker + docker-compose for the
   CubeJs local stack; Colima replaces Docker Desktop; `nvim-copilot`, which
   creates `~/.local/share/nvim/copilot`, the marker without which Neovim does

@@ -140,7 +140,6 @@ media       formula   cmus                        # terminal music player
 work        cask      macfuse
 work        script    gocryptfs                   # needs macfuse; work secrets vault
 work        cask      keeper-password-manager
-work        cask      zed
 work        cask      dbx                                   # database client, tryout 2026-11-05
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
@@ -174,6 +173,8 @@ work        script    nvim-copilot                          # marker that makes 
 #   tabby                  ghostty is the terminal
 #   cool-retro-term        novelty only
 #   libreoffice (cask)     replaced by gridcraft and wordcraft 2026-11-04
+#   zed (cask)             not used; removed 2026-11-05
+#   visual-studio-code     not used; removed 2026-11-05
 #
 # Software kept in mind but not installed (video editing, screen recording, RSS,
 # external monitor brightness) is listed ONLY in private-sync/tech/apple-macbook.md
