@@ -141,6 +141,7 @@ work        cask      macfuse
 work        script    gocryptfs                   # needs macfuse; work secrets vault
 work        cask      keeper-password-manager
 work        cask      zed
+work        cask      dbx                                   # database client, tryout 2026-11-05
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
 work        cask      git-credential-manager                # Azure DevOps git auth; its installer reorders ~/.gitconfig
