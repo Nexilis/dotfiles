@@ -21,6 +21,7 @@ shell       formula   nushell
 shell       formula   starship
 shell       formula   fzf
 shell       formula   zoxide
+shell       formula   carapace                    # nushell argument completion
 shell       cask      ghostty
 
 # --- cli-core: everyday command line tools ----------------------------------

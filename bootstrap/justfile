@@ -19,7 +19,7 @@ groups:
 group +NAMES:
     bash {{install}} {{NAMES}}
 
-# Terminal itself: nushell, starship, fzf, zoxide, ghostty
+# Terminal itself: nushell, starship, fzf, zoxide, carapace, ghostty
 shell *ARGS:
     bash {{install}} shell {{ARGS}}
 

@@ -45,6 +45,7 @@ def --env yy [...args] {
 
 const init_tools = [
     [name args];
+    [carapace [_carapace nushell]]
     [fzf [--nushell]]
     [starship [init nu]]
     [zoxide [init nushell]]

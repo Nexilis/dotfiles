@@ -249,12 +249,19 @@ nushell is the interactive shell, in Ghostty only.
   dir is `~/Library/Application Support/nushell`, which also holds history and
   data, so `_link.sh` links the single file there. On Linux `~/.config/nushell`
   is the whole-dir link, and `.gitignore` keeps everything but `config.nu` out.
-- `config.nu` generates the starship, zoxide, and fzf init files into the user
-  autoload dir when they are missing. Autoload runs after `config.nu`, so they
+- `config.nu` generates the carapace, starship, zoxide, and fzf init files into
+  the user autoload dir when they are missing. carapace is the external
+  completer: argument completion for git, brew, docker and others, which fish
+  had built in. Autoload runs after `config.nu`, so they
   load in the same session. `u` deletes them after upgrades so they regenerate
   for the new versions.
 - Secrets live in `autoload/secrets.nu` (mode 600, untracked). A one-off
   migration script wrote it once from the exported fish universal variables.
+- History is SQLite (`history.sqlite3` in the config dir, mode 600), so each
+  entry keeps its directory and exit status. Inline hints come from history.
+  On 2026-11-09 the work Mac's fish history was imported with `history import`,
+  minus lines in fish-only syntax (`&&`, `||`, `set`, `function`). The private
+  Mac still needs the same import.
 - `config/fish` stays as reference; fish is uninstalled.
 - nvim terminals start nu explicitly (`:terminal nu`, toggleterm
   `shell = "nu"`). `vim.o.shell` stays at its default so `:!` keeps working.
