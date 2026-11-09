@@ -260,8 +260,8 @@ nushell is the interactive shell, in Ghostty only.
 - History is SQLite (`history.sqlite3` in the config dir, mode 600), so each
   entry keeps its directory and exit status. Inline hints come from history.
   On 2026-11-09 the work Mac's fish history was imported with `history import`,
-  minus lines in fish-only syntax (`&&`, `||`, `set`, `function`). The private
-  Mac still needs the same import.
+  minus lines in fish-only syntax (`&&`, `||`, `set`, `function`). The same
+  migration script that wrote `secrets.nu` does this import on the private Mac.
 - `config/fish` stays as reference; fish is uninstalled.
 - nvim terminals start nu explicitly (`:terminal nu`, toggleterm
   `shell = "nu"`). `vim.o.shell` stays at its default so `:!` keeps working.
