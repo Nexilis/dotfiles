@@ -12,7 +12,7 @@ errors, progress, report headings). The owner is Polish and chats in Polish, whi
 is not a reason to emit Polish from a script; a message printed by code is part of
 the code. Same rule holds in the private notes repo (`private-sync/AGENTS.md`).
 Polish belongs in notes and in conversation, never in a `.sh`, `.go`, `.lua`,
-`.fish`, or `justfile`.
+`.fish`, `.nu`, or `justfile`.
 
 ## What this is
 
@@ -43,8 +43,9 @@ pointer here. See "Work secrets" for an example of that split.
 
 ## Layout
 
-- `config/<app>/` mirrors `~/.config/<app>/` (kitty, fish, nvim, helix, yazi,
-  ghostty, alacritty, and more).
+- `config/<app>/` mirrors `~/.config/<app>/` (kitty, nushell, fish, nvim, helix,
+  yazi, ghostty, alacritty, and more). `config/fish` is kept as reference only;
+  fish is not installed.
 - `home/` holds files that live in `~`.
 - `bootstrap/` holds provisioning scripts. `bootstrap-macos.sh`,
   `bootstrap-fedora.sh`, and `bootstrap-ubuntu.sh` are the entry points (all
@@ -230,6 +231,34 @@ installed; `config/kitty/` stays only as reference and for its `tools/`.
   `theme-override` (light: Modus Operandi) and reloads Ghostty over AppleScript.
   Ghostty has no theme-toggle action of its own.
 
+## Shell: nushell
+
+nushell is the interactive shell, in Ghostty only.
+
+- The login shell is the system zsh. Ghostty starts nushell with
+  `command = /opt/homebrew/bin/nu`; the path is absolute because an app
+  launched from the Dock does not have Homebrew on PATH.
+- The environment (PATH, EDITOR, LG_CONFIG_FILE, FZF_*, LUA_*) lives only in
+  `home/.zprofile`, POSIX sh. Neovide starts nvim through `/usr/bin/login` and
+  the login shell, so a nu-only environment would leave nvim without it.
+  `config.nu` imports the same file at startup with `zsh -lc 'env -0'` (about
+  60 ms). nu as the login shell was rejected: tools that hand `$SHELL -c` a
+  POSIX command line (nvim `system()`, plugins, fzf previews) break on `&&`,
+  `$(...)` and `2>/dev/null`, which fish accepted.
+- The only tracked nushell file is `config/nushell/config.nu`. On macOS nushell's config
+  dir is `~/Library/Application Support/nushell`, which also holds history and
+  data, so `_link.sh` links the single file there. On Linux `~/.config/nushell`
+  is the whole-dir link, and `.gitignore` keeps everything but `config.nu` out.
+- `config.nu` generates the starship, zoxide, and fzf init files into the user
+  autoload dir when they are missing. Autoload runs after `config.nu`, so they
+  load in the same session. `u` deletes them after upgrades so they regenerate
+  for the new versions.
+- Secrets live in `autoload/secrets.nu` (mode 600, untracked). A one-off
+  migration script wrote it once from the exported fish universal variables.
+- `config/fish` stays as reference; fish is uninstalled.
+- nvim terminals start nu explicitly (`:terminal nu`, toggleterm
+  `shell = "nu"`). `vim.o.shell` stays at its default so `:!` keeps working.
+
 ## Neovide
 
 Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the
@@ -245,7 +274,7 @@ plate-less next to native apps. It was removed: the icon reverts to stock on
 launch anyway, and Neovide runs almost all day here, so the machinery cost more
 than it delivered. Gone with it: `bootstrap/macos/neovide-app.sh`, the vendored
 `.icns` and PNG, the `neovide-icon` just recipe, the manifest `script` row, and
-the reapply hook that used to live in the `u` fish function.
+the reapply hook that used to live in the `u` shell function.
 
 ## Karabiner-Elements
 
@@ -458,7 +487,7 @@ drag windows by hand. A short pointer sits where the binding would go in
     prefix popup) use fixed hex fg+bg with their own background, so they read
     regardless of the kitty background.
 - lazygit on macOS reads `~/Library/Application Support/lazygit`, not
-  `~/.config`. To keep it inside the symlink migration, `config/fish/config.fish`
+  `~/.config`. To keep it inside the symlink migration, `config/nushell/config.nu`
   sets `LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml`, so lazygit loads the
   repo-symlinked config. State (`state.yml`) still lives in Application Support.
 - Claude Code's own theme colors (the dark user-message chip, the amber "auto
@@ -503,8 +532,8 @@ keep-awake marker (`omp-<sessionId>`) on `agent_start` and `tool_result`, and
 removes it on `agent_end` (fires on abort and error too; skipped while
 `willContinue` says an auto-retry follows) and `session_shutdown`. Subagents
 (`ctx.agent.kind === "sub"`) are ignored. omp does not run the Claude Code
-hooks in `~/.claude/settings.json`. Model auth is the exported `OPENROUTER_API_KEY` fish
-universal variable. `models.yml` pins the OpenRouter upstream provider for
+hooks in `~/.claude/settings.json`. Model auth is `OPENROUTER_API_KEY`, set in the local,
+untracked `secrets.nu` in nushell's user autoload dir (see "Shell: nushell"). `models.yml` pins the OpenRouter upstream provider for
 glm-5.2 to Novita (`openRouterRouting.only`); may move to an OpenRouter-side
 preset later.
 
@@ -523,7 +552,7 @@ Gotchas learned the hard way:
 ## Work secrets
 
 Work secrets use a gocryptfs vault, mounted on demand via the `dec` / `unmount`
-aliases in `config/fish/config.fish`. Install steps are in `bootstrap-macos.sh`.
+aliases in `config/nushell/config.nu`. Install steps are in `bootstrap-macos.sh`.
 Setup details and the rationale for the tooling choice are kept local-only in
 `tk dot-0te4`, not in this public repo.
 
@@ -541,7 +570,7 @@ Setup details and the rationale for the tooling choice are kept local-only in
   the wrong order: its pkg `postinstall` runs `git-credential-manager configure`,
   so every install or upgrade does it. `bootstrap/macos/gitconfig-restore.sh`
   checks out the repo version when the file differs only by line order; the
-  `work` group runs it after the GCM cask and the `u` fish function after
+  `work` group runs it after the GCM cask and the `u` function in `config/nushell/config.nu` after
   `brew upgrade`. GCM lives in `work` because only Azure DevOps needs it; on a
   Mac without it, non-GitHub HTTPS hosts print one "No such file" line and fall
   back to the normal prompt.

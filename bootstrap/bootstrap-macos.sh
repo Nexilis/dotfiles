@@ -75,9 +75,9 @@ case "$MODE" in
 esac
 
 # --- Post-install hints (manual, not automated) -----------------------------
-if command -v fish >/dev/null 2>&1 && [ "$SHELL" != "$(command -v fish)" ]; then
-  echo "fish: chsh -s $(command -v fish)   # set login shell"
-  echo "fish: set -U fish_user_paths /opt/homebrew/bin/ \$fish_user_paths"
+if command -v nu >/dev/null 2>&1; then
+  echo "nu: login shell stays the system zsh (chsh -s /bin/zsh if it is still fish)"
+  echo "nu: Ghostty starts it via 'command = /opt/homebrew/bin/nu'; restart Ghostty"
 fi
 command -v rtk >/dev/null 2>&1 && echo "rtk: run once -> rtk init -g"
 echo "Done. See the private apple-macbook.md notes for licenses, keys, and one-off app tweaks."

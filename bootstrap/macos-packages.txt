@@ -17,7 +17,7 @@
 # codecs, poppler's gnupg, lua under luarocks) is deliberately absent.
 
 # --- shell: the terminal itself and the login shell -------------------------
-shell       formula   fish
+shell       formula   nushell
 shell       formula   starship
 shell       formula   fzf
 shell       formula   zoxide
@@ -29,7 +29,6 @@ cli-core    formula   curl
 cli-core    formula   fd
 cli-core    formula   ripgrep
 cli-core    formula   bat
-cli-core    formula   eza
 cli-core    formula   jq
 cli-core    formula   btop
 cli-core    formula   just
@@ -165,6 +164,8 @@ work        script    nvim-copilot                          # marker that makes 
 #   mouseless@preview      not used
 #   obsidian               not used
 #   copilot CLI (npm)      not used
+#   fish (formula)         replaced by nushell 2026-11-09; config/fish stays as reference
+#   eza (formula)          nushell's built-in ls covers it, 2026-11-09
 #   brave-browser          not used
 #   firefox (cask)         removed 2026-11-02
 #   snapzy (cask)          removed 2026-11-02

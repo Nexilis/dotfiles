@@ -1,5 +1,5 @@
 # lazygit config. Lives in the repo, symlinked to ~/.config/lazygit and loaded
-# via the LG_CONFIG_FILE env var set in config/fish/config.fish (macOS lazygit
+# via the LG_CONFIG_FILE env var set in config/nushell/config.nu (macOS lazygit
 # otherwise reads ~/Library/Application Support/lazygit).
 #
 # Contrast fix: the default selected-line background is the ANSI blue, which

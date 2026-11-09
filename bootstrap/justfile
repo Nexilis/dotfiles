@@ -19,11 +19,11 @@ groups:
 group +NAMES:
     bash {{install}} {{NAMES}}
 
-# Terminal itself: fish, starship, fzf, zoxide, ghostty
+# Terminal itself: nushell, starship, fzf, zoxide, ghostty
 shell *ARGS:
     bash {{install}} shell {{ARGS}}
 
-# Everyday CLI: fd, ripgrep, bat, eza, jq, btop, just, uv, age, mole, tk
+# Everyday CLI: fd, ripgrep, bat, jq, btop, just, uv, age, mole, tk
 cli-core *ARGS:
     bash {{install}} cli-core {{ARGS}}
 

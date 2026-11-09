@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# gocryptfs for the work-secrets vault (`dec` / `unmount` fish aliases).
+# gocryptfs for the work-secrets vault (`dec` / `unmount` nushell aliases).
 #
 # Not in Homebrew on macOS (the formula is Linux-only) and we no longer use
 # MacPorts, so build it from source with Go. The pure-Go without_openssl build
