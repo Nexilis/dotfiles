@@ -119,6 +119,14 @@ function _G.set_terminal_keymaps()
   key.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
 end
 
+-- Terminals start nu when installed. vim.o.shell stays the system shell, because
+-- :! and plugins hand it POSIX command lines.
+local term_shell = fn.executable("nu") == 1 and "nu" or vim.o.shell
+local function open_terminal()
+  vim.cmd("terminal " .. term_shell)
+  vim.cmd("startinsert")
+end
+
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 local term_grp = vim.api.nvim_create_augroup("user_terminal", { clear = true })
 math.randomseed(vim.loop.hrtime())
@@ -266,6 +274,7 @@ require("lazy").setup({
         "json",
         "lua",
         "markdown",
+        "nu",
         "python",
         "rust",
         "typescript",
@@ -659,7 +668,7 @@ require("lazy").setup({
     "akinsho/toggleterm.nvim",
     version = "*",
     config = function()
-      require("toggleterm").setup()
+      require("toggleterm").setup({ shell = term_shell })
       local Terminal = require("toggleterm.terminal").Terminal
       local lazygit = Terminal:new({
         cmd = "lazygit",
@@ -687,8 +696,7 @@ require("lazy").setup({
           "<leader>bt",
           function()
             vim.cmd("only") -- collapse splits so the terminal fills the whole window
-            vim.cmd("terminal")
-            vim.cmd("startinsert")
+            open_terminal()
           end,
           desc = "terminal",
         },
@@ -796,8 +804,7 @@ require("lazy").setup({
             local is_term = vim.bo.buftype == "terminal"
             vim.cmd("split")
             if is_term then
-              vim.cmd("terminal")
-              vim.cmd("startinsert")
+              open_terminal()
             end
           end,
           desc = "split-horizontal",
@@ -808,8 +815,7 @@ require("lazy").setup({
             local is_term = vim.bo.buftype == "terminal"
             vim.cmd("vsplit")
             if is_term then
-              vim.cmd("terminal")
-              vim.cmd("startinsert")
+              open_terminal()
             end
           end,
           desc = "split-vertical",

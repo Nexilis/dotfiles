@@ -14,6 +14,10 @@
 #   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
 #                                          holds the auth store and sessions, so
 #                                          only single files are linked)
+#   config/nushell/config.nu -> ~/Library/Application Support/nushell/config.nu
+#                                          (macOS only: nushell's config dir there
+#                                          also holds history and data, so only
+#                                          the file is linked)
 #
 # Usage: _link.sh [--dry-run] [--force]
 #   --dry-run  print what would happen, change nothing
@@ -21,7 +25,7 @@
 #
 # Default is safe. It links targets that are absent or already identical to the
 # repo and repoints stale symlinks. It SKIPS real dirs/files whose content
-# differs from the repo, so machine-local state (fish_variables, plugins, app
+# differs from the repo, so machine-local state (history, plugins, app
 # caches) and diverged config are never clobbered without --force. Replaced
 # targets are backed up to <target>.bak.<timestamp>.
 
@@ -124,3 +128,10 @@ for f in config.yml models.yml extensions/keep-awake.ts; do
     link_one "$REPO/omp/$f" "$HOME/.omp/agent/$f"
   fi
 done
+
+# On macOS nushell reads ~/Library/Application Support/nushell, not ~/.config.
+if [ "$(uname)" = Darwin ] && [ -f "$REPO/config/nushell/config.nu" ]; then
+  nu_dir="$HOME/Library/Application Support/nushell"
+  mkdir -p "$nu_dir"
+  link_one "$REPO/config/nushell/config.nu" "$nu_dir/config.nu"
+fi
