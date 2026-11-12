@@ -66,6 +66,15 @@
                             "to": [{ "key_code": "right_option" }]
                         }
                     ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 4784,
+                        "vendor_id": 13364
+                    },
+                    "ignore": false
                 }
             ],
             "name": "Default profile",
