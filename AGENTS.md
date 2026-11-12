@@ -276,6 +276,12 @@ homebrew-core `neovide` **formula**. The formula is a CLI-only bottle that leave
 the signed app to `/Applications` and links the `neovide` binary onto PATH, so we
 get both. Set in `macos-packages.txt`, group `editors`.
 
+`config/neovide/config.toml` turns off `startup-message-capture`. As of 0.17.2
+Neovide captures startup messages through a temporary `ext_messages` UI, and
+noice.nvim refuses to start while a UI advertises `ext_messages` ("You're using
+a GUI that uses ext_messages"). Reference:
+https://neovide.dev/command-line-reference.html#startup-message-capture
+
 **Do not reintroduce a custom Dock icon.** We used to ship an inset-squircle
 `.icns` and apply it as a macOS custom icon (FinderInfo xattr + Icon resource),
 because the stock upstream icon is a full-bleed cog that looks oversized and

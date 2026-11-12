@@ -1,0 +1,3 @@
+# Neovide captures startup messages through a temporary ext_messages UI.
+# noice.nvim refuses to start while any UI advertises ext_messages.
+startup-message-capture = false
