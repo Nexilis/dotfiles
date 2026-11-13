@@ -694,6 +694,9 @@ require("lazy").setup({
         enableOnVimEnter = "safe",
         enableOnTabEnter = true,
       },
+      buffers = {
+        wo = { fillchars = "eob: " }, -- no ~ end-of-buffer markers in the margins
+      },
     },
   },
   {
