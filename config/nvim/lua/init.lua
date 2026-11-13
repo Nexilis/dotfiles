@@ -29,6 +29,10 @@ set.listchars = { tab = "▸ ", trail = "·" }
 set.mousehide = true
 set.mouse = "a"
 set.wrap = true
+set.linebreak = true
+set.breakindent = true
+set.showbreak = "↪ "
+set.breakindentopt = "shift:2,sbr"
 set.backspace = "2"
 set.ignorecase = true
 set.smartcase = true
