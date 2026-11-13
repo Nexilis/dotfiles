@@ -685,6 +685,18 @@ require("lazy").setup({
     end,
   },
   {
+    "shortcuts/no-neck-pain.nvim", -- centres the text in a fixed-width column
+    lazy = false,
+    opts = {
+      width = 120,
+      autocmds = {
+        -- "safe" waits until session restore and `nvim +line file` are done
+        enableOnVimEnter = "safe",
+        enableOnTabEnter = true,
+      },
+    },
+  },
+  {
     "folke/which-key.nvim",
     config = function()
       local wkey = require("which-key")
@@ -747,6 +759,7 @@ require("lazy").setup({
         },
         { "<leader>or", "<cmd>so $MYVIMRC<cr>", desc = "config-reload" },
         { "<leader>os", "<cmd>setlocal spell! spelllang=en_us<cr>", desc = "spellchecker-toggle" },
+        { "<leader>oz", "<cmd>NoNeckPain<cr>", desc = "centred-text-toggle" },
         { "<leader>q", "<cmd>qa!<cr>", desc = "quit" },
         { "<leader>y", group = "YANK" },
         {
