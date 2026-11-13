@@ -317,7 +317,35 @@ require("lazy").setup({
     end,
   },
   "famiu/bufdelete.nvim", -- delete buffers without wiping layout
-  "dstein64/nvim-scrollview", -- scrollbar
+  {
+    "dstein64/nvim-scrollview", -- scrollbar, shown only while scrolling
+    init = function()
+      g.scrollview_on_startup = false
+    end,
+    config = function()
+      local hide_timer = vim.uv.new_timer()
+      au("WinScrolled", {
+        callback = function()
+          -- new or resized windows (no-neck-pain, splits) also fire WinScrolled;
+          -- react only to a window whose top line moved while its width stayed
+          local scrolled = false
+          for win, change in pairs(vim.v.event) do
+            if win ~= "all" and change.topline ~= 0 and change.width == 0 then
+              scrolled = true
+            end
+          end
+          if not scrolled then
+            return
+          end
+          cmd("silent! ScrollViewEnable")
+          hide_timer:stop()
+          hide_timer:start(1500, 0, vim.schedule_wrap(function()
+            cmd("silent! ScrollViewDisable")
+          end))
+        end,
+      })
+    end,
+  },
   {
     "saghen/blink.cmp",
     -- optional: provides snippets for the snippet source
