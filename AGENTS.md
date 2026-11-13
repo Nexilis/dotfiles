@@ -130,9 +130,10 @@ macFUSE reduced security), and the parked software list.
 
 ## Claude Code
 
-The `claude` group installs and configures everything, in this order: `rtk` and
-`vale` (brew), `claude-code.sh` (native installer, which updates itself; the
-Homebrew casks do not), `claude-sync-links.sh`, `claudette-vale.sh`, then
+The `claude` group installs and configures everything, in this order: `rtk`,
+`vale` and `lightpanda` (brew; lightpanda is the headless browser the agent
+fetches web pages with), `claude-code.sh` (native installer, which updates
+itself; the Homebrew casks do not), `claude-sync-links.sh`, `claudette-vale.sh`, then
 `claude-plugins.sh` and `claude-powerline.sh`. Every step is a no-op on a
 configured Mac.
 

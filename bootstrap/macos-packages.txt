@@ -90,6 +90,7 @@ ai-agents   script    antigravity                 # Google `agy` CLI, tryout
 # Syncthing; the scripts stop with a message when it is missing.
 claude      formula   rtk                         # token-saving CLI proxy; the settings.json hook calls it
 claude      formula   vale                        # prose linter for the Claudette writing rules
+claude      formula   lightpanda-io/browser/lightpanda  # headless browser; fetches web pages as markdown for the agent
 claude      script    claude-code                 # native installer; updates itself
 claude      script    claude-sync-links           # links CLAUDE.md, settings.json, RTK.md, agents, commands, vale, mods into ~/.claude
 claude      script    claudette-vale              # links the synced Claudette style, adds the Claude Code hook
