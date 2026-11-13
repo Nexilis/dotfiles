@@ -510,9 +510,10 @@ require("lazy").setup({
   -- Comment.nvim removed: nvim 0.10+ has built-in gc/gb operators
   {
     "lewis6991/gitsigns.nvim",
-    config = function()
-      require("gitsigns").setup()
-    end,
+    opts = {
+      numhl = true,
+      signcolumn = false,
+    },
     dependencies = { "nvim-lua/plenary.nvim" },
   },
   {
