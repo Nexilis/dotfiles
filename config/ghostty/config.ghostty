@@ -6,3 +6,6 @@ command = /opt/homebrew/bin/nu
 config-file = ?theme-override
 # Reopen the last windows, tabs and splits on every launch.
 window-save-state = always
+# Left Option sends Alt (nchat and nushell shortcuts); right Option still types
+# Polish letters (Polish Pro layout).
+macos-option-as-alt = left

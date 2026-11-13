@@ -231,6 +231,8 @@ installed; `config/kitty/` stays only as reference and for its `tools/`.
   `config/ghostty/toggle-theme.sh`, which creates or deletes the gitignored
   `theme-override` (light: Modus Operandi) and reloads Ghostty over AppleScript.
   Ghostty has no theme-toggle action of its own.
+- `macos-option-as-alt = left`: left Option is Alt for nchat and nushell
+  shortcuts; right Option types Polish letters (Polish Pro layout).
 - On macOS Ghostty starts the shell through `/usr/bin/login`, which prints
   "Last login" and "You have mail". The empty `home/.hushlogin` turns both off.
 
