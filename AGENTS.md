@@ -268,6 +268,19 @@ nushell is the interactive shell, in Ghostty only.
 - nvim terminals start nu explicitly (`:terminal nu`, toggleterm
   `shell = "nu"`). `vim.o.shell` stays at its default so `:!` keeps working.
 
+## nchat
+
+Terminal client for Telegram and WhatsApp (`apps` group, from the author's tap
+`d99kris/nchat`). `~/.config/nchat` also holds the account sessions
+(`profiles/`) and the message cache (`history/`), so `_link.sh` links only
+`ui.conf`, `key.conf` and `color.conf` from `nchat/`; `app.conf` stays local
+because it holds proxy credentials. nchat writes its config files through the
+links, in sorted key order, so changes made in the app show up in git. It reads
+them only at start. `ui.conf` sends audio attachments to mpv in the terminal
+and everything else to `open`, and turns on desktop notifications (nchat's
+default `osascript` command). WhatsApp goes through whatsmeow, an unofficial
+library, which WhatsApp's terms do not allow.
+
 ## Neovide
 
 Neovide comes from the `neovide-app` **cask** (homebrew-cask), not the

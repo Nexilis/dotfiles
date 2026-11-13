@@ -14,6 +14,8 @@
 #   omp/config.yml -> ~/.omp/agent/config.yml (nested file: ~/.omp/agent also
 #                                          holds the auth store and sessions, so
 #                                          only single files are linked)
+#   nchat/{ui,key,color}.conf -> ~/.config/nchat/ (macOS only; nested files:
+#                                          the dir also holds sessions and history)
 #   config/nushell/config.nu -> ~/Library/Application Support/nushell/config.nu
 #                                          (macOS only: nushell's config dir there
 #                                          also holds history and data, so only
@@ -128,6 +130,18 @@ for f in config.yml models.yml extensions/keep-awake.ts; do
     link_one "$REPO/omp/$f" "$HOME/.omp/agent/$f"
   fi
 done
+
+# nchat keeps account sessions (profiles/) and the message cache (history/) in
+# ~/.config/nchat, so link only the settings files. app.conf stays local: it
+# holds proxy credentials and per-machine paths.
+if [ "$(uname)" = Darwin ]; then
+  for f in ui.conf key.conf color.conf; do
+    if [ -f "$REPO/nchat/$f" ]; then
+      mkdir -p "$HOME/.config/nchat"
+      link_one "$REPO/nchat/$f" "$HOME/.config/nchat/$f"
+    fi
+  done
+fi
 
 # On macOS nushell reads ~/Library/Application Support/nushell, not ~/.config.
 if [ "$(uname)" = Darwin ] && [ -f "$REPO/config/nushell/config.nu" ]; then
