@@ -626,6 +626,8 @@ require("lazy").setup({
   {
     "folke/persistence.nvim",
     config = function()
+      -- no-neck-pain margins are empty windows; saved, they come back as extra splits
+      vim.opt.sessionoptions:remove("blank")
       require("persistence").setup()
       -- the arglist is saved into the session and re-added on load, so a file
       -- once opened as an argument comes back even after its buffer is closed
