@@ -9,3 +9,6 @@ window-save-state = always
 # Left Option sends Alt (nchat and nushell shortcuts); right Option still types
 # Polish letters (Polish Pro layout).
 macos-option-as-alt = left
+# cmd+z sends ctrl+_ (0x1F), which Claude Code reads as undo. Ghostty's own
+# undo (reopen a closed tab or split) stays on cmd+shift+t.
+keybind = cmd+z=text:\x1f

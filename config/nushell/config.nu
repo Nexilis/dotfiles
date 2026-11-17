@@ -3,6 +3,14 @@
 $env.config.show_banner = false
 # SQLite history records the directory and exit status of each command.
 $env.config.history.file_format = "sqlite"
+# Ghostty sends ctrl+_ for cmd+z; nu reads that byte as ctrl+7.
+$env.config.keybindings ++= [{
+    name: undo_cmd_z
+    modifier: control
+    keycode: char_7
+    mode: emacs
+    event: { edit: undo }
+}]
 
 # The environment lives in ~/.zprofile (home/.zprofile), so programs started
 # through the zsh login shell, such as Neovide's nvim, get the same one. nu

@@ -244,6 +244,13 @@ installed; `config/kitty/` stays only as reference and for its `tools/`.
   Ghostty has no theme-toggle action of its own.
 - `macos-option-as-alt = left`: left Option is Alt for nchat and nushell
   shortcuts; right Option types Polish letters (Polish Pro layout).
+- `keybind = cmd+z=text:\x1f`: cmd+z never reaches the program, because
+  Ghostty binds it to its own undo (reopen a closed tab or split). The binding
+  sends ctrl+_ instead, so cmd+z is undo in every program that undoes on that
+  byte. Claude Code does by default (`chat:undo`). nushell reads the byte as
+  ctrl+7 and binds it in `config.nu`; nvim binds `<c-_>` in insert mode, next
+  to the `<D-z>` that Neovide sends. A new terminal program needs the same
+  mapping. Ghostty's undo stays on cmd+shift+t.
 - On macOS Ghostty starts the shell through `/usr/bin/login`, which prints
   "Last login" and "You have mail". The empty `home/.hushlogin` turns both off.
 

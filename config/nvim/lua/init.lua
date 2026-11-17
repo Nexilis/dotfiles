@@ -58,9 +58,10 @@ g.loaded_netrwPlugin = 1
 g.mapleader = " "
 g.maplocalleader = ","
 
--- undo: ctrl+z, and command+z on macOS
+-- undo: ctrl+z, and command+z on macOS (Ghostty sends it as ctrl+_)
 key.set("i", "<c-z>", "<c-o>:u<cr>", { silent = true })
 key.set("i", "<D-z>", "<c-o>:u<cr>", { silent = true })
+key.set("i", "<c-_>", "<c-o>:u<cr>", { silent = true })
 
 -- paste in insert mode: one shortcut per platform. macOS binds Cmd+V (<D-v>)
 -- and disables Ctrl+V; other platforms bind Ctrl+V (<c-v>) and disable Cmd+V.
