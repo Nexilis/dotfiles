@@ -87,7 +87,7 @@ move `_link.sh` back to the end.
   `groups`, `link`, `loop-export`, `loop-import`. A bare `just` in
   `bootstrap/` lists everything, which is the point: nothing has to be
   remembered on a fresh Mac.
-- The **`work`** group (macfuse + gocryptfs, keeper, dbx (database client, tryout), slumber,
+- The **`work`** group (macfuse + gocryptfs, keeper, slumber,
   googleworkspace-cli, azure-cli, git-credential-manager (see Repo notes), and colima + docker + docker-compose for the
   CubeJs local stack; Colima replaces Docker Desktop; `nvim-copilot`, which
   creates `~/.local/share/nvim/copilot`, the marker without which Neovim does
@@ -96,6 +96,17 @@ move `_link.sh` back to the end.
   lives in `desktop` and belongs on both machines.
 - The **`claude`** group (`just claude`) sets up Claude Code on both Macs; see
   the Claude Code section.
+- **drawDB** (database diagram editor) is a `script` row in the `dbs` group (with the dbx
+  database client), which runs after `langs` because the build needs node and Rust from there:
+  `macos/drawdb.sh` clones a pinned release tag into `~/.local/share/drawdb`,
+  checks the tag's commit, applies `macos/drawdb-hash-router.patch`, builds it
+  and packs `dist/` with Pake (pinned `PAKE_VERSION`) into
+  `/Applications/drawDB.app`; Pake needs Rust, so `rustup` runs first. Pake
+  serves local files without a history-mode fallback, so the patch switches
+  drawDB to hash routing. To bump drawDB, change `VERSION` and `EXPECTED` to a
+  release at least 7 days old and check the patch still applies and that no new
+  `window.open("/...")` path appeared. To bump Pake, move `PAKE_VERSION` and
+  `PAKE_BEFORE` together.
 
 **Consent rules for `--interactive` (learned the hard way).** The first real run
 installed groups nobody approved. Two causes, both fixed, neither to be undone:

@@ -47,6 +47,10 @@ editors *ARGS:
 langs *ARGS:
     bash {{install}} langs {{ARGS}}
 
+# Database tools: dbx (client), drawdb (diagram editor, needs langs)
+dbs *ARGS:
+    bash {{install}} dbs {{ARGS}}
+
 # AI coding agents: omp, agy
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
@@ -67,7 +71,7 @@ apps *ARGS:
 media *ARGS:
     bash {{install}} media {{ARGS}}
 
-# CyberVadis machines only: gocryptfs vault, keeper, dbx, slumber, gws, credential manager
+# CyberVadis machines only: gocryptfs vault, keeper, slumber, gws, credential manager
 work *ARGS:
     bash {{install}} work {{ARGS}}
 

@@ -1,0 +1,150 @@
+From 8979d0f312a518f978dd7d4539203bbf5e391f5d Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Bartek=20=C5=81ukasik?= <Nexilis@users.noreply.github.com>
+Date: Wed, 18 Nov 2026 10:31:25 +0100
+Subject: [PATCH] Use hash routing so the build runs from local files
+
+Pake and other file-based wrappers serve the dist folder without a
+history-mode fallback, so /editor does not resolve. HashRouter keeps
+every route inside index.html; hand-built links and window.open calls
+use /#/ paths, and query parameters come from the router location.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+---
+ src/App.jsx                                  |  6 +++---
+ src/components/EditorHeader/ControlPanel.jsx | 11 ++++++-----
+ src/components/EditorHeader/Modal/Share.jsx  |  2 +-
+ src/hooks/useNavigateWithParams.js           |  7 ++++---
+ src/pages/Templates.jsx                      |  2 +-
+ 5 files changed, 15 insertions(+), 13 deletions(-)
+
+diff --git a/src/App.jsx b/src/App.jsx
+index 9ae9334..6645c78 100644
+--- a/src/App.jsx
++++ b/src/App.jsx
+@@ -1,4 +1,4 @@
+-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
++import { HashRouter, Routes, Route, useLocation } from "react-router-dom";
+ import { useLayoutEffect } from "react";
+ import Editor from "./pages/Editor";
+ import BugReport from "./pages/BugReport";
+@@ -22,7 +22,7 @@ export default function App() {
+   );
+ 
+   return (
+-    <BrowserRouter>
++    <HashRouter>
+       <SettingsContextProvider>
+         <RestoreScroll />
+         {isLegacyHost() ? (
+@@ -34,7 +34,7 @@ export default function App() {
+           routes
+         )}
+       </SettingsContextProvider>
+-    </BrowserRouter>
++    </HashRouter>
+   );
+ }
+ 
+diff --git a/src/components/EditorHeader/ControlPanel.jsx b/src/components/EditorHeader/ControlPanel.jsx
+index ece2dda..005e9d1 100644
+--- a/src/components/EditorHeader/ControlPanel.jsx
++++ b/src/components/EditorHeader/ControlPanel.jsx
+@@ -12,7 +12,7 @@ import {
+   IconEdit,
+   IconShareStroked,
+ } from "@douyinfe/semi-icons";
+-import { Link, useMatch, useParams } from "react-router-dom";
++import { Link, useLocation, useMatch, useParams } from "react-router-dom";
+ import icon from "../../assets/icon_dark_64.png";
+ import {
+   Button,
+@@ -208,6 +208,7 @@ export default function ControlPanel({
+   const { t, i18n } = useTranslation();
+   const { version, gistId, setGistId } = useContext(IdContext);
+   const isTemplate = useMatch("/editor/templates/:id");
++  const { search } = useLocation();
+   const navigate = useNavigateWithParams();
+   const extensions = useExtensions();
+ 
+@@ -1203,7 +1204,7 @@ export default function ControlPanel({
+           {t("saved_as_copy")}{" "}
+           <Typography.Text
+             link={{
+-              href: `/editor/diagrams/${newId}${window.location.search}`,
++              href: `/#/editor/diagrams/${newId}${search}`,
+               target: "_blank",
+               rel: "noopener noreferrer",
+             }}
+@@ -1227,10 +1228,10 @@ export default function ControlPanel({
+   const menu = {
+     file: {
+       new: {
+-        function: () => window.open("/editor/templates/blank", "_blank"),
++        function: () => window.open("/#/editor/templates/blank", "_blank"),
+       },
+       new_window: {
+-        function: () => window.open("/editor", "_blank"),
++        function: () => window.open("/#/editor", "_blank"),
+       },
+       open: {
+         function: open,
+@@ -2038,7 +2039,7 @@ export default function ControlPanel({
+         function: () => window.open(socials.discord, "_blank"),
+       },
+       report_bug: {
+-        function: () => window.open("/bug-report", "_blank"),
++        function: () => window.open("/#/bug-report", "_blank"),
+       },
+     },
+   };
+diff --git a/src/components/EditorHeader/Modal/Share.jsx b/src/components/EditorHeader/Modal/Share.jsx
+index 8288410..417bea2 100644
+--- a/src/components/EditorHeader/Modal/Share.jsx
++++ b/src/components/EditorHeader/Modal/Share.jsx
+@@ -55,7 +55,7 @@ export default function Share({ title, setModal }) {
+   });
+ 
+   const url = useMemo(() => {
+-    const baseUrl = window.location.origin + "/editor?shareId=" + gistId;
++    const baseUrl = window.location.origin + "/#/editor?shareId=" + gistId;
+     const params = new URLSearchParams();
+     Object.entries(embedSettings).forEach(([key, value]) => {
+       if (value) {
+diff --git a/src/hooks/useNavigateWithParams.js b/src/hooks/useNavigateWithParams.js
+index 9d1f16f..4250125 100644
+--- a/src/hooks/useNavigateWithParams.js
++++ b/src/hooks/useNavigateWithParams.js
+@@ -1,13 +1,14 @@
+ import { useCallback } from "react";
+-import { useNavigate } from "react-router-dom";
++import { useLocation, useNavigate } from "react-router-dom";
+ 
+ export default function useNavigateWithParams() {
+   const navigate = useNavigate();
++  const { search } = useLocation();
+ 
+   return useCallback(
+     (to, options = {}) => {
+-      navigate(to + window.location.search, options);
++      navigate(to + search, options);
+     },
+-    [navigate],
++    [navigate, search],
+   );
+ }
+diff --git a/src/pages/Templates.jsx b/src/pages/Templates.jsx
+index b542a8e..6000efc 100644
+--- a/src/pages/Templates.jsx
++++ b/src/pages/Templates.jsx
+@@ -22,7 +22,7 @@ export default function Templates() {
+   };
+ 
+   const forkTemplate = (id) => {
+-    window.open("/editor/templates/" + id, "_blank");
++    window.open("/#/editor/templates/" + id, "_blank");
+   };
+ 
+   useEffect(() => {
+-- 
+2.54.0 (Apple Git-157)
+

@@ -81,6 +81,11 @@ langs       formula   ruff                        # lint and format; nvim format
 langs       formula   mypy
 langs       script    rustup
 
+# --- dbs: database tools ----------------------------------------------------
+# After langs: drawdb builds with node and Rust from there.
+dbs         cask      dbx                         # database client, tryout 2026-11-05
+dbs         script    drawdb                      # diagram editor, tagged release patched and packed by Pake into /Applications/drawDB.app
+
 # --- ai-agents --------------------------------------------------------------
 ai-agents   formula   can1357/tap/omp             # oh-my-pi, tryout
 ai-agents   script    antigravity                 # Google `agy` CLI, tryout
@@ -142,7 +147,6 @@ media       formula   cmus                        # terminal music player
 work        cask      macfuse
 work        script    gocryptfs                   # needs macfuse; work secrets vault
 work        cask      keeper-password-manager
-work        cask      dbx                                   # database client, tryout 2026-11-05
 work        formula   lucaspickering/homebrew-tap/slumber   # REST client
 work        formula   googleworkspace-cli                   # the gws CLI
 work        cask      git-credential-manager                # Azure DevOps git auth; its installer reorders ~/.gitconfig
