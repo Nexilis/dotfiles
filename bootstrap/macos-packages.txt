@@ -140,7 +140,7 @@ media       cask      photocraft                  # image editor
 media       cask      calibre
 media       formula   cmus                        # terminal music player
 
-# --- work: only on a machine used for CyberVadis ----------------------------
+# --- work: only on a work machine -------------------------------------------
 # Defaults to NO in the interactive run; the private Mac skips all of it.
 # macfuse is a kernel extension and needs one-time reduced security on Apple
 # Silicon, so this is also the most invasive group.

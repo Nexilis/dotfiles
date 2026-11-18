@@ -71,7 +71,7 @@ apps *ARGS:
 media *ARGS:
     bash {{install}} media {{ARGS}}
 
-# CyberVadis machines only: gocryptfs vault, keeper, slumber, gws, credential manager
+# Work machines only: gocryptfs vault, keeper, slumber, gws, credential manager
 work *ARGS:
     bash {{install}} work {{ARGS}}
 

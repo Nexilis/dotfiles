@@ -19,7 +19,7 @@
 # idempotent, so re-running a group is safe.
 #
 # The `work` group defaults to NO in --interactive: it is only for a machine
-# used for CyberVadis, and it pulls macfuse (a kernel extension needing one-time
+# used for work, and it pulls macfuse (a kernel extension needing one-time
 # reduced security on Apple Silicon).
 
 set -uo pipefail
