@@ -8,12 +8,12 @@ modelRoles:
   tiny: "@smol"
   commit: "@smol"
   advisor: "@smol"
-  default: google/gemini-3.8-flash
+  default: google/gemini-4-hydrogen
 symbolPreset: nerd
 theme:
   dark: titanium
   light: light
-setupVersion: 2
+setupVersion: 3
 composer:
   shape: box
 disabledExtensions:
@@ -40,3 +40,5 @@ retry:
     openrouter/z-ai/glm-5.3-flash:
       - openrouter/deepseek/deepseek-v4-flash
       - google/gemini-3.1-flash-lite
+update:
+  auto: false
