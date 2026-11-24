@@ -1,6 +1,6 @@
 {
   "$schema" : "schema.json",
-  "animationsEnabled" : false,
+  "animationsEnabled" : true,
   "appExceptions" : [
     {
       "bundleID" : "com.apple.finder",
@@ -13,12 +13,12 @@
   "commitSoundName" : "Tink",
   "cycleTileWidths" : true,
   "expandBrowserTabsAsWindows" : false,
-  "experimentalInstantSpaceSwitch" : false,
+  "experimentalInstantSpaceSwitch" : true,
   "fontFace" : "system",
   "fontScale" : "standard",
   "gridSingleRow" : true,
   "hideMenuBarIcon" : true,
-  "instantSpaceSwitch" : false,
+  "instantSpaceSwitch" : true,
   "layoutMode" : "iconDock",
   "nextScopedShortcutID" : 0,
   "panelOpacity" : 100,
