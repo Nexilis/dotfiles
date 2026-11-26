@@ -169,7 +169,7 @@ work        script    nvim-copilot                          # marker that makes 
 #   raycast                Spotlight is good enough
 #   mouseless@preview      not used
 #   obsidian               not used
-#   copilot CLI (npm)      not used
+#   copilot CLI (npm)      not used; removed 2026-11-26, copilot.lua in Neovim brings its own server
 #   fish (formula)         replaced by nushell 2026-11-09; config/fish stays as reference
 #   eza (formula)          nushell's built-in ls covers it, 2026-11-09
 #   brave-browser          not used
