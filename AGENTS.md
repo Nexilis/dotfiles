@@ -108,6 +108,22 @@ move `_link.sh` back to the end.
   `window.open("/...")` path appeared. To bump Pake, move `PAKE_VERSION` and
   `PAKE_BEFORE` together.
 
+- **nc.app, yazi.app, btop.app** come from one `script` row in the `apps`
+  group (after `cli-core` and `files`, which install btop and yazi):
+  `macos/tui-apps.sh [name...]` copies `/Applications/Ghostty.app` once per
+  program with its own bundle id (`local.dotfiles.<name>`) and an ad-hoc
+  signature. The main executable is a small C launcher (macOS launch
+  constraints kill a shell script there) that starts the copied Ghostty with
+  `command = direct:nu --login --commands <program>` and a coloured Dock icon.
+  The nu login shell is what gives the program Homebrew's PATH and EDITOR; a
+  Dock launch has only the launchd PATH. An `APPS` entry is
+  `program|colors|app name`; the app name defaults to the program. nchat ships
+  as **nc** (bundle, id and executable all `nc`, launcher still runs the real
+  nchat): the company security agent flagged a bundle named nchat as a
+  disallowed app, so the name is decoupled from the program. The copies read
+  the same `~/.config/ghostty` config and never update themselves: rerun the
+  script after a Ghostty update. It skips an app that is running.
+
 **Consent rules for `--interactive` (learned the hard way).** The first real run
 installed groups nobody approved. Two causes, both fixed, neither to be undone:
 

@@ -131,6 +131,7 @@ apps        cask      wordcraft                   # word processor; replaces lib
 apps        script    imageglass                  # image viewer, GitHub dmg (no cask yet)
 apps        formula   d99kris/nchat/nchat         # Telegram and WhatsApp in the terminal
 apps        formula   mpv                         # plays nchat voice notes; settings in nchat/
+apps        script    tui-apps                    # nchat (as nc.app), yazi, btop as own apps (Ghostty copies) in /Applications
 apps        formula   duti                        # sets default apps; used by default-apps
 apps        script    default-apps                # ImageGlass opens images, PdfCraft opens PDF, GridCraft and WordCraft open office files
 
