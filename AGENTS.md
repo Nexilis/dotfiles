@@ -68,7 +68,7 @@ move `_link.sh` back to the end.
 - **`bootstrap/macos-packages.txt`** is the manifest and the source of truth.
   Columns are `group  kind  package  [# note]`, whitespace-separated; `kind` is
   `formula`, `cask`, or `script` (the last one runs `bootstrap/macos/<pkg>.sh`,
-  which is how the non-brew installers rustup / antigravity / gocryptfs are
+  which is how the non-brew installers rustup / gocryptfs / drawdb are
   wired in). Scripts run after the group's casks, so `default-apps` (duti:
   ImageGlass for images, PdfCraft for PDF, GridCraft and WordCraft for office
   files) can rely on the apps being present. Each

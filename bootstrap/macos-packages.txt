@@ -87,7 +87,6 @@ dbs         script    drawdb                      # diagram editor, tagged relea
 
 # --- ai-agents --------------------------------------------------------------
 ai-agents   formula   can1357/tap/omp             # oh-my-pi, tryout
-ai-agents   script    antigravity                 # Google `agy` CLI, tryout
 
 # --- claude: Claude Code and every file it reads ---------------------------
 # On both Macs. Needs the synced Claude folder (~/Documents/sync/.claude) from
@@ -185,6 +184,7 @@ work        script    nvim-copilot                          # marker that makes 
 #   telegram-desktop       replaced by nchat 2026-11-13
 #   visual-studio-code     not used; removed 2026-11-05
 #   kdiff3 (cask)          not used; removed 2026-11-26
+#   antigravity (script)   Google `agy` CLI, not used; removed 2026-11-26
 #
 # Software kept in mind but not installed (video editing, screen recording, RSS,
 # external monitor brightness) is listed ONLY in private-sync/tech/apple-macbook.md

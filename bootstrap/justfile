@@ -51,7 +51,7 @@ langs *ARGS:
 dbs *ARGS:
     bash {{install}} dbs {{ARGS}}
 
-# AI coding agents: omp, agy
+# AI coding agents: omp
 ai-agents *ARGS:
     bash {{install}} ai-agents {{ARGS}}
 
